@@ -1,0 +1,172 @@
+# Mutation Testing CI Template
+#
+# This template adds a weekly mutation testing job to your GitHub Actions pipeline.
+# Mutation testing verifies that your test suite can detect real defects — it
+# mutates the production code (flips operators, removes conditions, etc.) and
+# checks whether at least one test fails for each mutation.
+#
+# A mutation score below ~60% typically indicates that tests are asserting
+# execution (coverage) rather than correctness (behaviour).
+#
+# HOW TO USE:
+# 1. Copy the relevant language section(s) into your workflow file.
+# 2. Fill in the placeholder values marked with <FILL IN>.
+# 3. Adjust the threshold to match your team's quality bar.
+# 4. The job is intentionally scheduled weekly (not on every push) because
+#    mutation testing is slow — running it on every PR would block developers.
+#
+# Schedule: weekly on Monday at 07:00 UTC.
+
+# -------------------------------------------------------------------
+# Go — using go-mutesting
+# -------------------------------------------------------------------
+#
+# name: Mutation Testing
+#
+# on:
+#   schedule:
+#     - cron: "0 7 * * 1"   # Monday 07:00 UTC
+#   workflow_dispatch:       # allow manual trigger
+#
+# jobs:
+#   mutate-go:
+#     name: Go mutation testing
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#
+#       - uses: actions/setup-go@v5
+#         with:
+#           go-version: "<FILL IN: e.g. 1.22>"
+#
+#       - name: Install go-mutesting
+#         run: go install github.com/zimmski/go-mutesting/cmd/go-mutesting@latest
+#
+#       - name: Run mutation tests
+#         run: |
+#           go-mutesting ./... 2>&1 | tee mutation-report.txt
+#           SCORE=$(grep -oP 'The mutation score is \K[0-9.]+' mutation-report.txt)
+#           echo "Mutation score: $SCORE"
+#           # Fail if score drops below threshold
+#           python3 -c "import sys; sys.exit(0 if float('$SCORE') >= <FILL IN: threshold e.g. 0.60> else 1)"
+#
+#       - name: Upload mutation report
+#         if: always()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: mutation-report-go
+#           path: mutation-report.txt
+
+# -------------------------------------------------------------------
+# Kotlin / JVM — using PIT (Pitest)
+# -------------------------------------------------------------------
+#
+# name: Mutation Testing
+#
+# on:
+#   schedule:
+#     - cron: "0 7 * * 1"   # Monday 07:00 UTC
+#   workflow_dispatch:
+#
+# jobs:
+#   mutate-kotlin:
+#     name: Kotlin mutation testing (PIT)
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#
+#       - uses: actions/setup-java@v4
+#         with:
+#           distribution: temurin
+#           java-version: "<FILL IN: e.g. 21>"
+#
+#       - name: Run PIT mutation tests
+#         run: mvn test-compile org.pitest:pitest-maven:mutationCoverage
+#         # Add to your pom.xml:
+#         # <plugin>
+#         #   <groupId>org.pitest</groupId>
+#         #   <artifactId>pitest-maven</artifactId>
+#         #   <version>1.15.3</version>
+#         #   <configuration>
+#         #     <targetClasses><param><FILL IN: e.g. com.example.*></param></targetClasses>
+#         #     <targetTests><param><FILL IN: e.g. com.example.*Test</param></targetTests>
+#         #     <mutationThreshold><FILL IN: e.g. 60></mutationThreshold>
+#         #   </configuration>
+#         # </plugin>
+#
+#       - name: Upload PIT report
+#         if: always()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: mutation-report-kotlin
+#           path: target/pit-reports/
+
+# -------------------------------------------------------------------
+# Python — using mutmut
+# -------------------------------------------------------------------
+#
+# name: Mutation Testing
+#
+# on:
+#   schedule:
+#     - cron: "0 7 * * 1"   # Monday 07:00 UTC
+#   workflow_dispatch:
+#
+# jobs:
+#   mutate-python:
+#     name: Python mutation testing (mutmut)
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#
+#       - uses: actions/setup-python@v5
+#         with:
+#           python-version: "<FILL IN: e.g. 3.12>"
+#
+#       - name: Install dependencies
+#         run: pip install mutmut pytest
+#
+#       - name: Run mutmut
+#         run: |
+#           mutmut run --paths-to-mutate <FILL IN: e.g. src/> \
+#                      --runner "python -m pytest <FILL IN: test dir>"
+#           mutmut results
+#           # mutmut exits non-zero if any mutations survived — CI will fail
+#           # Remove the above if you want a report without a hard failure.
+
+# -------------------------------------------------------------------
+# C# / .NET — using Stryker.NET
+# -------------------------------------------------------------------
+#
+# name: Mutation Testing
+#
+# on:
+#   schedule:
+#     - cron: "0 7 * * 1"   # Monday 07:00 UTC
+#   workflow_dispatch:
+#
+# jobs:
+#   mutate-csharp:
+#     name: C# mutation testing (Stryker.NET)
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#
+#       - uses: actions/setup-dotnet@v4
+#         with:
+#           dotnet-version: "<FILL IN: e.g. 8.0.x>"
+#
+#       - name: Install Stryker
+#         run: dotnet tool install --global dotnet-stryker
+#
+#       - name: Run Stryker
+#         run: |
+#           cd <FILL IN: path to test project>
+#           dotnet stryker --threshold-break <FILL IN: e.g. 60>
+#
+#       - name: Upload Stryker report
+#         if: always()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: mutation-report-csharp
+#           path: StrykerOutput/

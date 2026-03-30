@@ -1,0 +1,84 @@
+---
+name: garbage-collection
+description: This skill should be used when the user asks about "garbage collection rules", "entropy fighting", "documentation staleness", "dead code detection", "convention drift", "periodic checks", "auto-fix rules", or needs guidance on the Garbage Collection section of HARNESS.md.
+---
+
+# Garbage Collection
+
+Garbage collection in a harness context means periodic checks that fight
+entropy — the slow drift that neither real-time hooks nor PR gates
+catch. Documentation goes stale, conventions erode, dead code
+accumulates, dependencies fall behind.
+
+This is Boeckeler's third harness component: agents that run
+periodically to find inconsistencies and violations, actively fighting
+decay.
+
+## Anatomy of a GC Rule
+
+Every GC rule in HARNESS.md has five fields:
+
+- **What it checks** — the specific entropy being detected
+- **Frequency** — `daily`, `weekly`, or `manual`
+- **Enforcement** — `deterministic` or `agent`
+- **Tool** — what runs the check
+- **Auto-fix** — `true` (GC agent fixes it) or `false` (create an
+  issue instead)
+
+## Choosing Frequency
+
+| Frequency | Use for |
+| --- | --- |
+| daily | Fast checks with high entropy rate (style drift in active codebases) |
+| weekly | Most GC rules — documentation, dependencies, dead code |
+| manual | Exploratory checks not yet calibrated for automation |
+
+Start with weekly for most rules. Only move to daily if the entropy
+rate justifies the cost.
+
+## The Auto-Fix Decision
+
+Auto-fix is safe when the fix is deterministic, local, verifiable, and
+reversible. It is not safe when the fix requires judgement, has ripple
+effects, cannot be verified, or is destructive.
+
+For the full safety rubric and detailed examples, consult
+`references/gc-catalogue.md`.
+
+**When auto-fix is true**: The `harness-gc` agent applies the fix
+directly (with user confirmation in interactive mode) and commits the
+result.
+
+**When auto-fix is false**: The agent creates a GitHub issue describing
+the finding, with file:line references and a suggested fix.
+
+## Common GC Categories
+
+| Category | Examples | Typical frequency |
+| --- | --- | --- |
+| Documentation entropy | Stale references, outdated versions | weekly |
+| Convention drift | Naming violations, style drift | weekly |
+| Dead code | Orphaned files, unused exports | weekly |
+| Dependency entropy | Known CVEs, major version lag | weekly |
+| Harness entropy | Missing tools, broken hooks | weekly |
+
+For a full catalogue of GC patterns with HARNESS.md entry examples,
+consult `references/gc-catalogue.md`.
+
+## Designing a New GC Rule
+
+1. Identify the entropy: what drifts over time in this codebase?
+2. Describe the check: what would a reviewer look for?
+3. Choose frequency: how fast does this entropy accumulate?
+4. Decide enforcement: can a deterministic tool check this, or does it
+   need agent reasoning?
+5. Apply the auto-fix rubric: is automated correction safe?
+6. Add the rule to HARNESS.md's Garbage Collection section
+
+## Additional Resources
+
+### Reference Files
+
+- **`references/gc-catalogue.md`** — Complete catalogue of common GC
+  patterns with HARNESS.md entry examples, detection approaches, and
+  the auto-fix safety rubric

@@ -1,0 +1,20 @@
+{
+  "name": "ai-literacy-superpowers",
+  "version": "0.1.0",
+  "description": "The AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops",
+  "author": {
+    "name": "Russ Miles"
+  },
+  "keywords": [
+    "ai-literacy",
+    "habitat-engineering",
+    "harness-engineering",
+    "literate-programming",
+    "cupid",
+    "agent-orchestration",
+    "context-engineering",
+    "mutation-testing",
+    "tdd",
+    "spec-first"
+  ]
+}
