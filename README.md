@@ -68,10 +68,11 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
 
-### Hooks (2)
+### Hooks (3)
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (advisory, does not block)
 - **Stop drift check** — detects when CI, linter, or dependency configs change, nudges `/harness-audit`
+- **Stop reflection prompt** — detects commits during the session, nudges `/reflect` to capture learnings
 
 ---
 
@@ -124,6 +125,66 @@ Every mechanism in the plugin operates at one of three timescales:
 | Advisory | PreToolUse hook | Warn | Catch issues while context is fresh |
 | Strict | CI on PR | Fail | Prevent violations from reaching main |
 | Investigative | Scheduled GC + audit | Report | Fight slow entropy that gates miss |
+
+### Mechanism Map
+
+```text
+ADVISORY LOOP (edit time — warn, do not block)
+│
+├── Hooks
+│   ├── PreToolUse constraint gate     Reads HARNESS.md commit-scoped constraints,
+│   │                                  warns on violations during Write/Edit
+│   ├── Stop drift check               Detects CI/linter/dependency changes at
+│   │                                   session end, nudges /harness-audit
+│   └── Stop reflection prompt          Detects commits during session,
+│                                        nudges /reflect to capture learnings
+├── Context (read by agents at session start)
+│   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
+│   ├── AGENTS.md                       Compound learning memory (human-curated)
+│   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
+│   └── Skills (10)                     Domain knowledge for agents
+│
+└── Commands
+    ├── /reflect                        Capture post-task learnings
+    └── /worktree spin|merge|clean      Parallel agent isolation
+
+
+STRICT LOOP (merge time — block until green)
+│
+├── CI Workflows (generated from templates)
+│   ├── ci-github-actions.yml           PR-scoped constraint enforcement
+│   └── ci-mutation-testing.yml         Language-specific mutation testing
+│
+├── Agent Pipeline
+│   ├── orchestrator                    Coordinates full pipeline
+│   │   ├── GATE: plan approval         User reviews spec before implementation
+│   │   └── GUARDRAIL: MAX_REVIEW_CYCLES=3
+│   ├── spec-writer                     Spec + plan updates (no Bash)
+│   ├── tdd-agent                       Failing tests from spec scenarios
+│   ├── implementer(s)                  Makes tests green (generated per language)
+│   ├── code-reviewer                   CUPID + LP review (no Write)
+│   └── integration-agent               CHANGELOG, PR, CI, merge, reflection
+│
+└── Harness Constraints (HARNESS.md)
+    ├── Deterministic                   Backed by CI tools
+    ├── Agent-backed                    Backed by harness-enforcer
+    └── Unverified                      Declared intent, not yet automated
+
+
+INVESTIGATIVE LOOP (scheduled — sweep for entropy)
+│
+├── Garbage Collection Rules (HARNESS.md)
+│   └── Configurable per project        Documentation freshness, dependency
+│                                        currency, convention drift
+├── Compound Learning
+│   ├── REFLECTION_LOG.md               Agent reflections (append-only)
+│   └── AGENTS.md                       Human-curated from reflections
+│
+└── Harness Commands
+    ├── /harness-audit                  Full meta-verification
+    ├── /harness-status                 Quick health read
+    └── /harness-gc                     Run GC checks on demand
+```
 
 ---
 
