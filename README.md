@@ -68,11 +68,12 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
 
-### Hooks (3)
+### Hooks (4)
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (advisory, does not block)
 - **Stop drift check** — detects when CI, linter, or dependency configs change, nudges `/harness-audit`
 - **Stop reflection prompt** — detects commits during the session, nudges `/reflect` to capture learnings
+- **Stop framework-change prompt** — detects `framework.md` modifications, nudges `/reflect` + `/sync-repos` + downstream README checks
 
 ---
 
