@@ -186,6 +186,19 @@ INVESTIGATIVE LOOP (scheduled — sweep for entropy)
     └── /harness-gc                     Run GC checks on demand
 ```
 
+### Observability as the Enabling Layer
+
+The three enforcement loops generate signals that, when collected, make the entire habitat observable. The plugin's mechanisms produce the data; observability tools (OpenTelemetry, Claude Code analytics, Grafana) make it visible.
+
+| Panel | What it shows | Sources |
+| ----- | ------------- | ------- |
+| **Cost** | Spend trend, model-tier distribution, cost per PR | Provider API, MODEL_ROUTING.md compliance |
+| **Quality** | Coverage trend, mutation score trend, change failure rate | CI artifacts, mutation testing workflow |
+| **Adoption** | Active AI users, sessions per developer, acceptance rate | Provider analytics |
+| **Habitat health** | Harness enforcement ratio, compound learning growth, ALCI progression | /harness-status, REFLECTION_LOG.md, ALCI surveys |
+
+Without observability, cost discipline is aspirational, mutation testing is a one-time experiment, and the harness is a document that may or may not match reality. With it, every mechanism gains an evidence layer.
+
 ---
 
 ## The Agent Pipeline
