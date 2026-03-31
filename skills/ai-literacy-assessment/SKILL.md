@@ -1,0 +1,193 @@
+---
+name: ai-literacy-assessment
+description: This skill should be used when the user asks to "assess AI literacy", "run an assessment", "check literacy level", "evaluate our AI collaboration", "where are we on the framework", or wants to determine their team's AI literacy level using the ALCI instrument.
+---
+
+# AI Literacy Assessment
+
+Assess a team's AI collaboration literacy level by combining observable
+evidence from the repository with clarifying questions, then produce a
+timestamped assessment document and a README badge.
+
+## The Assessment Process
+
+### Phase 1: Observable Evidence
+
+Scan the repository for signals that indicate which framework level the
+team is operating at. Each signal maps to a specific level:
+
+**Level 0-1 indicators (awareness + prompting)**:
+
+- Does the repo exist and contain code? (baseline)
+- Are there any AI-related configuration files at all?
+
+**Level 2 indicators (verification)**:
+
+- CI workflows that run tests (`*.yml` in `.github/workflows/`)
+- Test coverage enforcement (coverage thresholds in CI or build files)
+- Vulnerability scanning (govulncheck, OWASP, Docker Scout)
+- Markdownlint or other linting in CI
+- Mutation testing configuration
+
+**Level 3 indicators (habitat engineering)**:
+
+- `CLAUDE.md` or equivalent context engineering file
+- `HARNESS.md` with declared constraints
+- `AGENTS.md` compound learning memory
+- `MODEL_ROUTING.md` model-tier guidance
+- `.claude/skills/` project-local skills
+- `.claude/agents/` custom agent definitions
+- `.claude/commands/` custom commands
+- Hooks configuration (`hooks.json`)
+- `REFLECTION_LOG.md` with entries
+- `.markdownlint.json` or equivalent config
+
+**Level 4 indicators (specification architecture)**:
+
+- `specs/` directory with specification files
+- Implementation plans (`plan.md`, `plan-*.md`)
+- Agent pipeline with orchestrator
+- Plan approval gate in orchestrator
+- Loop guardrails (MAX_REVIEW_CYCLES)
+
+**Level 5 indicators (sovereign engineering)**:
+
+- Platform-level tooling (reusable plugins)
+- Cross-team harness templates
+- OpenTelemetry configuration
+- Organisational governance documentation
+- Multiple agent teams or cloud async agents
+
+### Phase 2: Clarifying Questions
+
+After scanning, ask questions to fill gaps that observable evidence
+cannot answer. Focus on:
+
+- **Workflow habits**: "Do you write specs before code, or after?"
+- **Verification practices**: "Do you verify AI output systematically
+  or trust it if it looks right?"
+- **Cost awareness**: "Do you know what your AI tools cost per month?"
+- **Team practices**: "Does your team have shared AI conventions, or
+  does each developer work differently?"
+- **Learning**: "Do you capture what you learn from AI sessions?"
+
+Ask 3-5 questions maximum. Each question should disambiguate between
+adjacent levels.
+
+### Phase 3: Assessment Document
+
+Produce a timestamped Markdown document at
+`assessments/YYYY-MM-DD-assessment.md` with:
+
+1. **Header**: team name, date, assessor, assessed level
+2. **Observable evidence**: what was found in the repo (with file paths)
+3. **Clarifying responses**: summary of answers
+4. **Level assessment**: primary level with rationale
+5. **Discipline maturity**: context engineering, architectural
+   constraints, guardrail design — each rated
+6. **Strengths**: what the team does well at their current level
+7. **Gaps**: what's missing for the next level
+8. **Recommendations**: 3-5 specific actions to progress
+9. **Immediate adjustments applied**: what was fixed during this assessment
+10. **Workflow operation changes**: accepted changes to how artifacts are used
+11. **Reflection**: what the assessment itself revealed
+12. **Next assessment date**: suggested quarterly re-assessment
+
+### Phase 4: Immediate Habitat Adjustments
+
+After documenting the assessment, identify adjustments that can be
+made immediately — without changing any application code or
+requiring team discussion. These are habitat hygiene fixes:
+
+**Stale counts**: If HARNESS.md Status section shows outdated counts,
+update them. If README badges show old numbers, update them.
+
+**Missing entries**: If AGENTS.md GOTCHAS is empty but the assessment
+revealed gotchas, add them. If REFLECTION_LOG.md has no entries from
+this assessment, add one.
+
+**Drift detection**: If HARNESS.md declares constraints that no longer
+match reality (tools removed, workflows renamed), update the
+declarations.
+
+**Mechanism map staleness**: If the README mechanism map is missing
+components that the scan found (new agents, commands, hooks, skills),
+update it.
+
+Present each adjustment to the user and apply it immediately. Record
+what was adjusted in the assessment document.
+
+### Phase 5: Workflow Operation Recommendations
+
+Based on the gaps identified, recommend specific changes to how
+existing workflows and artifacts are *operated* (not built — the
+infrastructure exists, it just needs to be used differently):
+
+**Operating rhythm**: Recommend cadences for harness audits, reflection
+reviews, mutation score checks, and cost monitoring. Suggest adding
+these to a calendar or checklist.
+
+**Habit formation**: Identify which framework habits (from Part VII)
+are not yet automatic and suggest specific practice exercises.
+
+**Artifact activation**: Identify artifacts that exist but are not
+actively used (e.g., AGENTS.md that isn't read at session start,
+MODEL_ROUTING.md that isn't consulted when dispatching agents) and
+recommend how to activate them.
+
+**Promotion opportunities**: Identify unverified HARNESS.md constraints
+that could be promoted to agent or deterministic with available tooling.
+
+Present each recommendation to the user. For accepted recommendations,
+apply the change (update CLAUDE.md with new cadences, promote
+HARNESS.md constraints, add operating notes to AGENTS.md). Record
+accepted and rejected recommendations in the assessment document.
+
+### Phase 6: Assessment Reflection
+
+Capture a reflection on the assessment itself:
+
+- What did the scan reveal that was surprising?
+- Where did observable evidence diverge from the team's self-perception?
+- What should future assessments pay attention to?
+
+Append this to REFLECTION_LOG.md as a structured entry.
+
+### Phase 7: README Badge
+
+Add or update a badge in the project's README showing the assessed
+level:
+
+```text
+[![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_N-COLOUR?style=flat-square)](assessments/YYYY-MM-DD-assessment.md)
+```
+
+Colour coding:
+
+| Level | Colour | Hex |
+| --- | --- | --- |
+| L0 | Grey | `808080` |
+| L1 | Light blue | `87CEEB` |
+| L2 | Blue | `4682B4` |
+| L3 | Teal | `20B2AA` |
+| L4 | Green | `2E8B57` |
+| L5 | Gold | `DAA520` |
+
+Link target: the assessment document, so anyone who clicks the badge
+sees the full assessment with evidence and rationale.
+
+## Scoring Heuristic
+
+The assessed level is the **highest level where the team has
+substantial evidence across all three disciplines**. A team with L3
+context engineering but L1 verification is assessed at L1 — the
+weakest discipline is the ceiling.
+
+| Level | Minimum evidence required |
+| --- | --- |
+| L0 | Repo exists, team is aware of AI tools |
+| L1 | Some AI tool usage, basic prompting |
+| L2 | Automated tests in CI, systematic verification of AI output |
+| L3 | CLAUDE.md + at least 3 harness constraints enforced + custom agents or skills |
+| L4 | Specifications before code + agent pipeline with safety gates |
+| L5 | Platform-level governance + cross-team standards + observability |
