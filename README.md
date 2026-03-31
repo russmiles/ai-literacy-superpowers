@@ -8,7 +8,7 @@ Install the plugin, run `/superpowers-init`, and get a fully operational habitat
 
 ## What You Get
 
-### Skills (10)
+### Skills (11)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -24,8 +24,9 @@ Code quality and harness engineering knowledge that agents read when working in 
 | constraint-design | Designing enforceable constraints with the verification slot model |
 | garbage-collection | Entropy-fighting patterns and the auto-fix safety rubric |
 | verification-slots | The unified interface for deterministic and agent-based checks |
+| ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with remediation |
 
-### Agents (9)
+### Agents (10)
 
 A coordinated team that handles the full development lifecycle.
 
@@ -40,8 +41,9 @@ A coordinated team that handles the full development lifecycle.
 | harness-enforcer | Unified verification engine for all constraint types | Read + Bash |
 | harness-gc | Periodic entropy fighter | Read + Write |
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
+| assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (9)
+### Commands (10)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -54,6 +56,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-audit` | Full meta-verification of the harness |
 | `/reflect` | Capture a post-task reflection |
 | `/worktree` | Git worktree lifecycle — spin, merge, clean |
+| `/assess` | AI literacy assessment with immediate fixes and workflow recommendations |
 
 ### Templates (8)
 
