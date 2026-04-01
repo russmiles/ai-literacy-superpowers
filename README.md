@@ -6,6 +6,40 @@ Install the plugin, run `/superpowers-init`, and get a fully operational habitat
 
 ---
 
+## Installation
+
+Add the marketplace and install the plugin:
+
+```bash
+# Add the marketplace
+claude plugin marketplace add russmiles/ai-literacy-superpowers
+
+# Install the plugin
+claude plugin install ai-literacy-superpowers
+```
+
+Once installed, the plugin's skills, agents, commands, and hooks are available in any Claude Code session within your project.
+
+### Quick start
+
+After installation, run these commands to set up your project:
+
+```bash
+# Initialize a harness for your project
+/harness-init
+
+# Check the status of your harness
+/harness-status
+
+# Run a health check
+/harness-health
+
+# Run an AI literacy assessment
+/assess
+```
+
+---
+
 ## What You Get
 
 ### Skills (12)
