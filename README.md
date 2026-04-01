@@ -250,7 +250,7 @@ Without observability, cost discipline is aspirational, mutation testing is a on
 The plugin includes a four-layer observability model for monitoring harness health over time:
 
 | Layer | Question | How |
-|-------|----------|-----|
+| ----- | -------- | --- |
 | Operational cadence | Is the harness running? | `/harness-health` generates snapshots; a Stop hook nudges when the last snapshot is older than 30 days |
 | Trend visibility | How has the harness changed? | Snapshots are diffed to show deltas; `--trends` produces multi-period views |
 | Telemetry export | Can I visualise this externally? | Snapshot data can be exported as OpenTelemetry metrics to any OTLP-compatible backend |
