@@ -245,6 +245,54 @@ Without observability, cost discipline is aspirational, mutation testing is a on
 
 ---
 
+## Harness Observability
+
+The plugin includes a four-layer observability model for monitoring harness health over time:
+
+| Layer | Question | How |
+|-------|----------|-----|
+| Operational cadence | Is the harness running? | `/harness-health` generates snapshots; a Stop hook nudges when the last snapshot is older than 30 days |
+| Trend visibility | How has the harness changed? | Snapshots are diffed to show deltas; `--trends` produces multi-period views |
+| Telemetry export | Can I visualise this externally? | Snapshot data can be exported as OpenTelemetry metrics to any OTLP-compatible backend |
+| Meta-observability | Is the observability itself working? | Five self-checks: snapshot currency, cadence compliance, learning flow, GC effectiveness, trend direction |
+
+### Health snapshots
+
+`/harness-health` generates structured markdown snapshots stored in `observability/snapshots/`. Each snapshot captures:
+
+- Enforcement ratios (deterministic / agent / unverified breakdown)
+- Garbage collection rule status and findings
+- Mutation testing kill rates per language
+- Compound learning velocity (reflections and promotions)
+- Operational cadence compliance
+- Meta-observability results
+
+Trends are derived by diffing consecutive snapshots — no external tooling required.
+
+### README health badge
+
+`/harness-health` maintains a shields.io badge in the project README:
+
+- **Healthy** (green) — all layers operating, no overdue cadences
+- **Attention** (amber) — one layer degraded or outer loop overdue
+- **Degraded** (red) — multiple layers degraded or no snapshot in 30+ days
+
+### Telemetry export
+
+For teams that want external dashboards, the `references/telemetry-export.md` reference documents OTel metric names and a reference export script. The file-based approach (snapshots in git) is the default — telemetry export is optional.
+
+### Related plugin components
+
+- Skill: `skills/harness-observability/SKILL.md`
+- Command: `commands/harness-health.md`
+- Meta-checks: `skills/harness-observability/references/meta-observability-checks.md`
+- Snapshot format: `skills/harness-observability/references/snapshot-format.md`
+- Telemetry export: `skills/harness-observability/references/telemetry-export.md`
+- Hook: snapshot staleness check in `hooks/hooks.json`
+- Script: `scripts/update-health-badge.sh`
+
+---
+
 ## The Agent Pipeline
 
 When you use the orchestrator agent, it runs this pipeline:
