@@ -1,0 +1,14 @@
+{
+  "name": "ai-literacy-superpowers",
+  "owner": {
+    "name": "Russ Miles"
+  },
+  "plugins": [
+    {
+      "name": "ai-literacy-superpowers",
+      "source": ".",
+      "description": "AI Literacy framework development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops",
+      "version": "0.1.0"
+    }
+  ]
+}
