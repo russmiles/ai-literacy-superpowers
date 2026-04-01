@@ -93,6 +93,25 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Snapshot staleness
+
+- **What it checks**: Whether the most recent harness health snapshot
+  in `observability/snapshots/` is less than 30 days old
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: file date check
+- **Auto-fix**: false
+
+### Observability archive
+
+- **What it checks**: Whether snapshots older than 6 months exist in
+  `observability/snapshots/` and should be moved to
+  `observability/archive/`
+- **Frequency**: monthly
+- **Enforcement**: deterministic
+- **Tool**: file date check
+- **Auto-fix**: true (move to archive directory)
+
 ---
 
 ## Status

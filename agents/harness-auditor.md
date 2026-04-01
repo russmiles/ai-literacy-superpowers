@@ -115,3 +115,43 @@ matches what the project actually has.
 - Report drift factually — do not attempt to fix it (that is the user's
   or other agents' job)
 - Always include the audit date in YYYY-MM-DD format
+
+**Meta-Observability Checks (Layer 4):**
+
+When invoked by `/harness-health --deep`, also run these five
+meta-observability checks. Read the full definitions at
+`${CLAUDE_PLUGIN_ROOT}/skills/harness-observability/references/meta-observability-checks.md`.
+
+10. **Snapshot currency**: Check `observability/snapshots/` for the most
+    recent file. If older than 30 days, flag as overdue. If older than
+    60 days, flag as stale.
+
+11. **Cadence compliance**: Compare last audit date (HARNESS.md Status),
+    last assessment date (`assessments/` directory), and last reflection
+    date (REFLECTION_LOG.md) against their declared cadences (90 days
+    for audit/assess, 30 days for reflect).
+
+12. **Learning flow**: Count REFLECTION_LOG entries and AGENTS.md
+    entries added since the last snapshot. If reflections were added but
+    no promotions occurred in 2+ consecutive snapshots, flag as stalled.
+
+13. **GC effectiveness**: Check whether GC findings have been 0 for 3+
+    consecutive snapshots. If so, flag as silent.
+
+14. **Trend direction**: Read the Trends sections from the last 3
+    snapshots. If any metric has declined in all 3 without
+    acknowledgement, flag as alert.
+
+**Meta-Observability Report Format:**
+
+Include a Meta section in the audit results:
+
+```text
+### Meta-Observability
+- Snapshot cadence: on schedule / overdue / stale
+- Cadence compliance: all on schedule / [list overdue items]
+- Learning flow: active / stalled / inactive
+- GC effectiveness: productive / silent
+- Trend direction: stable / [list declining metrics]
+- Aggregate health: Healthy / Attention / Degraded
+```
