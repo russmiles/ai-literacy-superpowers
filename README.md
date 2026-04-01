@@ -1,5 +1,13 @@
 # ai-literacy-superpowers
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Lint Markdown](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.1.0-4682B4?style=flat-square)](https://github.com/russmiles/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-12-2E8B57?style=flat-square)](#skills-12)
+[![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
+[![Commands](https://img.shields.io/badge/Commands-11-2E8B57?style=flat-square)](#commands-11)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-black?style=flat-square)](https://claude.ai/claude-code)
+
 A [Claude Code](https://claude.ai/claude-code) plugin that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
 
 Install the plugin, run `/superpowers-init`, and get a fully operational habitat for AI-assisted development.
@@ -411,4 +419,4 @@ For a complete worked example of this plugin applied to a real project, see the 
 
 ## License
 
-MIT
+[Apache License 2.0](LICENSE)
