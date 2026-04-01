@@ -25,7 +25,10 @@ Once installed, the plugin's skills, agents, commands, and hooks are available i
 After installation, run these commands to set up your project:
 
 ```bash
-# Initialize a harness for your project
+# Full habitat setup (recommended for new projects)
+/superpowers-init
+
+# Harness-only setup (if you want constraints without the agent pipeline)
 /harness-init
 
 # Check the status of your harness
@@ -37,6 +40,10 @@ After installation, run these commands to set up your project:
 # Run an AI literacy assessment
 /assess
 ```
+
+**`/superpowers-init`** sets up the complete habitat: CLAUDE.md, HARNESS.md, AGENTS.md, MODEL_ROUTING.md, REFLECTION_LOG.md, the full agent team, skills, hooks, and CI workflow templates. Use this for new projects.
+
+**`/harness-init`** sets up only the harness: HARNESS.md with starter constraints and GC rules. Use this if you want the constraint and enforcement machinery without the full agent pipeline.
 
 ---
 
@@ -101,19 +108,23 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **CLAUDE.md** — framework-aligned conventions (literate programming, CUPID, spec-first, TDD)
 - **HARNESS.md** — living harness with starter constraints and enforcement timing
 - **AGENTS.md** — compound learning memory (human-curated, agent-proposed)
-- **MODEL_ROUTING.md** — model-tier guidance and token budget thresholds
+- **MODEL_ROUTING.md** — model-tier guidance and token budget thresholds (see below)
 - **REFLECTION_LOG.md** — append-only agent reflection log
 - **ci-github-actions.yml** — CI enforcement template for GitHub Actions
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
 
+**MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
+
 ### Hooks (5)
+
+All five hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (advisory, does not block)
 - **Stop drift check** — detects when CI, linter, or dependency configs change, nudges `/harness-audit`
+- **Stop snapshot staleness check** — detects when the harness snapshot is stale (> 30 days), nudges `/harness-health`
 - **Stop reflection prompt** — detects commits during the session, nudges `/reflect` to capture learnings
 - **Stop framework-change prompt** — detects `framework.md` modifications, nudges `/reflect` + `/sync-repos` + downstream README checks
-- **Stop snapshot staleness check** — detects when the harness snapshot is stale (> 7 days), nudges `/harness-health`
 
 ---
 
@@ -157,6 +168,39 @@ Shows harness enforcement ratio, agent team configuration, compound learning sta
 
 ---
 
+## How to Extend
+
+### Adding a language-specific implementer
+
+The plugin provides the agent pipeline pattern but does not ship language-specific implementers — these are created per project for each language in the stack. To create one:
+
+1. Copy the pattern from any existing implementer (e.g. the exemplar's `go-implementer.md`)
+2. Adapt the tool permissions, file scope, and build commands for your language
+3. Save to `.claude/agents/<language>-implementer.md` in your project
+4. The orchestrator will discover and dispatch it automatically
+
+### Adding a new skill
+
+1. Create a directory: `skills/<skill-name>/`
+2. Add `SKILL.md` with YAML frontmatter (`name`, `description` with trigger conditions)
+3. Optionally add a `references/` subdirectory for supporting material
+4. The plugin auto-discovers skills by directory structure
+
+### Adding a new command
+
+1. Create `commands/<command-name>.md` with YAML frontmatter (`name`, `description`)
+2. Define the process steps the command should follow
+3. The command becomes available as `/<command-name>` in Claude Code sessions
+
+### Adding a new hook
+
+1. Create a script in `hooks/scripts/<script-name>.sh`
+2. Add an entry to `hooks/hooks.json` under the appropriate event (`PreToolUse`, `PostToolUse`, or `Stop`)
+3. Hook scripts receive context via environment variables (`CLAUDE_PROJECT_DIR`, etc.)
+4. Always make hooks advisory (warn, don't block) unless enforcement is critical
+
+---
+
 ## The Three Enforcement Loops
 
 Every mechanism in the plugin operates at one of three timescales:
@@ -177,10 +221,13 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   │                                  warns on violations during Write/Edit
 │   ├── Stop drift check               Detects CI/linter/dependency changes at
 │   │                                   session end, nudges /harness-audit
+│   ├── Stop snapshot staleness check  Detects stale harness snapshot (> 30 days),
+│   │                                   nudges /harness-health
 │   ├── Stop reflection prompt          Detects commits during session,
 │   │                                    nudges /reflect to capture learnings
-│   └── Stop snapshot staleness check  Detects stale harness snapshot (> 7 days),
-│                                        nudges /harness-health
+│   └── Stop framework-change prompt   Detects framework.md modifications,
+│                                        nudges /reflect + /sync-repos +
+│                                        downstream README checks
 ├── Context (read by agents at session start)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
@@ -204,7 +251,8 @@ STRICT LOOP (merge time — block until green)
 │   │   └── GUARDRAIL: MAX_REVIEW_CYCLES=3
 │   ├── spec-writer                     Spec + plan updates (no Bash)
 │   ├── tdd-agent                       Failing tests from spec scenarios
-│   ├── implementer(s)                  Makes tests green (generated per language)
+│   ├── implementer(s)                  Makes tests green — user-created per
+│   │                                   language, not shipped by the plugin
 │   ├── code-reviewer                   CUPID + LP review (no Write)
 │   └── integration-agent               CHANGELOG, PR, CI, merge, reflection
 │
@@ -302,13 +350,15 @@ orchestrator
   → spec-writer
   → GATE: plan approval (user reviews before proceeding)
   → tdd-agent
-  → implementer(s) (parallel, one per language)
+  → implementer(s) (parallel, one per language — user-created per project)
   → code-reviewer
   → GUARDRAIL: MAX_REVIEW_CYCLES=3 (escalate after 3 loops)
   → integration-agent (includes reflection step)
 ```
 
 The plan approval gate catches bad plans before they become bad code. The loop guardrail prevents unbounded reviewer cycles. Both keep the orchestration from running away.
+
+The plugin ships the orchestrator, spec-writer, tdd-agent, code-reviewer, and integration-agent. Language-specific implementers are not included — each project creates its own based on the stack. See [How to Extend](#how-to-extend) for instructions.
 
 ---
 
@@ -325,6 +375,16 @@ Agent completes work
 ```
 
 Research shows LLM-generated documentation files reduce success rates. Human-curated files provide modest but real improvement. The rule: agents propose; humans curate.
+
+### Compound learning flow
+
+The plugin implements a three-stage learning cycle:
+
+1. **Capture** — the integration-agent appends a structured reflection to `REFLECTION_LOG.md` after each task (date, agent, task, surprise, proposal, improvement)
+2. **Curate** — during the quarterly operating cadence, humans review reflections and promote worthy entries to `AGENTS.md` as GOTCHA or ARCH_DECISION entries
+3. **Benefit** — all agents read `AGENTS.md` at session start, incorporating prior learnings into their decision-making
+
+The GC rule "Stale AGENTS.md" flags reflections older than 30 days that haven't been reviewed for promotion. This prevents the common failure mode where reflections are captured but nobody reads them.
 
 ---
 
