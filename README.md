@@ -8,7 +8,7 @@ Install the plugin, run `/superpowers-init`, and get a fully operational habitat
 
 ## What You Get
 
-### Skills (11)
+### Skills (12)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -25,6 +25,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | garbage-collection | Entropy-fighting patterns and the auto-fix safety rubric |
 | verification-slots | The unified interface for deterministic and agent-based checks |
 | ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with remediation |
+| harness-observability | Four-layer observability guidance — snapshot format, telemetry export, meta-observability checks |
 
 ### Agents (10)
 
@@ -43,7 +44,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (10)
+### Commands (11)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -57,6 +58,7 @@ A coordinated team that handles the full development lifecycle.
 | `/reflect` | Capture a post-task reflection |
 | `/worktree` | Git worktree lifecycle — spin, merge, clean |
 | `/assess` | AI literacy assessment with immediate fixes and workflow recommendations |
+| `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 
 ### Templates (8)
 
@@ -71,12 +73,13 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
 
-### Hooks (4)
+### Hooks (5)
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (advisory, does not block)
 - **Stop drift check** — detects when CI, linter, or dependency configs change, nudges `/harness-audit`
 - **Stop reflection prompt** — detects commits during the session, nudges `/reflect` to capture learnings
 - **Stop framework-change prompt** — detects `framework.md` modifications, nudges `/reflect` + `/sync-repos` + downstream README checks
+- **Stop snapshot staleness check** — detects when the harness snapshot is stale (> 7 days), nudges `/harness-health`
 
 ---
 
@@ -140,13 +143,15 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   │                                  warns on violations during Write/Edit
 │   ├── Stop drift check               Detects CI/linter/dependency changes at
 │   │                                   session end, nudges /harness-audit
-│   └── Stop reflection prompt          Detects commits during session,
-│                                        nudges /reflect to capture learnings
+│   ├── Stop reflection prompt          Detects commits during session,
+│   │                                    nudges /reflect to capture learnings
+│   └── Stop snapshot staleness check  Detects stale harness snapshot (> 7 days),
+│                                        nudges /harness-health
 ├── Context (read by agents at session start)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (10)                     Domain knowledge for agents
+│   └── Skills (12)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
@@ -186,6 +191,7 @@ INVESTIGATIVE LOOP (scheduled — sweep for entropy)
 │
 └── Harness Commands
     ├── /harness-audit                  Full meta-verification
+    ├── /harness-health                 Snapshot with trends and meta-observability checks
     ├── /harness-status                 Quick health read
     └── /harness-gc                     Run GC checks on demand
 ```
