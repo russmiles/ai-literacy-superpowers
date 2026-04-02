@@ -7,6 +7,7 @@
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-black?style=flat-square)](https://claude.ai/claude-code)
+[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-black?style=flat-square&logo=github)](https://github.com/russmiles/ai-literacy-superpowers)
 
 A [Claude Code](https://claude.ai/claude-code) plugin that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
 
@@ -16,7 +17,7 @@ Install the plugin, run `/superpowers-init`, and get a fully operational habitat
 
 ## Installation
 
-Add the marketplace and install the plugin:
+### Claude Code
 
 ```bash
 # Add the marketplace
@@ -26,7 +27,15 @@ claude plugin marketplace add russmiles/ai-literacy-superpowers
 claude plugin install ai-literacy-superpowers
 ```
 
-Once installed, the plugin's skills, agents, commands, and hooks are available in any Claude Code session within your project.
+### GitHub Copilot CLI
+
+```bash
+/plugin install ai-literacy-superpowers
+```
+
+Once installed, the plugin's skills, agents, hooks, and commands (or prompts) are available in any session within your project.
+
+> Commands are available as `/command-name` in Claude Code and as `/prompt-name` in Copilot CLI.
 
 ### Quick start
 
@@ -52,6 +61,18 @@ After installation, run these commands to set up your project:
 **`/superpowers-init`** sets up the complete habitat: CLAUDE.md, HARNESS.md, AGENTS.md, MODEL_ROUTING.md, REFLECTION_LOG.md, the full agent team, skills, hooks, and CI workflow templates. Use this for new projects.
 
 **`/harness-init`** sets up only the harness: HARNESS.md with starter constraints and GC rules. Use this if you want the constraint and enforcement machinery without the full agent pipeline.
+
+### Tool Compatibility
+
+This plugin works with both Claude Code and GitHub Copilot CLI from the same repository. The formats have converged:
+
+| Component | Claude Code | Copilot CLI | Shared? |
+| --------- | ----------- | ----------- | ------- |
+| Skills | `skills/*/SKILL.md` | `skills/*/SKILL.md` | Identical |
+| Agents | `agents/*.agent.md` | `agents/*.agent.md` | Identical |
+| Hooks | `hooks/hooks.json` | `hooks/hooks.json` | Identical |
+| Commands | `commands/*.md` | `.github/prompts/*.prompt.md` | Translated |
+| Instructions | Via `templates/CLAUDE.md` | `.github/copilot-instructions.md` | Adapted |
 
 ---
 

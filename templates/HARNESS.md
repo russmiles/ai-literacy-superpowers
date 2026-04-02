@@ -112,6 +112,16 @@
 - **Tool**: file date check
 - **Auto-fix**: true (move to archive directory)
 
+### Command-prompt sync
+
+- **What it checks**: Whether commands in `commands/` and their
+  corresponding prompt files in `.github/prompts/` have diverged —
+  one modified without updating the other
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
 ---
 
 ## Status
