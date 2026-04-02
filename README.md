@@ -3,9 +3,9 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
 [![Plugin Version](https://img.shields.io/badge/Plugin-v0.1.0-4682B4?style=flat-square)](https://github.com/russmiles/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-12-2E8B57?style=flat-square)](#skills-12)
+[![Skills](https://img.shields.io/badge/Skills-13-2E8B57?style=flat-square)](#skills-13)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
-[![Commands](https://img.shields.io/badge/Commands-11-2E8B57?style=flat-square)](#commands-11)
+[![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-black?style=flat-square)](https://claude.ai/claude-code)
 
 A [Claude Code](https://claude.ai/claude-code) plugin that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
@@ -57,7 +57,7 @@ After installation, run these commands to set up your project:
 
 ## What You Get
 
-### Skills (12)
+### Skills (13)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -75,6 +75,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | verification-slots | The unified interface for deterministic and agent-based checks |
 | ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with remediation |
 | harness-observability | Four-layer observability guidance — snapshot format, telemetry export, meta-observability checks |
+| convention-extraction | Five extraction questions, artefact mapping, four-element anatomy — surfaces tacit team conventions |
 
 ### Agents (10)
 
@@ -93,7 +94,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (11)
+### Commands (12)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -108,6 +109,7 @@ A coordinated team that handles the full development lifecycle.
 | `/worktree` | Git worktree lifecycle — spin, merge, clean |
 | `/assess` | AI literacy assessment with immediate fixes and workflow recommendations |
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
+| `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
 
 ### Templates (8)
 
@@ -240,7 +242,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (12)                     Domain knowledge for agents
+│   └── Skills (13)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
