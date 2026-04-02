@@ -400,14 +400,52 @@ The GC rule "Stale AGENTS.md" flags reflections older than 30 days that haven't 
 
 ## Intellectual Foundations
 
-This plugin packages the practical workflow from the AI Literacy for Software Engineers framework, drawing on:
+This plugin packages the practical workflow from the AI Literacy for Software Engineers framework. The design draws on three lineages — architecture, craft, and engineering practice — that converge on a single idea: the environment matters as much as the code.
 
-- **Christopher Alexander** — the quality without a name; design for inhabitants
-- **Donald Knuth** — literate programming; code as literature for readers
-- **Richard P. Gabriel** — habitability; code as a place to live in
-- **Daniel Terhorst-North** — CUPID; code as a place of joy; properties over principles
-- **Birgitta Boeckeler** — harness engineering; deterministic and LLM-based enforcement
-- **Addy Osmani** — agent orchestration; subagents, agent teams, quality gates
+### Architecture and Habitability
+
+- **Christopher Alexander** — *A Pattern Language* (1977); *The Timeless Way of Building* (1979). The "quality without a name" — design for inhabitants, not spectators. Alexander's insight that environments shape the behaviour of their occupants is the conceptual root of habitat engineering.
+- **Richard P. Gabriel** — *Patterns of Software* (1996). Habitability: code as a place to live in. Gabriel extended Alexander's architectural philosophy to software, arguing that code should be welcoming to the people who maintain it.
+
+### Code as Literature
+
+- **Donald Knuth** — "Literate Programming" (1984); *TeX: The Program* (1986). Code is written for humans to read, and only incidentally for machines to execute. The literate-programming skill applies Knuth's discipline: narrative preambles, reasoning-based documentation, presentation ordered by understanding.
+- **Daniel Terhorst-North** — "CUPID — for joyful coding" (2022). Five properties that good code tends toward: Composable, Unix philosophy, Predictable, Idiomatic, Domain-based. The cupid-code-review skill uses these as a review and refactoring lens.
+
+### Harness Engineering
+
+- **Birgitta Boeckeler** — ["Harness Engineering"](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html) (2026). *Exploring Gen AI*, martinfowler.com. The three components of a complete harness: context engineering, architectural constraints, and garbage collection. The theoretical foundation for the plugin's three enforcement loops.
+- **Mitchell Hashimoto** — "AI Harness" (2025). Blog post referenced by Boeckeler as a possible origin of the harness terminology.
+- **Chad Fowler** — "Relocating Rigor." Essay on how rigor moves from writing code to designing the systems that generate and verify code. Frames the shift from manual discipline to environmental enforcement.
+
+### Convention Discovery
+
+- **Rahul Garg** — ["Encoding Team Standards"](https://martinfowler.com/articles/reduce-friction-ai/encoding-team-standards.html) (2026). *Patterns for Reducing Friction in AI-Assisted Development*, martinfowler.com. Treats AI instructions as infrastructure, not individual craft. Structured extraction interviews surface tacit team knowledge. Informed the convention-extraction skill and `/extract-conventions` command.
+
+### Agent Orchestration
+
+- **Addy Osmani** — ["The Code Agent Orchestra"](https://addyosmani.com/blog/code-agent-orchestra/) (2026). addyosmani.com. Subagent delegation, quality gates, compound learning, and the orchestrator pattern. Informed the agent pipeline design, worktree isolation, and the review loop guardrail.
+
+### Specification-Driven Development
+
+- **Gojko Adzic** — *Specification by Example: How Successful Teams Deliver the Right Software*. Manning. Concrete examples as tests; specifications as the shared language between intent and implementation. Informed the spec-first workflow and the spec-writer agent.
+
+### Verification and Quality
+
+- **Dave Farley** — Controlled study of 150 participants comparing AI-generated and human-written code across creation and maintenance phases. Evidence for AI as an amplifier of existing discipline — the core argument for why harnesses matter.
+- **2025 DORA Report** — DevOps Research and Assessment. Findings on AI as an amplifier of existing engineering discipline: teams with strong practices benefit; teams without them are harmed.
+
+### Cognitive Science (Framework Foundation)
+
+The plugin implements practical workflows, but the framework's design decisions are grounded in cognitive science research on how human and artificial intelligence differ:
+
+- **Andy Clark** — *Surfing Uncertainty* (2015). Predictive processing and the embodied mind.
+- **George Lakoff & Mark Johnson** — *Metaphors We Live By* (1980). Embodied cognition and conceptual metaphor.
+- **Edwin Hutchins** — *Cognition in the Wild* (1995). Distributed cognition — intelligence as a property of systems, not individuals.
+- **Lucy Suchman** — *Plans and Situated Actions* (1987). The gap between plans and situated human action.
+- **James J. Gibson** — *The Ecological Approach to Visual Perception* (1979). Affordances — the environment offers possibilities for action.
+- **John Boyd** — The OODA Loop. Observe-Orient-Decide-Act as a cognitive cycle — the basis for the harness's replanning-after-each-action pattern.
+- **Donella Meadows** — *Thinking in Systems* (2008). Systems thinking, leverage points, and feedback loops — the conceptual model for the three enforcement loops.
 
 The mission: building habitats where human and AI intelligence thrive together.
 
