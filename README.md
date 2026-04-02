@@ -3,7 +3,7 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/russmiles/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
 [![Plugin Version](https://img.shields.io/badge/Plugin-v0.1.0-4682B4?style=flat-square)](https://github.com/russmiles/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-13-2E8B57?style=flat-square)](#skills-13)
+[![Skills](https://img.shields.io/badge/Skills-14-2E8B57?style=flat-square)](#skills-14)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -78,7 +78,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (13)
+### Skills (14)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -97,6 +97,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with remediation |
 | harness-observability | Four-layer observability guidance — snapshot format, telemetry export, meta-observability checks |
 | convention-extraction | Five extraction questions, artefact mapping, four-element anatomy — surfaces tacit team conventions |
+| cross-repo-orchestration | Git-mediated (L4) and specification-mediated (L5) patterns for syncing artefacts and governing portfolios |
 
 ### Agents (10)
 
@@ -264,7 +265,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (13)                     Domain knowledge for agents
+│   └── Skills (14)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
