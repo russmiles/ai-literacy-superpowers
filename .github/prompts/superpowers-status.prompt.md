@@ -3,6 +3,8 @@ name: superpowers-status
 description: Show the full habitat status — harness health, agent team, compound learning, model routing, CI coverage
 ---
 
+# Superpowers Status
+
 Broad habitat health check. No agents dispatched.
 
 1. Check habitat files exist: CLAUDE.md, HARNESS.md, AGENTS.md,

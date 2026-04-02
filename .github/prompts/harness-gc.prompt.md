@@ -3,9 +3,11 @@ name: harness-gc
 description: Run garbage collection checks against the codebase
 ---
 
+# Harness GC
+
 Run garbage collection rules from HARNESS.md.
 
-Read #file:skills/garbage-collection/SKILL.md for GC rule design.
+Read `#file:skills/garbage-collection/SKILL.md` for GC rule design.
 
 1. Read all GC rules from HARNESS.md Garbage Collection section.
 

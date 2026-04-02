@@ -3,9 +3,11 @@ name: assess
 description: Run an AI literacy assessment — scan the repo for evidence, score three disciplines, produce a timestamped report
 ---
 
+# Assess
+
 Run a full AI literacy assessment on this repository.
 
-1. Read #file:skills/ai-literacy-assessment/SKILL.md for the assessment
+1. Read `#file:skills/ai-literacy-assessment/SKILL.md` for the assessment
    methodology, scoring heuristic, and template
 
 2. Scan the repo for evidence across three disciplines:

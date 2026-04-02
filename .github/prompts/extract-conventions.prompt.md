@@ -3,8 +3,10 @@ name: extract-conventions
 description: Run a guided convention extraction session — surfaces tacit team knowledge through structured questions
 ---
 
+# Extract Conventions
+
 Guide a convention extraction session. Read
-#file:skills/convention-extraction/SKILL.md first.
+`#file:skills/convention-extraction/SKILL.md` first.
 
 1. Verify CLAUDE.md and HARNESS.md exist (suggest /superpowers-init if not)
 

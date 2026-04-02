@@ -3,6 +3,8 @@ name: reflect
 description: Capture a reflection after completing work — what was surprising, what should future agents know, what could improve
 ---
 
+# Reflect
+
 Capture a post-task reflection and append it to REFLECTION_LOG.md.
 
 1. Ask for or review the session context:
@@ -29,4 +31,4 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
 
 5. Commit: `git add REFLECTION_LOG.md && git commit -m "Add reflection: [summary]"`
 
-Reference: #file:skills/convention-extraction/SKILL.md for extraction context
+Reference: `#file:skills/convention-extraction/SKILL.md` for extraction context

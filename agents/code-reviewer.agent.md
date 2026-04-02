@@ -79,6 +79,7 @@ it blocks merge.
 the change is trivial.
 
 **Severity mapping:**
+
 - CRITICAL (blocks merge) → `issue (blocking):`
 - MAJOR (should fix before merge) → `suggestion (blocking):` or `issue (blocking):`
 - MINOR (can fix in follow-up) → `nitpick (non-blocking):` or `suggestion (non-blocking):`

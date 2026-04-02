@@ -3,9 +3,11 @@ name: harness-constrain
 description: Add or promote a constraint in HARNESS.md
 ---
 
+# Harness Constrain
+
 Add a new constraint or promote an existing one.
 
-Read #file:skills/constraint-design/SKILL.md for constraint design
+Read `#file:skills/constraint-design/SKILL.md` for constraint design
 guidance.
 
 1. Ask: add a new constraint or promote an existing one?

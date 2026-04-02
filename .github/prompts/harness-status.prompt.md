@@ -3,6 +3,8 @@ name: harness-status
 description: Show current harness health — enforcement ratio, drift, and garbage collection state
 ---
 
+# Harness Status
+
 Quick read of harness health. No agents dispatched.
 
 1. Read HARNESS.md Status section for: last audit date, enforcement

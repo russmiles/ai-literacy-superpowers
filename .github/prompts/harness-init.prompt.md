@@ -3,6 +3,8 @@ name: harness-init
 description: Initialize a harness for the current project — discover stack, ask about conventions, generate HARNESS.md
 ---
 
+# Harness Init
+
 Set up a harness for this project.
 
 1. Check if HARNESS.md already exists. If so, ask whether to re-initialize.
@@ -13,7 +15,7 @@ Set up a harness for this project.
 3. Ask the user about conventions: naming, file structure, error
    handling, documentation style.
 
-4. Generate HARNESS.md from #file:templates/HARNESS.md with discovered
+4. Generate HARNESS.md from `#file:templates/HARNESS.md` with discovered
    stack and user-provided conventions.
 
 5. For each discovered tool (linter, formatter, test runner), create a
