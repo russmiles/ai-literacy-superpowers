@@ -67,33 +67,55 @@ has not introduced regressions or lint failures:
 
 ## Reporting
 
-Return one of two outcomes:
+Use [Conventional Comments](https://conventionalcomments.org/) labels on
+every finding. The label signals intent; the decoration signals whether
+it blocks merge.
+
+**Labels:** `issue`, `suggestion`, `nitpick`, `question`, `thought`,
+`praise`, `todo`, `chore`, `note`
+
+**Decorations:** `(blocking)` must be fixed before merge.
+`(non-blocking)` should not prevent merge. `(if-minor)` fix only if
+the change is trivial.
+
+**Severity mapping:**
+- CRITICAL (blocks merge) → `issue (blocking):`
+- MAJOR (should fix before merge) → `suggestion (blocking):` or `issue (blocking):`
+- MINOR (can fix in follow-up) → `nitpick (non-blocking):` or `suggestion (non-blocking):`
+
+Always include at least one `praise:` highlighting something done well.
 
 ### PASS
 
-State that the implementation passes both lenses with no material findings.
-Include a brief summary of what was reviewed. The orchestrator will proceed
-to integration-agent.
+```text
+praise: [Brief highlight of something done well]
+
+PASS — both CUPID and literate programming lenses clear.
+```
 
 ### FINDINGS
 
 List each finding as a numbered item:
 
-```
-N. [SEVERITY: CRITICAL | MAJOR | MINOR] [LENS: CUPID-property | LITERATE-rule]
-   File: path/to/file.go (line range if relevant)
-   Issue: what is wrong
-   Why it matters: the consequence of leaving it as-is
-   Suggestion: what to do instead
+```text
+1. issue (blocking): [CUPID-property | LITERATE-rule]
+   File: path/to/file.go:NN-NN
+   What is wrong and why it matters.
+   suggestion: What to do instead.
+
+2. suggestion (non-blocking): [CUPID-property | LITERATE-rule]
+   File: path/to/file.go:NN
+   What could be improved.
+
+3. praise: [CUPID-property | LITERATE-rule]
+   File: path/to/file.go:NN-NN
+   What was done well.
 ```
 
-CRITICAL — blocks merge: correctness issue, security risk, or broken convention.
-MAJOR    — should be fixed before merge: significant quality concern.
-MINOR    — can be fixed in a follow-up: style or nit.
-
-The orchestrator will re-dispatch the implementer with your findings. Focus on
-the CRITICAL and MAJOR items. Do not pad the report with MINORs that obscure
-the important findings.
+Focus on `issue (blocking)` and `suggestion (blocking)` items. Do not
+pad the report with non-blocking findings that obscure the important
+ones. The orchestrator will re-dispatch the implementer with your
+findings.
 
 ## What you do NOT do
 
