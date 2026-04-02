@@ -111,7 +111,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
 
-### Templates (8)
+### Templates (9)
 
 Opinionated defaults scaffolded by `/superpowers-init`:
 
@@ -123,6 +123,7 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **ci-github-actions.yml** — CI enforcement template for GitHub Actions
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
+- **harness-health-icon.svg** — monochrome shield icon for the README health badge
 
 **MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
 
