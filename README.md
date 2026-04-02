@@ -6,10 +6,10 @@
 [![Skills](https://img.shields.io/badge/Skills-13-2E8B57?style=flat-square)](#skills-13)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-black?style=flat-square)](https://claude.ai/claude-code)
-[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-black?style=flat-square&logo=github)](https://github.com/russmiles/ai-literacy-superpowers)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
+[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
 
-A [Claude Code](https://claude.ai/claude-code) plugin that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
+A plugin for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CLI](https://github.com/features/copilot) that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
 
 Install the plugin, run `/superpowers-init`, and get a fully operational habitat for AI-assisted development.
 
