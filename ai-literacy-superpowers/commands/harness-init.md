@@ -58,6 +58,25 @@ that should be enforced:
 Ask about scope: should this check run at commit time (fast feedback),
 PR time (strict gate), or weekly (periodic sweep)?
 
+#### Secret detection (default constraint)
+
+The template includes a "No secrets in source" constraint. During setup:
+
+1. Check whether `gitleaks` is available: `command -v gitleaks`
+2. If **found**: inform the user that the constraint will be set to
+   `deterministic` with gitleaks as the tool. Ask if they want to
+   customise the configuration (e.g. add allowlist paths). Offer to
+   run an initial scan: `gitleaks detect --source . --no-banner`
+3. If **not found**: inform the user that the constraint will remain
+   `unverified`. Suggest installation:
+   - macOS: `brew install gitleaks`
+   - Linux/Go: `go install github.com/gitleaks/gitleaks/v8@latest`
+   - Then re-run `/harness-init` or use `/harness-constrain` to promote
+
+Either way, tell the user what happened and allow them to override.
+Read the `secrets-detection` skill from this plugin for full gitleaks
+guidance if the user asks questions about configuration or scanning.
+
 ### 5. Ask About Garbage Collection
 
 Ask whether the user wants periodic checks for:
