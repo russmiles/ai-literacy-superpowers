@@ -102,9 +102,9 @@
 ### ShellCheck compliance
 
 - **Rule**: All `.sh` files must pass ShellCheck with no errors
-- **Enforcement**: unverified
-- **Tool**: none yet (install shellcheck to promote)
-- **Scope**: commit
+- **Enforcement**: deterministic
+- **Tool**: find . -name "*.sh" -not -path "./.git/*" -exec shellcheck {} +
+- **Scope**: commit + pr
 
 ---
 
@@ -168,6 +168,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-06
-Constraints enforced: 4/6
+Constraints enforced: 5/6
 Garbage collection active: 0/5
 Drift detected: not yet audited
