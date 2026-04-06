@@ -28,11 +28,11 @@ if ! grep -A2 "No secrets in source" "$HARNESS_FILE" | grep -q "deterministic"; 
 fi
 
 # Run gitleaks against the working directory (no git history, fast)
-output=$(gitleaks detect --source "$PROJECT_DIR" --no-banner --no-git 2>&1) || {
+if ! gitleaks detect --source "$PROJECT_DIR" --no-banner --no-git 2>&1; then
   message="Gitleaks detected potential secrets in the working directory. Run 'gitleaks detect --source . --no-banner --no-git' to see details. Rotate any real secrets immediately."
-  printf '{"systemMessage": "%s"}' "$(echo "$message" | sed 's/"/\\"/g')"
+  printf '{"systemMessage": "%s"}' "${message//\"/\\\"}"
   exit 0
-}
+fi
 
 # Clean scan — exit silently
 exit 0
