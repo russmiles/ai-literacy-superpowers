@@ -67,7 +67,7 @@ else
 fi
 
 # Build badge URL
-encoded_status=$(echo "$health_status" | sed 's/ /%20/g')
+encoded_status="${health_status// /%20}"
 badge_url="https://img.shields.io/badge/Harness_Health-${encoded_status}-${health_colour}?style=flat-square"
 
 # Determine snapshot link target
