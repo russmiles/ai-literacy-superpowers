@@ -55,8 +55,8 @@
 
 - **Rule**: No API keys, tokens, passwords, or private keys may appear
   in committed source files
-- **Enforcement**: unverified
-- **Tool**: none yet
+- **Enforcement**: deterministic
+- **Tool**: gitleaks detect --source . --no-banner --exit-code 1
 - **Scope**: commit
 
 ### Tests must pass
@@ -122,6 +122,16 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Secret scanner operational
+
+- **What it checks**: Whether gitleaks is installed and the "No secrets
+  in source" constraint is still enforced as deterministic (not regressed
+  to unverified)
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: gitleaks --version && gitleaks detect --source . --no-banner --exit-code 1
+- **Auto-fix**: false
+
 ---
 
 ## Status
@@ -129,6 +139,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: never
-Constraints enforced: 0/3
+Constraints enforced: 1/3
 Garbage collection active: 0/2
 Drift detected: not yet audited
