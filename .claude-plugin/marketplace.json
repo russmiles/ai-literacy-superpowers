@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "ai-literacy-superpowers",
-      "source": ".",
+      "source": "./ai-literacy-superpowers",
       "description": "AI Literacy framework development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops",
       "version": "0.1.0"
     }
