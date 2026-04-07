@@ -61,6 +61,38 @@ jobs:
           sudo apt-get -qq install -y shellcheck
           find . -name "*.sh" -not -path "./.git/*" -exec shellcheck {} +
 
+      - name: "Constraint: New features must have docs"
+        if: github.event_name == 'pull_request'
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          # Files added or modified in the plugin source
+          new_features=$(git diff --name-only --diff-filter=AM "$base"..."$head" -- \
+            'ai-literacy-superpowers/skills/' \
+            'ai-literacy-superpowers/agents/' \
+            'ai-literacy-superpowers/commands/')
+
+          if [ -z "$new_features" ]; then
+            echo "No new skills, agents, or commands — docs check not required."
+            exit 0
+          fi
+
+          echo "New feature files detected:"
+          echo "$new_features"
+          echo ""
+
+          # Check whether any docs/ file was also touched
+          docs_changed=$(git diff --name-only "$base"..."$head" -- 'docs/')
+
+          if [ -z "$docs_changed" ]; then
+            echo "::error::New skills, agents, or commands were added but no docs/ files were updated. Please document new features."
+            exit 1
+          fi
+
+          echo "Docs updated:"
+          echo "$docs_changed"
+
       - name: Summary
         if: always()
         run: echo "Harness constraint check complete. See HARNESS.md for constraint details."
