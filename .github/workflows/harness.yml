@@ -64,11 +64,11 @@ jobs:
       - name: "Constraint: New features must have docs"
         if: github.event_name == 'pull_request'
         run: |
-          base="${{ github.event.pull_request.base.sha }}"
-          head="${{ github.event.pull_request.head.sha }}"
+          git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1
+          base="origin/${{ github.event.pull_request.base.ref }}"
 
           # Files added or modified in the plugin source
-          new_features=$(git diff --name-only --diff-filter=AM "$base"..."$head" -- \
+          new_features=$(git diff --name-only --diff-filter=AM "$base"...HEAD -- \
             'ai-literacy-superpowers/skills/' \
             'ai-literacy-superpowers/agents/' \
             'ai-literacy-superpowers/commands/')
@@ -83,7 +83,7 @@ jobs:
           echo ""
 
           # Check whether any docs/ file was also touched
-          docs_changed=$(git diff --name-only "$base"..."$head" -- 'docs/')
+          docs_changed=$(git diff --name-only "$base"...HEAD -- 'docs/')
 
           if [ -z "$docs_changed" ]; then
             echo "::error::New skills, agents, or commands were added but no docs/ files were updated. Please document new features."
