@@ -61,6 +61,9 @@ set up yet. I recommend adding them."
 
 ### 4. Ask About Conventions
 
+**Gate**: only run this step if "Context engineering" was selected in
+step 3. If not selected, skip to the next step silently.
+
 Ask the user about their conventions, one topic at a time. Use the
 discovery report to make informed suggestions. Cover:
 
@@ -75,6 +78,9 @@ found. Use the convention patterns from the `context-engineering` skill
 to ensure conventions are enforceable.
 
 ### 5. Ask About Constraints
+
+**Gate**: only run this step if "Architectural constraints" was selected
+in step 3. If not selected, skip to the next step silently.
 
 For each convention, ask whether the user wants it enforced. For each
 that should be enforced:
@@ -106,6 +112,9 @@ Read the `secrets-detection` skill from this plugin for full gitleaks
 guidance if the user asks questions about configuration or scanning.
 
 ### 6. Ask About Garbage Collection
+
+**Gate**: only run this step if "Garbage collection" was selected in
+step 3. If not selected, skip to the next step silently.
 
 Ask whether the user wants periodic checks for:
 
