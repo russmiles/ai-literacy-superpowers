@@ -1,12 +1,15 @@
 ---
 name: harness-init
-description: Set up a living harness for this project — discover the stack, define conventions, generate HARNESS.md with enforcement
+description: Set up a living harness for this project — select features, discover the stack, define conventions, generate HARNESS.md with enforcement. Re-run to add features incrementally.
 ---
 
 # /harness-init
 
-Set up a living harness for this project. This is the guided on-ramp
-that produces a working HARNESS.md from a conversation.
+Set up a living harness for this project. Choose which features to
+configure — context engineering, constraints, garbage collection, CI,
+and observability — then walk through a guided conversation for each.
+Re-run at any time to add features incrementally; existing
+configuration is preserved.
 
 Read the `harness-engineering` and `context-engineering` skills from
 this plugin before proceeding. They provide the conceptual framework
@@ -18,6 +21,12 @@ and convention-writing guidance needed for this conversation.
 
 Dispatch the `harness-discoverer` agent to scan the project. Wait for
 its discovery report before proceeding.
+
+Also check whether `HARNESS.md` already exists. If it does, note which
+sections contain real content (not the placeholder marker
+`<!-- Not yet configured. Run /harness-init and select this feature to set up. -->`).
+Pass this information to the feature selection step so it can set
+appropriate defaults.
 
 ### 2. Present Findings
 
