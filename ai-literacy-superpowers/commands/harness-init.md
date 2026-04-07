@@ -104,6 +104,24 @@ constraint. Write to `.github/workflows/harness.yml`.
 If no CI was detected, offer the generic script from
 `${CLAUDE_PLUGIN_ROOT}/templates/ci-generic.sh`.
 
+#### Auto-enforcer for agent PR constraints
+
+After generating `harness.yml`, check whether the HARNESS.md being
+produced contains any agent-scoped PR constraints. If it does:
+
+1. Inform the user: "Your harness includes agent-based PR constraints.
+   These cannot run in the standard CI workflow — they require the
+   auto-enforcer action."
+2. Offer to copy `${CLAUDE_PLUGIN_ROOT}/templates/ci-auto-enforcer.yml`
+   to `.github/workflows/auto-enforcer.yml` as part of the init commit
+3. Remind the user to add the `ANTHROPIC_API_KEY` secret to their
+   repository before the first PR: Settings > Secrets and variables >
+   Actions > New repository secret
+4. Read the `auto-enforcer-action` skill from this plugin for full
+   setup guidance if the user asks questions
+
+If no agent PR constraints exist, skip this offer silently.
+
 ### 8. Add README Badge
 
 Add the harness badge to the project's README.md. Use the badge update
