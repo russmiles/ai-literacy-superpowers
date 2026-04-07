@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Executable Spec Integration
+
+- Add executable spec constraint pattern to constraint-design skill —
+  documents how to wire test suites into the harness as a spec
+  conformance constraint, including the deterministic + agent
+  enforcement pattern and BDD/Cucumber as gold standard
+- Add commented-out spec conformance constraint to HARNESS.md template
+  for projects using spec-first development
+
 ### Tier 2 Design Proposals
 
 - Add design proposal for complexity hotspot detection — weekly GC rule

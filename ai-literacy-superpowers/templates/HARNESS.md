@@ -67,6 +67,17 @@
 - **Tool**: none yet
 - **Scope**: pr
 
+<!-- Uncomment if using spec-first development:
+
+### Spec conformance
+
+- **Rule**: All code changes covered by a spec must pass the spec's
+  associated test suite before merge
+- **Enforcement**: deterministic
+- **Tool**: <project test runner command>
+- **Scope**: pr
+-->
+
 ---
 
 ## Garbage Collection
