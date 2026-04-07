@@ -31,7 +31,35 @@ Show the user what was discovered:
 Frame this as: "Here's what your project already has. Let's build on
 it."
 
-### 3. Ask About Conventions
+### 3. Select Features
+
+Present a feature selection menu. The five selectable areas are:
+
+| Feature | What it configures | Default (first run) |
+|---|---|---|
+| Context engineering | Stack declaration + conventions | on |
+| Architectural constraints | Enforcement rules + secret detection | on |
+| Garbage collection | Periodic entropy checks | on |
+| CI configuration | GitHub Actions workflow + auto-enforcer | on |
+| Observability | README badge + status section | on |
+
+**First run** (no HARNESS.md exists): all features default to on.
+
+**Re-run** (HARNESS.md exists): detect which sections are already
+configured by checking for the placeholder marker
+`<!-- Not yet configured. Run /harness-init and select this feature to set up. -->`
+in each section. Already-configured sections default to off (skip).
+Unconfigured sections default to on. The user can toggle any combination.
+
+Tell the user: "All features are selected by default. Deselect any you
+want to skip for now — you can always add them later by re-running
+/harness-init."
+
+On re-run, tell the user which features are already configured and
+frame unconfigured features as recommendations: "These features aren't
+set up yet. I recommend adding them."
+
+### 4. Ask About Conventions
 
 Ask the user about their conventions, one topic at a time. Use the
 discovery report to make informed suggestions. Cover:
@@ -46,7 +74,7 @@ For each topic, offer concrete options based on what the discoverer
 found. Use the convention patterns from the `context-engineering` skill
 to ensure conventions are enforceable.
 
-### 4. Ask About Constraints
+### 5. Ask About Constraints
 
 For each convention, ask whether the user wants it enforced. For each
 that should be enforced:
@@ -77,7 +105,7 @@ Either way, tell the user what happened and allow them to override.
 Read the `secrets-detection` skill from this plugin for full gitleaks
 guidance if the user asks questions about configuration or scanning.
 
-### 5. Ask About Garbage Collection
+### 6. Ask About Garbage Collection
 
 Ask whether the user wants periodic checks for:
 
@@ -88,13 +116,13 @@ Ask whether the user wants periodic checks for:
 
 For each, set frequency and auto-fix preference.
 
-### 6. Generate HARNESS.md
+### 7. Generate HARNESS.md
 
 Read the template from `${CLAUDE_PLUGIN_ROOT}/templates/HARNESS.md`.
 Replace all placeholder values with discovered facts and user responses.
 Write the result to `HARNESS.md` at the project root.
 
-### 7. Generate CI Configuration
+### 8. Generate CI Configuration
 
 If GitHub Actions was detected (or the user confirms it), read the
 template from `${CLAUDE_PLUGIN_ROOT}/templates/ci-github-actions.yml`.
@@ -122,7 +150,7 @@ produced contains any agent-scoped PR constraints. If it does:
 
 If no agent PR constraints exist, skip this offer silently.
 
-### 8. Add README Badge
+### 9. Add README Badge
 
 Add the harness badge to the project's README.md. Use the badge update
 script at `${CLAUDE_PLUGIN_ROOT}/scripts/update-badge.sh` or insert
@@ -132,7 +160,7 @@ manually:
 [![Harness](https://img.shields.io/badge/Harness-0%2FN_enforced-808080?style=flat-square)](HARNESS.md)
 ```
 
-### 9. Commit
+### 10. Commit
 
 Stage and commit all generated files:
 
@@ -142,7 +170,7 @@ Stage and commit all generated files:
 
 Commit message: "Initialize project harness with HARNESS.md"
 
-### 10. Summary
+### 11. Summary
 
 Tell the user:
 
