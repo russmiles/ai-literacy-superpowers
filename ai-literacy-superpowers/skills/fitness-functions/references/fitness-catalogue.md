@@ -267,23 +267,111 @@ The agent compares current metrics against the previous snapshot:
 ```bash
 # Step 1: Get churn data (files changed most in the last 30 days):
 git log --format=format: --name-only --after='30 days ago' | \
-  sort | uniq -c | sort -rn | head -20
+  grep -v '^$' | sort | uniq -c | sort -rn | head -20
 
-# Step 2: Get complexity for those files (JS/TS example):
+# Step 2: Get complexity for those files (per ecosystem):
+
+# Python:
+radon cc -s -a <file>
+
+# Go:
+gocyclo <file>
+
+# JS/TS:
 npx eslint --rule '{"complexity": ["warn", 10]}' <file>
 
 # Step 3: Cross-reference — files appearing in both lists are hotspots.
 ```
 
-**Example output (churn data):**
+**Complete churn x complexity correlation script:**
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Configure for your ecosystem (python|go|js)
+ECOSYSTEM="${1:-python}"
+DAYS=30
+TOP_N=20
+
+echo "=== Churn data (last ${DAYS} days) ==="
+CHURN_FILES=$(git log --format=format: --name-only --after="${DAYS} days ago" | \
+  grep -v '^$' | sort | uniq -c | sort -rn | head -"${TOP_N}")
+echo "${CHURN_FILES}"
+
+echo ""
+echo "=== Complexity for high-churn files ==="
+
+echo "${CHURN_FILES}" | while read -r count filepath; do
+  # Skip files that no longer exist
+  [ -f "${filepath}" ] || continue
+
+  case "${ECOSYSTEM}" in
+    python)
+      echo "--- ${filepath} (${count} commits) ---"
+      radon cc -s -a "${filepath}" 2>/dev/null || echo "  (skipped)"
+      ;;
+    go)
+      echo "--- ${filepath} (${count} commits) ---"
+      gocyclo "${filepath}" 2>/dev/null || echo "  (skipped)"
+      ;;
+    js)
+      echo "--- ${filepath} (${count} commits) ---"
+      npx eslint --no-eslintrc --rule '{"complexity": ["warn", 10]}' \
+        "${filepath}" 2>/dev/null || echo "  (skipped)"
+      ;;
+  esac
+done
+```
+
+**Example output (Python project):**
 
 ```text
-     47 src/api/handler.ts
-     31 src/service/user.ts
-     28 src/core/engine.ts
-      5 src/util/format.ts
-      3 README.md
+=== Churn data (last 30 days) ===
+     47 src/engine/parser.py
+     31 src/api/views.py
+     28 src/engine/transform.py
+      5 src/models/user.py
+      3 src/util/dates.py
+
+=== Complexity for high-churn files ===
+--- src/engine/parser.py (47 commits) ---
+    F 12:0 parse_document - C (14)
+    F 45:0 resolve_refs - D (22)
+    F 89:0 validate_schema - C (11)
+
+3 blocks (classes, functions, methods) analyzed.
+Average complexity: C (15.7)
+
+--- src/api/views.py (31 commits) ---
+    F 8:0 list_items - A (3)
+    F 22:0 create_item - A (5)
+
+2 blocks (classes, functions, methods) analyzed.
+Average complexity: A (4.0)
+
+--- src/engine/transform.py (28 commits) ---
+    F 5:0 apply_rules - B (8)
+    F 30:0 normalize - A (4)
+
+2 blocks (classes, functions, methods) analyzed.
+Average complexity: A (6.0)
 ```
+
+**How to interpret the output:**
+
+Read the output as a two-axis scatter: churn on one axis, complexity
+on the other. Files in the top-right quadrant (high churn AND high
+complexity) are hotspots.
+
+From the example above:
+
+- `parser.py` — 47 commits, average complexity C (15.7), contains a
+  grade D function. This is the hotspot. Every change here is
+  expensive and risky.
+- `views.py` — 31 commits but complexity A (4.0). High churn, low
+  complexity. Not a hotspot; this is healthy active development.
+- `transform.py` — 28 commits, complexity A (6.0). Not a hotspot.
 
 **Interpretation:**
 
@@ -301,13 +389,20 @@ often and are hard to change safely.
 **When actionable vs informational:**
 
 - Informational when hotspot count is stable or decreasing.
-- Actionable when a new file enters the hotspot quadrant or when an
-  existing hotspot's complexity is increasing.
+- Actionable when a file appears as a hotspot across 3+ consecutive
+  weekly snapshots. At that point the complexity is structural, not a
+  transient spike, and warrants a refactoring issue.
+- A single snapshot showing a new hotspot is informational — record it
+  and watch for persistence.
 
 **Prerequisites:**
 
 - Git history (at least 30 days)
-- A complexity measurement tool for the project's language
+- A complexity measurement tool for the project's language:
+  - Python: `radon` (`pip install radon`)
+  - Go: `gocyclo` (`go install github.com/fzipp/gocyclo/cmd/gocyclo@latest`)
+  - JS/TS: `eslint` with complexity rule
+  - Any language: `scc` for file-level approximation
 
 ---
 
