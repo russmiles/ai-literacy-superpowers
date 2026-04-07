@@ -29,3 +29,5 @@ back_to_top_text: Back to top
 
 sass:
   quiet_deps: true
+  load_paths:
+    - _sass
