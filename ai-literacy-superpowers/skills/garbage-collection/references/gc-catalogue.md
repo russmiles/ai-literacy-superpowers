@@ -172,6 +172,46 @@ efferent coupling, instability index) and compare against the previous
 snapshot. The agent interprets whether trends are stable, concerning,
 or critical.
 
+## Learning-Driven GC
+
+Learning-driven GC rules use compound learning artifacts (reflections,
+assessments) as input rather than scanning code or configuration. They
+close the loop between what the team has learned and what the harness
+enforces.
+
+### Reflection-Driven Regression Detection
+
+**What it checks**: Whether REFLECTION_LOG.md contains recurring failure
+patterns (same type of surprise across 2+ entries) that are not yet
+covered by a HARNESS.md constraint.
+
+**Frequency**: weekly
+
+**Auto-fix**: false — proposing new constraints requires human judgement
+about scope, enforcement type, and priority.
+
+**Detection approach**: Read all REFLECTION_LOG.md entries. Group
+`Surprise` fields by theme using semantic similarity (e.g. "lint
+failures", "branch discipline", "permission issues"). For any theme
+appearing in 2+ entries, check whether a HARNESS.md constraint already
+covers it. For uncovered patterns, create a GitHub issue proposing a
+new constraint with the pattern description, evidence (reflection dates
+and quotes), suggested enforcement type, and suggested scope.
+
+**Example HARNESS.md entry**:
+
+```markdown
+### Reflection-driven regression detection
+
+- **What it checks**: Whether REFLECTION_LOG.md contains recurring
+  failure patterns (same type of surprise across 2+ entries) that
+  are not yet covered by a HARNESS.md constraint
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+```
+
 ---
 
 ## The Auto-Fix Safety Rubric

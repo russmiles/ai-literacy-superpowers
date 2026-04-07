@@ -22,6 +22,15 @@
 - Add Learnings section to CLAUDE.md template advising agents to consult
   REFLECTION_LOG.md before starting work
 
+### Regression Suite GC Rule
+
+- Add reflection-driven regression detection GC rule to HARNESS.md
+  template — weekly agent check that mines REFLECTION_LOG.md for
+  recurring failure patterns not yet covered by constraints
+- Add learning-driven GC category to the GC skill and catalogue —
+  a new class of GC rules that use compound learning artifacts
+  (reflections, assessments) as input rather than scanning code
+
 ### Self-Improving Harness (from auto-harness research)
 
 - Add design spec for auto-constraint generation from reflections —

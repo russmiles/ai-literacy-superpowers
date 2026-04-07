@@ -62,6 +62,7 @@ the finding, with file:line references and a suggested fix.
 | Dependency entropy | Known CVEs, major version lag | weekly |
 | Harness entropy | Missing tools, broken hooks | weekly |
 | Architectural fitness | Layer violations, coupling trends, complexity hotspots | weekly |
+| Learning-driven | Reflection regression detection, assessment gap analysis | weekly |
 
 For a full catalogue of GC patterns with HARNESS.md entry examples,
 consult `references/gc-catalogue.md`.
@@ -92,6 +93,32 @@ detect the accumulation on a weekly cadence.
 For the full framework, tool catalogue, and guidance on writing fitness
 function GC rules, consult the dedicated skill at
 `../fitness-functions/SKILL.md`.
+
+## Learning-Driven GC
+
+Most GC rules scan code or configuration for entropy — stale docs,
+dead code, drifting conventions. Learning-driven GC rules take a
+different input: compound learning artifacts such as reflections and
+assessments. Instead of asking "has the code drifted?", they ask
+"has the team learned something that the harness hasn't absorbed yet?"
+
+This category exists because the harness should grow from experience.
+When REFLECTION_LOG.md records the same type of surprise repeatedly,
+that pattern is a missing constraint. A learning-driven GC rule
+detects the gap and proposes the constraint — closing the loop between
+compound learning and harness evolution.
+
+### Reflection-driven regression detection
+
+The primary example of learning-driven GC. This rule reads
+REFLECTION_LOG.md, groups surprises by theme, and flags any theme
+appearing in 2+ entries that is not already covered by a HARNESS.md
+constraint. When an uncovered pattern is found, the GC agent creates
+a GitHub issue proposing a new constraint with evidence (reflection
+dates and quotes), suggested enforcement type, and suggested scope.
+
+See the HARNESS.md template for the rule entry and
+`references/gc-catalogue.md` for the full catalogue entry.
 
 ## Additional Resources
 
