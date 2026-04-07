@@ -18,5 +18,6 @@
      - **Surprise**: [anything unexpected during the pipeline run]
      - **Proposal**: [pattern or gotcha to consider for AGENTS.md, or "none"]
      - **Improvement**: [what would make the pipeline smoother next time]
+     - **Constraint**: [proposed constraint text, or "none"]
 
      -->
