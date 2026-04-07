@@ -11,6 +11,10 @@
   adding new features incrementally
 - Gate each conversational step on feature selection so users only
   answer questions for features they chose
+- Update Getting Started tutorial with feature selection walkthrough,
+  re-run guidance, and per-feature generation notes
+- Update homepage with selective init description
+- Update harness engineering explanation with incremental adoption paragraph
 
 ### Habitat Engineering Documentation
 

@@ -113,6 +113,8 @@ This closes a loop that the original framework leaves open. A static harness get
 
 The auto-harness additions in this plugin extend this further: the harness-init process itself reads existing code to infer constraints that are already present in the codebase but not yet declared. Rather than requiring the team to specify everything from scratch, the agent bootstraps a candidate `HARNESS.md` from observed patterns and asks the developer to confirm, reject, or refine each entry. The human remains the authority, but the initial cost of building the harness is substantially reduced.
 
+Harness-init also supports incremental adoption. Teams choose which features to configure — context engineering, constraints, garbage collection, CI, and observability — and can re-run the command later to add more. Existing configuration is preserved across runs. This means a team can start with just context and constraints, prove the value, and add garbage collection and CI enforcement when they are ready. The harness grows with the team's maturity rather than demanding full commitment upfront.
+
 ---
 
 ## Further Reading
