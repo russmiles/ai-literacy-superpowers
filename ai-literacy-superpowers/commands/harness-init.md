@@ -155,6 +155,19 @@ end of file.
 
 ### 8. Generate CI Configuration
 
+**Gate**: only run this step if "CI configuration" was selected in
+step 3.
+
+**Dependency**: CI configuration requires constraints to exist. If
+"Architectural constraints" was not selected in step 3 and no
+`## Constraints` section exists in HARNESS.md (or it contains only the
+placeholder marker), tell the user: "CI configuration requires at least
+one constraint to enforce. Skipping CI setup — run /harness-init again
+after adding constraints." Then skip to the next step.
+
+If constraints exist (either just configured or from a previous run),
+proceed with the existing CI generation logic:
+
 If GitHub Actions was detected (or the user confirms it), read the
 template from `${CLAUDE_PLUGIN_ROOT}/templates/ci-github-actions.yml`.
 Add deterministic tool steps for each PR-scoped deterministic
@@ -182,6 +195,16 @@ produced contains any agent-scoped PR constraints. If it does:
 If no agent PR constraints exist, skip this offer silently.
 
 ### 9. Add README Badge
+
+**Gate**: only run this step if "Observability" was selected in step 3.
+
+**Dependency**: the badge requires HARNESS.md to exist with at least
+one configured section. If HARNESS.md contains only placeholder markers
+(no real content was generated), tell the user: "No harness features
+configured yet — skipping badge. Run /harness-init to add features
+first." Then skip to the next step.
+
+If HARNESS.md has content, proceed with badge generation as before:
 
 Add the harness badge to the project's README.md. Use the badge update
 script at `${CLAUDE_PLUGIN_ROOT}/scripts/update-badge.sh` or insert
