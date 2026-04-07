@@ -13,33 +13,31 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+      - uses: actions/checkout@v6
 
       - name: Setup Ruby
-        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92  # v1.300.0
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
-          working-directory: docs
 
       - name: Setup Pages
-        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b  # v5.0.0
+        id: pages
+        uses: actions/configure-pages@v6
 
       - name: Build with Jekyll
-        run: |
-          cd docs
-          SASS_PATH="$(bundle show just-the-docs)/_sass" bundle exec jekyll build --destination ../_site
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --source docs
         env:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
+        uses: actions/upload-pages-artifact@v4
 
   deploy:
     environment:
@@ -50,4 +48,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac2b3c603fc  # v4.0.5
+        uses: actions/deploy-pages@v5

@@ -6,7 +6,6 @@ description: >-
 theme: just-the-docs
 
 url: https://russmiles.github.io/ai-literacy-superpowers
-baseurl: /ai-literacy-superpowers
 
 color_scheme: default
 search_enabled: true
@@ -29,5 +28,3 @@ back_to_top_text: Back to top
 
 sass:
   quiet_deps: true
-  load_paths:
-    - _sass
