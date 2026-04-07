@@ -27,6 +27,27 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
    - **Improvement**: [what would make the process better]
    ```
 
+1. **Auto-constraint proposal** — review the Surprise and Improvement
+   fields of the entry you just formatted:
+
+   - If either field describes a preventable failure (e.g. a lint error
+     that slipped through, a wrong branch, a missing check, a tool that
+     should have caught something), offer to draft a constraint.
+   - Propose the constraint to the user with:
+     - **Rule**: one-sentence description of what the constraint enforces
+     - **Enforcement**: `deterministic` or `agent`
+     - **Tool**: the command or tool that checks it (if known)
+     - **Scope**: when it runs (e.g. `commit`, `pr`, `session-end`)
+   - If the user **accepts**, invoke `/harness-constrain` with the
+     proposed rule, enforcement type, tool, and scope. Record the
+     constraint in the reflection entry:
+     `- **Constraint**: [short description] ([enforcement type])`
+   - If the user **declines**, record:
+     `- **Constraint**: none`
+   - If neither field describes a preventable failure, skip this step
+     and record:
+     `- **Constraint**: none`
+
 1. Append the entry to `REFLECTION_LOG.md` (after the last existing
    entry, preserving the `---` separator)
 
