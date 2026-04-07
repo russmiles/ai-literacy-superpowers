@@ -117,6 +117,63 @@ exist, are not executable, or fail a dry-run.
 
 **Auto-fix**: false — broken hooks need investigation.
 
+## Architectural Fitness Functions
+
+Fitness functions are GC rules that measure system-wide architectural
+properties over time. Unlike the categories above which fight entropy in
+individual files, fitness functions detect cumulative architectural
+degradation — the kind that no single change causes but that accumulates
+across weeks and months.
+
+For the full framework and tool details, see the dedicated skill at
+`../../fitness-functions/SKILL.md` and the detailed reference at
+`../../fitness-functions/references/fitness-catalogue.md`.
+
+### Layer Boundary Compliance
+
+**What it checks**: Whether modules respect declared architectural
+boundaries (no imports from forbidden layers).
+
+**Frequency**: weekly
+
+**Auto-fix**: false — boundary violations require restructuring code,
+which has ripple effects and needs human judgement.
+
+**Detection approach**: Run a dependency validation tool (dependency-cruiser,
+ArchUnit, import-linter, go-cleanarch) against declared layer rules.
+Tool exits non-zero on violations.
+
+### Complexity Hotspots
+
+**What it checks**: Whether any files show increasing cognitive
+complexity correlated with high git churn (the hotspot pattern from
+Tornhill's *Your Code as a Crime Scene*).
+
+**Frequency**: weekly
+
+**Auto-fix**: false — hotspot remediation requires refactoring decisions
+about how to split or simplify code.
+
+**Detection approach**: Cross-reference git churn data (files changed
+most in the last 30 days) with complexity metrics. Files appearing in
+both the high-churn and high-complexity sets are hotspots.
+
+### Coupling Trend
+
+**What it checks**: Whether inter-module coupling metrics have increased
+since the last snapshot.
+
+**Frequency**: weekly
+
+**Auto-fix**: false — reducing coupling requires architectural decisions.
+
+**Detection approach**: Generate coupling metrics (afferent coupling,
+efferent coupling, instability index) and compare against the previous
+snapshot. The agent interprets whether trends are stable, concerning,
+or critical.
+
+---
+
 ## The Auto-Fix Safety Rubric
 
 Auto-fix is safe when:

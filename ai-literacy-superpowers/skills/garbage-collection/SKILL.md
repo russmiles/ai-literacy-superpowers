@@ -61,6 +61,7 @@ the finding, with file:line references and a suggested fix.
 | Dead code | Orphaned files, unused exports | weekly |
 | Dependency entropy | Known CVEs, major version lag | weekly |
 | Harness entropy | Missing tools, broken hooks | weekly |
+| Architectural fitness | Layer violations, coupling trends, complexity hotspots | weekly |
 
 For a full catalogue of GC patterns with HARNESS.md entry examples,
 consult `references/gc-catalogue.md`.
@@ -75,6 +76,23 @@ consult `references/gc-catalogue.md`.
 5. Apply the auto-fix rubric: is automated correction safe?
 6. Add the rule to HARNESS.md's Garbage Collection section
 
+## Architectural Fitness Functions
+
+Fitness functions are GC rules that measure architectural properties
+rather than fighting entropy in individual files. Where documentation
+staleness or dead code checks look at the state of specific files,
+fitness functions assess system-wide properties: layer boundaries,
+coupling trends, complexity hotspots.
+
+The concept comes from Ford, Parsons, Kua & Sadalage's *Building
+Evolutionary Architectures*. Architecture degrades through accumulated
+small violations that no single constraint catches. Fitness functions
+detect the accumulation on a weekly cadence.
+
+For the full framework, tool catalogue, and guidance on writing fitness
+function GC rules, consult the dedicated skill at
+`../fitness-functions/SKILL.md`.
+
 ## Additional Resources
 
 ### Reference Files
@@ -82,3 +100,7 @@ consult `references/gc-catalogue.md`.
 - **`references/gc-catalogue.md`** — Complete catalogue of common GC
   patterns with HARNESS.md entry examples, detection approaches, and
   the auto-fix safety rubric
+- **`../fitness-functions/SKILL.md`** — Architectural fitness functions
+  skill with framework, tool catalogue, and GC rule mapping guidance
+- **`../fitness-functions/references/fitness-catalogue.md`** — Concrete
+  HARNESS.md GC rule entries for each fitness function type

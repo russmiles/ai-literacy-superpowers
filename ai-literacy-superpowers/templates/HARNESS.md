@@ -141,6 +141,35 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+<!-- Uncomment fitness function rules relevant to your stack:
+
+### Layer boundary compliance
+
+- **What it checks**: Whether modules respect declared architectural
+  boundaries (no imports from forbidden layers)
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: npx dependency-cruiser --validate .dependency-cruiser.js src/
+- **Auto-fix**: false
+
+### Complexity hotspots
+
+- **What it checks**: Whether any files show increasing cognitive
+  complexity correlated with high git churn
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Coupling trend
+
+- **What it checks**: Whether inter-module coupling metrics have
+  increased since the last snapshot
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+-->
 ---
 
 ## Status
