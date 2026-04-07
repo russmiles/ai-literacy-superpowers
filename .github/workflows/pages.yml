@@ -34,7 +34,7 @@ jobs:
       - name: Build with Jekyll
         run: |
           cd docs
-          bundle exec jekyll build --destination ../_site
+          SASS_PATH="$(bundle show just-the-docs)/_sass" bundle exec jekyll build --destination ../_site
         env:
           JEKYLL_ENV: production
 
