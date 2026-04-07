@@ -21,14 +21,22 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@a4eede1e1b1e9e8ae09498c05ccbee2fdea9b5d5  # v1.234.0
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: docs
+
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b  # v5.0.0
 
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697  # v1.0.13
-        with:
-          source: ./docs
-          destination: ./_site
+        run: |
+          cd docs
+          bundle exec jekyll build --destination ../_site
+        env:
+          JEKYLL_ENV: production
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
