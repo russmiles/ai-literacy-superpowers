@@ -98,45 +98,58 @@ Convention documentation
 The scan surfaces what already exists so the conversation can build on it
 rather than starting from scratch.
 
-### What it asks you
+### Choosing what to configure
 
-`/harness-init` works through a short interview. It covers four topics, one
-at a time.
-
-**Naming conventions.** For example:
+After discovery, the command presents a feature selection menu:
 
 ```text
-How does the team name things? I can see TypeScript in use.
-Common choices:
-  a) camelCase for variables and functions, PascalCase for types
-  b) snake_case throughout
-  c) Something else — describe it
+Which harness features would you like to configure?
+All features are selected by default. Deselect any you want to skip
+for now — you can always add them later by re-running /harness-init.
 
-Your choice (a/b/c):
+  [x] Context engineering     — stack declaration + conventions
+  [x] Architectural constraints — enforcement rules + secret detection
+  [x] Garbage collection      — periodic entropy checks
+  [x] CI configuration        — GitHub Actions workflow + auto-enforcer
+  [x] Observability           — README badge + status section
 ```
+
+For your first time, accepting all defaults is a good choice. If you want
+to start smaller — say, just context and constraints — deselect the others.
+The command only asks questions about the features you selected.
+
+{: .note }
+> **Re-running is additive.** If you run `/harness-init` again later, it
+> detects which features are already configured and defaults them to off.
+> Unconfigured features default to on. Your existing configuration is
+> preserved — you're only adding to it.
+
+### What it asks you
+
+For each selected feature, `/harness-init` works through a short interview.
+
+**Context engineering** covers four convention topics, one at a time:
+
+- **Naming conventions.** How the team names things — casing patterns,
+  prefix/suffix rules. The agent offers concrete options based on what
+  the discoverer found in your code.
+- **File structure.** How files are organised. The agent looks at your
+  directory layout and suggests a description. You confirm or refine it.
+- **Error handling.** How errors are propagated — thrown exceptions,
+  return types, or a Result pattern.
+- **Documentation standards.** Which files require doc comments and what
+  comments should explain.
 
 Answer concretely. The more specific you are, the more useful the HARNESS.md
 will be.
 
-**File structure.** The agent looks at your directory layout and suggests a
-description. You confirm or refine it.
+**Architectural constraints** asks whether each convention should be enforced.
+For conventions where a tool exists (Prettier, ESLint, Jest), it offers to set
+enforcement to `deterministic` and configure it for commit or PR scope. For
+conventions without a tool, it offers agent-based enforcement or leaves the
+constraint as `unverified` — declared but not yet automated.
 
-**Error handling.** How are errors propagated in this codebase? Do you use
-thrown exceptions, return types, or a Result pattern?
-
-**Documentation standards.** Which files require doc comments? What should
-comments explain — the what or the why?
-
-### Constraints
-
-After each convention, the agent asks whether you want it enforced. For
-conventions where a tool exists (Prettier, ESLint, Jest), it offers to set
-enforcement to `deterministic` and configure it for commit or PR scope.
-
-For conventions without a tool, it offers agent-based enforcement or leaves
-the constraint as `unverified` — declared but not yet automated.
-
-**Secret detection** is handled as a special case. The agent checks whether
+Secret detection is handled as a special case. The agent checks whether
 `gitleaks` is installed:
 
 - If gitleaks is found, the "No secrets in source" constraint is set to
@@ -156,10 +169,9 @@ After installing, run /harness-constrain to promote the constraint
 to deterministic.
 ```
 
-### Garbage collection
-
-The agent asks about periodic checks — weekly or monthly sweeps that catch
-drift that neither commit-time hooks nor PR gates see. The defaults are:
+**Garbage collection** asks about periodic checks — weekly or monthly sweeps
+that catch drift that neither commit-time hooks nor PR gates see. The defaults
+are:
 
 - Documentation freshness (weekly, agent)
 - Dependency currency (weekly, agent)
@@ -167,16 +179,27 @@ drift that neither commit-time hooks nor PR gates see. The defaults are:
 
 You can add, remove, or adjust frequency.
 
+**CI configuration** generates a GitHub Actions workflow with deterministic
+constraint steps. If your harness includes agent-based PR constraints, it
+also offers the auto-enforcer action. This step is skipped if you didn't
+select any constraints — there would be nothing to enforce.
+
+**Observability** adds a badge to your README that links to HARNESS.md and
+shows the enforcement ratio. This step is skipped if no harness content
+was generated.
+
 ### What gets generated
 
-After the interview, the agent generates three files:
+After the interview, the agent generates files for the features you selected:
 
-1. `HARNESS.md` at the project root — the source of truth for your harness
-2. `.github/workflows/harness.yml` — CI enforcement for deterministic constraints
-   (if GitHub Actions was detected)
-3. A badge line in `README.md` — linking to HARNESS.md with an enforcement count
+- `HARNESS.md` at the project root — the source of truth for your harness.
+  Sections for features you didn't select are marked as unconfigured.
+- `.github/workflows/harness.yml` — CI enforcement for deterministic
+  constraints (if CI configuration was selected and GitHub Actions detected)
+- A badge line in `README.md` — linking to HARNESS.md with an enforcement
+  count (if observability was selected)
 
-All three are staged and committed with the message:
+All generated files are staged and committed with the message:
 `Initialize project harness with HARNESS.md`
 
 ---
@@ -358,9 +381,16 @@ Use `/harness-constrain` to promote them when you have the tooling in place.
 After completing this tutorial you have:
 
 - A `HARNESS.md` that records your conventions, constraints, and GC schedule
-- CI enforcement for deterministic constraints (if GitHub Actions is in use)
-- A `README.md` badge that links to the harness and shows its enforcement ratio
+  (for the features you selected)
+- CI enforcement for deterministic constraints (if you selected CI
+  configuration and GitHub Actions is in use)
+- A `README.md` badge that links to the harness and shows its enforcement
+  ratio (if you selected observability)
 - A working `/harness-status` command to check health at any time
+
+If you selected all features, your harness is fully configured. If you started
+with a subset, you can run `/harness-init` again at any time to add the
+remaining features — your existing configuration is preserved.
 
 The harness is a living document. It is expected to grow as you add constraints,
 run reflections, and discover patterns worth encoding.

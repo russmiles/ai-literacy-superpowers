@@ -27,9 +27,14 @@ claude plugin add ai-literacy-superpowers --marketplace russmiles
 Then in any project:
 
 ```bash
-/harness-init    # Set up a living harness
+/harness-init    # Set up a living harness (choose which features to configure)
 /harness-status  # Check enforcement health
 ```
+
+`/harness-init` lets you select which features to configure — context
+engineering, constraints, garbage collection, CI, and observability. All
+are selected by default. Re-run at any time to add more; existing
+configuration is preserved.
 
 ## What This Plugin Does
 
