@@ -9,6 +9,8 @@ plugins:
   - jekyll-remote-theme
 
 url: https://russmiles.github.io/ai-literacy-superpowers
+baseurl: /ai-literacy-superpowers
+repository: russmiles/ai-literacy-superpowers
 
 color_scheme: default
 search_enabled: true
