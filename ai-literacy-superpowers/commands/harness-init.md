@@ -127,9 +127,31 @@ For each, set frequency and auto-fix preference.
 
 ### 7. Generate HARNESS.md
 
+**First run** (no HARNESS.md exists):
+
 Read the template from `${CLAUDE_PLUGIN_ROOT}/templates/HARNESS.md`.
-Replace all placeholder values with discovered facts and user responses.
+For each selected feature, replace placeholder values with discovered
+facts and user responses as before. For each unselected feature, replace
+the section body with the placeholder marker:
+
+```
+<!-- Not yet configured. Run /harness-init and select this feature to set up. -->
+```
+
 Write the result to `HARNESS.md` at the project root.
+
+**Re-run** (HARNESS.md exists):
+
+Read the existing `HARNESS.md`. For each selected feature, replace the
+corresponding section (`## Context`, `## Constraints`,
+`## Garbage Collection`, or `## Status`) with freshly generated content
+from user responses. For unselected features, preserve the existing
+section content verbatim — do not modify it.
+
+Section boundaries are defined by the `##` headings in the template:
+`## Context`, `## Constraints`, `## Garbage Collection`, `## Status`.
+Each section runs from its `##` heading to the next `##` heading or
+end of file.
 
 ### 8. Generate CI Configuration
 
