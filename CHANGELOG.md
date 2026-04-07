@@ -2,6 +2,18 @@
 
 ## 2026-04-07
 
+### Self-Improving Harness (from auto-harness research)
+
+- Add design spec for auto-constraint generation from reflections —
+  closes the learning loop by offering to create constraints when
+  reflections describe preventable failures
+- Add design spec for regression suite GC rule — mines
+  REFLECTION_LOG.md for recurring failure patterns and proposes
+  constraints for uncovered themes
+- Add design spec for feeding learnings into agent context —
+  orchestrator, enforcer, and GC agents read recent reflections
+  to avoid repeating past mistakes
+
 ### Complexity Hotspot Detection
 
 - Expand fitness-functions skill with practical hotspot detection
