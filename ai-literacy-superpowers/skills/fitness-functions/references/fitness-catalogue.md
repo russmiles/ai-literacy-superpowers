@@ -51,7 +51,7 @@ lint-imports
 
 **Example output (dependency-cruiser):**
 
-```
+```text
   error no-circular: src/api/handler.ts → src/service/user.ts →
     src/api/handler.ts
 
@@ -113,7 +113,7 @@ go-cleanarch ./...
 
 **Example output:**
 
-```
+```text
   error no-circular: src/auth/token.ts → src/user/profile.ts →
     src/auth/token.ts
 ```
@@ -277,7 +277,7 @@ npx eslint --rule '{"complexity": ["warn", 10]}' <file>
 
 **Example output (churn data):**
 
-```
+```text
      47 src/api/handler.ts
      31 src/service/user.ts
      28 src/core/engine.ts
