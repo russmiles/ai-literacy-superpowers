@@ -2,11 +2,6 @@
 
 ## 2026-04-07
 
-### Documentation Coverage Constraint
-
-- Add CI check requiring docs/ updates when new skills, agents, or
-  commands are added — prevents undocumented features from shipping
-
 ### GitHub Pages Build Fix
 
 - Fix Jekyll build by changing color_scheme from "default" to "light" —
