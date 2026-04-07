@@ -68,7 +68,7 @@ jobs:
           base="origin/${{ github.event.pull_request.base.ref }}"
 
           # Files added or modified in the plugin source
-          new_features=$(git diff --name-only --diff-filter=AM "$base"...HEAD -- \
+          new_features=$(git diff --name-only --diff-filter=AM "$base"..HEAD -- \
             'ai-literacy-superpowers/skills/' \
             'ai-literacy-superpowers/agents/' \
             'ai-literacy-superpowers/commands/')
@@ -83,7 +83,7 @@ jobs:
           echo ""
 
           # Check whether any docs/ file was also touched
-          docs_changed=$(git diff --name-only "$base"...HEAD -- 'docs/')
+          docs_changed=$(git diff --name-only "$base"..HEAD -- 'docs/')
 
           if [ -z "$docs_changed" ]; then
             echo "::error::New skills, agents, or commands were added but no docs/ files were updated. Please document new features."
