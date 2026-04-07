@@ -2,6 +2,16 @@
 
 ## 2026-04-07
 
+### Selective Harness Init
+
+- Enhance /harness-init with feature selection menu — users choose which
+  harness features to configure (context, constraints, GC, CI,
+  observability) with all selected by default
+- Support additive re-runs — existing configuration is preserved when
+  adding new features incrementally
+- Gate each conversational step on feature selection so users only
+  answer questions for features they chose
+
 ### Habitat Engineering Documentation
 
 - Add habitat engineering explanation page covering the intellectual
