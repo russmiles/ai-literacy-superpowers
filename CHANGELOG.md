@@ -4,10 +4,9 @@
 
 ### GitHub Pages Build Fix
 
-- Fix Jekyll build by building from inside docs/ instead of using
-  --source docs — eliminates sass-converter v3 path resolution failure
-- Move Gemfile and Gemfile.lock into docs/ so bundler runs where Jekyll runs
-- Update workflow to use working-directory: docs on Ruby setup and build steps
+- Fix Jekyll build by changing color_scheme from "default" to "light" —
+  just-the-docs v0.12.0 renamed the default color scheme file from
+  default.scss to light.scss, causing "Can't find stylesheet to import"
 
 ### Documentation Site
 
