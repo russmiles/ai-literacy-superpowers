@@ -2,6 +2,17 @@
 
 ## 2026-04-07
 
+### Complexity Hotspot Detection
+
+- Add "Complexity Hotspot Detection in Practice" subsection to the
+  fitness-functions skill with concrete git log churn extraction,
+  per-ecosystem complexity tools, a worked Python example, and the
+  3-snapshot threshold rule for actionability
+- Expand complexity hotspot entry in the fitness catalogue with a
+  complete churn x complexity correlation bash script, annotated
+  example output, interpretation guidance, and ecosystem-specific
+  tool prerequisites
+
 ### Tier 2 Design Proposals
 
 - Add design proposal for complexity hotspot detection — weekly GC rule
