@@ -3,14 +3,10 @@ description: >-
   The AI Literacy framework's complete development workflow — harness
   engineering, agent orchestration, literate programming, CUPID code
   review, compound learning, and the three enforcement loops.
-remote_theme: just-the-docs/just-the-docs
-
-plugins:
-  - jekyll-remote-theme
+theme: just-the-docs
 
 url: https://russmiles.github.io/ai-literacy-superpowers
 baseurl: /ai-literacy-superpowers
-repository: russmiles/ai-literacy-superpowers
 
 color_scheme: default
 search_enabled: true
