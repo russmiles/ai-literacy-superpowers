@@ -26,3 +26,6 @@ nav_sort: case_insensitive
 
 back_to_top: true
 back_to_top_text: Back to top
+
+sass:
+  quiet_deps: true
