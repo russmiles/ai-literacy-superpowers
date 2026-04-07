@@ -22,6 +22,14 @@ git checkout -b <short-descriptive-name>
 Write concise commit messages describing what changed and why.
 No postamble, trailer, or attribution lines.
 
+## CHANGELOG
+
+Before every PR, update `CHANGELOG.md`:
+
+- Add a dated section at the top if today's date is not already present
+- Group entries under a short theme heading
+- One bullet per change: what changed and why it matters
+
 ## Sync from Source
 
 This plugin's reusable components originate from the
