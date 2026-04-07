@@ -228,7 +228,11 @@ Commit message: "Initialize project harness with HARNESS.md"
 
 Tell the user:
 
-- How many constraints were declared and how many are enforced
+- Which features were configured in this run
+- How many constraints were declared and how many are enforced (if
+  constraints were configured)
+- Which features remain unconfigured, framed as next steps:
+  "To add garbage collection later, run /harness-init and select it"
 - What to do next: `/harness-constrain` to add more rules,
   `/harness-status` to check health, `/harness-audit` to verify
   enforcement
