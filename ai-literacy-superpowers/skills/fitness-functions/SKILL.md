@@ -91,6 +91,86 @@ CodeScene approach.
 | File size growth | Files growing beyond a threshold, suggesting they need splitting | wc -l, custom scripts |
 | Churn-complexity correlation | Files with both high git churn and high complexity — the most dangerous hotspots | code-maat, CodeScene, git log + complexity tools |
 
+#### Complexity Hotspot Detection in Practice
+
+The churn-complexity correlation is the highest-value fitness function
+for most projects. Here is the concrete workflow.
+
+**Step 1 — Extract churn data (commits per file, last 30 days):**
+
+```bash
+git log --format=format: --name-only --after='30 days ago' | \
+  grep -v '^$' | sort | uniq -c | sort -rn | head -20
+```
+
+This produces a ranked list: files that changed most frequently appear
+at the top. These are your high-churn files.
+
+**Step 2 — Measure complexity for high-churn files:**
+
+Pick the tool that matches your ecosystem:
+
+| Ecosystem | Command | What it measures |
+| --- | --- | --- |
+| Python | `radon cc -s -a <file>` | Cyclomatic complexity per function |
+| Go | `gocyclo <file>` | Cyclomatic complexity per function |
+| JS/TS | `npx eslint --rule '{"complexity": ["warn", 10]}' <file>` | Functions exceeding threshold |
+| Any | `scc <file>` | Lines, complexity estimate |
+
+**Step 3 — Correlate churn with complexity to find hotspots:**
+
+A file is a hotspot when it appears in both the top 20% by churn AND
+exceeds the complexity threshold for your ecosystem. The combination
+is what matters: high churn alone is fine (active development), high
+complexity alone is tolerable (stable legacy), but high churn plus high
+complexity means every change to that file is expensive and risky.
+
+**Worked example (Python project):**
+
+```bash
+# 1. Get churn data
+$ git log --format=format: --name-only --after='30 days ago' | \
+    grep -v '^$' | sort | uniq -c | sort -rn | head -5
+     42 src/engine/parser.py
+     31 src/api/views.py
+     18 src/engine/transform.py
+      7 src/models/user.py
+      4 src/util/dates.py
+
+# 2. Check complexity for the top-churn files
+$ radon cc -s -a src/engine/parser.py
+    F 12:0 parse_document - C (14)
+    F 45:0 resolve_refs - D (22)
+    F 89:0 validate_schema - C (11)
+
+$ radon cc -s -a src/api/views.py
+    F 8:0 list_items - A (3)
+    F 22:0 create_item - A (5)
+
+# 3. Interpret: parser.py is the hotspot
+#    - 42 commits (highest churn) + grade D function (complexity 22)
+#    - views.py has high churn but low complexity — not a hotspot
+```
+
+In this example, `src/engine/parser.py` is the hotspot: it changes
+frequently and contains functions with high cognitive complexity. The
+`resolve_refs` function at complexity 22 (grade D) is the specific
+target for refactoring.
+
+**The 3-snapshot threshold rule:**
+
+A file is actionable when it appears as a hotspot across 3 or more
+consecutive weekly snapshots. This filters out transient spikes caused
+by a burst of focused work on a file. If a file shows up as a hotspot
+for three weeks running, the complexity is structural and warrants a
+refactoring issue.
+
+| Consecutive snapshots | Action |
+| --- | --- |
+| 1 | Record — may be transient |
+| 2 | Watch — note the trend |
+| 3+ | Act — create a refactoring issue with the trend data |
+
 ### Coverage
 
 Coverage fitness functions verify that testing effort is distributed
