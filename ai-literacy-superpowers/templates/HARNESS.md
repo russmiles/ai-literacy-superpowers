@@ -180,6 +180,16 @@
 - **Enforcement**: agent
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
+
+### Dependency age budget
+
+- **What it checks**: Whether the total dependency age (libyear score)
+  exceeds the project's declared threshold or has increased since the
+  last snapshot
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: npx libyear (or ecosystem equivalent)
+- **Auto-fix**: false
 -->
 ---
 

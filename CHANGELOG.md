@@ -11,6 +11,14 @@
 - Add commented-out spec conformance constraint to HARNESS.md template
   for projects using spec-first development
 
+### Dependency Age Budget (libyear)
+
+- Add dependency age (libyear) section to the dependency-vulnerability-audit
+  skill — covers what libyear measures, commands per ecosystem (npm, Ruby,
+  Python, Go), recommended thresholds, and how to read the output
+- Add dependency age budget GC rule to HARNESS.md template as a commented-out
+  fitness function for weekly deterministic checking
+
 ### Tier 2 Design Proposals
 
 - Add design proposal for complexity hotspot detection — weekly GC rule
