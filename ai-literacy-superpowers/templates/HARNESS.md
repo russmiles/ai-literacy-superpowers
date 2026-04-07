@@ -152,6 +152,16 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Reflection-driven regression detection
+
+- **What it checks**: Whether REFLECTION_LOG.md contains recurring
+  failure patterns (same type of surprise across 2+ entries) that
+  are not yet covered by a HARNESS.md constraint
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
 <!-- Uncomment fitness function rules relevant to your stack:
 
 ### Layer boundary compliance
