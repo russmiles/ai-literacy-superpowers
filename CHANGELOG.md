@@ -2,6 +2,14 @@
 
 ## 2026-04-07
 
+### Habitat Engineering Documentation
+
+- Add habitat engineering explanation page covering the intellectual
+  lineage (Alexander, Gabriel, Knuth, Terhorst-North), the central
+  insight that AI failures are environment problems, habitat vs harness
+  distinction, the six levels of AI literacy, and links to Software
+  Enchiridion articles
+
 ### GitHub Pages Build Fix
 
 - Fix Jekyll build by changing color_scheme from "default" to "light" —
