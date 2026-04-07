@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Tier 2 Design Proposals
+
+- Add design proposal for complexity hotspot detection — weekly GC rule
+  correlating git churn with cognitive complexity to find decay hotspots
+- Add design proposal for dependency age budget (libyear) — aggregate
+  staleness metric complementing CVE scanning
+- Add design proposal for executable spec integration — making specs
+  load-bearing by wiring test suites into the constraint system
+
 ### Tier 1 Feature: Auto-Enforcer GitHub Action
 
 - Add `auto-enforcer-action` skill for setting up automatic PR constraint
