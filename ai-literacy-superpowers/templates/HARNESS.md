@@ -132,6 +132,15 @@
 - **Tool**: gitleaks --version && gitleaks detect --source . --no-banner --exit-code 1
 - **Auto-fix**: false
 
+### Convention file sync
+
+- **What it checks**: Whether .cursor/rules/, .github/copilot-instructions.md,
+  and .windsurf/rules/ exist and reflect the current HARNESS.md conventions
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
 ---
 
 ## Status
