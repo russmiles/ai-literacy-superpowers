@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Documentation Site
+
+- Add GitHub Pages documentation site using Jekyll + just-the-docs theme
+- Organize content using the Diataxis framework (tutorials, how-to,
+  reference, explanation)
+- Full pages: Getting Started tutorial, Set Up Secret Detection how-to,
+  Skills reference catalogue, Harness Engineering explanation
+- Stub pages for 17 additional topics ready for future content
+
 ### Auto-Constraint from Reflections
 
 - Add auto-constraint proposal step to `/reflect` command — after
