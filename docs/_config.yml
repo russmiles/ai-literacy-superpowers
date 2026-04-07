@@ -1,0 +1,27 @@
+title: ai-literacy-superpowers
+description: >-
+  The AI Literacy framework's complete development workflow — harness
+  engineering, agent orchestration, literate programming, CUPID code
+  review, compound learning, and the three enforcement loops.
+remote_theme: just-the-docs/just-the-docs
+
+url: https://russmiles.github.io/ai-literacy-superpowers
+
+color_scheme: default
+search_enabled: true
+
+aux_links:
+  GitHub:
+    - https://github.com/russmiles/ai-literacy-superpowers
+
+aux_links_new_tab: true
+
+footer_content: >-
+  ai-literacy-superpowers is licensed under Apache 2.0.
+  Inspired by Birgitta Boeckeler's
+  <a href="https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html">Harness Engineering</a>.
+
+nav_sort: case_insensitive
+
+back_to_top: true
+back_to_top_text: Back to top
