@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Auto-Constraint from Reflections
+
+- Add auto-constraint proposal step to `/reflect` command — after
+  capturing a reflection, the command now detects preventable failures
+  in the Surprise and Improvement fields and offers to draft a
+  constraint via `/harness-constrain`
+- Add optional Constraint field to REFLECTION_LOG.md template — makes
+  constraint proposals machine-readable for the regression suite GC rule
+
 ### Learnings in Agent Context
 
 - Update orchestrator agent to read the 20 most recent REFLECTION_LOG.md
