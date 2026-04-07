@@ -107,6 +107,60 @@ slots, consult the `verification-slots` skill.
 - **Typical enforcement**: Deterministic (ArchUnit, go-cleanarch) or agent
 - **Typical scope**: pr
 
+### Executable Spec Conformance
+
+A spec describes what should be built; tests verify it was built correctly.
+The executable spec constraint bridges the two: it is a constraint whose
+tool command runs the spec's associated test suite. The spec itself is
+never executed — the tests are the executable verification.
+
+- **Rule**: All code changes covered by a spec must pass the spec's
+  associated test suite before merge
+- **Typical enforcement**: Deterministic (project test runner)
+- **Typical scope**: pr
+
+**HARNESS.md entry example:**
+
+```markdown
+### Spec conformance
+
+- **Rule**: All code changes covered by a spec in `docs/specs/`
+  must pass the spec's associated test suite before merge
+- **Enforcement**: deterministic
+- **Tool**: <project test runner command>
+- **Scope**: pr
+```
+
+**Linking specs to tests (naming convention):**
+
+Spec files map to test directories or files by name. A spec at
+`specs/YYYY-MM-DD-feature-design.md` corresponds to tests at
+`tests/feature/` or `tests/feature_test.go`. The constraint runner
+uses this convention to determine which tests to execute when
+spec-covered code changes.
+
+**The `deterministic + agent` enforcement pattern:**
+
+A single constraint type is not enough. Deterministic tests catch
+"code doesn't work" — functional failures that a test runner can
+detect mechanically. Agent review catches "code works but doesn't
+match what was specified" — intent drift that requires reading the
+spec and judging alignment. Both are needed for full spec conformance:
+
+| Layer | What it catches | Enforcement |
+| --- | --- | --- |
+| Test suite | Functional failures | Deterministic |
+| Agent review | Intent drift from spec | Agent |
+
+**Connection to BDD/Cucumber:**
+
+For teams using BDD, the executable spec pattern is the gold standard.
+Gherkin scenarios ARE the spec AND the test — there is zero drift
+between intent and verification because they are the same artifact.
+For teams not using BDD, the naming convention approach (spec file to
+test directory) is the pragmatic alternative. Either way, the harness
+constraint runs tests, not specs.
+
 ## Additional Resources
 
 ### Reference Files
