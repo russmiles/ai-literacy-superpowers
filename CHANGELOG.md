@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Complexity Hotspot Detection
+
+- Expand fitness-functions skill with practical hotspot detection
+  guide — churn extraction command, per-ecosystem complexity tools,
+  worked Python example, and 3-snapshot threshold rule
+- Expand fitness catalogue with complete bash script for churn x
+  complexity correlation, annotated example output, and ecosystem
+  prerequisites
+
 ### Executable Spec Integration
 
 - Add executable spec constraint pattern to constraint-design skill —
@@ -27,6 +36,13 @@
   staleness metric complementing CVE scanning
 - Add design proposal for executable spec integration — making specs
   load-bearing by wiring test suites into the constraint system
+
+### Workflow and Conventions
+
+- Add CHANGELOG convention to CLAUDE.md — changelog updates required
+  before every PR
+- Broaden Bash permission patterns in `.claude/settings.local.json`
+  for reliable parallel worktree agent execution
 
 ### Tier 1 Feature: Auto-Enforcer GitHub Action
 
@@ -55,6 +71,13 @@
   tool commands per language ecosystem
 - Add fitness functions as sixth category in the GC skill and catalogue
 - Add commented-out fitness function examples to HARNESS.md template
+
+### Compound Learning
+
+- Capture reflections on Tier 1 research and parallel implementation
+- Diagnose worktree agent permission issue — root cause was user
+  permission denials during parallel prompt chaos, not worktree
+  isolation itself
 
 ## 2026-04-06
 
