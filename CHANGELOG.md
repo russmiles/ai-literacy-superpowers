@@ -2,6 +2,12 @@
 
 ## 2026-04-07
 
+### GitHub Pages Build Fix
+
+- Fix Jekyll build by changing color_scheme from "default" to "light" —
+  just-the-docs v0.12.0 renamed the default color scheme file from
+  default.scss to light.scss, causing "Can't find stylesheet to import"
+
 ### Documentation Site
 
 - Add GitHub Pages documentation site using Jekyll + just-the-docs theme
