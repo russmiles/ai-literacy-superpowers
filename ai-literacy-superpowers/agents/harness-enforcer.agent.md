@@ -32,6 +32,15 @@ Given a constraint from HARNESS.md, you either execute a deterministic
 tool or perform an agent-based review — the output format is identical
 in both cases.
 
+## Read recent reflections
+
+Before running agent-based constraint checks, read the 10 most
+recent entries in REFLECTION_LOG.md. If any reflection describes
+a failure that an agent-based check should have caught, pay
+particular attention to that pattern in the current review.
+Past reflections are evidence of where agent review has been
+insufficient — use them to calibrate your scrutiny.
+
 **Your Core Responsibilities:**
 
 1. Read constraints from HARNESS.md
