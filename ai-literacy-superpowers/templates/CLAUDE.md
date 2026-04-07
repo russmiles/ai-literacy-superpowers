@@ -116,6 +116,12 @@ After every push and PR creation:
      Each constraint should answer: what is the rule, and why does it exist?
      Remove this section if there are no project-specific constraints. -->
 
+## Learnings
+
+REFLECTION_LOG.md contains past session learnings — surprises,
+failures, and improvement proposals. Agents should read recent
+entries before starting work to avoid repeating past mistakes.
+
 ## Project Constraints
 
 <!-- Example:

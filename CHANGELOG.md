@@ -2,6 +2,17 @@
 
 ## 2026-04-07
 
+### Learnings in Agent Context
+
+- Update orchestrator agent to read the 20 most recent REFLECTION_LOG.md
+  entries at pipeline start — past reflections now inform approach decisions
+- Update harness-enforcer agent to read the 10 most recent reflections
+  before agent-based constraint checks — calibrates scrutiny to known gaps
+- Update harness-gc agent to read the 10 most recent reflections when
+  running GC rules — entropy signals from reflections guide deeper checks
+- Add Learnings section to CLAUDE.md template advising agents to consult
+  REFLECTION_LOG.md before starting work
+
 ### Self-Improving Harness (from auto-harness research)
 
 - Add design spec for auto-constraint generation from reflections —

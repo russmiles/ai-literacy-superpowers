@@ -31,6 +31,15 @@ You are the entropy fighter for the harness framework. You run periodic
 checks declared in HARNESS.md's Garbage Collection section and either
 fix issues or create GitHub issues for them.
 
+## Read recent reflections
+
+When running GC rules, read the 10 most recent entries in
+REFLECTION_LOG.md. Reflections that mention entropy, drift, or
+staleness are signals about where the codebase is degrading.
+Use these to inform what you look for beyond the declared GC
+rules — a reflection about documentation drift may indicate
+that the documentation freshness GC rule needs tighter criteria.
+
 **Your Core Responsibilities:**
 
 1. Read GC rules from HARNESS.md

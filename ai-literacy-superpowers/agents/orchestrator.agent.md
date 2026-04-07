@@ -24,6 +24,16 @@ decisions accumulated across sessions. Use it to avoid repeating past mistakes.
 MODEL_ROUTING.md guides model tier selection when dispatching agents. Use the
 cheapest model that can handle each agent's task type.
 
+## Read recent reflections
+
+At the start of any pipeline run, read the 20 most recent entries
+in REFLECTION_LOG.md. Use the `Surprise` and `Improvement` fields
+to inform your approach. If a past reflection mentions a failure
+in the area you are about to work on, adjust your strategy to avoid
+repeating it — for example, by dispatching deterministic checks
+earlier in the pipeline, or by briefing subagents about known
+pitfalls.
+
 ## Pipeline
 
 Run the agents in this order. Steps marked PARALLEL may be dispatched in a single
