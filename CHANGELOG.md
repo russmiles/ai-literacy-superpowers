@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-04-08
+## 0.4.0 — 2026-04-08
 
 ### Article Updates
 
@@ -81,7 +81,7 @@
 - Populate hooks reference page (was "Coming Soon" stub) with full
   catalogue of all 8 hooks including design principles
 
-## 2026-04-07
+## 0.3.0 — 2026-04-07
 
 ### Selective Harness Init
 
@@ -238,7 +238,7 @@
   permission denials during parallel prompt chaos, not worktree
   isolation itself
 
-## 2026-04-06
+## 0.2.0 — 2026-04-06
 
 ### Secrets Detection
 
