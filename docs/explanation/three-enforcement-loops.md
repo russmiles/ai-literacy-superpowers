@@ -21,15 +21,17 @@ The inner loop runs while you are working. Its job is to make problems visible e
 
 The inner loop is implemented as Claude Code hooks — lightweight checks that fire on specific tool events during a coding session. The plugin registers two hook events:
 
-**PreToolUse: Constraint gate.** Every time Claude invokes the `Write` or `Edit` tool, a prompt-based hook reads the Constraints section of `HARNESS.md`, identifies any constraints scoped to `commit`, and evaluates whether the file being written or edited would violate them. If violations are found, the hook returns a warning describing each one. It does not block the write. It surfaces the issue so that you — or the AI — can address it before the change goes further.
+**PreToolUse: Edit-time checks.** Every time Claude invokes the `Write` or `Edit` tool, two hooks run in parallel. A prompt-based hook reads the Constraints section of `HARNESS.md`, identifies any constraints scoped to `commit`, and evaluates whether the file being written or edited would violate them. A deterministic command hook runs `markdownlint` on `.md` files, catching formatting issues that the prompt-based check might miss. Both hooks return warnings without blocking the write. They surface issues so that you — or the AI — can address them before the change goes further.
 
-**Stop: End-of-session checks.** When a Claude session ends, five scripts run in sequence:
+**Stop: End-of-session checks.** When a Claude session ends, seven scripts run in sequence:
 
 - **Drift check** — examines the most recent commit for changes to CI workflows, linter configs, hook configs, or dependency manifests. If any of these changed, the harness itself may need updating. The script outputs a nudge to run `/harness-audit`.
 - **Snapshot staleness check** — looks at the most recent health snapshot in `observability/snapshots/`. If the snapshot is older than 30 days, it suggests running `/harness-health` to update the baseline.
 - **Reflection prompt** — counts commits made in the last four hours. If work happened, it nudges you to run `/reflect` so that learnings are captured before they evaporate.
 - **Framework change prompt** — detects modifications to framework-level files and prompts for a review of whether the change was intentional.
 - **Secrets check** — scans for accidentally committed secrets or credentials.
+- **Rotating GC check** — picks one deterministic GC rule per session (rotating by day-of-year) and runs a fast check. This catches entropy between the weekly scheduled CI runs, ensuring that garbage collection is not purely periodic but also opportunistic during active development.
+- **Curation nudge** — compares the number of entries in `REFLECTION_LOG.md` against the curated entries in `AGENTS.md`. If reflections are piling up without promotion, it nudges you to review and curate. This closes the gap in the compound learning lifecycle where reflections are captured but never read.
 
 ### Why advisory, not strict
 

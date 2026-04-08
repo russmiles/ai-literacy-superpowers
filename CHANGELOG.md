@@ -19,6 +19,19 @@
 - Update HARNESS.md status: 6/6 constraints enforced, 2/5 GC active
 - Generate health snapshot with trend comparison
 
+### Documentation Alignment
+
+- Update README badges (6/6 enforced, snapshot link to 2026-04-08),
+  hook count (5→8), hook list, and mechanism map to reflect new hooks
+  and GC execution mechanisms
+- Update three-enforcement-loops explanation page: inner loop now
+  describes 2 PreToolUse hooks and 7 Stop scripts
+- Add "How GC Rules Are Triggered" section to garbage-collection
+  explanation page covering weekly CI, rotating Stop hook, and manual
+  invocation
+- Populate hooks reference page (was "Coming Soon" stub) with full
+  catalogue of all 8 hooks including design principles
+
 ## 2026-04-07
 
 ### Selective Harness Init
