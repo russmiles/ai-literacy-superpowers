@@ -2,7 +2,7 @@
 title: Harness Engineering
 layout: default
 parent: Explanation
-nav_order: 1
+nav_order: 8
 ---
 
 # Harness Engineering

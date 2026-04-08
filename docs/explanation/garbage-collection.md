@@ -2,7 +2,7 @@
 title: Garbage Collection
 layout: default
 parent: Explanation
-nav_order: 5
+nav_order: 12
 ---
 
 # Garbage Collection

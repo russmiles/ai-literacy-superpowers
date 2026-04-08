@@ -2,7 +2,7 @@
 title: The Three Enforcement Loops
 layout: default
 parent: Explanation
-nav_order: 2
+nav_order: 9
 ---
 
 # The Three Enforcement Loops
