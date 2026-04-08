@@ -108,6 +108,8 @@ Format:
 - **Surprise**: [anything unexpected — CI failures, merge conflicts, unusual review cycles]
 - **Proposal**: [pattern or gotcha that should be added to AGENTS.md, or "none"]
 - **Improvement**: [what would make the pipeline smoother next time]
+- **Signal**: [context | instruction | workflow | failure | none]
+- **Constraint**: [proposed constraint text, or "none"]
 ```
 
 Append after the last entry in REFLECTION_LOG.md. Then commit:
