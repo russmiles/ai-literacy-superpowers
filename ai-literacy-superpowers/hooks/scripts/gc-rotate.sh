@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Rotating GC check — runs at session end (Stop hook).
+#
+# Picks one GC rule per session (rotating by day-of-year) and runs
+# a lightweight check. Covers deterministic GC rules only (secret
+# scanner, snapshot staleness, shell syntax, strict mode). Agent-scoped
+# rules need LLM judgement and are not included.
+#
+# This script is advisory only — it never blocks.
+
+set -euo pipefail
+
+PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
+HARNESS_FILE="${PROJECT_DIR}/HARNESS.md"
+
+# If no HARNESS.md exists, nothing to check
+if [ ! -f "$HARNESS_FILE" ]; then
+  exit 0
+fi
+
+# Rotate through rules by day-of-year
+day_of_year=$(date +%j | sed 's/^0*//')
+rule_index=$((day_of_year % 4))
+
+case $rule_index in
+  0)
+    # Secret scanner operational
+    if ! command -v gitleaks &>/dev/null; then
+      printf '{"systemMessage": "GC check (secret scanner): gitleaks is not installed. The No secrets in source constraint cannot run locally. Install with: brew install gitleaks"}'
+      exit 0
+    fi
+    if ! gitleaks detect --source "$PROJECT_DIR" --no-banner --no-git 2>/dev/null; then
+      printf '{"systemMessage": "GC check (secret scanner): gitleaks found potential secrets. Run gitleaks detect --source . --no-banner --no-git for details."}'
+    fi
+    ;;
+  1)
+    # Snapshot staleness
+    snapshot_dir="${PROJECT_DIR}/observability/snapshots"
+    if [ ! -d "$snapshot_dir" ]; then
+      exit 0
+    fi
+    latest=$(find "$snapshot_dir" -maxdepth 1 -name "*-snapshot.md" 2>/dev/null | sort -r | head -1)
+    if [ -z "$latest" ]; then
+      printf '{"systemMessage": "GC check (snapshot staleness): no snapshots found. Run /harness-health to create one."}'
+      exit 0
+    fi
+    filename=$(basename "$latest")
+    snapshot_date="${filename%-snapshot.md}"
+    if date -d "$snapshot_date" >/dev/null 2>&1; then
+      snapshot_epoch=$(date -d "$snapshot_date" +%s)
+    else
+      snapshot_epoch=$(date -j -f "%Y-%m-%d" "$snapshot_date" +%s 2>/dev/null || exit 0)
+    fi
+    current_epoch=$(date +%s)
+    age_days=$(( (current_epoch - snapshot_epoch) / 86400 ))
+    if [ "$age_days" -gt 30 ]; then
+      printf '{"systemMessage": "GC check (snapshot staleness): latest snapshot is %d days old. Run /harness-health to update."}' "$age_days"
+    fi
+    ;;
+  2)
+    # Shell scripts syntax
+    failed_files=""
+    while IFS= read -r f; do
+      if ! bash -n "$f" 2>/dev/null; then
+        failed_files="${failed_files}\n- $f"
+      fi
+    done < <(find "$PROJECT_DIR" -name "*.sh" -not -path "*/.git/*" 2>/dev/null)
+    if [ -n "$failed_files" ]; then
+      printf '{"systemMessage": "GC check (shell syntax): syntax errors found in:%s"}' "$failed_files"
+    fi
+    ;;
+  3)
+    # Shell scripts strict mode
+    missing_files=""
+    while IFS= read -r f; do
+      if ! head -15 "$f" | grep -q "set -euo pipefail"; then
+        missing_files="${missing_files}\n- $f"
+      fi
+    done < <(find "$PROJECT_DIR" -name "*.sh" -not -path "*/.git/*" 2>/dev/null)
+    if [ -n "$missing_files" ]; then
+      printf '{"systemMessage": "GC check (strict mode): missing set -euo pipefail in:%s"}' "$missing_files"
+    fi
+    ;;
+esac
+
+exit 0
