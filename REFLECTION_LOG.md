@@ -68,3 +68,14 @@
 - **Surprise**: Nothing unexpected — the work went smoothly as planned
 - **Proposal**: Future agents should know that the three harness feedback loops (enforcement, observation, garbage collection) are tightly coupled — changing one loop's behaviour or output format can affect the other two. When modifying any single loop, check the interfaces between all three before considering the work complete.
 - **Improvement**: none
+
+---
+
+- **Date**: 2026-04-08
+- **Agent**: claude-opus-4-6 (interactive + haiku/sonnet subagents)
+- **Task**: Integrated Boeckeler's Feedback Flywheel concepts — added signal classification to reflections, vocabulary mapping to docs, and Session Quality metrics to snapshot format (PR #81)
+- **Surprise**: Nothing unexpected — the subagent pipeline executed cleanly across 7 tasks with spec compliance review on each
+- **Proposal**: Future agents should know: (1) reflection template changes must propagate to all consumers — the /reflect command, the integration agent, REFLECTION_LOG.md header comment, and the self-improving-harness docs page all carry copies of the template; (2) the explanation pages cross-reference each other heavily — changes to one concept page (e.g. compound-learning.md) may require updates to self-improving-harness.md, three-enforcement-loops.md, and others that reference the same structures
+- **Improvement**: none
+- **Signal**: workflow
+- **Constraint**: none
