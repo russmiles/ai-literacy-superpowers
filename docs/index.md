@@ -21,7 +21,8 @@ session.
 ## Quick Install
 
 ```bash
-claude plugin add ai-literacy-superpowers --marketplace russmiles
+claude plugin marketplace add russmiles/ai-literacy-superpowers
+claude plugin install ai-literacy-superpowers
 ```
 
 Then in any project:
