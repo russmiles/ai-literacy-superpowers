@@ -39,7 +39,7 @@ should see output similar to:
 ```text
 Installing ai-literacy-superpowers from marketplace Habitat-Thinking...
 Plugin installed: ai-literacy-superpowers
-  18 skills
+  19 skills
   10 agents
   13 commands
 ```
