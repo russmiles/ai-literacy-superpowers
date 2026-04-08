@@ -204,6 +204,20 @@ This boundary is deliberate. The agent is a reporter and fixer, not a decision-m
 
 ---
 
+## How GC Rules Are Triggered
+
+Declaring a GC rule in `HARNESS.md` does not, by itself, cause the rule to run. Rules need an execution mechanism. The plugin provides three:
+
+**Weekly CI workflow.** A scheduled GitHub Actions workflow (`gc.yml`) runs every Monday at 09:00 UTC. It executes all deterministic GC rules -- secret scanner operational, snapshot staleness, shell syntax checks, and strict mode checks. Deterministic rules are well-suited to CI because they require no LLM judgement and produce binary pass/fail results. The workflow can also be triggered manually via `workflow_dispatch`.
+
+**Rotating Stop hook.** A session-end hook picks one deterministic GC rule per session (rotating by day-of-year) and runs it as a lightweight check. This ensures entropy is caught between weekly CI runs during active development. Each check runs in under five seconds and is advisory only -- it warns but does not block. The rotation means that over the course of a working week, all deterministic rules are checked at least once even if CI does not run.
+
+**Manual invocation.** Agent-scoped GC rules (documentation freshness, command-prompt sync, convention file sync, plugin manifest currency, reflection-driven regression detection) require LLM judgement and cannot be automated with a shell script. These run when a user invokes `/harness-gc` or `/harness-health --deep`, which dispatches the GC agent to evaluate each rule.
+
+The combination of scheduled CI, opportunistic session hooks, and on-demand agent runs means that deterministic rules are checked continuously while agent rules are checked periodically. This matches the enforcement model: deterministic checks are cheap and reliable enough to run often, while agent checks are expensive and should be reserved for deliberate review moments.
+
+---
+
 ## Writing Custom GC Rules
 
 The built-in rules cover common entropy types. Every codebase has its own entropy patterns. Writing custom GC rules follows the same pattern as the built-ins.

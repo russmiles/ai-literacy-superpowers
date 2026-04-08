@@ -6,8 +6,8 @@
 [![Skills](https://img.shields.io/badge/Skills-14-2E8B57?style=flat-square)](#skills-14)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
-[![Harness](https://img.shields.io/badge/Harness-5%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
-[![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-06-snapshot.md)
+[![Harness](https://img.shields.io/badge/Harness-6%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
+[![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 [![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
 
@@ -151,15 +151,19 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 
 **MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
 
-### Hooks (5)
+### Hooks (8)
 
-All five hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
+All eight hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
 
-- **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (advisory, does not block)
+- **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (prompt-based, advisory)
+- **PreToolUse markdownlint check** — runs markdownlint on `.md` files being written or edited (deterministic, advisory)
 - **Stop drift check** — detects when CI, linter, or dependency configs change, nudges `/harness-audit`
 - **Stop snapshot staleness check** — detects when the harness snapshot is stale (> 30 days), nudges `/harness-health`
 - **Stop reflection prompt** — detects commits during the session, nudges `/reflect` to capture learnings
 - **Stop framework-change prompt** — detects `framework.md` modifications, nudges `/reflect` + `/sync-repos` + downstream README checks
+- **Stop secrets check** — scans for accidentally committed secrets or credentials using gitleaks
+- **Stop rotating GC check** — runs one deterministic GC rule per session (rotating by day), catching entropy between weekly CI runs
+- **Stop curation nudge** — detects unpromoted reflections in `REFLECTION_LOG.md` and nudges curation into `AGENTS.md`
 
 ---
 
@@ -254,15 +258,22 @@ ADVISORY LOOP (edit time — warn, do not block)
 ├── Hooks
 │   ├── PreToolUse constraint gate     Reads HARNESS.md commit-scoped constraints,
 │   │                                  warns on violations during Write/Edit
+│   ├── PreToolUse markdownlint check  Runs markdownlint on .md files being
+│   │                                   written or edited (deterministic)
 │   ├── Stop drift check               Detects CI/linter/dependency changes at
 │   │                                   session end, nudges /harness-audit
 │   ├── Stop snapshot staleness check  Detects stale harness snapshot (> 30 days),
 │   │                                   nudges /harness-health
 │   ├── Stop reflection prompt          Detects commits during session,
 │   │                                    nudges /reflect to capture learnings
-│   └── Stop framework-change prompt   Detects framework.md modifications,
-│                                        nudges /reflect + /sync-repos +
-│                                        downstream README checks
+│   ├── Stop framework-change prompt   Detects framework.md modifications,
+│   │                                    nudges /reflect + /sync-repos +
+│   │                                    downstream README checks
+│   ├── Stop secrets check             Scans for committed secrets using gitleaks
+│   ├── Stop rotating GC check         Runs one deterministic GC rule per session,
+│   │                                    rotating by day-of-year
+│   └── Stop curation nudge            Detects unpromoted reflections, nudges
+│                                        curation into AGENTS.md
 ├── Context (read by agents at session start)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
@@ -278,6 +289,8 @@ STRICT LOOP (merge time — block until green)
 │
 ├── CI Workflows (generated from templates)
 │   ├── ci-github-actions.yml           PR-scoped constraint enforcement
+│   │                                    (markdownlint, gitleaks, shell checks)
+│   ├── gc.yml                           Weekly GC for deterministic rules
 │   └── ci-mutation-testing.yml         Language-specific mutation testing
 │
 ├── Agent Pipeline
@@ -300,8 +313,11 @@ STRICT LOOP (merge time — block until green)
 INVESTIGATIVE LOOP (scheduled — sweep for entropy)
 │
 ├── Garbage Collection Rules (HARNESS.md)
-│   └── Configurable per project        Documentation freshness, dependency
-│                                        currency, convention drift
+│   ├── Weekly CI workflow (gc.yml)      Deterministic rules: secret scanner,
+│   │                                    snapshot staleness, shell checks
+│   ├── Rotating Stop hook               One deterministic GC rule per session
+│   └── Agent-scoped rules               Documentation freshness, command-prompt
+│                                         sync, plugin manifest currency
 ├── Compound Learning
 │   ├── REFLECTION_LOG.md               Agent reflections (append-only)
 │   └── AGENTS.md                       Human-curated from reflections
