@@ -2,6 +2,12 @@
 
 ## 2026-04-08
 
+### Article Updates
+
+- Update Article 06 (The Learning Loop) with signal classification
+  taxonomy and Feedback Flywheel citation — reflections now classify
+  their signal type to route learnings during curation
+
 ### Model Sovereignty Skill
 
 - Add model-sovereignty skill to the plugin — decision framework for

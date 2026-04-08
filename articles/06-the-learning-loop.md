@@ -52,6 +52,15 @@ Right now, all of that evaporates. Session ends. Corrections disappear. Edge cas
 - **What should future sessions know?** A gotcha, a "don't do it this way because..." warning.
 - **What could improve?** A missing convention, a constraint that's too loose, a gap in context.
 
+There's one more piece: **what kind of signal is this?** Each reflection classifies itself as one of four types -- a taxonomy borrowed from Birgitta Boeckeler's [Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html):
+
+- **Context** -- a gap in the priming document. A missing convention, an outdated version, incomplete domain knowledge.
+- **Instruction** -- a prompt or command that produced notably better or worse results.
+- **Workflow** -- a process pattern that reliably succeeded or failed.
+- **Failure** -- a preventable error. A check that should have run, a tool that was misconfigured.
+
+The classification takes five seconds and answers the question curation always asks: *where should this go?* Context signals route to your conventions file. Instruction signals improve your prompts. Workflow signals become team playbook entries. Failure signals become constraints. The signal type is the routing label that turns raw ore into something a curator can act on without re-reading every entry.
+
 Two minutes at the end of a session. Maybe less.
 
 > **The Sceptic:** "So you're asking me to write a diary entry after every coding session. I became a developer to avoid paperwork."
