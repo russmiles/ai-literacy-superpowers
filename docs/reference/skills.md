@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 18 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 19 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -88,6 +88,10 @@ Syncing conventions to Cursor, Copilot, and Windsurf. Covers translating HARNESS
 ### cross-repo-orchestration
 
 Coordinating changes across repos. Covers patterns for planning, sequencing, and verifying a change that touches more than one repository without breaking consumers.
+
+### model-sovereignty
+
+Model selection, hosting, and vendor independence. Covers the decision hierarchy (prompting → RAG → fine-tuning → distillation → local hosting), data classification for routing, cost break-even analysis, and maintenance awareness for custom models.
 
 ---
 

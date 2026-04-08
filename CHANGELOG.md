@@ -2,6 +2,13 @@
 
 ## 2026-04-08
 
+### Model Sovereignty Skill
+
+- Add model-sovereignty skill to the plugin — decision framework for
+  model selection, hosting, fine-tuning, and vendor independence with
+  three reference files (decision framework, hosting options, technique
+  comparison)
+
 ### README Component Counts
 
 - Update skills badge and section from 14 to 18 — add secrets-detection,

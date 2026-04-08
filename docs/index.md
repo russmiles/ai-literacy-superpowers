@@ -46,8 +46,8 @@ stays trustworthy at scale.
 
 It gives you:
 
-- **18 skills** — domain knowledge for security auditing, constraint
-  design, context engineering, fitness functions, and more
+- **19 skills** — domain knowledge for security auditing, constraint
+  design, context engineering, fitness functions, model sovereignty, and more
 - **10 agents** — autonomous workers for orchestration, enforcement,
   garbage collection, code review, and TDD
 - **13 commands** — slash commands for harness lifecycle, assessment,
