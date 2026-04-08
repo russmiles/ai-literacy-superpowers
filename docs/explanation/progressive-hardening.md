@@ -2,7 +2,7 @@
 title: Progressive Hardening
 layout: default
 parent: Explanation
-nav_order: 3
+nav_order: 10
 ---
 
 # Progressive Hardening
