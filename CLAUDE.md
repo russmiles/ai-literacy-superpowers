@@ -30,6 +30,26 @@ Before every PR, update `CHANGELOG.md`:
 - Group entries under a short theme heading
 - One bullet per change: what changed and why it matters
 
+## Semantic Versioning
+
+The plugin follows [semver](https://semver.org/) while pre-1.0:
+
+- **0.MINOR.0** — new skills, agents, commands, or behavioural changes
+- **0.x.PATCH** — bug fixes, doc-only changes, count corrections
+
+Before every PR, check whether the change warrants a version bump:
+
+1. Read the current version from `ai-literacy-superpowers/.claude-plugin/plugin.json`
+2. If the change adds or removes a skill, agent, or command, or changes
+   plugin behaviour, bump the minor version (e.g. 0.4.0 → 0.5.0)
+3. If the change is a fix or doc update only, bump the patch version
+   (e.g. 0.4.0 → 0.4.1)
+4. If the change is trivial (typo, whitespace, internal spec/plan), no bump needed
+5. When bumping, update all three locations:
+   - `ai-literacy-superpowers/.claude-plugin/plugin.json` (`"version"` field)
+   - `README.md` (Plugin version badge)
+   - `CHANGELOG.md` (version header on the current date section)
+
 ## Sync from Source
 
 This plugin's reusable components originate from the
