@@ -2,6 +2,12 @@
 
 ## 2026-04-08
 
+### Organisation Transfer
+
+- Update all references from russmiles to Habitat-Thinking after
+  GitHub repo transfer — README badges, docs site config, install
+  commands, and getting-started tutorial
+
 ### Documentation Fixes
 
 - Fix docs homepage Quick Install section to use the correct two-step
