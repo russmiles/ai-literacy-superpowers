@@ -29,7 +29,7 @@ if anything is missing and what to do about it.
 From any terminal:
 
 ```bash
-claude plugin marketplace add russmiles/ai-literacy-superpowers
+claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
 claude plugin install ai-literacy-superpowers
 ```
 
@@ -37,7 +37,7 @@ Claude Code downloads the plugin from the marketplace and registers it. You
 should see output similar to:
 
 ```text
-Installing ai-literacy-superpowers from marketplace russmiles...
+Installing ai-literacy-superpowers from marketplace Habitat-Thinking...
 Plugin installed: ai-literacy-superpowers
   18 skills
   10 agents
