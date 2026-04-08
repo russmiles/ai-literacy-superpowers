@@ -1,0 +1,103 @@
+# Garbage collection — weekly entropy-fighting checks.
+#
+# Runs the deterministic GC rules from HARNESS.md on a schedule.
+# Agent-scoped GC rules (documentation freshness, command-prompt sync,
+# plugin manifest currency) are not run here — they require LLM
+# judgement and are triggered via /harness-health --deep or the
+# harness-gc agent.
+#
+# This workflow covers the deterministic subset:
+#   - Secret scanner operational
+#   - Snapshot staleness
+#
+# Findings are reported as workflow annotations. Non-zero exit
+# fails the workflow so the badge turns red.
+
+name: Garbage Collection
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"  # Every Monday at 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gc:
+    name: Run GC rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: Check HARNESS.md exists
+        run: |
+          if [ ! -f HARNESS.md ]; then
+            echo "::warning::No HARNESS.md found — skipping GC"
+            exit 0
+          fi
+
+      - name: "GC: Secret scanner operational"
+        run: |
+          # Verify gitleaks is available and the constraint is still deterministic
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz | tar xz
+          ./gitleaks --version
+          ./gitleaks detect --source . --no-banner --exit-code 1
+          echo "Secret scanner is operational and scan is clean"
+
+      - name: "GC: Snapshot staleness"
+        run: |
+          if [ ! -d observability/snapshots ]; then
+            echo "::error::No observability/snapshots directory found"
+            exit 1
+          fi
+
+          latest=$(find observability/snapshots -maxdepth 1 -name "*-snapshot.md" | sort -r | head -1)
+
+          if [ -z "$latest" ]; then
+            echo "::error::No snapshots found — run /harness-health to create one"
+            exit 1
+          fi
+
+          filename=$(basename "$latest")
+          snapshot_date="${filename%-snapshot.md}"
+
+          # Calculate age in days using GNU date
+          snapshot_epoch=$(date -d "$snapshot_date" +%s)
+          current_epoch=$(date +%s)
+          age_days=$(( (current_epoch - snapshot_epoch) / 86400 ))
+
+          echo "Latest snapshot: $snapshot_date ($age_days days old)"
+
+          if [ "$age_days" -gt 30 ]; then
+            echo "::error::Snapshot is $age_days days old (threshold: 30 days) — run /harness-health"
+            exit 1
+          fi
+
+          echo "Snapshot is within 30-day freshness window"
+
+      - name: "GC: Shell scripts pass syntax check"
+        run: |
+          failed=0
+          while IFS= read -r f; do
+            if ! bash -n "$f"; then
+              echo "::error file=$f::Syntax error in $f"
+              failed=1
+            fi
+          done < <(find . -name "*.sh" -not -path "./.git/*")
+          exit $failed
+
+      - name: "GC: Shell scripts use strict mode"
+        run: |
+          failed=0
+          while IFS= read -r f; do
+            if ! head -15 "$f" | grep -q "set -euo pipefail"; then
+              echo "::error file=$f::Missing set -euo pipefail in first 15 lines: $f"
+              failed=1
+            fi
+          done < <(find . -name "*.sh" -not -path "./.git/*")
+          exit $failed
+
+      - name: Summary
+        if: always()
+        run: echo "GC run complete. See HARNESS.md for rule details."

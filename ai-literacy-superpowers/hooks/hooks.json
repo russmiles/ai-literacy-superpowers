@@ -1,5 +1,5 @@
 {
-  "description": "Harness engineering hooks: constraint gate (PreToolUse) warns on violations; drift check, snapshot staleness, reflection prompt, and framework-change prompt (Stop) nudge the right actions at session end",
+  "description": "Harness engineering hooks: constraint gate (PreToolUse) warns on violations; drift check, snapshot staleness, reflection prompt, framework-change prompt, rotating GC check, and curation nudge (Stop) close all three feedback loops at session end",
   "hooks": {
     "PreToolUse": [
       {
@@ -9,6 +9,11 @@
             "type": "prompt",
             "prompt": "Check if HARNESS.md exists in the project root. If it does, read the Constraints section and identify any constraints with scope 'commit'. For each commit-scoped constraint, evaluate whether the file being written or edited would violate it. If violations are found, return a warning describing each violation with the constraint name. Do not block — only warn. If no HARNESS.md exists or no commit-scoped constraints apply, return nothing.",
             "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/markdownlint-check.sh",
+            "timeout": 15
           }
         ]
       }
@@ -41,6 +46,16 @@
             "type": "command",
             "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/secrets-check.sh",
             "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/gc-rotate.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/curation-nudge.sh",
+            "timeout": 10
           }
         ]
       }

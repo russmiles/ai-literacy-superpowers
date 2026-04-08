@@ -167,7 +167,7 @@
 
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
-Last audit: 2026-04-06
-Constraints enforced: 5/6
-Garbage collection active: 0/5
-Drift detected: not yet audited
+Last audit: 2026-04-08
+Constraints enforced: 6/6
+Garbage collection active: 2/5
+Drift detected: none (markdownlint added to CI, closing the gap)

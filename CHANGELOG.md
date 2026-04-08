@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-04-08
+
+### Three-Loop Improvements
+
+- Add markdownlint to CI workflow — closes gap between declared and
+  enforced constraints, bringing inner loop enforcement to 100%
+- Create AGENTS.md with initial curated entries from REFLECTION_LOG —
+  unblocks the compound learning promotion lifecycle
+- Add weekly GC GitHub Action running deterministic GC rules (secret
+  scanner operational, snapshot staleness, shell syntax, strict mode)
+- Add rotating GC Stop hook that checks one rule per session by
+  day-of-year rotation — catches entropy between weekly CI runs
+- Add curation nudge Stop hook that detects unpromoted reflections
+  and nudges curation into AGENTS.md
+- Add markdownlint PreToolUse command hook for deterministic .md file
+  checking alongside the existing prompt-based constraint evaluation
+- Update HARNESS.md status: 6/6 constraints enforced, 2/5 GC active
+- Generate health snapshot with trend comparison
+
 ## 2026-04-07
 
 ### Selective Harness Init
