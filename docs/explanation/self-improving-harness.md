@@ -19,7 +19,7 @@ A reflection is a structured note captured after a piece of work. It records wha
 
 ### What Gets Captured
 
-Each reflection entry contains six fields:
+Each reflection entry contains seven fields:
 
 ```text
 ---
@@ -30,6 +30,7 @@ Each reflection entry contains six fields:
 - **Surprise**: [anything unexpected during the work]
 - **Proposal**: [pattern or gotcha to consider for AGENTS.md, or "none"]
 - **Improvement**: [what would make the process smoother next time]
+- **Signal**: [context | instruction | workflow | failure | none]
 - **Constraint**: [proposed constraint text, or "none"]
 ```
 
@@ -38,6 +39,8 @@ The **Surprise** field is the most important. Surprises are signals. An edge cas
 The **Proposal** field captures a candidate for promotion to `AGENTS.md` -- a gotcha, a style note, an architectural decision that emerged during the work. The **Improvement** field captures process-level observations: a check that should have run earlier, a context document that was missing information, a tool configuration that needs updating.
 
 The **Constraint** field is populated by the auto-constraint proposal step, described below. If the reflection describes a preventable failure -- a lint error that slipped through, a wrong branch, a missing check -- the `/reflect` command drafts a constraint and offers it to the user for acceptance.
+
+The **Signal** field classifies what kind of learning the reflection represents, using the taxonomy from Birgitta Boeckeler's [Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html). A `context` signal means the priming document was missing something -- a convention, a version, a domain detail. An `instruction` signal means a prompt or command produced notably better or worse results. A `workflow` signal means a process pattern succeeded or failed in a way worth recording. A `failure` signal means the error was preventable -- a check that should have run, a tool that was misconfigured. The classification guides where the learning should route during curation: context signals route to HARNESS.md, instruction signals to skills or commands, workflow signals to AGENTS.md, and failure signals to constraints.
 
 ### When Reflections Are Captured
 
@@ -49,10 +52,11 @@ The command follows a structured process:
 
 1. Gather context -- what was worked on, what was surprising, what should future agents know.
 2. Format the entry using the standard template.
-3. Run the auto-constraint proposal step: review the Surprise and Improvement fields for preventable failures. If one is found, draft a constraint with a rule, enforcement type, tool, and scope.
-4. If the user accepts the proposed constraint, invoke `/harness-constrain` to add it to `HARNESS.md` immediately. Record the constraint in the reflection entry.
-5. Append the entry to `REFLECTION_LOG.md`.
-6. Commit the updated log.
+3. Classify the signal type: review the Surprise and Improvement fields and propose a signal type (`context`, `instruction`, `workflow`, `failure`, or `none`) with a one-sentence rationale. The user confirms or overrides.
+4. Run the auto-constraint proposal step: review the Surprise and Improvement fields for preventable failures. If one is found, draft a constraint with a rule, enforcement type, tool, and scope. A `failure` signal from step 3 feeds directly into this step.
+5. If the user accepts the proposed constraint, invoke `/harness-constrain` to add it to `HARNESS.md` immediately. Record the constraint in the reflection entry.
+6. Append the entry to `REFLECTION_LOG.md`.
+7. Commit the updated log.
 
 The constraint proposal step is what makes `/reflect` more than a journal. It is the mechanism that converts operational experience into enforcement infrastructure, with the human deciding which proposals deserve promotion.
 
@@ -250,3 +254,4 @@ The incremental adoption model also means the feedback loop starts turning soone
 - [The Three Enforcement Loops]({% link explanation/three-enforcement-loops.md %}) -- inner, middle, and outer loops operating at different timescales
 - [Garbage Collection]({% link explanation/garbage-collection.md %}) -- fighting entropy with periodic checks and scheduled agents
 - [Habitat Engineering]({% link explanation/habitat-engineering.md %}) -- the broader environment that contains and shapes the harness
+- [The Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html) -- Birgitta Boeckeler's framework for converting session-level learning into shared infrastructure through four signal types and four cadences

@@ -25,7 +25,25 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
    - **Surprise**: [what was unexpected]
    - **Proposal**: [what to add to AGENTS.md, or "none"]
    - **Improvement**: [what would make the process better]
+   - **Signal**: [context | instruction | workflow | failure | none]
+   - **Constraint**: [proposed constraint, or "none"]
    ```
+
+1. **Signal classification** — review the Surprise and Improvement
+   fields and classify the signal type:
+
+   | Signal | When to use | Routes to |
+   | --- | --- | --- |
+   | `context` | Gap in priming — missing convention, outdated stack info, incomplete domain knowledge | HARNESS.md Context section |
+   | `instruction` | A prompt or command produced notably better or worse results | Skills or shared commands |
+   | `workflow` | A sequence or process pattern reliably succeeded or failed | AGENTS.md (STYLE, ARCH_DECISIONS) |
+   | `failure` | A preventable error — missing check, wrong tool config, boundary condition | Constraints via `/harness-constrain` |
+   | `none` | No classifiable signal — routine work, nothing novel | No routing needed |
+
+   - Propose the signal type to the user with a one-sentence rationale
+   - The user confirms or overrides the classification
+   - If the signal is `failure`, this feeds directly into the
+     auto-constraint step that follows
 
 1. **Auto-constraint proposal** — review the Surprise and Improvement
    fields of the entry you just formatted:

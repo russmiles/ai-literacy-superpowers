@@ -16,7 +16,7 @@ No agents dispatched. Reads existing data sources directly:
 
 - HARNESS.md Status section → enforcement ratio, drift status
 - HARNESS.md constraint and GC rule definitions → type breakdowns
-- REFLECTION_LOG.md → entry count, latest date
+- REFLECTION_LOG.md → entry count, latest date, Signal field values
 - AGENTS.md → gotcha and arch decision counts
 - `assessments/` directory → latest assessment date
 - MODEL_ROUTING.md → existence and content
@@ -91,8 +91,8 @@ Write the snapshot to `observability/snapshots/YYYY-MM-DD-snapshot.md`
 using the format defined in `references/snapshot-format.md`.
 
 Include all sections: Enforcement, Garbage Collection, Mutation Testing,
-Compound Learning, Operational Cadence, Cost Indicators, Meta, and
-Trends (if previous snapshot exists).
+Compound Learning, Session Quality, Operational Cadence, Cost Indicators,
+Meta, and Trends (if previous snapshot exists).
 
 ### 7. Update README
 
@@ -113,6 +113,7 @@ Since last snapshot (YYYY-MM-DD):
   Constraints: N/M → N/M (unchanged/changed)
   Mutation (Go): N% → N% (±N%)
   Reflections: N → N (+N)
+  Reflections with signal: P% → P% (±N%)
   Cadence: on schedule / overdue
   Health: Healthy / Attention / Degraded
 ```

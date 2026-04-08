@@ -18,6 +18,18 @@
      - **Surprise**: [anything unexpected during the pipeline run]
      - **Proposal**: [pattern or gotcha to consider for AGENTS.md, or "none"]
      - **Improvement**: [what would make the pipeline smoother next time]
+     - **Signal**: [context | instruction | workflow | failure | none]
+     - **Constraint**: [proposed constraint, or "none"]
+
+     Signal types classify where the learning should route:
+       context     → HARNESS.md Context section (priming gaps)
+       instruction → Skills or shared commands (prompt improvements)
+       workflow    → AGENTS.md (process patterns)
+       failure     → Constraints via /harness-constrain (preventable errors)
+       none        → No routing needed (routine work)
+
+     Entries written before 2026-04-08 predate the Signal field.
+     Treat missing Signal fields as "none" when computing metrics.
 
      -->
 

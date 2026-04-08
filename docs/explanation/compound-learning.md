@@ -128,6 +128,29 @@ For a detailed breakdown of the three loops, see [The Three Enforcement Loops]({
 
 ---
 
+## Relationship to the Feedback Flywheel
+
+Birgitta Boeckeler's [Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html) describes the same compound improvement mechanism using different vocabulary. The article is part of her [series on reducing friction with AI](https://martinfowler.com/articles/reduce-friction-ai/) on martinfowler.com — the same body of work that introduced harness engineering.
+
+The mapping between the article's terms and this plugin's implementation:
+
+| Feedback Flywheel term | Plugin equivalent |
+| --- | --- |
+| Feedback flywheel | The three-loop system (inner / middle / outer) |
+| Priming document | HARNESS.md Context section + CLAUDE.md |
+| Shared commands | Skills and slash commands |
+| Team playbooks | AGENTS.md (STYLE, GOTCHAS, ARCH_DECISIONS) |
+| Guardrails | Constraints + enforcement loops |
+| Learning log | REFLECTION_LOG.md |
+| Four signals (context, instruction, workflow, failure) | The `Signal` field on reflections |
+| Four cadences (session, daily, retro, quarterly) | Stop hooks (session), snapshots (monthly), audit/assess (quarterly) |
+
+The article's core insight — that every AI interaction generates exploitable signal, and that teams plateau when they lack mechanisms to convert individual learning into collective practice — is exactly what the three-loop system implements. The signal classification on reflections (the `Signal` field) adopts the article's four-signal taxonomy directly, giving each reflection an explicit routing destination during curation.
+
+Where the article describes four cadences, this plugin automates the session-level cadence through Stop hooks and provides commands for the periodic cadences. The daily and sprint-level cadences are team process rather than plugin infrastructure — they require a conversation at standup, not a tool invocation.
+
+---
+
 ### FAQ
 
 **Isn't this just writing documentation?**
@@ -173,3 +196,4 @@ One convention. One fewer correction tomorrow. Then another. The flywheel does n
 - [The Three Enforcement Loops]({% link explanation/three-enforcement-loops.md %}) — the edit-time, merge-time, and periodic loops in detail
 - [Progressive Hardening]({% link explanation/progressive-hardening.md %}) — how constraints mature from declared to deterministic
 - [Garbage Collection]({% link explanation/garbage-collection.md %}) — fighting entropy with periodic checks
+- [The Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html) — Birgitta Boeckeler's framework for converting session-level learning into shared infrastructure, part of her series on [reducing friction with AI](https://martinfowler.com/articles/reduce-friction-ai/)
