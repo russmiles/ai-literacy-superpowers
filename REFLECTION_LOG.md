@@ -47,3 +47,12 @@
 - **Surprise**: Worktree-isolated subagents consistently failed on Bash permissions — the isolation mechanism did not carry tool permissions through to the child agent. Non-worktree background agents worked but cross-contaminated branches (convention-sync commits landed on the fitness-functions branch), requiring manual cherry-picking to untangle. The worktree permission issue is a platform-level problem worth investigating — worktrees are the intended isolation mechanism for parallel agents, but if they can't run git commands, they're useless for implementation work.
 - **Proposal**: Future agents should know: (1) worktree isolation for subagents is currently unreliable for implementation tasks that need Bash/git — use regular background agents on separate branches instead, but expect branch cross-contamination when multiple agents share the same repo; (2) when dispatching parallel implementation agents without worktrees, each agent should be given explicit instructions to verify it's on the correct branch before committing, and the orchestrator should plan for cherry-pick cleanup; (3) the three Tier 1 features (auto-enforcer, convention-sync, fitness-functions) each modify `templates/HARNESS.md` — merging them in sequence will cause conflicts on the later PRs, so always rebase the last one after merging the first two.
 - **Improvement**: Investigate why worktree-isolated agents lose Bash permissions. This may be a Claude Code plugin permission scoping issue — the `.claude/settings.local.json` allow-list may not propagate to worktree paths. If fixable, worktrees would be the clean solution for parallel implementation. If not, the dispatching-parallel-agents skill should document the "branch cross-contamination" risk and recommend the cherry-pick cleanup pattern as standard practice.
+
+---
+
+- **Date**: 2026-04-08
+- **Agent**: claude-opus-4-6 (interactive)
+- **Task**: Closed gaps in all three harness feedback loops and updated docs to reflect the improvements (PRs #76–#77)
+- **Surprise**: Nothing unexpected — the work went smoothly as planned
+- **Proposal**: Future agents should know that the three harness feedback loops (enforcement, observation, garbage collection) are tightly coupled — changing one loop's behaviour or output format can affect the other two. When modifying any single loop, check the interfaces between all three before considering the work complete.
+- **Improvement**: none
