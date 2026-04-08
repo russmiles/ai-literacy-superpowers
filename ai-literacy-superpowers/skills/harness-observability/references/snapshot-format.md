@@ -93,6 +93,24 @@ guessing.
 | AGENTS.md entries | Count `GOTCHA:` and `ARCH_DECISION:` lines |
 | Promotions | New AGENTS.md entries since previous snapshot date |
 
+### Session Quality
+
+```text
+## Session Quality
+
+- Reflections with signal: N/M (P%)
+- Signal distribution: context: X | instruction: Y | workflow: Z | failure: W
+- Quality trend: improving/stable/declining (vs previous snapshot)
+```
+
+**Source:** REFLECTION_LOG.md Signal fields.
+
+| Field | How to compute |
+|-------|---------------|
+| Reflections with signal | Count reflections where Signal field exists and is not "none", divided by total reflections. Entries predating the Signal field (before 2026-04-08) count as "none". |
+| Signal distribution | Count of each signal type across all reflections (cumulative, not just since last snapshot) |
+| Quality trend | Compare "reflections with signal" percentage to previous snapshot. stable = ±2%, improving = >+2%, declining = <-2% |
+
 ### Operational Cadence
 
 ```text
@@ -150,6 +168,7 @@ and thresholds.
 | Mutation (Python) | N% | N% | ±N% |
 | Reflections | N | N | ±N |
 | Promotions | N | N | ±N |
+| Reflections with signal | P% (N/M) | P% (N/M) | ±N% |
 | GC findings | N | N | ±N |
 | Cadence status | status | status | changed/unchanged |
 ```
