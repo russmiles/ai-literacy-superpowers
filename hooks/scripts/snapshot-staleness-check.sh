@@ -18,7 +18,7 @@ if [ ! -d "$SNAPSHOT_DIR" ]; then
 fi
 
 # Find the most recent snapshot by filename
-latest=$(ls -1 "$SNAPSHOT_DIR"/*-snapshot.md 2>/dev/null | sort -r | head -1)
+latest=$(find "$SNAPSHOT_DIR" -maxdepth 1 -name '*-snapshot.md' 2>/dev/null | sort -r | head -1)
 
 if [ -z "$latest" ]; then
   # Directory exists but no snapshots yet — nudge first snapshot
