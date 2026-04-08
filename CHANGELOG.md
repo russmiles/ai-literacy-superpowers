@@ -2,6 +2,13 @@
 
 ## 2026-04-07
 
+### Garbage Collection Deep Dive
+
+- Complete the garbage collection explanation page — replace Coming Soon
+  stub with full deep dive covering GC rule anatomy, all built-in rules,
+  cadence matching, the GC agent's operation and trust boundary, writing
+  custom rules, GC vs constraints distinction, and reporting/remediation
+
 ### Selective Harness Init
 
 - Enhance /harness-init with feature selection menu — users choose which
