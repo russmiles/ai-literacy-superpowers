@@ -2,6 +2,15 @@
 
 ## 2026-04-07
 
+### Fitness Functions Deep Dive
+
+- Complete the fitness functions explanation page -- replace Coming Soon
+  stub with full deep dive covering what fitness functions are, the four
+  categories (structural, coupling, complexity/hotspots, coverage/quality),
+  how they differ from constraints and GC rules, implementation and CI
+  integration, interpreting trend data, complexity hotspot detection,
+  and dependency age budgets (libyear)
+
 ### Selective Harness Init
 
 - Enhance /harness-init with feature selection menu — users choose which
