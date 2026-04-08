@@ -2,6 +2,13 @@
 
 ## 2026-04-07
 
+### Progressive Hardening Documentation
+
+- Complete the Progressive Hardening explanation page with full deep-dive
+  content covering the three maturity levels, verification slots, the
+  promotion process, when not to promote, constraint design principles,
+  and the HARNESS.md format
+
 ### Selective Harness Init
 
 - Enhance /harness-init with feature selection menu — users choose which
