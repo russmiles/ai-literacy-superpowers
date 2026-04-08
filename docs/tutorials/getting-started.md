@@ -29,7 +29,8 @@ if anything is missing and what to do about it.
 From any terminal:
 
 ```bash
-claude plugin add ai-literacy-superpowers --marketplace russmiles
+claude plugin marketplace add russmiles/ai-literacy-superpowers
+claude plugin install ai-literacy-superpowers
 ```
 
 Claude Code downloads the plugin from the marketplace and registers it. You
