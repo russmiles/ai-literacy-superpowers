@@ -3,9 +3,9 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
 [![Plugin Version](https://img.shields.io/badge/Plugin-v0.1.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-14-2E8B57?style=flat-square)](#skills-14)
+[![Skills](https://img.shields.io/badge/Skills-18-2E8B57?style=flat-square)](#skills-18)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
-[![Commands](https://img.shields.io/badge/Commands-12-2E8B57?style=flat-square)](#commands-12)
+[![Commands](https://img.shields.io/badge/Commands-13-2E8B57?style=flat-square)](#commands-13)
 [![Harness](https://img.shields.io/badge/Harness-6%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -80,7 +80,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (14)
+### Skills (18)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -100,6 +100,10 @@ Code quality and harness engineering knowledge that agents read when working in 
 | harness-observability | Four-layer observability guidance — snapshot format, telemetry export, meta-observability checks |
 | convention-extraction | Five extraction questions, artefact mapping, four-element anatomy — surfaces tacit team conventions |
 | cross-repo-orchestration | Git-mediated (L4) and specification-mediated (L5) patterns for syncing artefacts and governing portfolios |
+| secrets-detection | Gitleaks-based secret scanning — configuration, baselining, and CI integration |
+| auto-enforcer-action | Automatic PR constraint checking via GitHub Actions |
+| convention-sync | Syncing HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
+| fitness-functions | Architectural fitness functions as GC rules — periodic checks for layer boundaries, coupling, and complexity |
 
 ### Agents (10)
 
@@ -118,7 +122,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (12)
+### Commands (13)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -134,6 +138,7 @@ A coordinated team that handles the full development lifecycle.
 | `/assess` | AI literacy assessment with immediate fixes and workflow recommendations |
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
+| `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
 
 ### Templates (9)
 

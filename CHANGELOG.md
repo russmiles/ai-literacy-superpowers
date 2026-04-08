@@ -2,6 +2,14 @@
 
 ## 2026-04-08
 
+### README Component Counts
+
+- Update skills badge and section from 14 to 18 — add secrets-detection,
+  auto-enforcer-action, convention-sync, and fitness-functions to the
+  skills table
+- Update commands badge and section from 12 to 13 — add /convention-sync
+  to the commands table
+
 ### Feedback Flywheel Integration
 
 - Add signal classification to reflections — each reflection now
