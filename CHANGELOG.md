@@ -2,6 +2,23 @@
 
 ## 2026-04-08
 
+### Feedback Flywheel Integration
+
+- Add signal classification to reflections — each reflection now
+  captures a signal type (context, instruction, workflow, failure, none)
+  that routes the learning to the right harness component during curation,
+  adopting the taxonomy from Birgitta Boeckeler's Feedback Flywheel article
+- Add vocabulary mapping section to compound learning docs — maps plugin
+  concepts to the Feedback Flywheel article's terminology with direct
+  citation and links
+- Add Feedback Flywheel article to further reading in compound learning
+  and self-improving harness explanation pages
+- Add Session Quality section to health snapshot format — tracks signal
+  classification metrics (reflections with signal percentage, distribution
+  by type, quality trend) derived from the new Signal field
+- Update /harness-health command to gather and display Session Quality
+  metrics in snapshots and delta summaries
+
 ### Organisation Transfer
 
 - Update all references from russmiles to Habitat-Thinking after
