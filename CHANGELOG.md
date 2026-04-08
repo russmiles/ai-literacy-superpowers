@@ -2,6 +2,11 @@
 
 ## 2026-04-08
 
+### Documentation Fixes
+
+- Fix docs homepage Quick Install section to use the correct two-step
+  marketplace install commands matching the getting-started tutorial
+
 ### Three-Loop Improvements
 
 - Add markdownlint to CI workflow — closes gap between declared and
