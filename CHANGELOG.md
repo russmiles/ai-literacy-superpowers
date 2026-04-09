@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.1 — 2026-04-08
+
+### Companion Article
+
+- Add Article 07 (The Assessment Practice) — companion to The
+  Environment Hypothesis series covering assessment as a recurring
+  quarterly discipline, the six literacy levels as diagnostic positions,
+  evidence-based scoring, and how assessment feeds the learning loop
+
 ## 0.4.0 — 2026-04-08
 
 ### Article Updates
