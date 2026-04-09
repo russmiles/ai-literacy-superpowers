@@ -253,14 +253,59 @@ and every recommendation.
 
 ---
 
+## Beyond One Repo
+
+You've assessed your repo. You know your level. You have an
+improvement plan. And then the question you were always going to ask:
+
+"What about the other twelve repos?"
+
+Assessment scales. You can point it at a GitHub organisation, a set of
+topic-tagged repos, or a directory full of clones, and it aggregates
+everything into a portfolio view. Each repo gets a row: its level,
+when it was last assessed, its discipline scores. Repos that have never
+been assessed get a lightweight scan -- the tool checks for key files
+via the GitHub API and estimates a level from observable signals.
+No clarifying questions, no full assessment, but enough to place the
+repo on the map.
+
+The portfolio view surfaces three things you cannot see from inside a
+single repo.
+
+**Shared gaps.** When five out of eight repos have no reflection
+practice, that's not eight repo problems. That's one organisational
+problem. Roll out a reflection cadence template once and five repos
+move toward Level 3.
+
+**Outliers.** One repo at Level 4 while the rest sit at Level 2. What
+are they doing that nobody else has adopted? One repo stuck at Level 1
+while everything else has moved on. Who needs help?
+
+**Stale assessments.** A repo that hasn't been assessed in six months
+is a repo where you're guessing. The portfolio flags it.
+
+The improvement plan works the same way but grouped by impact. Actions
+that lift 50% or more of your repos get highest priority.
+Organisation-wide changes first, cluster-specific second, individual
+repo issues last.
+
+> **The Sceptic:** "This sounds like a management dashboard."
+>
+> **The Pragmatist:** "It's a management dashboard backed by files in
+> repos, not survey responses. Every number links to evidence. Try
+> arguing with a `HARNESS.md` that hasn't been updated since January."
+
+---
+
 The first series in this collection argued that **the environment is
-the product.** This article adds one thing: you have to know the state
-of the product.
+the product.** This article adds: you have to know the state of the
+product -- not just one repo, but the whole portfolio.
 
-Assessment is how you know. Not once. Quarterly. As a discipline, not
-a chore.
+Assessment is how you know. For one repo, `/assess`. For many,
+`/portfolio-assess`. Quarterly. As a discipline, not a chore.
 
-Run `/assess`. Fifteen minutes. That's enough to start.
+Fifteen minutes for one repo. An hour for twelve. That's enough to
+start.
 
 ---
 
@@ -280,3 +325,5 @@ Run `/assess`. Fifteen minutes. That's enough to start.
   next sprint; fixes happen now
 - **Assessment feeds the learning loop** -- each assessment's
   reflection becomes raw material for the next cycle of improvement
+- **Portfolio assessment scales it** -- aggregate across repos by org
+  or topic; shared gaps reveal organisational problems, not repo problems
