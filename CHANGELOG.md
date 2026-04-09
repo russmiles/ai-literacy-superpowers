@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.2 — 2026-04-09
+
+### Complete Tutorial Set
+
+- Fill 2 tutorial stubs: Harness for an Existing Codebase, Creating
+  Your First Skill
+- Add 3 new tutorials: Your First Assessment, From Assessment to
+  Dashboard, The Improvement Cycle
+- Total: 6 tutorials covering the full journey from setup through
+  measurement, scaling, and improvement
+
 ## 0.8.1 — 2026-04-09
 
 ### Complete How-To Guides
