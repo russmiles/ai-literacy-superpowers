@@ -233,7 +233,26 @@ Stage and commit all generated files:
 
 Commit message: "Initialize project harness with HARNESS.md"
 
-### 11. Summary
+### 11. Tag Repository
+
+If the project is hosted on GitHub, add the `agent-harness-enabled`
+topic tag to the repository:
+
+```bash
+gh repo edit --add-topic agent-harness-enabled 2>/dev/null
+```
+
+This tag signals to portfolio assessments and other tooling that the
+repo has a harness. If `gh` is not available or the command fails
+(not a GitHub repo, no permissions), skip silently.
+
+Also add the badge to the README if not already present:
+
+```text
+[![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
+```
+
+### 12. Summary
 
 Tell the user:
 

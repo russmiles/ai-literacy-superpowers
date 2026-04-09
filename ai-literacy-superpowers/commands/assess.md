@@ -124,6 +124,24 @@ Add or update an AI Literacy badge in the README:
 
 Colours: L0=808080, L1=87CEEB, L2=4682B4, L3=20B2AA, L4=2E8B57, L5=DAA520
 
+### 9b. Tag Repository
+
+If the assessed level is L3 or above and the project is hosted on
+GitHub, add the `agent-harness-enabled` topic tag:
+
+```bash
+gh repo edit --add-topic agent-harness-enabled 2>/dev/null
+```
+
+Also add the harness-enabled badge to the README if not already present:
+
+```text
+[![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
+```
+
+If `gh` is not available, the repo is not on GitHub, or the level is
+below L3, skip silently.
+
 ### 10. Commit
 
 ```bash

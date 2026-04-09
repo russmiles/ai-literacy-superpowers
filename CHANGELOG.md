@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.1 — 2026-04-09
+
+### Agent Harness Enabled Topic Tag
+
+- Add automatic `agent-harness-enabled` GitHub topic tagging to
+  /harness-init (after commit) and /assess (at L3+)
+- Add Agent Harness Enabled badge (black) to README
+- Tag signals to portfolio assessments that a repo has a harness
+
 ## 0.7.0 — 2026-04-09
 
 ### Portfolio Dashboard Skill
