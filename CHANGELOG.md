@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.0 — 2026-04-09
+
+### Team API Skill
+
+- Add team-api skill — create or update Team Topologies Team API
+  documents with AI literacy portfolio assessment data
+- Template mode generates a full Team API with AI Literacy section,
+  communication preferences, services, dependencies, and ways of
+  working
+- Update mode adds or refreshes the AI Literacy section in an existing
+  Team API document, preserving all other sections
+- Includes Team API template in references/team-api-template.md
+
 ## 0.7.1 — 2026-04-09
 
 ### Agent Harness Enabled Topic Tag

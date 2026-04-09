@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 22 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 23 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -111,7 +111,11 @@ Multi-repo assessment aggregation.
 
 ### portfolio-dashboard
 
-Self-contained HTML dashboard from portfolio assessment data. Covers generating a shareable dashboard with level distribution, repo table, shared gaps, improvement plan, and trend visualisation from multiple quarterly assessments. Output is a single HTML file with no external dependencies. Covers discovering repos from local paths, GitHub orgs, or topic tags, reading or estimating individual assessment levels, aggregating into a portfolio view with level distribution, shared gaps, and outliers, and generating improvement plans grouped by organisational impact.
+Self-contained HTML dashboard from portfolio assessment data.
+
+### team-api
+
+Team Topologies Team API document generation and update. Covers creating a new Team API from a template or updating an existing one with AI literacy portfolio data — repo levels, discipline scores, shared gaps, and improvement priorities. Bridges portfolio assessment into organisational communication artifacts. Covers generating a shareable dashboard with level distribution, repo table, shared gaps, improvement plan, and trend visualisation from multiple quarterly assessments. Output is a single HTML file with no external dependencies. Covers discovering repos from local paths, GitHub orgs, or topic tags, reading or estimating individual assessment levels, aggregating into a portfolio view with level distribution, shared gaps, and outliers, and generating improvement plans grouped by organisational impact.
 
 ### auto-enforcer-action
 
