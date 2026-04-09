@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.1 — 2026-04-09
+
+### Documentation
+
+- Add "Build an AI Literacy Portfolio Dashboard" how-to guide —
+  step-by-step guide to generating a self-contained HTML dashboard
+  from portfolio assessment data with trend visualisation from
+  multiple quarterly assessments
+
 ## 0.6.0 — 2026-04-09
 
 ### Portfolio Assessment
