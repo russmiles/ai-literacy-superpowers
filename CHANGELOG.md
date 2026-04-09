@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0 — 2026-04-09
+
+### Portfolio Dashboard Skill
+
+- Add portfolio-dashboard skill — generates a self-contained HTML
+  dashboard from portfolio assessment data with level distribution,
+  repo table, shared gaps, improvement plan, and trend visualisation
+  from multiple quarterly assessments
+- Dashboard is single HTML file with inline CSS, no external
+  dependencies, works offline, shareable via email or Slack
+
 ## 0.6.1 — 2026-04-09
 
 ### Documentation

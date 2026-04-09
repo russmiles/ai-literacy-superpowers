@@ -2,8 +2,8 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.6.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-21-2E8B57?style=flat-square)](#skills-21)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.7.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-22-2E8B57?style=flat-square)](#skills-22)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-14-2E8B57?style=flat-square)](#commands-14)
 [![Harness](https://img.shields.io/badge/Harness-6%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
@@ -80,7 +80,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (21)
+### Skills (22)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -107,6 +107,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | model-sovereignty | Decision framework for model selection, hosting, fine-tuning, and vendor independence |
 | literacy-improvements | Prioritised improvement plan mapping assessment gaps to plugin commands and skills |
 | portfolio-assessment | Multi-repo assessment aggregation — level distribution, shared gaps, and portfolio improvement plans |
+| portfolio-dashboard | Generate a self-contained HTML dashboard from portfolio assessment data with trend visualisation |
 
 ### Agents (10)
 
@@ -287,7 +288,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (21)                     Domain knowledge for agents
+│   └── Skills (22)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
