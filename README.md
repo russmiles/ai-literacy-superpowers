@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.5.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-20-2E8B57?style=flat-square)](#skills-20)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.6.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-21-2E8B57?style=flat-square)](#skills-21)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
-[![Commands](https://img.shields.io/badge/Commands-13-2E8B57?style=flat-square)](#commands-13)
+[![Commands](https://img.shields.io/badge/Commands-14-2E8B57?style=flat-square)](#commands-14)
 [![Harness](https://img.shields.io/badge/Harness-6%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -80,7 +80,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (20)
+### Skills (21)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -106,6 +106,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | fitness-functions | Architectural fitness functions as GC rules — periodic checks for layer boundaries, coupling, and complexity |
 | model-sovereignty | Decision framework for model selection, hosting, fine-tuning, and vendor independence |
 | literacy-improvements | Prioritised improvement plan mapping assessment gaps to plugin commands and skills |
+| portfolio-assessment | Multi-repo assessment aggregation — level distribution, shared gaps, and portfolio improvement plans |
 
 ### Agents (10)
 
@@ -124,7 +125,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (13)
+### Commands (14)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -141,6 +142,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
 | `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
+| `/portfolio-assess` | Multi-repo AI literacy assessment — aggregate across local repos, GitHub orgs, or topic tags |
 
 ### Templates (9)
 
