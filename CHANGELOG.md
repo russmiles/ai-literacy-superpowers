@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.1 — 2026-04-08
+## 0.4.1 — 2026-04-09
 
 ### Companion Article
 

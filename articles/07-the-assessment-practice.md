@@ -1,6 +1,6 @@
 # The Assessment Practice
 
-## Why knowing where you are matters more than knowing where you want to be
+## Why knowing where you are beats knowing where you want to be
 
 *The Assessment Practice -- Companion to The Environment Hypothesis series*
 
@@ -31,69 +31,64 @@ that counts for something? It does count. It counts for Level 1. Daily
 use without systematic verification, without environment engineering,
 without feedback loops is just... daily use.
 
-Here's the thesis of this article, and it's simpler than you expect:
+Here it is, the claim this article is built on:
 
 **Assessment is not an audit. It is a practice.** A recurring
 discipline -- quarterly, deliberate, evidence-based -- that tells you
-where you are, what's working, and what to do next. Not where you wish
-you were. Not where your conference talk claims you are. Where you
-*actually* are.
+where you are, what's working, and what to do next. Where you
+*actually* are, not where your conference talk claims you are.
 
-And knowing where you actually are? That's worth more than any
-aspirational roadmap you'll ever write. Because roadmaps tell you
-where to go. Assessment tells you where to go *from*. Without that
-starting point, every plan is fiction.
+Roadmaps tell you where to go. Assessment tells you where to go
+*from*. Without that, every plan is fiction.
 
 ---
 
 ## Which of These Sounds Like You?
 
-Before we talk about how assessment works, you need to know what it's
-assessing. There are six levels of AI literacy. Not six levels you
+There are six levels of AI literacy. Not six levels you
 climb like a career ladder -- six diagnostic positions that describe
 how your team currently operates.
 
 Read these. Not as a checklist of things to aspire to. As a mirror.
 Be honest with yourself about which one you recognise.
 
-**Level 0 -- Awareness.** You know AI coding tools exist. You've maybe
-tried one in a side project. But you haven't used one on real work with
-real stakes. You're curious, not practising.
+**Level 0 -- Awareness.** You know AI coding tools exist. You haven't
+used one on real work with real stakes.
 
 **Level 1 -- Prompting.** You use AI tools daily. You've got your
 favourite model. You copy-paste output into your codebase and fix it up
-manually. Sometimes it's great. Sometimes it's terrible. You don't have
-a systematic way of telling which is which until you find the bug in
-production.
+manually. Sometimes it's great. Sometimes you spend an hour debugging
+code that looked right. You don't have a systematic way of telling
+which is which -- the feedback loop is "find the bug in production."
+Most teams who think they're past this stage are still here.
 
-**Level 2 -- Verification.** You've learned not to trust. You have CI
-workflows that run tests. You've got linters. Maybe vulnerability
+**Level 2 -- Verification.** You've been burned enough to stop trusting.
+You have CI workflows that run tests. Linters. Maybe vulnerability
 scanning. When the AI produces code, it goes through the same gauntlet
-as human code. You verify systematically -- but the AI still doesn't
-know your conventions, your architecture, your hard-won decisions. It
-produces *correct* code that doesn't feel like *your* code.
+as human code. But the AI still doesn't know your conventions, your
+architecture, your hard-won decisions. You verify systematically, and
+the code works -- it just doesn't feel like *your* code. You correct
+the same things every session. The AI never learns from yesterday.
 
-**Level 3 -- Habitat Engineering.** Now we're getting somewhere. You
-have a `CLAUDE.md` or equivalent that gives the AI your conventions at
-session start. You have a `HARNESS.md` declaring your constraints.
-Reflections are captured. Sessions improve over time because the
-*environment* accumulates knowledge, not just the people.
+**Level 3 -- Habitat Engineering.** You have a `CLAUDE.md` or equivalent
+that gives the AI your conventions at session start. A `HARNESS.md`
+declaring your constraints -- and at least some of them are actually
+enforced in CI, not just written down. Reflections are captured.
+Sessions improve over time because the *environment* accumulates
+knowledge, not just the people. This is where the flywheel starts
+turning. Most teams that reach Level 3 can feel the difference but
+struggle to articulate it.
 
-**Level 4 -- Specification Architecture.** Specs before code. You write
-what you want before the AI writes how to build it. You have an agent
-pipeline with safety gates -- multiple AI agents reviewing,
-verifying, enforcing. The AI is a colleague with defined
-responsibilities, not a typewriter you occasionally shout at.
+**Level 4 -- Specification Architecture.** Specs before code, agent
+pipelines with safety gates, the AI as a colleague with defined
+responsibilities -- not a typewriter you occasionally shout at.
 
-**Level 5 -- Sovereign Engineering.** Reusable plugins. Cross-team
-templates. Cost tracking. Model routing. Organisational governance.
-You're not just using AI well -- you're building the infrastructure
-for your entire organisation to use AI well.
+**Level 5 -- Sovereign Engineering.** Reusable plugins, cross-team
+templates, cost tracking, model routing, organisational governance.
 
 ---
 
-Here's the key insight, and it's easy to miss: these are *diagnostic*
-positions, not aspirational destinations. You're already at one of
+These are *diagnostic* positions, not aspirational destinations. You're already at one of
 them. Right now. The question isn't "which one do I want to be?" It's
 "which one am I?"
 
@@ -148,8 +143,8 @@ then stopped.
 
 The scoring heuristic makes this explicit: **your weakest discipline
 is your ceiling.** You might have brilliant context engineering at
-Level 3 but verification stuck at Level 1. Your assessed level? Level
-1. The chain breaks at the weakest link, because that weakest link is
+Level 3 but verification stuck at Level 1. Your assessed level?
+Level 1. The chain breaks at the weakest link, because that weakest link is
 where the AI will hurt you.
 
 > **Brain check:** Open your repo right now. Is there a file in there
@@ -162,10 +157,9 @@ where the AI will hurt you.
 
 ## The Practice: Assessment as Quarterly Discipline
 
-You wouldn't check your bank balance once and then never look again.
-You wouldn't step on the scales in January and assume the number
-holds through December. So why would you assess your AI literacy once
-and call it done?
+You wouldn't step on the scales in January and assume the number holds
+through December. So why would you assess your AI literacy once and
+call it done?
 
 Assessment is a **recurring practice**. Quarterly. Here's the rhythm:
 
@@ -182,25 +176,12 @@ developer work differently?"
 **3. Assess.** Evidence maps to levels. The weakest discipline sets
 the ceiling. No negotiation, no grading on a curve.
 
-**4. Document.** A timestamped assessment file lands in your repo.
-Evidence, rationale, strengths, gaps, recommendations. Not a slide
-deck. A file. In the codebase. Where it belongs.
-
-**5. Adjust.** Immediate habitat hygiene -- stale counts updated,
-missing entries added, drift between declared and actual practice
-corrected. These happen *in the same session*. Not as action items
-for next sprint. Now.
-
-**6. Recommend.** Workflow changes based on gaps. Not "build something
-new" but "use what you already have differently." Unverified
-constraints promoted. Dormant files activated. Cadences established.
-Each recommendation is presented, accepted or rejected, and applied
-immediately if accepted.
-
-**7. Reflect.** The assessment captures a reflection on itself. What
-surprised you? Where did evidence diverge from perception? What should
-future assessments pay attention to? This reflection feeds your
-`REFLECTION_LOG.md`, feeds curation, feeds the learning loop.
+Then the assessment acts on what it found. A timestamped document lands
+in your repo -- evidence, rationale, strengths, gaps, recommendations.
+Habitat hygiene gets fixed on the spot: stale counts, missing entries,
+drift between declared and actual state. Workflow changes get proposed
+one at a time, accepted or rejected, applied immediately. And the
+assessment captures a reflection on itself, feeding the learning loop.
 
 > **The Veteran:** "First assessment, we thought we were Level 3. We
 > were Level 2 -- verification was solid but our habitat was stale.
@@ -209,15 +190,13 @@ future assessments pay attention to? This reflection feeds your
 > CLAUDE.md got updated fortnightly. The constraints got enforced. The
 > reflections got curated. Same infrastructure, different discipline."
 
-Here's the mechanism that makes this powerful: **each assessment raises
+**Each assessment raises
 the floor for the next one.** Recommendations from Q1 become evidence
 in Q2. The adjustments you make in April are the signals the scan
 finds in July. It compounds. Not dramatically -- incrementally, the
 way everything valuable compounds.
 
-You just read that and your brain filed it under "sure, compound
-improvement, I get it." You don't get it yet. Let me say it
-differently: the team that runs four assessments a year doesn't
+Let me say it differently: the team that runs four assessments a year doesn't
 improve four times. They improve *continuously*, because each
 assessment changes the daily operating habits that produce the
 evidence the next assessment measures. The assessment isn't the
@@ -238,64 +217,40 @@ the moment you step back and ask not "is this session going well?" but
 
 ---
 
-## What Happens After
+## Why This Isn't a Retrospective
 
-Three things follow an assessment. Not three things you plan to do.
-Three things that happen *in the session*.
+You've done retrospectives. You've written action items on sticky notes
+and then not done them. Assessment is different in one critical way:
+**it applies changes in the same session.**
 
-**Immediate adjustments.** Habitat hygiene, fixed on the spot. Your
-`HARNESS.md` status section says you have twelve constraints but you
-actually have fifteen? Updated. Your README badge shows Level 2 but
-the assessment just confirmed Level 3? Updated. Your `AGENTS.md`
-gotchas section is empty despite three months of hard-won lessons?
-Populated. These aren't improvements. They're corrections -- bringing
-your declared state in line with your actual state.
+A constraint sitting at "unverified" for two months gets promoted to
+agent-backed enforcement before the session ends. An `AGENTS.md` that
+exists but nobody reads gets wired into the workflow before the session
+ends. A `HARNESS.md` status section showing twelve constraints when
+there are actually fifteen gets corrected before the session ends.
 
-**Workflow recommendations.** This is not a backlog of feature work.
-It's changes to how you *operate* what you already have. A constraint
-that's been sitting unverified for two months gets promoted to
-agent-backed enforcement. An `AGENTS.md` file that exists but nobody
-reads at session start gets wired into the workflow. A reflection
-cadence that was "whenever we remember" becomes "every Friday before
-standup."
+The gap between "we should" and "we did" collapses to zero. That's not
+a minor detail. That's the entire reason it works.
 
-**The reflection.** The assessment captures a reflection on itself --
-what it found, what was surprising, what future assessments should
-watch for. This reflection feeds `REFLECTION_LOG.md`. Which feeds
-curation. Which feeds the harness. The assessment is *part of* the
-learning loop, not outside it.
-
-> **Brain check:** Think about retrospective action items. The ones
-> your team writes on sticky notes and then never does. Assessment is
-> different because it applies changes in the same session. The gap
-> between "we should" and "we did" collapses to zero. That's not a
-> minor detail. That's the entire reason it works.
-
-And then there's the badge. A small thing, but it matters. Your README
-gets a badge showing your assessed level, linking to the full
-assessment document with all its evidence and rationale. Not vanity.
-Accountability. Anyone can click it and see exactly why you're at the
-level you're at -- and what you'd need to do to reach the next one.
+After the fixes, a badge lands in your README -- your assessed level,
+linking to the full assessment document with every piece of evidence
+and every recommendation.
 
 > **The Sceptic:** "So the badge is just for show?"
 >
-> **The Pragmatist:** "Click it. It links to the full assessment --
-> every piece of evidence, every gap, every recommendation. It's a
-> claim with receipts. Try putting *that* on your sprint retro slides."
+> **The Pragmatist:** "Click it. Every piece of evidence, every gap,
+> every recommendation. It's a claim with receipts."
 
 ---
 
 The first series in this collection argued that **the environment is
 the product.** This article adds one thing: you have to know the state
-of the product. Not guess. Not assume. Not hope. *Know.*
+of the product.
 
 Assessment is how you know. Not once. Quarterly. As a discipline, not
 a chore.
 
-Run `/assess`. Fifteen minutes. You'll learn more from one assessment
-than from six months of vague intention. And three months from now,
-when you run it again, you'll see the distance you've covered -- not
-because you felt it, but because the evidence says so.
+Run `/assess`. Fifteen minutes. That's enough to start.
 
 ---
 
