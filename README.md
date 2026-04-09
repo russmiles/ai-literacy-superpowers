@@ -287,7 +287,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (14)                     Domain knowledge for agents
+│   └── Skills (21)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
