@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Literacy Portfolio Dashboard — Habitat-Thinking</title>
+<style>
+  :root {
+    --l0: #808080; --l1: #87CEEB; --l2: #4682B4;
+    --l3: #20B2AA; --l4: #2E8B57; --l5: #DAA520;
+    --bg: #fafafa; --card: #ffffff; --border: #e0e0e0;
+    --text: #1a1a1a; --muted: #666666; --warn: #c0392b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.25rem; text-align: center;
+  }
+  .card .value { font-size: 2rem; font-weight: 700; }
+  .card .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .level-bar { display: flex; gap: 4px; margin: 1rem 0; height: 48px; border-radius: 6px; overflow: hidden; }
+  .level-bar .segment {
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 0.85rem;
+    min-width: 48px; transition: flex-grow 0.3s;
+  }
+  .level-bar .segment.empty { min-width: 0; flex-grow: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th { text-align: left; font-weight: 600; padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+    color: white; font-size: 0.8rem; font-weight: 600;
+  }
+  .badge-l0 { background: var(--l0); } .badge-l1 { background: var(--l1); color: #1a1a1a; }
+  .badge-l2 { background: var(--l2); } .badge-l3 { background: var(--l3); }
+  .badge-l4 { background: var(--l4); } .badge-l5 { background: var(--l5); color: #1a1a1a; }
+  .confidence { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+  .gap-row td:first-child { font-weight: 600; }
+  .scope-org { color: var(--warn); font-weight: 600; }
+  .scope-individual { color: var(--muted); }
+  .stale { color: var(--warn); }
+  .note { background: #fff8e1; border-left: 4px solid var(--l5); padding: 0.75rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); text-align: center; }
+  @media print {
+    body { max-width: 100%; padding: 1rem; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>AI Literacy Portfolio Dashboard</h1>
+<p class="subtitle">Habitat-Thinking &middot; agent-harness-enabled repos &middot; 2026-04-09</p>
+
+<!-- Summary Cards -->
+<div class="cards">
+  <div class="card">
+    <div class="value">2</div>
+    <div class="label">Repos</div>
+  </div>
+  <div class="card">
+    <div class="value" style="color: var(--l4);">L4.5</div>
+    <div class="label">Median Level</div>
+  </div>
+  <div class="card">
+    <div class="value">50%</div>
+    <div class="label">Fully Assessed</div>
+  </div>
+  <div class="card">
+    <div class="value">2</div>
+    <div class="label">Shared Gaps</div>
+  </div>
+</div>
+
+<!-- Level Distribution -->
+<h2>Level Distribution</h2>
+
+<div class="level-bar">
+  <div class="segment empty" style="background: var(--l0);"></div>
+  <div class="segment empty" style="background: var(--l1);"></div>
+  <div class="segment empty" style="background: var(--l2);"></div>
+  <div class="segment empty" style="background: var(--l3);"></div>
+  <div class="segment" style="background: var(--l4); flex-grow: 1;">L4: 1</div>
+  <div class="segment" style="background: var(--l5); flex-grow: 1;">L5: 1</div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Level</th><th>Assessed</th><th>Estimated</th><th>Total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge badge-l0">L0</span> Awareness</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td><span class="badge badge-l1">L1</span> Prompting</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td><span class="badge badge-l2">L2</span> Verification</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td><span class="badge badge-l3">L3</span> Habitat Engineering</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td><span class="badge badge-l4">L4</span> Specification Architecture</td><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td><span class="badge badge-l5">L5</span> Sovereign Engineering</td><td>0</td><td>1</td><td>1</td></tr>
+  </tbody>
+</table>
+
+<!-- Trends -->
+<div class="note">
+  <strong>No trend data available.</strong> Run <code>/portfolio-assess</code> quarterly to build trend history. With two or more assessments, this section will show level distribution changes over time.
+</div>
+
+<!-- Repo Detail -->
+<h2>Repo Detail</h2>
+
+<table>
+  <thead>
+    <tr><th>Repo</th><th>Level</th><th>Confidence</th><th>Context</th><th>Constraints</th><th>Guardrails</th><th>Last Assessed</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ai-literacy-exemplar</strong></td>
+      <td><span class="badge badge-l4">L4</span></td>
+      <td>assessed</td>
+      <td>4/5</td>
+      <td>5/5</td>
+      <td>4/5</td>
+      <td>2026-04-01</td>
+    </tr>
+    <tr>
+      <td><strong>ai-literacy-superpowers</strong></td>
+      <td><span class="badge badge-l5">L5</span></td>
+      <td><span class="confidence">estimated</span></td>
+      <td>&mdash;</td>
+      <td>&mdash;</td>
+      <td>&mdash;</td>
+      <td class="stale">never</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>ai-literacy-exemplar</h3>
+<p>Go CLI tool built with the full agent pipeline. 7/7 constraints enforced, 5/5 GC rules, spec-first workflow exercised on 2 features, compound learning demonstrated end-to-end. Strongest discipline: architectural constraints (5/5).</p>
+
+<h3>ai-literacy-superpowers</h3>
+<p>Plugin repo with 22 skills, 10 agents, 14 commands. 4 CI workflows, 6 constraints enforced, 6 reflections, 17 spec files. Estimated L5 based on platform-level tooling (published plugin, cross-team templates). Full <code>/assess</code> recommended to confirm.</p>
+
+<!-- Shared Gaps -->
+<h2>Shared Gaps</h2>
+
+<p>Gaps appearing in both repos (below the 3+ threshold for larger portfolios, but notable at this scale):</p>
+
+<table>
+  <thead>
+    <tr><th>Gap</th><th>Repos</th><th>Level</th><th>Recommended Action</th></tr>
+  </thead>
+  <tbody class="gap-row">
+    <tr>
+      <td>No cost data collected</td>
+      <td><span class="scope-org">2/2</span></td>
+      <td><span class="badge badge-l5">L5</span></td>
+      <td>Use <code>model-sovereignty</code> skill for cost analysis</td>
+    </tr>
+    <tr>
+      <td>No OTel configuration</td>
+      <td><span class="scope-org">2/2</span></td>
+      <td><span class="badge badge-l5">L5</span></td>
+      <td>Use <code>harness-observability</code> skill (telemetry layer)</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Improvement Plan -->
+<h2>Improvement Plan</h2>
+
+<h3>Organisation-wide</h3>
+<table>
+  <thead>
+    <tr><th>Gap</th><th>Repos</th><th>Action</th><th>Impact</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No cost data</td>
+      <td>2/2</td>
+      <td><code>model-sovereignty</code> skill</td>
+      <td>Moves both repos toward L5 cost discipline</td>
+    </tr>
+    <tr>
+      <td>No OTel</td>
+      <td>2/2</td>
+      <td><code>harness-observability</code> skill</td>
+      <td>Enables automated trend tracking</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Individual</h3>
+<table>
+  <thead>
+    <tr><th>Repo</th><th>Gap</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ai-literacy-exemplar</td>
+      <td>Operating cadence unproven</td>
+      <td>Complete first quarterly cycle by 2026-06-30</td>
+    </tr>
+    <tr>
+      <td>ai-literacy-exemplar</td>
+      <td>No automated staleness check</td>
+      <td>Add CI workflow for snapshot age</td>
+    </tr>
+    <tr>
+      <td>ai-literacy-superpowers</td>
+      <td>Never fully assessed</td>
+      <td>Run <code>/assess</code> for evidence-based level</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Stale Assessments -->
+<h2>Stale Assessments</h2>
+
+<table>
+  <thead>
+    <tr><th>Repo</th><th>Last Assessed</th><th>Days Ago</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ai-literacy-exemplar</td>
+      <td>2026-04-01</td>
+      <td>8</td>
+      <td>Current</td>
+    </tr>
+    <tr>
+      <td>ai-literacy-superpowers</td>
+      <td class="stale">never</td>
+      <td>&mdash;</td>
+      <td class="stale">Needs assessment</td>
+    </tr>
+  </tbody>
+</table>
+
+<footer>
+  Portfolio Assessment Dashboard &middot; Habitat-Thinking &middot; Generated 2026-04-09 &middot; Next assessment: 2026-07-09
+</footer>
+
+</body>
+</html>
