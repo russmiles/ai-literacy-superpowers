@@ -180,8 +180,18 @@ Then the assessment acts on what it found. A timestamped document lands
 in your repo -- evidence, rationale, strengths, gaps, recommendations.
 Habitat hygiene gets fixed on the spot: stale counts, missing entries,
 drift between declared and actual state. Workflow changes get proposed
-one at a time, accepted or rejected, applied immediately. And the
-assessment captures a reflection on itself, feeding the learning loop.
+one at a time, accepted or rejected, applied immediately.
+
+Then the bridge: the assessment asks how far you want to improve --
+next level, or higher? It maps each gap to the specific command or
+skill that closes it, ordered by priority. You walk through them one
+at a time: accept, skip, or defer. The ones you accept execute
+immediately. The ones you defer show up in the next assessment as
+unfinished business. No prose recommendations that rot in a markdown
+file. Executable actions, connected to the tools that do the work.
+
+And the assessment captures a reflection on itself, feeding the
+learning loop.
 
 > **The Veteran:** "First assessment, we thought we were Level 3. We
 > were Level 2 -- verification was solid but our habitat was stale.
