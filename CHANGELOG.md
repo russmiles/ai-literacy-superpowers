@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.8.1 — 2026-04-09
+
+### Complete How-To Guides
+
+- Fill 5 stub how-to guides: add a constraint, add fitness functions,
+  run a harness audit, set up auto-enforcer, sync conventions
+- Add 16 new how-to guides covering all remaining skills: run an
+  assessment, extract conventions, set up context engineering, review
+  code with CUPID, audit dependencies, audit Docker images, harden
+  GitHub Actions, set up garbage collection, write literate code,
+  set up verification slots, set up model routing, run portfolio
+  assessment, generate improvement plan, orchestrate across repos,
+  create team API, understand harness engineering
+- Total: 23 how-to guides (was 7, of which 5 were stubs)
+
 ## 0.8.0 — 2026-04-09
 
 ### Team API Skill
