@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0 — 2026-04-09
+
+### Literacy Improvements Skill
+
+- Add literacy-improvements skill — generates prioritised improvement
+  plans from assessment gaps, mapping each gap to the specific plugin
+  command or skill that closes it
+- Includes improvement-mapping reference with level-to-action tables
+  for L1→L2, L2→L3, L3→L4, and L4→L5 transitions
+- Users choose a target level (next level or higher) and walk through
+  improvements interactively with accept/skip/defer
+- Integrates with /assess as Phase 5b — invoked automatically after
+  workflow recommendations
+- Also usable standalone when the user knows their current level
+
 ## 0.4.1 — 2026-04-09
 
 ### Companion Article

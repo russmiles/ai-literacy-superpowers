@@ -87,6 +87,17 @@ If accepted, apply immediately:
 Record accepted and rejected recommendations in the assessment
 document.
 
+### 6b. Improvement Plan
+
+Invoke the `literacy-improvements` skill with the assessed level from
+step 3 and the gaps from section 7 of the assessment document. The
+skill asks the user to choose a target level, generates a prioritised
+plan, and walks through each improvement interactively
+(accept/skip/defer).
+
+Phase 6 recommendations (operate better) and 6b improvements (build
+toward next level) are complementary — run both.
+
 ### 7. Assessment Reflection
 
 Append a structured reflection to REFLECTION_LOG.md:
