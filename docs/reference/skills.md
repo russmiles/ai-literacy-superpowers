@@ -99,7 +99,7 @@ Model selection, hosting, and vendor independence. Covers the decision hierarchy
 
 ### ai-literacy-assessment
 
-ALCI assessment instrument. Covers administering and interpreting the AI Literacy and Capability Index to measure a team's current AI fluency and track improvement over time.
+ALCI assessment instrument. Covers scanning for observable evidence, asking clarifying questions, producing a timestamped assessment with level rationale, applying immediate habitat fixes, recommending workflow changes, and invoking the `literacy-improvements` skill for prioritised improvement plans targeting the next literacy level or higher.
 
 ### literacy-improvements
 

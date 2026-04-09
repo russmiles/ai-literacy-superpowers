@@ -96,7 +96,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | constraint-design | Designing enforceable constraints with the verification slot model |
 | garbage-collection | Entropy-fighting patterns and the auto-fix safety rubric |
 | verification-slots | The unified interface for deterministic and agent-based checks |
-| ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with remediation |
+| ai-literacy-assessment | Assessment instrument — scan repo, ask questions, produce timestamped assessment with prioritised improvement plans |
 | harness-observability | Four-layer observability guidance — snapshot format, telemetry export, meta-observability checks |
 | convention-extraction | Five extraction questions, artefact mapping, four-element anatomy — surfaces tacit team conventions |
 | cross-repo-orchestration | Git-mediated (L4) and specification-mediated (L5) patterns for syncing artefacts and governing portfolios |
@@ -137,7 +137,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-audit` | Full meta-verification of the harness |
 | `/reflect` | Capture a post-task reflection |
 | `/worktree` | Git worktree lifecycle — spin, merge, clean |
-| `/assess` | AI literacy assessment with immediate fixes and workflow recommendations |
+| `/assess` | AI literacy assessment with immediate fixes, workflow recommendations, and prioritised improvement plans |
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
 | `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
