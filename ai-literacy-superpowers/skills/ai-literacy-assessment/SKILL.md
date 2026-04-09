@@ -143,6 +143,21 @@ apply the change (update CLAUDE.md with new cadences, promote
 HARNESS.md constraints, add operating notes to AGENTS.md). Record
 accepted and rejected recommendations in the assessment document.
 
+### Phase 5b: Improvement Plan
+
+After workflow recommendations, invoke the `literacy-improvements`
+skill with the assessed level and the gaps from section 7 of the
+assessment document. The skill handles target level selection, plan
+generation, and interactive execution.
+
+Phase 5 and Phase 5b are complementary:
+
+- **Phase 5** = operate better at your current level
+- **Phase 5b** = build toward the next level
+
+The skill records its outcomes (accepted, skipped, deferred) in the
+assessment document.
+
 ### Phase 6: Assessment Reflection
 
 Capture a reflection on the assessment itself:

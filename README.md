@@ -2,8 +2,8 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.4.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-19-2E8B57?style=flat-square)](#skills-19)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.5.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-20-2E8B57?style=flat-square)](#skills-20)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-13-2E8B57?style=flat-square)](#commands-13)
 [![Harness](https://img.shields.io/badge/Harness-6%2F6_enforced-2E8B57?style=flat-square)](HARNESS.md)
@@ -80,7 +80,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (19)
+### Skills (20)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -105,6 +105,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | convention-sync | Syncing HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
 | fitness-functions | Architectural fitness functions as GC rules — periodic checks for layer boundaries, coupling, and complexity |
 | model-sovereignty | Decision framework for model selection, hosting, fine-tuning, and vendor independence |
+| literacy-improvements | Prioritised improvement plan mapping assessment gaps to plugin commands and skills |
 
 ### Agents (10)
 

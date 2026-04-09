@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 19 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 20 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -100,6 +100,10 @@ Model selection, hosting, and vendor independence. Covers the decision hierarchy
 ### ai-literacy-assessment
 
 ALCI assessment instrument. Covers administering and interpreting the AI Literacy and Capability Index to measure a team's current AI fluency and track improvement over time.
+
+### literacy-improvements
+
+Prioritised improvement plans from assessment gaps. Covers mapping each gap to the specific plugin command or skill that closes it, grouped by target level, with interactive accept/skip/defer for each item.
 
 ### auto-enforcer-action
 
