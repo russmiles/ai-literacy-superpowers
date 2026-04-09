@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 20 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 21 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -104,6 +104,10 @@ ALCI assessment instrument. Covers scanning for observable evidence, asking clar
 ### literacy-improvements
 
 Prioritised improvement plans from assessment gaps. Covers mapping each gap to the specific plugin command or skill that closes it, grouped by target level, with interactive accept/skip/defer for each item.
+
+### portfolio-assessment
+
+Multi-repo assessment aggregation. Covers discovering repos from local paths, GitHub orgs, or topic tags, reading or estimating individual assessment levels, aggregating into a portfolio view with level distribution, shared gaps, and outliers, and generating improvement plans grouped by organisational impact.
 
 ### auto-enforcer-action
 

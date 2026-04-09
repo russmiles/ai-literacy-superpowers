@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.6.0 — 2026-04-09
+
+### Portfolio Assessment
+
+- Add portfolio-assessment skill — aggregates AI literacy assessments
+  across multiple repos into an organisational portfolio view with
+  level distribution, shared gaps, outliers, and improvement plans
+- Three discovery modes: local directories, GitHub org, GitHub topic
+  tags — combinable for flexible portfolio scoping
+- Lightweight evidence-only scan for repos without prior assessments —
+  estimates level from observable signals via GitHub API without
+  running a full assessment
+- Portfolio improvement plan groups actions by impact scope:
+  organisation-wide (50%+ repos), cluster (2-4 repos), individual
+- Add /portfolio-assess command with --local, --org, --topic, and
+  --no-scan-unassessed flags
+
 ## 0.5.0 — 2026-04-09
 
 ### Literacy Improvements Skill
