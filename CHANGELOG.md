@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.1 — 2026-04-10
+
+### Article 08: The Loops That Learn
+
+- Add Article 08 — how four recurring practices (/reflect,
+  /harness-health, /assess, /cost-capture) create interlocking
+  feedback loops at four timescales, connect to the six literacy
+  levels, and aggregate into the portfolio view
+
 ## 0.9.0 — 2026-04-10
 
 ### Cost Tracking
