@@ -24,7 +24,7 @@ if [ ! -f "$REFLECTION_LOG" ]; then
 fi
 
 # Count reflection entries (lines starting with "- **Date**:")
-reflection_count=$(grep -c '^\- \*\*Date\*\*:' "$REFLECTION_LOG" 2>/dev/null || echo "0")
+reflection_count=$(grep -c '^\- \*\*Date\*\*:' "$REFLECTION_LOG" 2>/dev/null) || reflection_count=0
 
 # If no reflections, nothing to curate
 if [ "$reflection_count" -eq 0 ]; then
@@ -39,7 +39,7 @@ fi
 
 # Count promoted entries (non-comment bullet points in content sections)
 # Filter out HTML comments and count actual content bullets
-promoted_count=$(sed '/^<!--/,/-->$/d' "$AGENTS_FILE" | grep -c '^- ' 2>/dev/null || echo "0")
+promoted_count=$(sed '/^<!--/,/-->$/d' "$AGENTS_FILE" | grep -c '^- ' 2>/dev/null) || promoted_count=0
 
 # If reflections significantly outnumber promoted entries, nudge
 unpromoted=$((reflection_count - promoted_count))
