@@ -46,11 +46,11 @@ stays trustworthy at scale.
 
 It gives you:
 
-- **23 skills** — domain knowledge for security auditing, constraint
+- **24 skills** — domain knowledge for security auditing, constraint
   design, context engineering, fitness functions, model sovereignty, and more
 - **10 agents** — autonomous workers for orchestration, enforcement,
   garbage collection, code review, and TDD
-- **14 commands** — slash commands for harness lifecycle, assessment,
+- **15 commands** — slash commands for harness lifecycle, assessment,
   portfolio assessment, reflection, and convention management
 - **3 enforcement loops** — advisory at edit time, strict at merge
   time, investigative on schedule

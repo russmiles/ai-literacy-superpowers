@@ -1,0 +1,120 @@
+---
+name: cost-capture
+description: Capture AI tool cost data — guide through provider dashboards, record spend and token usage, compare to previous snapshot, update MODEL_ROUTING.md
+---
+
+# /cost-capture
+
+Capture a cost snapshot for this project's AI tool usage.
+
+Read the `cost-tracking` skill before proceeding — it contains the
+snapshot format, provider dashboard URLs, and the comparison logic.
+
+## Process
+
+### 1. Find Previous Snapshot
+
+Check for existing cost snapshots:
+
+```bash
+ls observability/costs/*-costs.md 2>/dev/null | sort | tail -1
+```
+
+If a previous snapshot exists, read it for comparison. If none exist,
+this is the first capture.
+
+### 2. Ask About Providers
+
+```text
+Which AI providers are you using?
+
+1. Anthropic only
+2. OpenAI only
+3. Both Anthropic and OpenAI
+4. Other (specify)
+```
+
+### 3. Guide to Dashboard
+
+For each provider, give the dashboard URL and tell the user what to
+look for:
+
+- Monthly spend for the reporting period
+- Token usage (input and output) if available
+- Model-level breakdown if available
+
+Ask the user to read off the numbers. One provider at a time.
+
+### 4. Record Model Breakdown
+
+If the user can see per-model data:
+
+```text
+Can you see a breakdown by model? If so, list each model with
+its token usage or cost.
+```
+
+If not available, skip this section.
+
+### 5. Estimate Project Share
+
+If the user has multiple projects on the same account:
+
+```text
+Roughly what percentage of the total spend is this project?
+An estimate is fine — we're looking for order of magnitude,
+not precision.
+```
+
+### 6. Compare to Previous
+
+If a previous snapshot exists, compute and present:
+
+- Spend change ($ and %)
+- Token volume change
+- Model mix changes
+- Any concerning trends
+
+### 7. Budget Check
+
+```text
+Do you have a monthly budget for AI tools?
+
+1. Yes — what is it?
+2. No — would you like to set one based on current spend?
+3. Not applicable
+```
+
+If spend exceeds budget, flag it.
+
+### 8. Update MODEL_ROUTING.md
+
+If the cost data suggests routing changes (e.g. heavy frontier use
+for tasks that could use standard models), propose updates to
+MODEL_ROUTING.md. Present each change and ask for approval.
+
+### 9. Write the Snapshot
+
+Create `observability/costs/YYYY-MM-DD-costs.md` using the format
+from the cost-tracking skill.
+
+### 10. Commit
+
+```bash
+mkdir -p observability/costs
+git add observability/costs/ MODEL_ROUTING.md
+git commit -m "Cost snapshot: YYYY-MM-DD"
+```
+
+### 11. Summary
+
+```text
+Cost snapshot captured: observability/costs/YYYY-MM-DD-costs.md
+
+  Period: YYYY-MM to YYYY-MM
+  Total spend: $X,XXX
+  Monthly average: $X,XXX
+  Trend: [increasing/stable/decreasing vs previous]
+  Budget status: [within/over/not set]
+  MODEL_ROUTING.md: [updated/unchanged]
+```

@@ -39,9 +39,9 @@ should see output similar to:
 ```text
 Installing ai-literacy-superpowers from marketplace Habitat-Thinking...
 Plugin installed: ai-literacy-superpowers
-  23 skills
+  24 skills
   10 agents
-  14 commands
+  15 commands
 ```
 
 The plugin is now available in every Claude Code session. You don't need to

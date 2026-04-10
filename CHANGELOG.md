@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.9.0 — 2026-04-10
+
+### Cost Tracking
+
+- Add cost-tracking skill — guides quarterly AI cost data capture from
+  provider dashboards, records structured cost snapshots, compares
+  trends, and updates MODEL_ROUTING.md with observed patterns
+- Add /cost-capture command — interactive cost capture with provider
+  dashboard guidance, comparison to previous snapshot, budget check
+- Expand snapshot format Cost Indicators section with actual fields:
+  last capture date, monthly average, budget status, cost trend
+- Update /harness-health to read from observability/costs/ directory
+- Add "Track AI Costs" how-to guide
+- Closes the cost visibility gap identified in the L5 assessment
+
 ## 0.8.3 — 2026-04-10
 
 ### Reflection-Driven Improvements
