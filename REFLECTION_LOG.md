@@ -101,3 +101,14 @@
 - **Improvement**: The how-to generation could be even faster with a template file that subagents read instead of inferring style from an example. A `docs/how-to/_template.md` with the exact structure (frontmatter, intro line, numbered steps, code blocks pattern) would remove the style inference step.
 - **Signal**: workflow
 - **Constraint**: none
+
+---
+
+- **Date**: 2026-04-10
+- **Agent**: assessor (via /assess)
+- **Task**: First full AI literacy assessment of ai-literacy-superpowers
+- **Surprise**: The project assessed at L5 on first assessment. The strongest signal was self-referential: the plugin originates the assessment framework it was assessed with, which makes the L5 "platform-level tooling" criterion trivially met. The interesting gap is that MODEL_ROUTING.md — a template this plugin ships — was missing from the plugin's own project. The cobbler's children.
+- **Proposal**: Future agents should know: the plugin's own project should always have every artifact it templates for others. If the plugin ships a MODEL_ROUTING.md template, the project root should have a MODEL_ROUTING.md. Check for this during harness audits.
+- **Improvement**: The assessment could detect "template-but-not-applied" gaps automatically — scan templates/ and check whether corresponding files exist at the project root.
+- **Signal**: context
+- **Constraint**: none
