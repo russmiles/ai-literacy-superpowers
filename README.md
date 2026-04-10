@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.8.3-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-23-2E8B57?style=flat-square)](#skills-23)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.9.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-24-2E8B57?style=flat-square)](#skills-24)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
-[![Commands](https://img.shields.io/badge/Commands-14-2E8B57?style=flat-square)](#commands-14)
+[![Commands](https://img.shields.io/badge/Commands-15-2E8B57?style=flat-square)](#commands-15)
 [![Harness](https://img.shields.io/badge/Harness-7%2F7_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -82,7 +82,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (23)
+### Skills (24)
 
 Code quality and harness engineering knowledge that agents read when working in your codebase.
 
@@ -111,6 +111,7 @@ Code quality and harness engineering knowledge that agents read when working in 
 | portfolio-assessment | Multi-repo assessment aggregation — level distribution, shared gaps, and portfolio improvement plans |
 | portfolio-dashboard | Generate a self-contained HTML dashboard from portfolio assessment data with trend visualisation |
 | team-api | Create or update a Team Topologies Team API document with AI literacy portfolio data |
+| cost-tracking | Quarterly AI cost capture — record spend, compare trends, inform model routing |
 
 ### Agents (10)
 
@@ -129,7 +130,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 
-### Commands (14)
+### Commands (15)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -147,6 +148,7 @@ A coordinated team that handles the full development lifecycle.
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
 | `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
 | `/portfolio-assess` | Multi-repo AI literacy assessment — aggregate across local repos, GitHub orgs, or topic tags |
+| `/cost-capture` | Capture AI tool cost data — record spend, compare to previous snapshot, update model routing |
 
 ### Templates (9)
 
@@ -291,7 +293,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (23)                     Domain knowledge for agents
+│   └── Skills (24)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings

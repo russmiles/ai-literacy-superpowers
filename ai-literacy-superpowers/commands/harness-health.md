@@ -20,6 +20,7 @@ No agents dispatched. Reads existing data sources directly:
 - AGENTS.md → gotcha and arch decision counts
 - `assessments/` directory → latest assessment date
 - MODEL_ROUTING.md → existence and content
+- `observability/costs/` → latest cost snapshot for Cost Indicators
 - `observability/snapshots/` → previous snapshot for trend comparison
 
 ### Deep Mode (`/harness-health --deep`)

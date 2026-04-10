@@ -136,9 +136,23 @@ guessing.
 ## Cost Indicators
 - Model routing configured: yes/no
 - Tier distribution: (from MODEL_ROUTING.md)
+- Last cost capture: YYYY-MM-DD (or "never")
+- Monthly average: $X,XXX (or "not tracked")
+- Budget status: within/over/not set
+- Cost trend: increasing/stable/decreasing (vs previous capture)
 ```
 
-**Source:** MODEL_ROUTING.md existence and content.
+**Source:** MODEL_ROUTING.md existence and content, plus the most
+recent file in `observability/costs/` matching `*-costs.md`.
+
+| Field | How to compute |
+|-------|---------------|
+| Model routing configured | Check MODEL_ROUTING.md exists and has routing table |
+| Tier distribution | Read Agent Routing table from MODEL_ROUTING.md |
+| Last cost capture | Most recent filename date in observability/costs/ |
+| Monthly average | Read from the most recent cost snapshot |
+| Budget status | Read from the most recent cost snapshot |
+| Cost trend | Compare current and previous cost snapshots |
 
 ### Meta
 
