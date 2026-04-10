@@ -106,6 +106,15 @@
 - **Tool**: find . -name "*.sh" -not -path "./.git/*" -exec shellcheck {} +
 - **Scope**: commit + pr
 
+### Version consistency
+
+- **Rule**: plugin.json version, README badge version, and CHANGELOG
+  heading must all match. Skills/agents/commands changes require a
+  version bump.
+- **Enforcement**: deterministic
+- **Tool**: .github/workflows/version-check.yml
+- **Scope**: pr
+
 ---
 
 ## Garbage Collection
@@ -168,6 +177,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-08
-Constraints enforced: 6/6
+Constraints enforced: 7/7
 Garbage collection active: 2/5
 Drift detected: none (markdownlint added to CI, closing the gap)

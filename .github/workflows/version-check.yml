@@ -1,0 +1,114 @@
+# Version consistency check for pull requests.
+#
+# Verifies that plugin.json version, README badge version, and
+# CHANGELOG heading are consistent. Also checks that the version
+# has been bumped when skills, agents, or commands change.
+
+name: Version Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check version consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Extract versions from all locations
+        id: versions
+        run: |
+          # plugin.json version
+          PLUGIN_VERSION=$(grep '"version"' ai-literacy-superpowers/.claude-plugin/plugin.json | sed 's/.*"version": "\(.*\)".*/\1/')
+          echo "plugin=$PLUGIN_VERSION" >> "$GITHUB_OUTPUT"
+
+          # README badge version
+          README_VERSION=$(grep -o 'Plugin-v[0-9.]*' README.md | head -1 | sed 's/Plugin-v//')
+          echo "readme=$README_VERSION" >> "$GITHUB_OUTPUT"
+
+          # Latest CHANGELOG version
+          CHANGELOG_VERSION=$(grep -m1 '^## [0-9]' CHANGELOG.md | sed 's/## \([0-9.]*\).*/\1/')
+          echo "changelog=$CHANGELOG_VERSION" >> "$GITHUB_OUTPUT"
+
+          # Latest git tag version
+          LATEST_TAG=$(git tag -l 'v*' --sort=-v:refname | head -1 | sed 's/^v//')
+          echo "tag=${LATEST_TAG:-none}" >> "$GITHUB_OUTPUT"
+
+          echo "plugin.json:  $PLUGIN_VERSION"
+          echo "README badge: $README_VERSION"
+          echo "CHANGELOG:    $CHANGELOG_VERSION"
+          echo "Latest tag:   ${LATEST_TAG:-none}"
+
+      - name: Check all three locations match
+        run: |
+          PLUGIN="${{ steps.versions.outputs.plugin }}"
+          README="${{ steps.versions.outputs.readme }}"
+          CHANGELOG="${{ steps.versions.outputs.changelog }}"
+
+          ERRORS=0
+
+          if [ "$PLUGIN" != "$README" ]; then
+            echo "::error::Version mismatch: plugin.json ($PLUGIN) != README badge ($README)"
+            ERRORS=$((ERRORS + 1))
+          fi
+
+          if [ "$PLUGIN" != "$CHANGELOG" ]; then
+            echo "::error::Version mismatch: plugin.json ($PLUGIN) != CHANGELOG ($CHANGELOG)"
+            ERRORS=$((ERRORS + 1))
+          fi
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo ""
+            echo "All three version locations must match:"
+            echo "  - ai-literacy-superpowers/.claude-plugin/plugin.json"
+            echo "  - README.md (Plugin badge)"
+            echo "  - CHANGELOG.md (top heading)"
+            exit 1
+          fi
+
+          echo "All versions consistent: $PLUGIN"
+
+      - name: Check version bumped for skill/agent/command changes
+        run: |
+          PLUGIN="${{ steps.versions.outputs.plugin }}"
+          TAG="${{ steps.versions.outputs.tag }}"
+
+          # If no tags exist yet, skip this check
+          if [ "$TAG" = "none" ]; then
+            echo "No tags found — skipping bump check"
+            exit 0
+          fi
+
+          # Check if skills, agents, or commands changed vs base branch
+          CHANGED=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
+            'ai-literacy-superpowers/skills/*/SKILL.md' \
+            'ai-literacy-superpowers/agents/*.agent.md' \
+            'ai-literacy-superpowers/commands/*.md' \
+            2>/dev/null || true)
+
+          if [ -n "$CHANGED" ] && [ "$PLUGIN" = "$TAG" ]; then
+            echo "::error::Skills, agents, or commands changed but version was not bumped (still $PLUGIN)"
+            echo ""
+            echo "Changed files:"
+            echo "$CHANGED"
+            echo ""
+            echo "Bump the version in all three locations:"
+            echo "  - ai-literacy-superpowers/.claude-plugin/plugin.json"
+            echo "  - README.md (Plugin badge)"
+            echo "  - CHANGELOG.md (add new heading)"
+            exit 1
+          fi
+
+          if [ -n "$CHANGED" ]; then
+            echo "Component changes detected and version bumped: $TAG -> $PLUGIN"
+          else
+            echo "No component changes — version bump not required"
+          fi
