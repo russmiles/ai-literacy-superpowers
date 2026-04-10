@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.2 — 2026-04-10
+
+### Bug Fix
+
+- Fix curation-nudge Stop hook arithmetic error — `grep -c` outputs 0
+  to stdout before exiting non-zero under `set -e`, causing the
+  `|| echo "0"` fallback to produce `"0\n0"` which breaks arithmetic.
+  Fixed both `reflection_count` (line 27) and `promoted_count` (line 42)
+  to use `|| var=0` pattern instead.
+
 ## 0.9.1 — 2026-04-10
 
 ### Article 08: The Loops That Learn
