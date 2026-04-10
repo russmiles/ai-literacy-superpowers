@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.3 — 2026-04-10
+
+### Reflection-Driven Improvements
+
+- Add how-to template file (`docs/how-to/_template.md`) — explicit
+  structure for subagents writing how-to guides, removing style
+  inference from examples
+- Add CI version consistency check (`version-check.yml`) — verifies
+  plugin.json, README badge, and CHANGELOG heading all match, and
+  that skill/agent/command changes trigger a version bump
+- Add version consistency constraint to HARNESS.md (7/7 enforced)
+
 ## 0.8.2 — 2026-04-09
 
 ### Complete Tutorial Set
