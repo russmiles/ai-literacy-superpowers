@@ -125,6 +125,15 @@
 - **Tool**: .github/workflows/version-check.yml
 - **Scope**: pr
 
+### Marketplace plugin version sync
+
+- **Rule**: `marketplace.json` top-level `plugin_version` must match
+  `plugin.json` `version`. When the plugin version is bumped, the
+  marketplace pointer must be updated in the same PR.
+- **Enforcement**: deterministic
+- **Tool**: .github/workflows/version-check.yml
+- **Scope**: pr
+
 ---
 
 ## Garbage Collection
@@ -197,6 +206,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-11
-Constraints enforced: 8/8
+Constraints enforced: 9/9
 Garbage collection active: 2/6
 Drift detected: none
