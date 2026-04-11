@@ -50,6 +50,33 @@ Before every PR, check whether the change warrants a version bump:
    - `README.md` (Plugin version badge)
    - `CHANGELOG.md` (version header on the current date section)
 
+## Marketplace Versioning
+
+The marketplace listing (`.claude-plugin/marketplace.json`) is versioned
+independently from the plugin. It has two version fields:
+
+- `version` — the listing version (the contract with the platform)
+- `plugin_version` — pointer to the currently approved plugin release
+
+**When to update `plugin_version`:**
+
+After every plugin version bump, update `plugin_version` in
+`.claude-plugin/marketplace.json` to match the new `plugin.json`
+version. This is the common case — plugin code changes, listing
+contract stays the same.
+
+**When to bump `version` (listing version):**
+
+Bump when the listing contract itself changes:
+
+- Description, keywords, or owner metadata change
+- Permissions or consent scope change
+- A plugin entry is added or removed from the `plugins` array
+- The `source` path changes
+
+The listing version follows the same semver rules as the plugin while
+pre-1.0. A listing-only change does not require a plugin version bump.
+
 ## Sync from Source
 
 This plugin's reusable components originate from the

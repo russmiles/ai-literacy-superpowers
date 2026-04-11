@@ -125,6 +125,15 @@
 - **Tool**: .github/workflows/version-check.yml
 - **Scope**: pr
 
+### Marketplace plugin version sync
+
+- **Rule**: `marketplace.json` top-level `plugin_version` must match
+  `plugin.json` `version`. When the plugin version is bumped, the
+  marketplace pointer must be updated in the same PR.
+- **Enforcement**: deterministic
+- **Tool**: .github/workflows/version-check.yml
+- **Scope**: pr
+
 ---
 
 ## Garbage Collection
@@ -190,6 +199,16 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Marketplace listing drift
+
+- **What it checks**: Whether the description and keywords in
+  `marketplace.json` have drifted from `plugin.json` — the listing
+  should reflect what the plugin actually declares
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
 ---
 
 ## Status
@@ -197,6 +216,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-11
-Constraints enforced: 8/8
-Garbage collection active: 2/6
+Constraints enforced: 9/9
+Garbage collection active: 2/7
 Drift detected: none

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.10.0 — 2026-04-11
+
+### Independent Marketplace Listing Versioning
+
+- Add `plugin_version` field to `marketplace.json` — the listing now
+  explicitly declares which plugin release it approves
+- Add marketplace versioning convention to CLAUDE.md — agents know
+  when to bump listing version vs update plugin pointer
+- Add marketplace plugin version sync constraint to HARNESS.md —
+  CI blocks PRs where `plugin_version` diverges from `plugin.json`
+- Add marketplace listing drift GC rule to HARNESS.md — weekly
+  check that listing metadata hasn't drifted from plugin metadata
+- Extend `version-check.yml` to enforce marketplace sync on every PR
+- Add updating guide to README and docs for plugin and marketplace
+
 ## 0.9.4 — 2026-04-11
 
 ### Documentation Completion

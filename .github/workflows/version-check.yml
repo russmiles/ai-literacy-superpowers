@@ -47,6 +47,11 @@ jobs:
           echo "CHANGELOG:    $CHANGELOG_VERSION"
           echo "Latest tag:   ${LATEST_TAG:-none}"
 
+          # marketplace.json plugin_version
+          MARKETPLACE_PLUGIN_VERSION=$(python3 -c "import json; data=json.load(open('.claude-plugin/marketplace.json')); print(data.get('plugin_version', ''))")
+          echo "marketplace_plugin=$MARKETPLACE_PLUGIN_VERSION" >> "$GITHUB_OUTPUT"
+          echo "marketplace:   $MARKETPLACE_PLUGIN_VERSION"
+
       - name: Check all three locations match
         run: |
           PLUGIN="${{ steps.versions.outputs.plugin }}"
@@ -75,6 +80,26 @@ jobs:
           fi
 
           echo "All versions consistent: $PLUGIN"
+
+      - name: Check marketplace plugin_version matches plugin.json
+        run: |
+          PLUGIN="${{ steps.versions.outputs.plugin }}"
+          MARKETPLACE="${{ steps.versions.outputs.marketplace_plugin }}"
+
+          if [ -z "$MARKETPLACE" ]; then
+            echo "::error::marketplace.json missing plugin_version field"
+            exit 1
+          fi
+
+          if [ "$PLUGIN" != "$MARKETPLACE" ]; then
+            echo "::error::Version mismatch: plugin.json ($PLUGIN) != marketplace.json plugin_version ($MARKETPLACE)"
+            echo ""
+            echo "When bumping the plugin version, also update plugin_version in:"
+            echo "  - .claude-plugin/marketplace.json"
+            exit 1
+          fi
+
+          echo "Marketplace plugin_version in sync: $MARKETPLACE"
 
       - name: Check version bumped for skill/agent/command changes
         run: |
