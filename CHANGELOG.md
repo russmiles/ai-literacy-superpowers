@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.3 — 2026-04-11
+
+### Human Pace Template and Assessment Signals
+
+- Add spec-scoped changes constraint to template HARNESS.md — new
+  projects get one-concern-per-PR enforcement by default
+- Add change cadence drift GC rule to template HARNESS.md — weekly
+  monitoring of PR size distribution and cycle time
+- Add Human Pace observable evidence signals to assessment skill at
+  L2 (TDD-paced diffs), L3 (spec-scoped constraint, cadence drift GC),
+  L4 (spec-to-PR mapping), and L5 (cadence metrics as health signal)
+
 ## 0.9.2 — 2026-04-10
 
 ### Bug Fix

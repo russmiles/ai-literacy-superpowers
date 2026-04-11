@@ -67,6 +67,16 @@
 - **Tool**: none yet
 - **Scope**: pr
 
+### Spec-scoped changes
+
+- **Rule**: Each feature or behaviour-change PR should trace to a single
+  spec. Bug fixes, dependency updates, and other maintenance changes do
+  not require a spec but should still be coherently scoped — one concern
+  per PR. PRs that bundle unrelated changes must be decomposed.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer (reviews against Theme 18: The Human Pace)
+- **Scope**: pr
+
 ---
 
 ## Garbage Collection
@@ -111,6 +121,16 @@
 - **Enforcement**: deterministic
 - **Tool**: file date check
 - **Auto-fix**: true (move to archive directory)
+
+### Change cadence drift
+
+- **What it checks**: Whether PR size distribution (median lines
+  changed) or spec-to-merge cycle time has increased over the past
+  month, indicating the human pace is being lost to AI-speed production
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent (analyses recent merged PRs via git log)
+- **Auto-fix**: false
 
 ---
 

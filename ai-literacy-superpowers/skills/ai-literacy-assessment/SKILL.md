@@ -28,6 +28,7 @@ team is operating at. Each signal maps to a specific level:
 - Vulnerability scanning (govulncheck, OWASP, Docker Scout)
 - Markdownlint or other linting in CI
 - Mutation testing configuration
+- Small, TDD-paced diffs visible in commit history (Human Pace signal)
 
 **Level 3 indicators (habitat engineering)**:
 
@@ -41,6 +42,8 @@ team is operating at. Each signal maps to a specific level:
 - Hooks configuration (`hooks.json`)
 - `REFLECTION_LOG.md` with entries
 - `.markdownlint.json` or equivalent config
+- Spec-scoped changes constraint in HARNESS.md (Human Pace signal)
+- Change cadence drift GC rule active (Human Pace signal)
 
 **Level 4 indicators (specification architecture)**:
 
@@ -49,6 +52,7 @@ team is operating at. Each signal maps to a specific level:
 - Agent pipeline with orchestrator
 - Plan approval gate in orchestrator
 - Loop guardrails (MAX_REVIEW_CYCLES)
+- Spec-to-PR mapping — each spec produces one PR (Human Pace signal)
 
 **Level 5 indicators (sovereign engineering)**:
 
@@ -57,6 +61,7 @@ team is operating at. Each signal maps to a specific level:
 - OpenTelemetry configuration
 - Organisational governance documentation
 - Multiple agent teams or cloud async agents
+- Change cadence metrics reviewed as team health signal (Human Pace signal)
 
 ### Phase 2: Clarifying Questions
 
