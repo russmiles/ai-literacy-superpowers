@@ -41,6 +41,38 @@ Once installed, the plugin's skills, agents, hooks, and commands (or prompts) ar
 
 > Commands are available as `/command-name` in Claude Code and as `/prompt-name` in Copilot CLI.
 
+### Updating
+
+#### Update the plugin
+
+When a new version is released, update your local installation:
+
+```bash
+# Claude Code
+claude plugin update ai-literacy-superpowers
+
+# Copilot CLI
+/plugin update ai-literacy-superpowers
+```
+
+Check the [CHANGELOG](CHANGELOG.md) for what changed between versions.
+
+#### Update the marketplace listing
+
+If you maintain your own marketplace that includes this plugin, refresh
+the index so new versions are discoverable:
+
+```bash
+claude plugin marketplace update Habitat-Thinking/ai-literacy-superpowers
+```
+
+This pulls the latest `plugin.json` metadata (version, description,
+keywords) into the marketplace index. Users who have already installed
+the plugin still need to run `claude plugin update` separately.
+
+See [How to Update the Plugin](docs/how-to/update-the-plugin.md) for
+the full guide.
+
 ### Quick start
 
 After installation, run these commands to set up your project:
