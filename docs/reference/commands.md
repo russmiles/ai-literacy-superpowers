@@ -7,6 +7,235 @@ nav_order: 3
 
 # Commands
 
-All 15 slash commands with usage and arguments.
+All 15 slash commands registered in `commands/`. Each command is
+invoked as `/command-name` in a Claude Code session.
 
-{: .label .label-yellow } Coming Soon
+---
+
+## Harness Lifecycle
+
+Commands for initialising, monitoring, constraining, and maintaining
+the living harness.
+
+### /harness-init
+
+- **Skills read**: harness-engineering, context-engineering
+- **Agents dispatched**: harness-discoverer
+
+Set up a living harness for the project. Interactive feature selection
+walks through context, constraints, garbage collection, CI templates,
+and observability. Dispatches the harness-discoverer agent to scan the
+repo and identify the stack before generating `HARNESS.md`. Safe to
+re-run — subsequent runs add features incrementally without
+overwriting existing configuration.
+
+### /harness-status
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Quick harness health read with no agent overhead. Reads `HARNESS.md`
+and cross-references project state to produce a summary of
+enforcement ratio, drift since last audit, and garbage collection
+state. Use this for a fast pulse check between deeper audits.
+
+### /harness-audit
+
+- **Skills read**: none
+- **Agents dispatched**: harness-discoverer, harness-auditor
+
+Full meta-verification of the harness. Dispatches the
+harness-discoverer agent to scan the repo, then the harness-auditor
+agent to compare what `HARNESS.md` claims against what the project
+actually contains. Reports mismatches, stale constraints, and
+missing enforcement. Use this after significant changes to the
+project structure or CI pipeline.
+
+### /harness-constrain
+
+- **Skills read**: constraint-design, verification-slots
+- **Agents dispatched**: none
+
+Add a new constraint or promote an existing one. Interactive — asks
+what rule you want to enforce, helps design the constraint (including
+choosing between agent-scoped and deterministic enforcement), and
+writes it into the Constraints section of `HARNESS.md`. Also
+configures the verification slot if deterministic enforcement is
+selected.
+
+### /harness-gc
+
+- **Skills read**: garbage-collection
+- **Agents dispatched**: harness-gc
+
+Manage and run garbage collection rules. Two modes:
+
+- **Add**: Define a new periodic GC rule — what to check, how often,
+  and whether it needs agent judgement or can be deterministic.
+- **Run**: Execute existing GC rules on demand, outside their normal
+  schedule.
+
+Dispatches the harness-gc agent to perform rule evaluation.
+
+### /harness-health
+
+- **Skills read**: none
+- **Agents dispatched**: harness-auditor (Deep mode only)
+
+Generate a comprehensive health snapshot. Two modes:
+
+- **Quick**: Reads existing data only — no agents dispatched. Produces
+  enforcement ratio, mutation trends, learning velocity, cadence
+  compliance, and meta-observability status.
+- **Deep**: Dispatches the harness-auditor agent for a full audit
+  before generating the snapshot. Use this for scheduled health checks.
+
+Snapshots are saved to `observability/snapshots/` with a datestamped
+filename.
+
+---
+
+## Assessment & Improvement
+
+Commands for evaluating AI literacy and aggregating assessments
+across repositories.
+
+### /assess
+
+- **Skills read**: ai-literacy-assessment
+- **Agents dispatched**: none
+
+Run a full AI literacy assessment against the ALCI framework. Scans
+the repo for evidence of literacy practices, asks clarifying questions
+where evidence is ambiguous, and produces a timestamped assessment
+document. After assessment, applies immediate habitat fixes,
+recommends workflow changes, captures a reflection, and adds a
+literacy level badge to the project README.
+
+### /portfolio-assess
+
+- **Skills read**: portfolio-assessment
+- **Agents dispatched**: none
+- **Flags**:
+  - `--local <path>` — scan repos under a local directory
+  - `--org <github-org>` — discover repos from a GitHub organisation
+  - `--topic <tag>` — filter repos by GitHub topic
+
+Multi-repo assessment aggregation. Discovers repositories using the
+specified source, gathers individual assessments, and produces a
+portfolio view with level distribution, shared gaps, outliers, and a
+prioritised improvement plan grouped by organisational impact.
+
+---
+
+## Habitat Setup
+
+Commands for bootstrapping and monitoring the complete AI Literacy
+habitat.
+
+### /superpowers-init
+
+- **Skills read**: harness-engineering, context-engineering
+- **Agents dispatched**: harness-discoverer
+
+Bootstrap the full AI Literacy habitat in eight steps:
+
+1. Discover the stack
+2. Generate `CLAUDE.md`
+3. Generate `HARNESS.md`
+4. Generate `AGENTS.md`
+5. Generate `MODEL_ROUTING.md`
+6. Generate `REFLECTION_LOG.md`
+7. Scaffold CI templates
+8. Produce initial health snapshot
+
+Safe to re-run — existing files are preserved and only missing
+components are added.
+
+### /superpowers-status
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Full habitat health dashboard. Checks every component of the AI
+Literacy habitat and reports status per section:
+
+- **Habitat files** — presence of CLAUDE.md, HARNESS.md, AGENTS.md,
+  MODEL_ROUTING.md, REFLECTION_LOG.md
+- **Harness enforcement** — constraint count and enforcement ratio
+- **Agent team** — agent definitions and availability
+- **Compound learning** — reflection entries and curation state
+- **Model routing** — routing table and cost data
+- **CI status** — workflow presence and recent run health
+
+Each section reports **OK**, **WARNING**, or **MISSING**.
+
+---
+
+## Workflow
+
+Commands for day-to-day development workflow support.
+
+### /reflect
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Capture a post-task reflection. Appends a structured entry to
+`REFLECTION_LOG.md`. Asks three questions:
+
+1. What was worked on?
+2. What was surprising?
+3. What should future agents know?
+
+Classifies the signal type (technique, constraint, tooling, process)
+so that reflections can be filtered and curated later.
+
+### /cost-capture
+
+- **Skills read**: cost-tracking
+- **Agents dispatched**: none
+
+Capture AI tool cost data for the current period. Finds the previous
+cost snapshot, guides you through provider dashboards to collect
+current spend and token usage, records the data, compares against the
+previous period, and updates `MODEL_ROUTING.md` with observed cost
+trends.
+
+### /extract-conventions
+
+- **Skills read**: convention-extraction
+- **Agents dispatched**: none
+
+Guided convention extraction session. Surfaces tacit team knowledge
+through five structured questions covering naming, error handling,
+testing, architecture, and code style preferences. Maps answers to
+concrete `CLAUDE.md` conventions and `HARNESS.md` constraints. Use
+this when onboarding AI to an existing codebase or after team
+composition changes.
+
+### /convention-sync
+
+- **Skills read**: convention-sync
+- **Agents dispatched**: none
+
+Sync `HARNESS.md` conventions to other AI coding tools. Reads the
+Context and Constraints sections of `HARNESS.md` and generates
+tool-specific convention files for Cursor, Copilot, and Windsurf.
+Ensures all AI coding tools in the team share the same project rules
+regardless of which editor is used.
+
+### /worktree
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Manage git worktrees for parallel agent isolation. Three modes:
+
+- **`/worktree spin [name]`** — Create a new isolated worktree
+  branched from the current HEAD. Use this to give a sub-agent its
+  own working directory without interference.
+- **`/worktree merge [name]`** — Merge the named worktree back into
+  the current branch.
+- **`/worktree clean [name]`** — Remove the named worktree and its
+  branch.

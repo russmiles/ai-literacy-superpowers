@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.4 — 2026-04-11
+
+### Documentation Completion
+
+- Complete commands reference page — all 15 commands with skills,
+  agents, flags, and modes documented
+- Complete agents reference page — all 10 agents with tools, dispatch
+  sources, trust boundaries, and design principles
+- Complete templates reference page — all 10 templates with purpose,
+  key sections, and generation commands
+- Add The Loops That Learn explanation page and wire into docs nav
+- Add Human Pace how-to guide covering constraint, GC rule, and
+  assessment signals
+- Fix stale component counts in GitHub Pages design spec (18→24
+  skills, 13→15 commands)
+
 ## 0.9.3 — 2026-04-11
 
 ### Human Pace Template and Assessment Signals
