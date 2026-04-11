@@ -199,6 +199,16 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Marketplace listing drift
+
+- **What it checks**: Whether the description and keywords in
+  `marketplace.json` have drifted from `plugin.json` — the listing
+  should reflect what the plugin actually declares
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
 ---
 
 ## Status
@@ -207,5 +217,5 @@
 
 Last audit: 2026-04-11
 Constraints enforced: 9/9
-Garbage collection active: 2/6
+Garbage collection active: 2/7
 Drift detected: none
