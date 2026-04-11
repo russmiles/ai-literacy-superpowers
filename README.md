@@ -6,12 +6,12 @@
 [![Skills](https://img.shields.io/badge/Skills-24-2E8B57?style=flat-square)](#skills-24)
 [![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
 [![Commands](https://img.shields.io/badge/Commands-15-2E8B57?style=flat-square)](#commands-15)
-[![Harness](https://img.shields.io/badge/Harness-7%2F7_enforced-2E8B57?style=flat-square)](HARNESS.md)
+[![Harness](https://img.shields.io/badge/Harness-8%2F8_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 [![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
 [![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
-[![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_5-DAA520?style=flat-square)](assessments/2026-04-10-assessment.md)
+[![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_5-DAA520?style=flat-square)](assessments/2026-04-11-assessment.md)
 
 A plugin for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CLI](https://github.com/features/copilot) that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
 
