@@ -2,7 +2,7 @@
 
 ## Problem
 
-The plugin has extensive content (18 skills, 10 agents, 13 commands,
+The plugin has extensive content (24 skills, 10 agents, 15 commands,
 templates, design specs) but no public documentation site. The README
 covers everything in one long page. Potential users can't discover
 what the plugin does without reading source files. Contributors can't
@@ -55,7 +55,7 @@ command, and links to get started.
 
 **Reference** (`docs/reference/`):
 - `index.md` — section overview
-- `skills.md` — full catalogue: all 18 skills with descriptions
+- `skills.md` — full catalogue: all 24 skills with descriptions
 - Stubs: `agents.md`, `commands.md`, `hooks.md`,
   `harness-md-format.md`, `templates.md`
 

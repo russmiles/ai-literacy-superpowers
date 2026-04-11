@@ -20,6 +20,8 @@ These pages introduce the core ideas behind the framework, building from first p
 5. [Agent Orchestration]({% link explanation/agent-orchestration.md %}) -- specialised agents with trust boundaries
 6. [Compound Learning]({% link explanation/compound-learning.md %}) -- how your AI gets smarter every session
 
+7. [The Loops That Learn]({% link explanation/the-loops-that-learn.md %}) -- four operational loops that make AI environments compound
+
 ## Deep dives
 
 These pages go deeper into the mechanics of each component:
