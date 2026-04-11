@@ -42,6 +42,21 @@
   parallel implementation agents without worktrees.
   (Source: REFLECTION_LOG 2026-04-07)
 
+- Background subagents may lack Write/Edit permissions even when the
+  parent context has them. For write-heavy tasks (e.g. generating
+  full documentation pages), either use foreground agents so the user
+  can approve tool calls, or have the parent extract content from
+  subagent output and do the writes itself. The subagent output logs
+  at `/private/tmp/claude-*/tasks/<agent-id>.output` contain the
+  drafted content even when writes were denied.
+  (Source: REFLECTION_LOG 2026-04-11)
+
+- Before proposing a new CI workflow, grep `.github/workflows/` for
+  related checks. This project already has version-check.yml,
+  lint-markdown.yml, harness.yml, gc.yml, and pages.yml. Proposing
+  a duplicate wastes a branch cycle and erodes trust.
+  (Source: REFLECTION_LOG 2026-04-11)
+
 - This project's harness is self-referential — the plugin defines
   the harness framework, and its own HARNESS.md uses that framework.
   Changes to template files (`templates/HARNESS.md`) do not
