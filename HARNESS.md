@@ -106,6 +106,16 @@
 - **Tool**: find . -name "*.sh" -not -path "./.git/*" -exec shellcheck {} +
 - **Scope**: commit + pr
 
+### Spec-scoped changes
+
+- **Rule**: Each feature or behaviour-change PR should trace to a single
+  spec. Bug fixes, dependency updates, and other maintenance changes do
+  not require a spec but should still be coherently scoped — one concern
+  per PR. PRs that bundle unrelated changes must be decomposed.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer (reviews against The Human Pace)
+- **Scope**: pr
+
 ### Version consistency
 
 - **Rule**: plugin.json version, README badge version, and CHANGELOG
@@ -160,6 +170,16 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Change cadence drift
+
+- **What it checks**: Whether PR size distribution (median lines
+  changed) or spec-to-merge cycle time has increased over the past
+  month, indicating the human pace is being lost to AI-speed production
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent (analyses recent merged PRs via git log)
+- **Auto-fix**: false
+
 ### Plugin manifest currency
 
 - **What it checks**: Whether `plugin.json` version, keywords, and
@@ -176,7 +196,7 @@
 
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
-Last audit: 2026-04-10
-Constraints enforced: 7/7
-Garbage collection active: 2/5
-Drift detected: none (markdownlint added to CI, closing the gap)
+Last audit: 2026-04-11
+Constraints enforced: 8/8
+Garbage collection active: 2/6
+Drift detected: none
