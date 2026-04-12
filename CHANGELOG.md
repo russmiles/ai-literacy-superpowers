@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.11.0 — 2026-04-12
+
+### Spec-First Discipline Gate
+
+- Add spec-first commit ordering CI workflow — deterministic gate that
+  verifies the first commit on feature branches contains only a spec
+  file, with exemptions for bug-fix and maintenance PRs
+- Add "Spec-first commit ordering" constraint to HARNESS.md —
+  deterministic enforcement via the new CI workflow
+- Add "Spec captures intent" constraint to HARNESS.md — agent review
+  checking that specs describe problem, approach, and expected outcome
+- Extend harness-enforcer agent with spec intent review guidance
+
 ## 0.10.0 — 2026-04-11
 
 ### Independent Marketplace Listing Versioning

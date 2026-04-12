@@ -116,6 +116,26 @@
 - **Tool**: harness-enforcer (reviews against The Human Pace)
 - **Scope**: pr
 
+### Spec-first commit ordering
+
+- **Rule**: For feature and behaviour-change PRs, the first commit on
+  the branch must contain only a spec file in `docs/superpowers/specs/`.
+  No implementation code may appear in that commit. Bug-fix, dependency,
+  and maintenance PRs (labelled `bug`, `fix`, `chore`, `maintenance` or
+  branch-prefixed `fix/`, `chore/`) are exempt.
+- **Enforcement**: deterministic
+- **Tool**: .github/workflows/spec-first-check.yml
+- **Scope**: pr
+
+### Spec captures intent
+
+- **Rule**: The spec file in a feature PR must describe the problem
+  being solved, the chosen approach, and the expected outcome. The
+  implementation in the PR should trace back to what the spec describes.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer agent
+- **Scope**: pr
+
 ### Version consistency
 
 - **Rule**: plugin.json version, README badge version, and CHANGELOG
@@ -216,6 +236,6 @@
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-11
-Constraints enforced: 9/9
+Constraints enforced: 11/11
 Garbage collection active: 2/7
 Drift detected: none

@@ -1,0 +1,125 @@
+# Spec-first commit ordering check for pull requests.
+#
+# Verifies that the first commit on a feature branch contains only
+# a spec file in docs/superpowers/specs/. Bug-fix and maintenance
+# PRs are exempt.
+
+name: Spec-First Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check spec-first commit ordering
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Check for exemption
+        id: exempt
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          echo "Branch: $BRANCH"
+
+          # Exempt by branch prefix
+          if [[ "$BRANCH" == fix/* ]] || [[ "$BRANCH" == chore/* ]]; then
+            echo "exempt=true" >> "$GITHUB_OUTPUT"
+            echo "Exempt by branch prefix: $BRANCH"
+            exit 0
+          fi
+
+          echo "exempt=false" >> "$GITHUB_OUTPUT"
+
+      - name: Check for label exemption
+        id: label_exempt
+        if: steps.exempt.outputs.exempt == 'false'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7.0.1
+        with:
+          script: |
+            const labels = context.payload.pull_request?.labels || [];
+            const exemptLabels = ['bug', 'fix', 'chore', 'maintenance'];
+            const isExempt = labels.some(l => exemptLabels.includes(l.name));
+            core.setOutput('exempt', isExempt.toString());
+            if (isExempt) {
+              console.log(`Exempt by label: ${labels.map(l => l.name).join(', ')}`);
+            }
+
+      - name: Verify first commit is spec-only
+        if: steps.exempt.outputs.exempt == 'false' && steps.label_exempt.outputs.exempt == 'false'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          # workflow_dispatch has no PR context — skip
+          if [ -z "$BASE_REF" ]; then
+            echo "No base_ref — skipping (manual dispatch without PR context)"
+            exit 0
+          fi
+
+          BASE="origin/$BASE_REF"
+
+          # Get the first commit on this branch (oldest commit not on base)
+          FIRST_COMMIT=$(git rev-list --reverse "$BASE"..HEAD | head -1)
+
+          if [ -z "$FIRST_COMMIT" ]; then
+            echo "::error::No commits found on this branch"
+            exit 1
+          fi
+
+          echo "First commit: $FIRST_COMMIT"
+          echo "Message: $(git log --format=%s -1 "$FIRST_COMMIT")"
+
+          # Get files changed in the first commit
+          FILES=$(git diff-tree --no-commit-id --name-only -r "$FIRST_COMMIT")
+          echo ""
+          echo "Files in first commit:"
+          echo "$FILES"
+
+          if [ -z "$FILES" ]; then
+            echo "::error::First commit has no files"
+            exit 1
+          fi
+
+          # Check that at least one file is a spec
+          SPEC_COUNT=0
+          NON_SPEC_COUNT=0
+          while IFS= read -r file; do
+            if [[ "$file" == docs/superpowers/specs/*.md ]]; then
+              SPEC_COUNT=$((SPEC_COUNT + 1))
+            else
+              NON_SPEC_COUNT=$((NON_SPEC_COUNT + 1))
+              echo "::error::Non-spec file in first commit: $file"
+            fi
+          done <<< "$FILES"
+
+          if [ "$SPEC_COUNT" -eq 0 ]; then
+            echo ""
+            echo "::error::First commit must contain a spec file in docs/superpowers/specs/"
+            echo ""
+            echo "Feature and behaviour-change PRs require a spec committed as the"
+            echo "first commit on the branch. The spec should be in:"
+            echo "  docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md"
+            echo ""
+            echo "If this is a bug fix or maintenance PR, add one of these labels:"
+            echo "  bug, fix, chore, maintenance"
+            echo "Or use a branch prefix: fix/, chore/"
+            exit 1
+          fi
+
+          if [ "$NON_SPEC_COUNT" -gt 0 ]; then
+            echo ""
+            echo "::error::First commit must contain ONLY spec files"
+            echo "Found $NON_SPEC_COUNT non-spec file(s) alongside the spec."
+            echo "Commit your spec separately before adding implementation code."
+            exit 1
+          fi
+
+          echo ""
+          echo "Spec-first check passed: $SPEC_COUNT spec file(s), no other files"
