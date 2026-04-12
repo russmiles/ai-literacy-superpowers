@@ -24,8 +24,9 @@ jobs:
 
       - name: Check for exemption
         id: exempt
+        env:
+          BRANCH: ${{ github.head_ref }}
         run: |
-          BRANCH="${{ github.head_ref }}"
           echo "Branch: $BRANCH"
 
           # Exempt by branch prefix
@@ -53,8 +54,16 @@ jobs:
 
       - name: Verify first commit is spec-only
         if: steps.exempt.outputs.exempt == 'false' && steps.label_exempt.outputs.exempt == 'false'
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          BASE="origin/${{ github.base_ref }}"
+          # workflow_dispatch has no PR context — skip
+          if [ -z "$BASE_REF" ]; then
+            echo "No base_ref — skipping (manual dispatch without PR context)"
+            exit 0
+          fi
+
+          BASE="origin/$BASE_REF"
 
           # Get the first commit on this branch (oldest commit not on base)
           FIRST_COMMIT=$(git rev-list --reverse "$BASE"..HEAD | head -1)
