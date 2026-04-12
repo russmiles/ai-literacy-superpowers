@@ -47,6 +47,23 @@ insufficient — use them to calibrate your scrutiny.
 2. For each constraint matching the requested scope, run verification
 3. Report pass/fail with file:line findings
 
+**Spec Intent Review (for "Spec captures intent" constraint):**
+
+When reviewing a PR for the "Spec captures intent" constraint:
+
+1. Find the spec file in the PR (should be in `docs/superpowers/specs/`)
+2. Read the spec and check for three things:
+   - **Problem**: Does the spec describe what problem is being solved
+     and why it matters?
+   - **Approach**: Does the spec describe the chosen design or approach?
+   - **Outcome**: Does the spec describe the expected result or
+     behaviour change?
+3. Compare the spec to the implementation files in the PR — does the
+   code deliver what the spec describes? Flag significant divergence.
+4. Report findings per the standard format. A spec that covers all
+   three areas and aligns with the implementation passes. A spec that
+   is missing any area or diverges significantly from the code fails.
+
 **Verification Process:**
 
 1. **Read HARNESS.md**: Parse the Constraints section. Filter to
