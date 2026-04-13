@@ -143,6 +143,22 @@ you to review and curate learnings. This closes the gap in the
 compound learning lifecycle where reflections are captured but never
 promoted to team memory.
 
+### Governance drift check (command)
+
+- **Event**: Stop
+- **Matcher**: `*`
+- **Type**: command
+- **Script**: `hooks/scripts/governance-drift-check.sh`
+- **Timeout**: 10s
+
+Checks whether governance-related files were modified during the
+session and whether the last governance audit is stale (> 90 days).
+Detects three signals: HARNESS.md changes involving governance
+language, compliance or policy document modifications, and audit
+staleness. Also flags when governance constraints exist in
+HARNESS.md but no audit has ever been run. Nudges
+`/governance-audit` or `/governance-health`.
+
 ---
 
 ## Configuration
