@@ -77,6 +77,24 @@ Bump when the listing contract itself changes:
 The listing version follows the same semver rules as the plugin while
 pre-1.0. A listing-only change does not require a plugin version bump.
 
+## Cross-Repo Spec-First Discipline
+
+When work in this plugin is driven by a spec in another repo (typically
+`ai-literacy-for-software-engineers`), the spec-first CI check cannot
+see the spec. Two options:
+
+1. **Copy the spec** into `docs/superpowers/specs/` as the first commit
+   on the branch. This satisfies the spec-first gate and keeps a local
+   record of what drove the change. Preferred for large feature work.
+
+2. **Use the cross-repo exemption** — name the branch `cross-repo/...`
+   or add the `cross-repo` label to the PR. The spec-first check will
+   skip. Use this for sync-driven changes where the spec already exists
+   upstream and copying it would be redundant.
+
+In the PR description, always link to the upstream spec regardless of
+which option you choose.
+
 ## Sync from Source
 
 This plugin's reusable components originate from the

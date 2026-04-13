@@ -1,8 +1,8 @@
 # Spec-first commit ordering check for pull requests.
 #
 # Verifies that the first commit on a feature branch contains only
-# a spec file in docs/superpowers/specs/. Bug-fix and maintenance
-# PRs are exempt.
+# a spec file in docs/superpowers/specs/. Bug-fix, maintenance, and
+# cross-repo PRs (where the spec lives in another repo) are exempt.
 
 name: Spec-First Check
 
@@ -30,7 +30,7 @@ jobs:
           echo "Branch: $BRANCH"
 
           # Exempt by branch prefix
-          if [[ "$BRANCH" == fix/* ]] || [[ "$BRANCH" == chore/* ]]; then
+          if [[ "$BRANCH" == fix/* ]] || [[ "$BRANCH" == chore/* ]] || [[ "$BRANCH" == cross-repo/* ]]; then
             echo "exempt=true" >> "$GITHUB_OUTPUT"
             echo "Exempt by branch prefix: $BRANCH"
             exit 0
@@ -45,7 +45,7 @@ jobs:
         with:
           script: |
             const labels = context.payload.pull_request?.labels || [];
-            const exemptLabels = ['bug', 'fix', 'chore', 'maintenance'];
+            const exemptLabels = ['bug', 'fix', 'chore', 'maintenance', 'cross-repo'];
             const isExempt = labels.some(l => exemptLabels.includes(l.name));
             core.setOutput('exempt', isExempt.toString());
             if (isExempt) {
@@ -110,6 +110,9 @@ jobs:
             echo "If this is a bug fix or maintenance PR, add one of these labels:"
             echo "  bug, fix, chore, maintenance"
             echo "Or use a branch prefix: fix/, chore/"
+            echo ""
+            echo "If the spec lives in another repo (cross-repo work), add the"
+            echo "'cross-repo' label or use the cross-repo/ branch prefix."
             exit 1
           fi
 
