@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 15 slash commands registered in `commands/`. Each command is
+All 18 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -239,3 +239,47 @@ Manage git worktrees for parallel agent isolation. Three modes:
   the current branch.
 - **`/worktree clean [name]`** — Remove the named worktree and its
   branch.
+
+---
+
+## Governance
+
+Commands for writing, auditing, and monitoring governance constraints.
+
+### /governance-constrain
+
+- **Skills read**: governance-constraint-design
+- **Agents dispatched**: none
+
+Guided authoring of governance constraints. Walks through six
+prompts: governance requirement, operational meaning, verification
+method, evidence and failure action, and three-frame alignment check.
+Writes the result to `HARNESS.md` using the governance constraint
+template with all extended fields. Suggests a promotion path after
+writing.
+
+### /governance-audit
+
+- **Skills read**: governance-audit-practice, governance-observability
+- **Agents dispatched**: governance-auditor
+
+Deep governance investigation. Dispatches the governance-auditor
+agent to scan `HARNESS.md`, score falsifiability, detect semantic
+drift, build a governance debt inventory, check three-frame
+alignment, and produce a structured report to
+`observability/governance/audit-YYYY-MM-DD.md`. Updates governance
+metrics in the harness health snapshot. Intended cadence: quarterly,
+alongside `/assess` and `/harness-audit`.
+
+### /governance-health
+
+- **Skills read**: governance-observability
+- **Agents dispatched**: none (dispatches governance-auditor only
+  for snapshot governance section)
+
+Quick governance pulse check. Reads the most recent audit report and
+current `HARNESS.md` to display a summary table with constraint
+count, falsifiability ratio, drift score, debt inventory size, frame
+alignment score, last audit date, and drift velocity. Pass
+`--dashboard` to generate a self-contained HTML governance dashboard
+at `observability/governance/governance-dashboard.html`.

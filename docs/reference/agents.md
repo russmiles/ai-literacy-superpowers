@@ -7,7 +7,7 @@ nav_order: 2
 
 # Agents
 
-The plugin ships 10 agents organised into three groups: the
+The plugin ships 11 agents organised into four groups: the
 **spec-first pipeline** that coordinates feature work end to end,
 the **harness agents** that verify and maintain infrastructure
 conventions, and the **assessor** that measures AI literacy.
@@ -176,6 +176,30 @@ with a literacy level badge.
 
 ---
 
+## Governance
+
+### governance-auditor
+
+- **Tools**: Read, Write, Edit, Glob, Grep, Bash
+- **Dispatched by**: `/governance-audit`, `/governance-health`,
+  orchestrator (for governance-related tasks)
+- **Trust boundary**: Read + limited Write (audit reports and snapshot
+  updates only)
+
+Governance specialist for deep investigation. Detects semantic drift
+using the five-stage model, inventories governance debt with severity
+and blast radius scoring, checks three-frame alignment between
+engineering, compliance, and AI system interpretations, and produces
+structured audit reports to `observability/governance/`. Reads the
+`governance-audit-practice`, `governance-constraint-design`, and
+`governance-observability` skills before acting.
+
+Does not modify `HARNESS.md` constraints directly — reports findings
+for humans to decide on. Uses the best available model because
+governance analysis requires nuanced judgement about meaning.
+
+---
+
 ## Tool Summary
 
 | Agent | Read | Write | Edit | Glob | Grep | Bash | Agent | WebFetch | Trust |
@@ -190,6 +214,7 @@ with a literacy level badge.
 | harness-enforcer | x | | | x | x | x | | | read-only |
 | harness-gc | x | x | x | x | x | x | | | read-write |
 | assessor | x | x | x | x | x | x | | | read-write |
+| governance-auditor | x | x | x | x | x | x | | | read-write (limited) |
 
 ---
 

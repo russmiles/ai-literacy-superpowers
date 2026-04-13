@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 24 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 27 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -124,3 +124,19 @@ Quarterly AI cost capture and tracking. Covers guiding users through provider bi
 ### auto-enforcer-action
 
 Automatic PR constraint checking via GitHub Actions. Covers installing and configuring the GitHub Action that runs harness constraint checks on every pull request without manual intervention.
+
+---
+
+## Governance
+
+### governance-constraint-design
+
+Falsifiable governance constraint authoring. Covers the falsifiability test (what to verify, what counts as evidence, what happens on failure), the three-frame translation step (engineering, compliance, AI system perspectives), an anti-patterns gallery with falsifiable rewrites, and the governance constraint template for HARNESS.md. Referenced by `/governance-constrain` and the harness-enforcer agent.
+
+### governance-audit-practice
+
+Governance audit methodology. Covers the seven-step audit process, the five-stage semantic drift model with detection heuristics, governance debt scoring (severity × blast radius matrix), three-frame alignment assessment, four-debt cycle reinforcement detection, and audit report format. Referenced by the governance-auditor agent.
+
+### governance-observability
+
+Governance metrics and dashboard specification. Covers the seven governance metrics (constraint count, falsifiability ratio, drift score, debt inventory size, frame alignment score, last audit date, drift velocity), the snapshot format extension, staleness thresholds, audit report format, HTML dashboard section specifications, and portfolio integration. Referenced by the governance-auditor agent and `/governance-health`.
