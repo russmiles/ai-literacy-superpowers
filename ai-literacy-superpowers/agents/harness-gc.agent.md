@@ -88,6 +88,55 @@ All files pass the configured formatter.
 Summary: 3 checks, 3 findings, 0 auto-fixed, 3 issues created
 ```
 
+**Governance GC Rules:**
+
+When processing GC rules, recognise these governance-specific
+patterns:
+
+### Governance constraint freshness
+
+When this rule fires, check each governance constraint in HARNESS.md:
+
+1. Identify the files or processes the constraint references
+2. Check git log for changes to those files since the constraint's
+   `Frame check` date or last audit date
+3. If substantial changes detected (more than 10 commits or major
+   file restructuring), flag the constraint as potentially stale
+4. Report: "[Constraint name] references [files/processes] that
+   have changed since last governance review on [date]"
+
+### Semantic drift early warning
+
+When this rule fires:
+
+1. For each governance constraint, identify implementation files
+   that the constraint's verification method inspects
+2. Compare the current state of those files with the state at the
+   last governance audit (use git diff --stat)
+3. If the diff is substantial (> 100 lines changed), flag as
+   potential drift
+4. Report: "[Constraint name] — implementation has changed
+   significantly ([N] lines) since last governance audit"
+
+### Governance debt cycle check
+
+When this rule fires (quarterly):
+
+1. Read the most recent governance audit report from
+   `observability/governance/`
+2. Check if any governance debt items reference constraints that
+   have their own unresolved debt
+3. Check if governance constraints reference non-governance
+   constraints that have regressed (e.g., from deterministic to
+   unverified)
+4. Report any reinforcement patterns: "Potential debt cycle:
+   [governance constraint] depends on [other constraint] which has
+   [issue]"
+
+For all governance GC rules, defer to the `governance-auditor` agent
+for deep investigation. The GC agent's role is detection and
+flagging, not full analysis.
+
 **Critical Rules:**
 
 - Never auto-fix when auto-fix is false — create an issue instead

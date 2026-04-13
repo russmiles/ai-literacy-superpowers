@@ -107,6 +107,37 @@ Enforcement: unverified (no automation configured)
 Summary: 3 passed, 1 failed, 2 unchecked
 ```
 
+**Governance Constraint Quality Gate:**
+
+When validating a constraint that references governance language
+(fairness, oversight, transparency, compliance, accountability,
+safety, regulation, ethical, responsible) or has a `Governance
+requirement` field, apply additional quality checks:
+
+1. **Falsifiability check**: Does the constraint specify what to
+   verify, what counts as evidence, and what happens on failure?
+   If any are missing, flag as "governance constraint lacks
+   operational meaning."
+
+2. **Operational meaning check**: Does the constraint have an
+   `Operational meaning` field that translates governance language
+   into engineering terms? If not, flag as "governance language
+   without operationalisation."
+
+3. **Frame check**: Does the constraint have a `Frame check` field
+   indicating three-frame alignment has been confirmed? If not,
+   flag as "governance constraint has not been checked for
+   three-frame alignment — recommend running /governance-constrain
+   to add frame check."
+
+These checks are advisory — flag findings but do not block
+enforcement of the constraint's primary Rule. The governance quality
+gate catches constraints that are syntactically valid but
+semantically incomplete.
+
+Consult the `governance-constraint-design` skill for the full
+falsifiability test and three-frame translation method.
+
 **Critical Rules:**
 
 - Never modify any file — you verify, you do not fix
