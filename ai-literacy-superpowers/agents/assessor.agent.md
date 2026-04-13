@@ -131,6 +131,46 @@ git add assessments/ README.md
 git commit -m "AI Literacy Assessment: Level N — {{LEVEL_NAME}} (YYYY-MM-DD)"
 ```
 
+## Governance Dimension
+
+When producing the assessment report, include a dedicated Governance
+section that groups governance-related findings:
+
+### In the Assessment Document
+
+Add a "## Governance Dimension" section that includes:
+
+1. **Governance constraint count**: how many constraints in
+   HARNESS.md are governance-related
+2. **Governance ALCI items**: scores for the 8 governance assessment
+   items (Levels 0, 2, 3, 5)
+3. **Governance readiness summary**: based on the ALCI scores, where
+   is the team on the governance maturity progression?
+4. **Recommendations**: what governance actions would move the team
+   to the next level? Reference specific commands:
+   - Level 0 → 1: recognise governance ambiguity — no tooling needed
+   - Level 1 → 2: start testing governance claims — recommend
+     `/governance-constrain` to write first falsifiable constraint
+   - Level 2 → 3: encode governance into habitat — recommend
+     `/governance-constrain` for each governance requirement
+   - Level 3 → 4: governance as specification — recommend reviewing
+     constraints as specs
+   - Level 4 → 5: governance as platform — recommend
+     `/governance-audit` quarterly cadence
+
+### In the Improvement Plan
+
+Include governance-specific improvements in the prioritised
+improvement plan. Map governance gaps to plugin commands:
+
+| Gap | Command | Description |
+| --- | --- | --- |
+| No governance constraints | `/governance-constrain` | Author first governance constraint |
+| Vague governance constraints | `/governance-constrain` | Rewrite with operational meaning |
+| No governance audit | `/governance-audit` | Establish governance baseline |
+| Stale governance audit | `/governance-audit` | Refresh governance health data |
+| No governance dashboard | `/governance-health --dashboard` | Generate governance visibility |
+
 ## What you do NOT do
 
 - You do not change any code or configuration based on the assessment

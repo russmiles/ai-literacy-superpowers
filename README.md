@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.11.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-24-2E8B57?style=flat-square)](#skills-24)
-[![Agents](https://img.shields.io/badge/Agents-10-2E8B57?style=flat-square)](#agents-10)
-[![Commands](https://img.shields.io/badge/Commands-15-2E8B57?style=flat-square)](#commands-15)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.12.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-27-2E8B57?style=flat-square)](#skills-27)
+[![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
+[![Commands](https://img.shields.io/badge/Commands-18-2E8B57?style=flat-square)](#commands-18)
 [![Harness](https://img.shields.io/badge/Harness-11%2F11_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-08-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -114,9 +114,9 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (24)
+### Skills (27)
 
-Code quality and harness engineering knowledge that agents read when working in your codebase.
+Code quality, harness engineering, and governance knowledge that agents read when working in your codebase.
 
 | Skill | What it provides |
 | ----- | ---------------- |
@@ -144,8 +144,11 @@ Code quality and harness engineering knowledge that agents read when working in 
 | portfolio-dashboard | Generate a self-contained HTML dashboard from portfolio assessment data with trend visualisation |
 | team-api | Create or update a Team Topologies Team API document with AI literacy portfolio data |
 | cost-tracking | Quarterly AI cost capture — record spend, compare trends, inform model routing |
+| governance-constraint-design | Falsifiable governance constraint authoring — three-frame translation, anti-patterns gallery, governance constraint template |
+| governance-audit-practice | Governance audit methodology — five-stage semantic drift model, debt scoring matrix, frame alignment review |
+| governance-observability | Governance metrics catalogue, snapshot format extension, and HTML dashboard specification |
 
-### Agents (10)
+### Agents (11)
 
 A coordinated team that handles the full development lifecycle.
 
@@ -161,8 +164,9 @@ A coordinated team that handles the full development lifecycle.
 | harness-gc | Periodic entropy fighter | Read + Write |
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
+| governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
 
-### Commands (15)
+### Commands (18)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -181,6 +185,9 @@ A coordinated team that handles the full development lifecycle.
 | `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
 | `/portfolio-assess` | Multi-repo AI literacy assessment — aggregate across local repos, GitHub orgs, or topic tags |
 | `/cost-capture` | Capture AI tool cost data — record spend, compare to previous snapshot, update model routing |
+| `/governance-constrain` | Guided governance constraint authoring with three-frame alignment check |
+| `/governance-audit` | Deep governance investigation — semantic drift, debt inventory, frame alignment |
+| `/governance-health` | Governance health pulse check and dashboard generation |
 
 ### Templates (9)
 
@@ -198,9 +205,9 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 
 **MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
 
-### Hooks (8)
+### Hooks (9)
 
-All eight hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
+All nine hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (prompt-based, advisory)
 - **PreToolUse markdownlint check** — runs markdownlint on `.md` files being written or edited (deterministic, advisory)
@@ -211,6 +218,7 @@ All eight hooks are registered in `hooks/hooks.json` and active in every Claude 
 - **Stop secrets check** — scans for accidentally committed secrets or credentials using gitleaks
 - **Stop rotating GC check** — runs one deterministic GC rule per session (rotating by day), catching entropy between weekly CI runs
 - **Stop curation nudge** — detects unpromoted reflections in `REFLECTION_LOG.md` and nudges curation into `AGENTS.md`
+- **Stop governance drift check** — detects governance-related file changes and audit staleness, nudges `/governance-audit`
 
 ---
 
@@ -319,13 +327,15 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── Stop secrets check             Scans for committed secrets using gitleaks
 │   ├── Stop rotating GC check         Runs one deterministic GC rule per session,
 │   │                                    rotating by day-of-year
-│   └── Stop curation nudge            Detects unpromoted reflections, nudges
-│                                        curation into AGENTS.md
+│   ├── Stop curation nudge            Detects unpromoted reflections, nudges
+│   │                                    curation into AGENTS.md
+│   └── Stop governance drift check    Detects governance file changes, nudges
+│                                        /governance-audit
 ├── Context (read by agents at session start)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (24)                     Domain knowledge for agents
+│   └── Skills (27)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
@@ -369,11 +379,16 @@ INVESTIGATIVE LOOP (scheduled — sweep for entropy)
 │   ├── REFLECTION_LOG.md               Agent reflections (append-only)
 │   └── AGENTS.md                       Human-curated from reflections
 │
-└── Harness Commands
-    ├── /harness-audit                  Full meta-verification
-    ├── /harness-health                 Snapshot with trends and meta-observability checks
-    ├── /harness-status                 Quick health read
-    └── /harness-gc                     Run GC checks on demand
+├── Harness Commands
+│   ├── /harness-audit                  Full meta-verification
+│   ├── /harness-health                 Snapshot with trends and meta-observability checks
+│   ├── /harness-status                 Quick health read
+│   └── /harness-gc                     Run GC checks on demand
+│
+└── Governance Commands
+    ├── /governance-constrain           Guided governance constraint authoring
+    ├── /governance-audit               Deep governance investigation
+    └── /governance-health              Governance pulse check and dashboard
 ```
 
 ### Observability as the Enabling Layer

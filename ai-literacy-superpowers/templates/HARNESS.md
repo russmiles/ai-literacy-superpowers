@@ -78,6 +78,24 @@
 - **Scope**: pr
 -->
 
+<!-- Uncomment if encoding governance requirements:
+
+### [Governance constraint name]
+
+- **Rule**: [falsifiable statement — what must be true]
+- **Enforcement**: unverified
+- **Tool**: none yet
+- **Scope**: pr
+- **Governance requirement**: [cite the regulation, policy, or standard]
+- **Operational meaning**: [what this means in engineering terms]
+- **Verification method**: [deterministic tool | agent review | manual]
+- **Evidence**: [what artefacts demonstrate compliance]
+- **Failure action**: [what happens when verification fails]
+- **Frame check**: [confirmed aligned | divergence resolved: notes]
+
+Use /governance-constrain for guided authoring of governance constraints.
+-->
+
 ---
 
 ## Garbage Collection
@@ -161,6 +179,40 @@
 - **Enforcement**: agent
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
+
+<!-- Uncomment if governance constraints are declared above:
+
+### Governance constraint freshness
+
+- **What it checks**: Whether governance constraints have been
+  reviewed since the technology or process they govern changed
+- **Frequency**: monthly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+### Semantic drift early warning
+
+- **What it checks**: Whether implementation files referenced by
+  governance constraints have changed substantially since the
+  constraint was last audited
+- **Frequency**: monthly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+### Governance debt cycle check
+
+- **What it checks**: Whether governance constraints reference other
+  constraints that have unresolved governance debt, indicating the
+  four-debt vicious cycle may be active
+- **Frequency**: quarterly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+Run /governance-audit quarterly to keep governance constraints fresh.
+-->
 
 <!-- Uncomment fitness function rules relevant to your stack:
 

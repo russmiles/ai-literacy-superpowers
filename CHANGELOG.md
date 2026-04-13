@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.12.0 — 2026-04-13
+
+### Governance Dimension Support
+
+- Add `governance-auditor` agent for deep governance investigation —
+  semantic drift analysis, governance debt inventory, constraint
+  falsifiability scoring, three-frame alignment checks
+- Add `governance-constraint-design` skill with falsifiability test,
+  three-frame translation method, anti-patterns gallery, and
+  governance constraint template
+- Add `governance-audit-practice` skill with five-stage semantic drift
+  model, governance debt scoring matrix, and audit methodology
+- Add `governance-observability` skill with metrics catalogue, snapshot
+  format extension, and HTML dashboard specification
+- Add `/governance-audit` command for quarterly deep governance
+  investigation
+- Add `/governance-constrain` command for guided governance constraint
+  authoring with three-frame alignment check
+- Add `/governance-health` command for governance health pulse check
+  and dashboard generation
+- Add governance drift check stop hook — detects governance-related
+  file changes and audit staleness at session end
+- Extend `harness-enforcer` agent with governance constraint quality
+  gate — checks falsifiability, operational meaning, and frame
+  alignment for governance constraints
+- Extend `assessor` agent with governance dimension in assessment
+  output — governance ALCI items, readiness summary, improvement
+  recommendations
+- Extend `harness-gc` agent with governance GC rules — constraint
+  freshness, semantic drift early warning, governance debt cycle check
+- Extend HARNESS.md template with governance constraint example and
+  governance GC rules
+
 ## 0.11.0 — 2026-04-12
 
 ### Spec-First Discipline Gate
