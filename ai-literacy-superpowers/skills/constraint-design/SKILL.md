@@ -44,6 +44,15 @@ detailed examples.
 
 Start with unverified if unsure. Promote when ready.
 
+### Command Risk Classification
+
+For tool-level constraints, a specific pattern applies: **Command Risk Classification** assigns each tool or command an allow, ask, or deny disposition based on two criteria:
+
+- **Reversibility** — can the action be undone? File reads are always reversible. File writes are reversible through git. `rm -rf /` is not.
+- **Blast radius** — how much damage if it goes wrong? A typo in a test file affects one test. A typo in a deployment script affects production.
+
+The classification is a spectrum, not a binary. Pattern matching refines it: the same command with different arguments carries different risk. Commands that repeatedly pass human review can be promoted from ask to allow, following the same promotion ladder that constraints use.
+
 For the full promotion lifecycle (unverified to agent to deterministic),
 consult `references/promotion-ladder.md`.
 
