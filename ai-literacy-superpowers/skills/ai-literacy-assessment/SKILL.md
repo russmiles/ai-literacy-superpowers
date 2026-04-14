@@ -29,6 +29,7 @@ team is operating at. Each signal maps to a specific level:
 - Markdownlint or other linting in CI
 - Mutation testing configuration
 - Small, TDD-paced diffs visible in commit history (Human Pace signal)
+- Depletion signals recognised — developer can name observable markers of degraded judgment (Depletable Collaborator signal)
 
 **Level 3 indicators (habitat engineering)**:
 
@@ -44,6 +45,9 @@ team is operating at. Each signal maps to a specific level:
 - `.markdownlint.json` or equivalent config
 - Spec-scoped changes constraint in HARNESS.md (Human Pace signal)
 - Change cadence drift GC rule active (Human Pace signal)
+- Session boundaries designed into workflow — time-based, not task-based (Depletable Collaborator signal)
+- Recovery cadence visible in work log — gaps between sessions respected (Depletable Collaborator signal)
+- Depletion Check practised — 90-minute time-based self-assessment (Depletable Collaborator signal)
 
 **Level 4 indicators (specification architecture)**:
 
@@ -53,6 +57,7 @@ team is operating at. Each signal maps to a specific level:
 - Plan approval gate in orchestrator
 - Loop guardrails (MAX_REVIEW_CYCLES)
 - Spec-to-PR mapping — each spec produces one PR (Human Pace signal)
+- Team-level sustainability — spec decomposition accounts for human energy, not just modularity (Depletable Collaborator signal)
 
 **Level 5 indicators (sovereign engineering)**:
 
@@ -62,6 +67,8 @@ team is operating at. Each signal maps to a specific level:
 - Organisational governance documentation
 - Multiple agent teams or cloud async agents
 - Change cadence metrics reviewed as team health signal (Human Pace signal)
+- Sustainable pace as platform metric alongside cost and quality (Depletable Collaborator signal)
+- Agent orchestration policies account for human verification capacity (Depletable Collaborator signal)
 
 ### Phase 2: Clarifying Questions
 
