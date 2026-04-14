@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.2 — 2026-04-14
+
+### Bug fix
+
+- Fix intermittent YAML block omission in harness-health snapshots —
+  split Step 6 into separate markdown generation and YAML block steps
+  with mandatory marker and self-verification checkpoint. The trailing
+  instruction was unreliable under cognitive load from trend computation.
+
 ## 0.15.1 — 2026-04-14
 
 ### Bug fix
