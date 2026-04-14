@@ -91,7 +91,18 @@ Write the portfolio assessment to
 `assessments/YYYY-MM-DD-portfolio-assessment.md` using the template
 from the skill's references.
 
-### 7. Summary
+### 7. Append Observatory YAML Block
+
+After generating the markdown portfolio report, append an
+`observatory_portfolio` YAML block (fenced by `---`) at the end of the
+file. Populate all fields from the data already gathered during
+assessment. For habitat aggregates (`mean_enforcement_ratio`,
+`mean_learning_velocity`, `mean_gc_active_ratio`, `mean_context_depth`),
+read the most recent `observatory_metrics` YAML block from each
+project's `observability/snapshots/` directory if locally accessible.
+See `references/portfolio-template.md` for the YAML block template.
+
+### 8. Summary
 
 Print a summary:
 

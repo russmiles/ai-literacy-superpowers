@@ -100,14 +100,21 @@ all quantitative metrics in structured, typed YAML for machine
 consumption. See `references/snapshot-format.md` § Observatory Metrics
 Block for the exact schema and generation rules.
 
-### 7. Update README
+### 7. Emit Observatory Events
+
+After writing the snapshot, emit events to `observability/events.jsonl`
+as specified in `references/observatory-events.md`: a `snapshot.created`
+event always, plus constraint lifecycle events and regression transition
+events when detected by comparing with the previous snapshot.
+
+### 8. Update README
 
 Run `${CLAUDE_PLUGIN_ROOT}/scripts/update-health-badge.sh` to update:
 
 - The health badge colour and text
 - The health icon link target (point to the new snapshot)
 
-### 8. Print Summary
+### 9. Print Summary
 
 Print the full snapshot to the session so the developer sees it
 immediately.
@@ -123,7 +130,7 @@ Since last snapshot (YYYY-MM-DD):
   Health: Healthy / Attention / Degraded
 ```
 
-### 9. Nudge Overdue Actions
+### 10. Nudge Overdue Actions
 
 If any cadence is overdue, print a nudge:
 

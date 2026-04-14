@@ -151,13 +151,34 @@ Typical actions: roll out a specific tool, share a constraint pattern.
 Present the plan with estimated impact (how many repos each action
 lifts and toward which level).
 
-### Step 6: Present and Record
+### Step 6: Gather Habitat Metrics from Snapshots
+
+For each assessed project that is locally accessible, check for a
+harness-health snapshot in `observability/snapshots/`. If one exists,
+read the most recent snapshot's `observatory_metrics` YAML block and
+extract:
+
+- `habitat_configuration.constraint_maturity.enforcement_ratio`
+- `habitat_configuration.compound_learning.velocity`
+- `habitat_configuration.entropy_management.gc_active_ratio`
+- `habitat_configuration.context_depth.score`
+
+If a project has an assessment but no snapshot, its habitat metrics
+are `null`.
+
+Compute means across projects that have values for each metric.
+
+### Step 7: Present and Record
 
 Display the full portfolio view to the user.
 
 Write the document to `assessments/YYYY-MM-DD-portfolio-assessment.md`
 in the current working directory (typically the portfolio or platform
 repo). Use the template from `references/portfolio-template.md`.
+
+After the markdown content, append the `observatory_portfolio` YAML
+block (fenced by `---`) with all fields populated from the gathered
+data. See the template for the complete schema.
 
 ## What This Skill Does NOT Do
 

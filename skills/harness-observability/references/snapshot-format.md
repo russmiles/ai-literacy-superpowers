@@ -190,7 +190,7 @@ For the schema versioning policy and changelog, see
 ```yaml
 ---
 observatory_metrics:
-  schema_version: "1.1.0"
+  schema_version: "1.2.0"
   plugin_version: "<read from plugin.json>"
   timestamp: "<ISO 8601 UTC timestamp of snapshot generation>"
 
@@ -251,6 +251,11 @@ observatory_metrics:
         active: <bool>
         first_activated: "<YYYY-MM-DD or null>"
       coverage: <int 0-3, count of active loops>
+      latency:
+        advisory_violations_this_period: <int>
+        strict_violations_this_period: <int>
+        investigative_findings_this_period: <int>
+      violations_total: <int, total lines in violations.jsonl>
 
     agent_delegation:
       agents_configured: <int>
@@ -322,6 +327,10 @@ markdown sections — no new data collection is required.
 | `feedback_loops.investigative.active` | `true` if HARNESS.md Garbage Collection section has at least one rule with enforcement = "agent" or "deterministic" |
 | `feedback_loops.investigative.first_activated` | Git history: first commit that added a GC rule to HARNESS.md. `null` if no GC rules exist |
 | `feedback_loops.coverage` | Count of active loops (0-3) |
+| `feedback_loops.latency.advisory_violations_this_period` | Count entries in `observability/violations.jsonl` where `loop == "advisory"` and `timestamp` is after the previous snapshot date. `0` if no violations file or no entries |
+| `feedback_loops.latency.strict_violations_this_period` | Count entries where `loop == "strict"` since previous snapshot |
+| `feedback_loops.latency.investigative_findings_this_period` | Count entries where `loop == "investigative"` since previous snapshot |
+| `feedback_loops.violations_total` | Total line count of `observability/violations.jsonl`. `0` if file does not exist |
 | `agent_delegation.agents_configured` | Count `.agent.md` files in `agents/` directory |
 | `observability.*` | Same data as the Meta markdown section |
 | `outcomes.mutation_kill_rate.*` | Same data as the Mutation Testing markdown section |

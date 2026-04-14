@@ -99,6 +99,66 @@ Repos with assessments older than 90 days:
 Suggested re-assessment date: {{YYYY-MM-DD}} (quarterly)
 ```
 
+## Observatory Portfolio YAML Block
+
+Append this YAML block at the end of the portfolio assessment file,
+after all markdown content, fenced by `---` delimiters:
+
+```yaml
+---
+observatory_portfolio:
+  schema_version: "1.0.0"
+  timestamp: "<ISO 8601 UTC>"
+
+  summary:
+    project_count: <int, total projects discovered>
+    assessed_count: <int, projects with assessments>
+    estimated_count: <int, projects with estimated levels>
+    unassessed_count: <int, projects with no assessment data>
+    assessment_coverage: <float 0-1, assessed / total>
+
+  level_distribution:
+    L0: <int>
+    L1: <int>
+    L2: <int>
+    L3: <int>
+    L4: <int>
+    L5: <int>
+    median_level: <int>
+
+  habitat_aggregates:
+    mean_enforcement_ratio: <float 0-1 or null>
+    mean_learning_velocity: <float or null>
+    mean_gc_active_ratio: <float 0-1 or null>
+    mean_context_depth: <float 0-1 or null>
+
+  gaps:
+    shared: <list of strings, gaps appearing in 3+ repos>
+    shared_count: <int>
+
+  outliers:
+    high: <list of project names scoring above median + 1 level>
+    low: <list of project names scoring below median - 1 level>
+
+  stale_assessments:
+    count: <int, assessments older than 90 days>
+    projects: <list of project names>
+
+  projects:
+    - id: "<project identifier>"
+      level: <int 0-5>
+      assessed: <bool>
+      enforcement_ratio: <float 0-1 or null>
+      learning_velocity: <float or null>
+      last_assessment: "<YYYY-MM-DD or null>"
+---
+```
+
+Habitat aggregate values are computed from the most recent
+`observatory_metrics` YAML block in each project's
+`observability/snapshots/` directory. Projects without snapshots
+contribute `null` and are excluded from the mean calculations.
+
 ## Parsing Notes
 
 When reading individual assessment documents to build the portfolio:

@@ -76,6 +76,17 @@ Constraints section. Follow the standard format:
 If the constraint is deterministic and PR-scoped, add the tool step
 to the CI workflow file.
 
-### 10. Commit
+### 10. Emit Observatory Event
+
+Append the appropriate event to `observability/events.jsonl` (create
+the file if it does not exist):
+
+- New constraint: `constraint.added` with name and tier
+- Promoted constraint: `constraint.promoted` with name, old tier, new tier
+- Removed constraint: `constraint.removed` with name and reason
+
+Event logging is best-effort — if writing fails, continue normally.
+
+### 11. Commit
 
 Commit the updated HARNESS.md (and CI file if changed).

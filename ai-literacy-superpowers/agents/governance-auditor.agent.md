@@ -123,6 +123,18 @@ governance:
 - `drift_velocity`: Compare the current `drift_score` with the
   previous audit report. If no previous audit exists, use `stable`.
 
+## Observatory Event Emission
+
+After writing the audit report, append a `governance.audited` event
+to `observability/events.jsonl` (create the file if it does not exist):
+
+```json
+{"type": "governance.audited", "timestamp": "<ISO 8601 UTC>", "path": "observability/governance/audit-YYYY-MM-DD.md", "drift_stage": <int>, "debt_total_score": <int>}
+```
+
+Event logging is best-effort — if writing fails, complete the audit
+normally.
+
 ## What You Do NOT Do
 
 - Do not modify HARNESS.md constraints directly — you report

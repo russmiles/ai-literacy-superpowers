@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.15.0 — 2026-04-14
+
+### Observatory Tier 3: Violation Tracking, Portfolio Metrics, Event Log
+
+- Add violation tracking via `observability/violations.jsonl` — advisory
+  hook, CI constraint checks, and GC workflow now log detected violations
+  as JSON Lines entries with timestamp, loop, constraint, and context
+- Add violation latency metrics to snapshot YAML block —
+  `feedback_loops.latency` with per-loop counts and `violations_total`
+- Add `observatory_portfolio` YAML block to portfolio assessment reports
+  with summary, level distribution, habitat aggregates (mean enforcement
+  ratio, learning velocity, GC active ratio, context depth), gaps,
+  outliers, and per-project detail
+- Add Observatory event log at `observability/events.jsonl` — 10 event
+  types tracking state transitions (snapshot creation, assessments,
+  governance audits, constraint lifecycle, regression transitions,
+  reflections, cadence configuration)
+- Add event emission to `/harness-health`, `/reflect`,
+  `/harness-constrain`, `/assess`, and `governance-auditor`
+- Add `observatory-events.md` reference documenting event log format,
+  event types, and emission matrix
+- Bump Observatory metrics schema to 1.2.0 (backwards-compatible)
+
 ## 0.14.0 — 2026-04-14
 
 ### Observatory Tier 2: Regression Detection, Loop Tracking, Session Metadata
