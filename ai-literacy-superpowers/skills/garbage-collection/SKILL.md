@@ -63,6 +63,7 @@ the finding, with file:line references and a suggested fix.
 | Harness entropy | Missing tools, broken hooks | weekly |
 | Architectural fitness | Layer violations, coupling trends, complexity hotspots | weekly |
 | Learning-driven | Reflection regression detection, assessment gap analysis | weekly |
+| Memory entropy | Stale reflections, duplicate entries, contradicted memory | weekly |
 
 For a full catalogue of GC patterns with HARNESS.md entry examples,
 consult `references/gc-catalogue.md`.
@@ -119,6 +120,23 @@ dates and quotes), suggested enforcement type, and suggested scope.
 
 See the HARNESS.md template for the rule entry and
 `references/gc-catalogue.md` for the full catalogue entry.
+
+### Memory entropy (Dream Consolidation)
+
+Compound learning artifacts accumulate their own entropy. REFLECTION_LOG.md grows with duplicates. AGENTS.md collects entries that contradict later experience. Convention files drift from the codebase they describe. Memory that is never pruned becomes noise — the agent loads context that contradicts current practice or references reversed decisions.
+
+**Dream Consolidation** (from the framework's Appendix J) addresses this at two timescales:
+
+- **Session-end**: check new reflections for duplicates or contradictions with existing entries. Merge duplicates. Flag contradictions for human resolution. Update the Tier 1 memory index if new topics were added.
+- **Periodic deep consolidation** (weekly or quarterly): review the full memory corpus. Prune entries superseded by code changes. Promote recurring patterns into durable conventions. Archive reflections older than two quarters that have not been promoted.
+
+A memory entropy GC rule in HARNESS.md:
+
+- **What it checks**: Whether REFLECTION_LOG.md or AGENTS.md contain duplicate, contradicted, or stale entries
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false (contradictions require human judgment)
 
 ## Additional Resources
 
