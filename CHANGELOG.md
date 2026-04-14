@@ -1,5 +1,14 @@
 # Changelog
 
+## Marketplace 0.2.1 — 2026-04-14
+
+### GC findings fix
+
+- Fix `marketplace.json` nested `plugins[0].version` stuck at "0.1.0" —
+  updated to "0.15.0" to match `plugin.json`
+- Align `plugins[0].description` with `plugin.json` description
+- Bump marketplace listing version to 0.2.1
+
 ## 0.15.0 — 2026-04-14
 
 ### Observatory Tier 3: Violation Tracking, Portfolio Metrics, Event Log
