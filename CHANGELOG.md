@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.1 — 2026-04-14
+
+### Bug fix
+
+- Fix `gc-rotate.sh` crash when HARNESS.md has no `## Observability`
+  section — `set -euo pipefail` caused the grep pipeline to exit
+  non-zero before reaching the default cadence fallback. Added
+  `|| true` to let empty results fall through. Fixes #122.
+
 ## Marketplace 0.2.1 — 2026-04-14
 
 ### GC findings fix
