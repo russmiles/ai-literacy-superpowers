@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.13.0 — 2026-04-14
+
+### Observatory-Ready Metrics
+
+- Add YAML metrics block to harness health snapshots — structured,
+  typed `observatory_metrics` block appended after all markdown
+  sections, enabling machine consumption without brittle regex parsing
+- Add per-context-layer freshness tracking in `context_depth.layers` —
+  each of the five context layers reports `present` and `last_modified`
+- Add per-constraint enforcement detail in `constraint_maturity.constraints` —
+  each constraint listed with name, tier, and enforced status
+- Add observatory metrics schema documentation with versioning policy
+  (patch/minor/major) and changelog at
+  `references/observatory-metrics-schema.md`
+
 ## 0.12.0 — 2026-04-13
 
 ### Governance Dimension Support

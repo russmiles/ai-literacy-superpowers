@@ -168,3 +168,146 @@ Agents reading snapshots should:
 
 The format is deliberately simple and consistent so regex-based parsing
 works reliably.
+
+## Observatory Metrics Block
+
+After all markdown sections (including the optional Trends section),
+every snapshot includes a YAML metrics block fenced by `---` delimiters
+at the end of the file. This block contains all quantitative metrics in
+a structured, typed format intended for machine consumption by the
+Observatory.
+
+The existing markdown sections remain the primary human-readable output.
+The YAML block is complementary — it does not replace or duplicate the
+markdown, but provides the same data in a format that avoids brittle
+regex parsing.
+
+For the schema versioning policy and changelog, see
+`observatory-metrics-schema.md`.
+
+### Schema
+
+```yaml
+---
+observatory_metrics:
+  schema_version: "1.0.0"
+  plugin_version: "<read from plugin.json>"
+  timestamp: "<ISO 8601 UTC timestamp of snapshot generation>"
+
+  habitat_configuration:
+    context_depth:
+      score: <float 0-1>
+      layers_present: <int 0-5>
+      layers:
+        stack: { present: <bool>, last_modified: "<YYYY-MM-DD or null>" }
+        conventions: { present: <bool>, last_modified: "<YYYY-MM-DD or null>" }
+        arch_decisions: { present: <bool>, last_modified: "<YYYY-MM-DD or null>" }
+        rationale: { present: <bool>, last_modified: "<YYYY-MM-DD or null>" }
+        threat_model: { present: <bool>, last_modified: "<YYYY-MM-DD or null>" }
+
+    constraint_maturity:
+      enforcement_ratio: <float 0-1>
+      total_constraints: <int>
+      enforced: <int>
+      deterministic: <int>
+      agent_backed: <int>
+      unverified: <int>
+      drift_detected: <bool>
+      constraints:
+        - name: "<constraint name>"
+          tier: "<deterministic | agent_backed | unverified>"
+          enforced: <bool>
+
+    entropy_management:
+      gc_rules_active: <int>
+      gc_rules_total: <int>
+      gc_active_ratio: <float 0-1>
+      findings_since_last_snapshot: <int>
+      cadence_compliant: <bool>
+      last_run: "<YYYY-MM-DD or null>"
+
+    compound_learning:
+      reflection_log_entries: <int>
+      reflections_this_period: <int>
+      agents_md_entries: <int>
+      gotchas: <int>
+      arch_decisions: <int>
+      promotions_this_period: <int>
+      velocity: <float or null>
+      signal_distribution:
+        context: <int>
+        instruction: <int>
+        workflow: <int>
+        failure: <int>
+
+    feedback_loops:
+      advisory_active: <bool>
+      strict_active: <bool>
+      investigative_active: <bool>
+      coverage: <int 0-3>
+
+    agent_delegation:
+      agents_configured: <int>
+
+    observability:
+      health: "<Healthy | Attention | Degraded>"
+      snapshot_age_days: <int>
+      meta_checks:
+        snapshot_currency: "<on_schedule | overdue | stale>"
+        cadence_compliance: "<all_on_schedule | [list of overdue items]>"
+        learning_flow: "<active | stalled | inactive>"
+        gc_effectiveness: "<productive | silent>"
+        trend_direction: "<stable | [list of declining metrics]>"
+
+  outcomes:
+    mutation_kill_rate:
+      aggregate: <float 0-1 or null>
+      by_language: {}
+    cost:
+      model_routing_configured: <bool>
+      tier_distribution: {}
+      trend: "<rising | stable | declining | unknown>"
+
+  operational_cadence:
+    days_since_audit: <int or null>
+    days_since_assess: <int or null>
+    days_since_reflect: <int or null>
+    audit_overdue: <bool>
+    assess_overdue: <bool>
+    reflect_overdue: <bool>
+---
+```
+
+### Generation Rules
+
+All values come from the same data sources already read for the
+markdown sections — no new data collection is required.
+
+| Field | How to compute |
+|-------|---------------|
+| `schema_version` | Always `"1.0.0"` (bump per `observatory-metrics-schema.md` policy) |
+| `plugin_version` | Read `version` from `plugin.json` |
+| `timestamp` | ISO 8601 UTC timestamp at the moment the snapshot is generated |
+| `context_depth.score` | Count layers where `present == true` AND `last_modified` is within the last 30 days, divided by 5 |
+| `context_depth.layers_present` | Count layers where `present == true` |
+| `context_depth.layers.stack` | Check CLAUDE.md existence and git modification date |
+| `context_depth.layers.conventions` | Check CLAUDE.md existence and git modification date |
+| `context_depth.layers.arch_decisions` | Check HARNESS.md existence and git modification date |
+| `context_depth.layers.rationale` | Check `specs/` directory existence and most recent file modification date |
+| `context_depth.layers.threat_model` | Check for threat model documentation; if absent, `present: false`, `last_modified: null` |
+| `constraint_maturity.*` | Same counts as the Enforcement markdown section |
+| `constraint_maturity.constraints[]` | Each constraint from HARNESS.md Constraints section with name, tier, and enforced status |
+| `entropy_management.*` | Same data as the Garbage Collection markdown section |
+| `compound_learning.velocity` | `promotions_this_period` divided by weeks between this snapshot and the previous one; `null` if no previous snapshot |
+| `compound_learning.signal_distribution` | Count REFLECTION_LOG.md entries by `signal:` field value |
+| `feedback_loops.*` | Check for advisory, strict, and investigative enforcement loops in project configuration |
+| `agent_delegation.agents_configured` | Count `.agent.md` files in `agents/` directory |
+| `observability.*` | Same data as the Meta markdown section |
+| `outcomes.mutation_kill_rate.*` | Same data as the Mutation Testing markdown section |
+| `outcomes.cost.*` | Same data as the Cost Indicators markdown section |
+| `operational_cadence.*` | Same data as the Operational Cadence markdown section |
+
+**Null handling:** Use `null` (not empty string, not `0`) for values
+that cannot be determined. For example, if no previous snapshot exists,
+`velocity` is `null`. If mutation testing is not configured,
+`aggregate` is `null`.

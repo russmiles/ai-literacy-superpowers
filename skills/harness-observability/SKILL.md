@@ -109,6 +109,28 @@ The harness-auditor agent runs five meta-checks:
 For thresholds and detailed check definitions, consult
 `references/meta-observability-checks.md`.
 
+## Observatory Metrics Block
+
+Every snapshot must include a YAML metrics block appended after all
+markdown sections (including Trends, if present). This block provides
+all quantitative metrics in a structured, typed format for machine
+consumption by the Observatory.
+
+**Generation step:** After writing all markdown sections to the snapshot
+file, append the YAML metrics block as described in
+`references/snapshot-format.md` § Observatory Metrics Block. The block
+is fenced by `---` delimiters and contains the `observatory_metrics`
+root key.
+
+All values in the YAML block come from the same data sources already
+read for the markdown sections — no additional data collection is
+required. Follow the generation rules and null-handling policy in the
+format spec.
+
+The schema version is tracked in
+`references/observatory-metrics-schema.md`. The `schema_version` field
+in the YAML block must match the current documented version.
+
 ## When to Use This Skill
 
 | Situation | Action |
