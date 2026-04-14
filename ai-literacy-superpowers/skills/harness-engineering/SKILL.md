@@ -74,6 +74,27 @@ Constraints follow a promotion ladder:
 Start by declaring what should be true. Automate when ready. The harness
 improves over time without restructuring.
 
+## Testing the Harness Itself
+
+The harness teaches TDD for code. But the harness's own artifacts — skills, conventions, CLAUDE.md directives — are specifications that produce agent behaviour. A skill without behavioural tests is an unverified claim.
+
+**Test-Driven Agentic Behaviours** (TDAB, after Antony Marcano, 2026) applies TDD to guidance files: write a test describing desired agent behaviour, run the agent, observe the gap, modify the guidance, verify the behaviour. Red-green-refactor for skills.
+
+On the promotion ladder, a skill without behavioural tests is unverified. A skill with passing tests is agent-verified. If you would not ship code without tests, do not ship skills without them either.
+
+## Implementation Patterns
+
+Beneath the three components lies a layer of mechanical patterns that make the harness work in practice. Six patterns from production agent systems:
+
+- **Tiered Memory** — always-loaded index, on-demand topic files, searchable archive
+- **Dream Consolidation** — periodic pruning and reorganisation of compound learning memory
+- **Progressive Context Compaction** — compression intensity increases with conversation age
+- **Progressive Tool Expansion** — start agents with minimal tools, expand on demand
+- **Command Risk Classification** — allow/ask/deny per tool, gated by reversibility and blast radius
+- **Single-Purpose Tool Design** — typed inputs, constrained scope, individual permission surfaces
+
+These are documented in detail in the framework (Theme 10, Appendices H, I, J).
+
 ## Enforcement Timing
 
 Three concentric feedback loops:
