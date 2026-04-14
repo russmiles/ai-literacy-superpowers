@@ -116,20 +116,43 @@ markdown sections (including Trends, if present). This block provides
 all quantitative metrics in a structured, typed format for machine
 consumption by the Observatory.
 
-**Generation step:** After writing all markdown sections to the snapshot
-file, append the YAML metrics block as described in
-`references/snapshot-format.md` § Observatory Metrics Block. The block
-is fenced by `---` delimiters and contains the `observatory_metrics`
-root key.
+**Generation steps:**
+
+1. After writing all markdown sections to the snapshot file, append
+   the YAML metrics block as described in
+   `references/snapshot-format.md` § Observatory Metrics Block. The
+   block is fenced by `---` delimiters and contains the
+   `observatory_metrics` root key.
+
+2. **Read the configured cadence.** Check the HARNESS.md Observability
+   section for `Snapshot cadence`. Map to a threshold: weekly=10 days,
+   fortnightly=21 days, monthly=30 days. Default to monthly if not
+   configured. Include `configured_cadence` and
+   `cadence_threshold_days` in the `observability` section.
+
+3. **Compute feedback loop activation.** For each loop (advisory,
+   strict, investigative), determine whether it is active and when it
+   was first activated using git history. Cache `first_activated` dates
+   from the previous snapshot — only re-check git history when a
+   loop's status transitions from inactive to active.
+
+4. **Compute regression indicators.** After computing the meta-
+   observability checks, populate the `regression_indicators` section:
+   - `snapshot_stale`: previous snapshot age exceeds cadence threshold
+   - `cadence_non_compliant_count`: count of overdue activities
+     (already computed for Meta section)
+   - `consecutive_zero_reflection_weeks`: count consecutive weeks
+     without REFLECTION_LOG entries, working backwards from today
+   - `regression_flag`: logical OR of the three trigger conditions
 
 All values in the YAML block come from the same data sources already
 read for the markdown sections — no additional data collection is
-required. Follow the generation rules and null-handling policy in the
-format spec.
+required beyond the git history lookups for loop activation dates.
+Follow the generation rules and null-handling policy in the format spec.
 
 The schema version is tracked in
 `references/observatory-metrics-schema.md`. The `schema_version` field
-in the YAML block must match the current documented version.
+in the YAML block must match the current documented version (1.1.0).
 
 ## When to Use This Skill
 

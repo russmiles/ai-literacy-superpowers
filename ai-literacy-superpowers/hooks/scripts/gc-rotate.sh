@@ -18,6 +18,18 @@ if [ ! -f "$HARNESS_FILE" ]; then
   exit 0
 fi
 
+# Read configured cadence from HARNESS.md Observability section
+STALENESS_THRESHOLD=30
+cadence=$(grep -A5 '## Observability' "$HARNESS_FILE" 2>/dev/null \
+  | grep 'Snapshot cadence:' \
+  | sed 's/.*Snapshot cadence:[[:space:]]*//' \
+  | tr -d '[:space:]')
+case "$cadence" in
+  weekly)      STALENESS_THRESHOLD=10 ;;
+  fortnightly) STALENESS_THRESHOLD=21 ;;
+  monthly)     STALENESS_THRESHOLD=30 ;;
+esac
+
 # Rotate through rules by day-of-year
 day_of_year=$(date +%j | sed 's/^0*//')
 rule_index=$((day_of_year % 4))
@@ -53,8 +65,8 @@ case $rule_index in
     fi
     current_epoch=$(date +%s)
     age_days=$(( (current_epoch - snapshot_epoch) / 86400 ))
-    if [ "$age_days" -gt 30 ]; then
-      printf '{"systemMessage": "GC check (snapshot staleness): latest snapshot is %d days old. Run /harness-health to update."}' "$age_days"
+    if [ "$age_days" -gt "$STALENESS_THRESHOLD" ]; then
+      printf '{"systemMessage": "GC check (snapshot staleness): latest snapshot is %d days old (cadence threshold: %d days). Run /harness-health to update."}' "$age_days" "$STALENESS_THRESHOLD"
     fi
     ;;
   2)

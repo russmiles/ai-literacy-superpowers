@@ -106,7 +106,8 @@
 ### Snapshot staleness
 
 - **What it checks**: Whether the most recent harness health snapshot
-  in `observability/snapshots/` is less than 30 days old
+  in `observability/snapshots/` is within the configured cadence
+  threshold (see Observability section)
 - **Frequency**: weekly
 - **Enforcement**: deterministic
 - **Tool**: file date check
@@ -131,6 +132,16 @@
 - **Enforcement**: agent
 - **Tool**: harness-gc agent (analyses recent merged PRs via git log)
 - **Auto-fix**: false
+
+---
+
+## Observability
+
+<!-- Snapshot cadence controls how often /harness-health should be run.
+     Observatory corpus projects should use "weekly" for maximum data quality.
+     Default is "monthly" which aligns with the standard 30-day staleness threshold. -->
+
+- Snapshot cadence: monthly
 
 ---
 

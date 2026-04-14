@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.14.0 — 2026-04-14
+
+### Observatory Tier 2: Regression Detection, Loop Tracking, Session Metadata
+
+- Add `regression_indicators` section to Observatory YAML block —
+  `snapshot_stale`, `cadence_non_compliant_count`,
+  `consecutive_zero_reflection_weeks`, and composite `regression_flag`
+- Expand `feedback_loops` with per-loop `active` and `first_activated`
+  date fields, determined via git history lookups with caching
+- Add session metadata to reflection entries — duration, model tiers
+  used, pipeline stages completed, and agent delegation mode
+  (best-effort, "unknown" always valid)
+- Standardise governance audit YAML block with `schema_version`,
+  `falsifiable_count`, `vague_count`, `drift_stage`, and
+  `debt_total_score` fields
+- Support configurable snapshot cadence via HARNESS.md Observability
+  section — weekly (10d), fortnightly (21d), monthly (30d, default).
+  Staleness check scripts and meta-observability checks now respect
+  the configured threshold
+- Bump Observatory metrics schema to 1.1.0 (backwards-compatible)
+
 ## 0.13.0 — 2026-04-14
 
 ### Observatory-Ready Metrics

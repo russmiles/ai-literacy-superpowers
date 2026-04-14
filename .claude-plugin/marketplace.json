@@ -4,7 +4,7 @@
     "name": "Russ Miles"
   },
   "version": "0.2.0",
-  "plugin_version": "0.13.0",
+  "plugin_version": "0.14.0",
   "plugins": [
     {
       "name": "ai-literacy-superpowers",

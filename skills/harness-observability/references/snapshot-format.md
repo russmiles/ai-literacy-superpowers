@@ -190,7 +190,7 @@ For the schema versioning policy and changelog, see
 ```yaml
 ---
 observatory_metrics:
-  schema_version: "1.0.0"
+  schema_version: "1.1.0"
   plugin_version: "<read from plugin.json>"
   timestamp: "<ISO 8601 UTC timestamp of snapshot generation>"
 
@@ -241,15 +241,23 @@ observatory_metrics:
         failure: <int>
 
     feedback_loops:
-      advisory_active: <bool>
-      strict_active: <bool>
-      investigative_active: <bool>
-      coverage: <int 0-3>
+      advisory:
+        active: <bool>
+        first_activated: "<YYYY-MM-DD or null>"
+      strict:
+        active: <bool>
+        first_activated: "<YYYY-MM-DD or null>"
+      investigative:
+        active: <bool>
+        first_activated: "<YYYY-MM-DD or null>"
+      coverage: <int 0-3, count of active loops>
 
     agent_delegation:
       agents_configured: <int>
 
     observability:
+      configured_cadence: "<weekly | fortnightly | monthly>"
+      cadence_threshold_days: <int, 10 | 21 | 30>
       health: "<Healthy | Attention | Degraded>"
       snapshot_age_days: <int>
       meta_checks:
@@ -275,6 +283,13 @@ observatory_metrics:
     audit_overdue: <bool>
     assess_overdue: <bool>
     reflect_overdue: <bool>
+
+  regression_indicators:
+    snapshot_stale: <bool, true if snapshot_age_days > configured cadence threshold>
+    snapshot_age_days: <int, days since previous snapshot, 0 if first>
+    cadence_non_compliant_count: <int, number of scheduled activities overdue>
+    consecutive_zero_reflection_weeks: <int, consecutive weeks with no REFLECTION_LOG entries>
+    regression_flag: <bool, true if ANY of: snapshot_stale, cadence_non_compliant_count >= 2, consecutive_zero_reflection_weeks >= 4>
 ---
 ```
 
@@ -285,7 +300,7 @@ markdown sections — no new data collection is required.
 
 | Field | How to compute |
 |-------|---------------|
-| `schema_version` | Always `"1.0.0"` (bump per `observatory-metrics-schema.md` policy) |
+| `schema_version` | Always `"1.1.0"` (bump per `observatory-metrics-schema.md` policy) |
 | `plugin_version` | Read `version` from `plugin.json` |
 | `timestamp` | ISO 8601 UTC timestamp at the moment the snapshot is generated |
 | `context_depth.score` | Count layers where `present == true` AND `last_modified` is within the last 30 days, divided by 5 |
@@ -300,12 +315,31 @@ markdown sections — no new data collection is required.
 | `entropy_management.*` | Same data as the Garbage Collection markdown section |
 | `compound_learning.velocity` | `promotions_this_period` divided by weeks between this snapshot and the previous one; `null` if no previous snapshot |
 | `compound_learning.signal_distribution` | Count REFLECTION_LOG.md entries by `signal:` field value |
-| `feedback_loops.*` | Check for advisory, strict, and investigative enforcement loops in project configuration |
+| `feedback_loops.advisory.active` | `true` if `hooks/` directory exists and hooks configuration defines PreToolUse or Stop hooks |
+| `feedback_loops.advisory.first_activated` | Git history: first commit that added hooks configuration (e.g. `git log --diff-filter=A --format=%ai -- .claude/hooks.json`). `null` if hooks don't exist |
+| `feedback_loops.strict.active` | `true` if a CI workflow enforcing harness constraints exists (`.github/workflows/harness.yml` or similar referencing HARNESS.md) |
+| `feedback_loops.strict.first_activated` | Git history: first commit that added the CI enforcement workflow. `null` if no CI enforcement exists |
+| `feedback_loops.investigative.active` | `true` if HARNESS.md Garbage Collection section has at least one rule with enforcement = "agent" or "deterministic" |
+| `feedback_loops.investigative.first_activated` | Git history: first commit that added a GC rule to HARNESS.md. `null` if no GC rules exist |
+| `feedback_loops.coverage` | Count of active loops (0-3) |
 | `agent_delegation.agents_configured` | Count `.agent.md` files in `agents/` directory |
 | `observability.*` | Same data as the Meta markdown section |
 | `outcomes.mutation_kill_rate.*` | Same data as the Mutation Testing markdown section |
 | `outcomes.cost.*` | Same data as the Cost Indicators markdown section |
 | `operational_cadence.*` | Same data as the Operational Cadence markdown section |
+| `observability.configured_cadence` | Read HARNESS.md Observability section `Snapshot cadence` value. Default `monthly` if not configured |
+| `observability.cadence_threshold_days` | Map cadence to threshold: weekly=10, fortnightly=21, monthly=30 |
+| `regression_indicators.snapshot_stale` | `true` if `snapshot_age_days` exceeds the configured cadence threshold. `false` if this is the first snapshot |
+| `regression_indicators.snapshot_age_days` | Days between previous snapshot date and today. `0` if no previous snapshot |
+| `regression_indicators.cadence_non_compliant_count` | Count of the four scheduled activities (audit/90d, assess/90d, reflect/30d, GC/declared cadence) that are overdue. Reuse data from Meta section |
+| `regression_indicators.consecutive_zero_reflection_weeks` | Count consecutive calendar weeks (working backwards from today) with zero REFLECTION_LOG.md entries. `0` if the most recent entry is this week |
+| `regression_indicators.regression_flag` | Logical OR of: `snapshot_stale == true`, `cadence_non_compliant_count >= 2`, `consecutive_zero_reflection_weeks >= 4` |
+
+**Activation date caching:** The git history lookups for
+`first_activated` dates only need to run once. After the first
+snapshot records the dates, subsequent snapshots can read them from
+the previous snapshot and only re-check if a loop's `active` status
+has changed from `false` to `true`.
 
 **Null handling:** Use `null` (not empty string, not `0`) for values
 that cannot be determined. For example, if no previous snapshot exists,

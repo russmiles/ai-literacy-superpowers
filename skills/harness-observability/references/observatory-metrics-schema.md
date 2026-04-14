@@ -5,7 +5,7 @@ appended to every harness health snapshot. The Observatory and any other
 machine consumer of snapshot files relies on this schema being stable
 and versioned.
 
-## Current Version: 1.0.0
+## Current Version: 1.1.0
 
 The `observatory_metrics` block contains structured, typed metrics
 across five top-level sections:
@@ -76,6 +76,25 @@ When the schema changes:
    CHANGELOG.md so Observatory maintainers are aware
 
 ## Changelog
+
+### 1.1.0
+
+Backwards-compatible additions:
+
+- Added `regression_indicators` section with `snapshot_stale`,
+  `snapshot_age_days`, `cadence_non_compliant_count`,
+  `consecutive_zero_reflection_weeks`, and `regression_flag` fields
+- Expanded `feedback_loops` with per-loop `active` and
+  `first_activated` fields (replaces flat `advisory_active` etc.
+  booleans). The `coverage` summary field is retained for backwards
+  compatibility
+- Added `configured_cadence` and `cadence_threshold_days` to the
+  `observability` section
+- Expanded governance YAML block (separate `schema_version`) with
+  `falsifiable_count`, `vague_count`, `drift_stage`, and
+  `debt_total_score` fields
+- Added session metadata to reflection entry format (not in YAML
+  block — in REFLECTION_LOG.md entries)
 
 ### 1.0.0
 

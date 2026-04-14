@@ -93,18 +93,35 @@ Include this YAML block in the report for snapshot integration:
 
 ```yaml
 governance:
-  constraint_count: [count]
-  falsifiability_ratio: [0-1]
-  drift_score: [low|medium|high]
-  debt_inventory_size: [count]
-  frame_alignment_score: [0-1]
-  last_audit: [YYYY-MM-DD]
-  drift_velocity: [stable|increasing|decreasing]
+  schema_version: "1.0.0"
+  constraint_count: <int, total governance constraints in HARNESS.md>
+  falsifiability_ratio: <float 0-1, falsifiable_count / constraint_count>
+  falsifiable_count: <int, constraints rated "Falsifiable">
+  vague_count: <int, constraints rated "Vague">
+  drift_stage: <int 1-5, semantic drift severity from the five-stage model>
+  drift_score: "<low | medium | high>"
+  drift_velocity: "<stable | increasing | decreasing>"
+  debt_inventory_size: <int, number of governance debt items>
+  debt_total_score: <int, sum of (severity × blast_radius) across all debt items>
+  frame_alignment_score: <float 0-1, three-frame alignment score>
+  last_audit: "<YYYY-MM-DD>"
 ```
 
-Compute `drift_velocity` by comparing the current `drift_score` with
-the previous audit report (if one exists). If no previous audit
-exists, use `stable`.
+**Field computation:**
+
+- `schema_version`: Always `"1.0.0"`. Bump per the same policy as the
+  snapshot metrics schema (patch for docs, minor for new fields, major
+  for breaking changes).
+- `falsifiable_count`: Count constraints scored "Falsifiable" in the
+  constraint assessment.
+- `vague_count`: Count constraints scored "Vague" in the constraint
+  assessment. `constraint_count - falsifiable_count - partially_operationalised_count`.
+- `drift_stage`: The numeric 1–5 drift severity already computed for
+  the audit report's drift analysis section.
+- `debt_total_score`: Sum of `severity × blast_radius` across all
+  items in the governance debt inventory table.
+- `drift_velocity`: Compare the current `drift_score` with the
+  previous audit report. If no previous audit exists, use `stable`.
 
 ## What You Do NOT Do
 

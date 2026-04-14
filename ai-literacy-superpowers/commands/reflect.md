@@ -27,7 +27,31 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
    - **Improvement**: [what would make the process better]
    - **Signal**: [context | instruction | workflow | failure | none]
    - **Constraint**: [proposed constraint, or "none"]
+   - **Session metadata**:
+     - Duration: [estimated session duration, e.g. "45 min" or "unknown"]
+     - Model tiers used: [e.g. "capable (30%), standard (70%)" or "unknown"]
+     - Pipeline stages completed: [e.g. "5/5" or "spec-writer, tdd-agent, code-reviewer" or "unknown"]
+     - Agent delegation: [full pipeline | partial | manual | unknown]
    ```
+
+   **Session metadata rules:**
+
+   - All session metadata fields are best-effort. Fill in what you
+     know from the session you just completed. If a value is not
+     determinable, use `"unknown"` — never omit the field.
+   - **Duration**: Estimate from the session's start and end. If you
+     do not track time, use `"unknown"`.
+   - **Model tiers used**: If MODEL_ROUTING.md is configured and the
+     session used multiple tiers, report the approximate distribution.
+     Otherwise `"unknown"`.
+   - **Pipeline stages completed**: If the orchestrator ran, list
+     which agents were invoked. If the session was a single-agent
+     interaction, note that.
+   - **Agent delegation**: `"full pipeline"` if the orchestrator ran
+     the full spec→TDD→implement→review→integrate pipeline;
+     `"partial"` if some stages were skipped; `"manual"` if the
+     developer worked without the pipeline; `"unknown"` if you cannot
+     determine.
 
 1. **Signal classification** — review the Surprise and Improvement
    fields and classify the signal type:
