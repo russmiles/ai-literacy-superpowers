@@ -23,7 +23,7 @@ STALENESS_THRESHOLD=30
 cadence=$(grep -A5 '## Observability' "$HARNESS_FILE" 2>/dev/null \
   | grep 'Snapshot cadence:' \
   | sed 's/.*Snapshot cadence:[[:space:]]*//' \
-  | tr -d '[:space:]')
+  | tr -d '[:space:]') || true
 case "$cadence" in
   weekly)      STALENESS_THRESHOLD=10 ;;
   fortnightly) STALENESS_THRESHOLD=21 ;;

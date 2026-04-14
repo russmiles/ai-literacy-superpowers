@@ -4,13 +4,13 @@
     "name": "Russ Miles"
   },
   "version": "0.2.1",
-  "plugin_version": "0.15.0",
+  "plugin_version": "0.15.1",
   "plugins": [
     {
       "name": "ai-literacy-superpowers",
       "source": "./ai-literacy-superpowers",
       "description": "The AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops",
-      "version": "0.15.0"
+      "version": "0.15.1"
     }
   ]
 }
