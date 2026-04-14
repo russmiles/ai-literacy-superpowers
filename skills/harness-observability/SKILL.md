@@ -145,14 +145,40 @@ consumption by the Observatory.
      without REFLECTION_LOG entries, working backwards from today
    - `regression_flag`: logical OR of the three trigger conditions
 
+5. **Read the violation log.** If `observability/violations.jsonl`
+   exists, read it and count violations since the previous snapshot
+   date, grouped by loop (advisory, strict, investigative). Include
+   the counts in `feedback_loops.latency` and the total line count
+   in `feedback_loops.violations_total`. If the file does not exist,
+   all counts are `0`.
+
+6. **Emit Observatory events.** After writing the snapshot file,
+   append events to `observability/events.jsonl` (create the file if
+   it does not exist). See `references/observatory-events.md` for
+   the full event specification.
+
+   - Always emit a `snapshot.created` event.
+   - **Constraint diff:** Compare the current HARNESS.md constraints
+     with the previous snapshot's `constraint_maturity.constraints`
+     array. Emit `constraint.added` for new constraints,
+     `constraint.promoted` for tier changes, and `constraint.removed`
+     for absent constraints.
+   - **Regression transitions:** Compare the current
+     `regression_flag` with the previous snapshot. Emit
+     `regression.detected` if it transitions false → true, or
+     `regression.cleared` if it transitions true → false.
+
+   Event logging is best-effort — if writing fails, complete the
+   snapshot normally.
+
 All values in the YAML block come from the same data sources already
-read for the markdown sections — no additional data collection is
-required beyond the git history lookups for loop activation dates.
-Follow the generation rules and null-handling policy in the format spec.
+read for the markdown sections — the only additional reads are the
+violation log and event log. Follow the generation rules and
+null-handling policy in the format spec.
 
 The schema version is tracked in
 `references/observatory-metrics-schema.md`. The `schema_version` field
-in the YAML block must match the current documented version (1.1.0).
+in the YAML block must match the current documented version (1.2.0).
 
 ## When to Use This Skill
 

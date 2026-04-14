@@ -5,7 +5,7 @@ appended to every harness health snapshot. The Observatory and any other
 machine consumer of snapshot files relies on this schema being stable
 and versioned.
 
-## Current Version: 1.1.0
+## Current Version: 1.2.0
 
 The `observatory_metrics` block contains structured, typed metrics
 across five top-level sections:
@@ -76,6 +76,24 @@ When the schema changes:
    CHANGELOG.md so Observatory maintainers are aware
 
 ## Changelog
+
+### 1.2.0
+
+Backwards-compatible additions:
+
+- Added violation tracking via `observability/violations.jsonl` —
+  JSONL append-only log recording constraint violations with loop,
+  constraint name, and timestamp
+- Added `feedback_loops.latency` with per-loop violation counts
+  (`advisory_violations_this_period`, `strict_violations_this_period`,
+  `investigative_findings_this_period`) and `violations_total`
+- Added `observatory_portfolio` YAML block schema for portfolio
+  assessments with summary, level distribution, habitat aggregates,
+  gaps, outliers, and per-project detail
+- Added Observatory event log at `observability/events.jsonl` with
+  10 event types for state transition tracking
+- Added `observatory-events.md` reference document specifying event
+  log format and emission matrix
 
 ### 1.1.0
 
