@@ -17,13 +17,18 @@ for governance health. This skill is referenced by:
 
 | Metric | Type | Description |
 | --- | --- | --- |
+| `schema_version` | string | Version of the governance metrics schema |
 | `constraint_count` | integer | Total governance constraints in HARNESS.md |
 | `falsifiability_ratio` | float (0-1) | Proportion of governance constraints scored as "falsifiable" |
+| `falsifiable_count` | integer | Number of constraints rated "Falsifiable" |
+| `vague_count` | integer | Number of constraints rated "Vague" |
+| `drift_stage` | integer (1-5) | Numeric semantic drift severity from the five-stage model |
 | `drift_score` | enum (low/medium/high) | Overall semantic drift risk across all governance constraints |
+| `drift_velocity` | enum (stable/increasing/decreasing) | Direction of drift trend between audits |
 | `debt_inventory_size` | integer | Number of governance debt items identified |
+| `debt_total_score` | integer | Sum of (severity x blast_radius) across all debt items |
 | `frame_alignment_score` | float (0-1) | Proportion of governance constraints with confirmed three-frame alignment |
 | `last_audit` | date (YYYY-MM-DD) | Date of most recent governance audit |
-| `drift_velocity` | enum (stable/increasing/decreasing) | Direction of drift trend between audits |
 
 ## Snapshot Format Extension
 
@@ -33,13 +38,18 @@ harness metrics:
 
 ```yaml
 governance:
+  schema_version: "1.0.0"
   constraint_count: 4
   falsifiability_ratio: 0.75
+  falsifiable_count: 3
+  vague_count: 0
+  drift_stage: 1
   drift_score: low
+  drift_velocity: stable
   debt_inventory_size: 2
+  debt_total_score: 8
   frame_alignment_score: 0.50
   last_audit: 2026-04-13
-  drift_velocity: stable
 ```
 
 ## Staleness Thresholds

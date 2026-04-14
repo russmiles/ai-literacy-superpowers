@@ -20,6 +20,15 @@
      - **Improvement**: [what would make the pipeline smoother next time]
      - **Signal**: [context | instruction | workflow | failure | none]
      - **Constraint**: [proposed constraint, or "none"]
+     - **Session metadata**:
+       - Duration: [estimated session duration, e.g. "45 min" or "unknown"]
+       - Model tiers used: [e.g. "capable (30%), standard (70%)" or "unknown"]
+       - Pipeline stages completed: [e.g. "5/5" or list of agents, or "unknown"]
+       - Agent delegation: [full pipeline | partial | manual | unknown]
+
+     Session metadata fields are best-effort. Use "unknown" for any
+     value that cannot be determined. Entries written before 2026-04-14
+     predate session metadata — treat missing fields as "unknown".
 
      Signal types classify where the learning should route:
        context     → HARNESS.md Context section (priming gaps)

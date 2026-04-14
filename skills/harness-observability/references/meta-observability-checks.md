@@ -13,20 +13,27 @@ works."
 ### 1. Snapshot Currency
 
 **What it verifies:** The most recent snapshot in
-`observability/snapshots/` is less than 30 days old.
+`observability/snapshots/` is within the project's configured cadence
+threshold.
 
 **How to check:**
-1. List files in `observability/snapshots/`
-2. Parse the most recent filename date (YYYY-MM-DD)
-3. Compare with today's date
+1. Read HARNESS.md Observability section for `Snapshot cadence` value
+2. Map cadence to threshold: weekly=10 days, fortnightly=21 days,
+   monthly=30 days. Default to monthly if not configured.
+3. List files in `observability/snapshots/`
+4. Parse the most recent filename date (YYYY-MM-DD)
+5. Compare with today's date using the configured threshold
 
 **Thresholds:**
 
 | Age | Status | Signal |
 |-----|--------|--------|
-| < 30 days | On schedule | Outer loop is running |
-| 30-60 days | Overdue | Outer loop slipping |
-| > 60 days | Stale | Outer loop not running |
+| < threshold | On schedule | Outer loop is running |
+| threshold to 2× threshold | Overdue | Outer loop slipping |
+| > 2× threshold | Stale | Outer loop not running |
+
+Where threshold is the configured cadence threshold (weekly=10,
+fortnightly=21, monthly=30).
 
 **What it means:** If snapshots aren't being taken, the harness has no
 visibility into its own health. All other observability layers depend on
