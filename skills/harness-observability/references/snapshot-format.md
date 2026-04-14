@@ -171,11 +171,14 @@ works reliably.
 
 ## Observatory Metrics Block
 
+**This block is mandatory in every snapshot.** Unlike the Trends section
+(which is omitted when no previous snapshot exists), the YAML metrics
+block is always present — even in the very first snapshot.
+
 After all markdown sections (including the optional Trends section),
-every snapshot includes a YAML metrics block fenced by `---` delimiters
-at the end of the file. This block contains all quantitative metrics in
-a structured, typed format intended for machine consumption by the
-Observatory.
+every snapshot ends with a YAML metrics block fenced by `---` delimiters.
+This block contains all quantitative metrics in a structured, typed
+format intended for machine consumption by the Observatory.
 
 The existing markdown sections remain the primary human-readable output.
 The YAML block is complementary — it does not replace or duplicate the
