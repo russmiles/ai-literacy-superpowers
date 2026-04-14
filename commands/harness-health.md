@@ -94,6 +94,12 @@ Include all sections: Enforcement, Garbage Collection, Mutation Testing,
 Compound Learning, Operational Cadence, Cost Indicators, Meta, and
 Trends (if previous snapshot exists).
 
+After all markdown sections, append the Observatory YAML metrics block
+at the end of the file, fenced by `---` delimiters. This block contains
+all quantitative metrics in structured, typed YAML for machine
+consumption. See `references/snapshot-format.md` § Observatory Metrics
+Block for the exact schema and generation rules.
+
 ### 7. Update README
 
 Run `${CLAUDE_PLUGIN_ROOT}/scripts/update-health-badge.sh` to update:
