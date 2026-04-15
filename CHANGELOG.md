@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.20.0 — 2026-04-15
+
+### Human-readable harness onboarding
+
+- Add /harness-onboarding command — generates ONBOARDING.md from
+  HARNESS.md, AGENTS.md, and REFLECTION_LOG.md for new team members
+- Add harness-onboarding skill — tone guidelines and section mapping
+  for human-readable onboarding document generation
+- Add ONBOARDING.md template with 10 section skeleton and placeholder
+  markers
+- Add onboarding document staleness GC rule (monthly) to both the
+  template and the project's own HARNESS.md
+- Command includes a validation checkpoint verifying all 10 sections
+  are present and no placeholder markers remain
+- Generated ONBOARDING.md is linked from the project README
+
+Closes #37.
+
 ## 0.19.4 — 2026-04-15
 
 ### Output validation checkpoints

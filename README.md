@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.19.4-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-27-2E8B57?style=flat-square)](#skills-27)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.20.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-28-2E8B57?style=flat-square)](#skills-27)
 [![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
-[![Commands](https://img.shields.io/badge/Commands-19-2E8B57?style=flat-square)](#commands-19)
+[![Commands](https://img.shields.io/badge/Commands-20-2E8B57?style=flat-square)](#commands-19)
 [![Harness](https://img.shields.io/badge/Harness-12%2F13_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -189,8 +189,9 @@ A coordinated team that handles the full development lifecycle.
 | `/governance-audit` | Deep governance investigation — semantic drift, debt inventory, frame alignment |
 | `/governance-health` | Governance health pulse check and dashboard generation |
 | `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
+| `/harness-onboarding` | Generate a human-readable onboarding guide from harness state |
 
-### Templates (10)
+### Templates (11)
 
 Opinionated defaults scaffolded by `/superpowers-init`:
 
@@ -203,6 +204,7 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **ci-auto-enforcer.yml** — GitHub Actions workflow for agent-based PR constraint enforcement
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
+- **ONBOARDING.md** — human-readable onboarding guide skeleton for new team members
 - **harness-health-icon.svg** — monochrome shield icon for the README health badge
 
 **MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
