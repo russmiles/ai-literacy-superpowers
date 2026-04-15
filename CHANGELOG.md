@@ -2,6 +2,13 @@
 
 ## 0.19.0 — 2026-04-15
 
+### Dev workflow — global plugin sync
+
+- Add sync-to-global-cache.sh script and Stop hook in
+  settings.local.json — syncs local plugin to the global Claude Code
+  cache at session end so the installed version always reflects the
+  working copy
+
 ### Harness template — Observability section
 
 - Add `## Observability` section to HARNESS.md template with snapshot
