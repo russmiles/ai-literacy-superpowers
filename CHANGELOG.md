@@ -11,6 +11,16 @@
 - Upgrade HARNESS.md to template 0.19.0 with Observability section and
   governance constraint template; correct audit status counts and badge
 
+### Version bump scoping
+
+- Scope version bump requirement to `ai-literacy-superpowers/` plugin
+  directory only — changes outside the plugin (articles, docs, CI,
+  root config) no longer trigger the CI version bump check
+- Add `no-bump` PR label exemption for formatting-only fixes to plugin
+  files that don't warrant a version bump
+- Update CLAUDE.md convention, HARNESS.md constraint, and
+  version-check.yml workflow to reflect the scoped rules
+
 ## 0.19.0 — 2026-04-15
 
 ### Dev workflow — global plugin sync

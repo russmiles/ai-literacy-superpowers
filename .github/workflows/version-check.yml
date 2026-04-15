@@ -101,7 +101,7 @@ jobs:
 
           echo "Marketplace plugin_version in sync: $MARKETPLACE"
 
-      - name: Check version bumped for skill/agent/command changes
+      - name: Check version bumped for plugin changes
         run: |
           PLUGIN="${{ steps.versions.outputs.plugin }}"
           TAG="${{ steps.versions.outputs.tag }}"
@@ -112,15 +112,20 @@ jobs:
             exit 0
           fi
 
-          # Check if skills, agents, or commands changed vs base branch
+          # Skip if PR has the no-bump label (formatting-only fixes)
+          LABELS="${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          if echo "$LABELS" | grep -q 'no-bump'; then
+            echo "no-bump label present — skipping version bump check"
+            exit 0
+          fi
+
+          # Check if any plugin files changed vs base branch
           CHANGED=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- \
-            'ai-literacy-superpowers/skills/*/SKILL.md' \
-            'ai-literacy-superpowers/agents/*.agent.md' \
-            'ai-literacy-superpowers/commands/*.md' \
+            'ai-literacy-superpowers/' \
             2>/dev/null || true)
 
           if [ -n "$CHANGED" ] && [ "$PLUGIN" = "$TAG" ]; then
-            echo "::error::Skills, agents, or commands changed but version was not bumped (still $PLUGIN)"
+            echo "::error::Plugin files changed but version was not bumped (still $PLUGIN)"
             echo ""
             echo "Changed files:"
             echo "$CHANGED"
@@ -129,11 +134,13 @@ jobs:
             echo "  - ai-literacy-superpowers/.claude-plugin/plugin.json"
             echo "  - README.md (Plugin badge)"
             echo "  - CHANGELOG.md (add new heading)"
+            echo ""
+            echo "If this is a formatting-only fix, add the 'no-bump' label to skip."
             exit 1
           fi
 
           if [ -n "$CHANGED" ]; then
-            echo "Component changes detected and version bumped: $TAG -> $PLUGIN"
+            echo "Plugin changes detected and version bumped: $TAG -> $PLUGIN"
           else
-            echo "No component changes — version bump not required"
+            echo "No plugin changes — version bump not required"
           fi
