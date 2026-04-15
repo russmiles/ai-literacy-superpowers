@@ -304,6 +304,15 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Auto-fix**: true (creates missing tags pointing at the merge
   commit that introduced the version heading)
 
+### Onboarding document staleness
+
+- **What it checks**: Whether ONBOARDING.md is older than the most
+  recent change to HARNESS.md, AGENTS.md, or REFLECTION_LOG.md
+- **Frequency**: monthly
+- **Enforcement**: deterministic
+- **Tool**: file date comparison
+- **Auto-fix**: false
+
 ### Template currency
 
 - **What it checks**: Whether the HARNESS.md template-version marker
@@ -473,5 +482,5 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 
 Last audit: 2026-04-15
 Constraints enforced: 12/13
-Garbage collection active: 13/13
+Garbage collection active: 14/14
 Drift detected: yes

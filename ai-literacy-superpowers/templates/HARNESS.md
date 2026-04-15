@@ -181,6 +181,15 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Onboarding document staleness
+
+- **What it checks**: Whether ONBOARDING.md is older than the most
+  recent change to HARNESS.md, AGENTS.md, or REFLECTION_LOG.md
+- **Frequency**: monthly
+- **Enforcement**: deterministic
+- **Tool**: file date comparison
+- **Auto-fix**: false
+
 ### Template currency
 
 - **What it checks**: Whether the HARNESS.md template-version marker
