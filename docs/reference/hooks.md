@@ -161,6 +161,24 @@ HARNESS.md but no audit has ever been run. Nudges
 
 ---
 
+## SessionStart Hooks
+
+These hooks fire once when a new Claude Code session begins.
+
+### Template currency check
+
+- **Script**: `hooks/scripts/template-currency-check.sh`
+- **Timeout**: 10s
+
+Compares the `<!-- template-version: X.Y.Z -->` marker in
+`HARNESS.md` against the installed plugin version from
+`plugin.json`. If the template version is behind the plugin
+version, nudges you to run `/harness-upgrade` to adopt new
+template content. Exits silently if `HARNESS.md` does not exist
+or the marker is absent.
+
+---
+
 ## Configuration
 
 Hooks are configured in `hooks/hooks.json`. The file contains:

@@ -7,7 +7,7 @@ nav_order: 7
 
 # Output Validation
 
-Output validation checkpoints verify that structured output matches expected formats before committing or proceeding. Seven commands in v0.19.4 implement this pattern to catch format deviations early.
+Output validation checkpoints verify that structured output matches expected formats before committing or proceeding. Eight commands implement this pattern to catch format deviations early.
 
 ---
 
