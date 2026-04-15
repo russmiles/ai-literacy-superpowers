@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.17.1 — 2026-04-15
+
+### Lint fix
+
+- Fix markdownlint MD060 table separator spacing across 52 files —
+  formatting only, no content changes
+
 ## 0.17.0 — 2026-04-15
 
 ### Release governance
