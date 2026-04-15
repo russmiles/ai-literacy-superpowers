@@ -190,7 +190,7 @@ A coordinated team that handles the full development lifecycle.
 | `/governance-health` | Governance health pulse check and dashboard generation |
 | `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
 
-### Templates (9)
+### Templates (10)
 
 Opinionated defaults scaffolded by `/superpowers-init`:
 
@@ -200,15 +200,16 @@ Opinionated defaults scaffolded by `/superpowers-init`:
 - **MODEL_ROUTING.md** — model-tier guidance and token budget thresholds (see below)
 - **REFLECTION_LOG.md** — append-only agent reflection log
 - **ci-github-actions.yml** — CI enforcement template for GitHub Actions
+- **ci-auto-enforcer.yml** — GitHub Actions workflow for agent-based PR constraint enforcement
 - **ci-mutation-testing.yml** — weekly mutation testing template
 - **ci-generic.sh** — fallback CI script for non-GitHub systems
 - **harness-health-icon.svg** — monochrome shield icon for the README health badge
 
 **MODEL_ROUTING.md** guides cost-conscious model selection. It maps each agent to a model tier (most capable, standard, fast) based on the judgment required. The orchestrator consults it when dispatching agents — spec-writers and code-reviewers get the most capable model; implementers and integration agents get standard models. Token budget guidance prevents runaway costs.
 
-### Hooks (9)
+### Hooks (11)
 
-All nine hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
+All hooks are registered in `hooks/hooks.json` and active in every Claude Code session.
 
 - **PreToolUse constraint gate** — reads HARNESS.md, warns on violations during edits (prompt-based, advisory)
 - **PreToolUse markdownlint check** — runs markdownlint on `.md` files being written or edited (deterministic, advisory)
@@ -220,6 +221,7 @@ All nine hooks are registered in `hooks/hooks.json` and active in every Claude C
 - **Stop rotating GC check** — runs one deterministic GC rule per session (rotating by day), catching entropy between weekly CI runs
 - **Stop curation nudge** — detects unpromoted reflections in `REFLECTION_LOG.md` and nudges curation into `AGENTS.md`
 - **Stop governance drift check** — detects governance-related file changes and audit staleness, nudges `/governance-audit`
+- **SessionStart template currency check** — detects when the HARNESS.md template version is behind the installed plugin version, nudges `/harness-upgrade`
 
 ---
 
