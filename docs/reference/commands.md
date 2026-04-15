@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 18 slash commands registered in `commands/`. Each command is
+All 19 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -92,6 +92,20 @@ Generate a comprehensive health snapshot. Two modes:
 
 Snapshots are saved to `observability/snapshots/` with a datestamped
 filename.
+
+### /harness-upgrade
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Adopt new template content after a plugin upgrade. Compares the
+`<!-- template-version: X.Y.Z -->` marker in your `HARNESS.md` against
+the installed plugin version. Categorises changes as New (items in the
+template not in your HARNESS.md), Updated (changed items), and Removed
+(items you have that the template no longer includes). Each item can be
+accepted or dismissed individually. Dismissing writes a
+`.claude/.harness-upgrade-dismissed` marker so the SessionStart hook
+does not re-prompt until the next plugin update.
 
 ---
 
