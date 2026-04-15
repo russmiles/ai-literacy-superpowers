@@ -50,7 +50,7 @@ Update the template's entry format comment to include the new field.
 
 ## Example Flow
 
-```
+```text
 User runs /reflect after a session:
 
   Surprise: "ShellCheck found 4 issues in scripts that passed

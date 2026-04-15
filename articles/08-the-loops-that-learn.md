@@ -2,7 +2,7 @@
 
 ## Four practices, four timescales, one compounding system
 
-*The Loops That Learn -- Companion to The Environment Hypothesis series*
+### *The Loops That Learn -- Companion to The Environment Hypothesis series*
 
 ---
 

@@ -64,7 +64,7 @@ as input rather than scanning code or configuration.
 
 ## Example
 
-```
+```text
 REFLECTION_LOG.md contains:
   2026-04-06: Surprise: "ShellCheck found issues that spec review missed"
   2026-04-07: Surprise: "markdownlint caught formatting not flagged by

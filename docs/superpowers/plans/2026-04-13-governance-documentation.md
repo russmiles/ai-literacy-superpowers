@@ -14,7 +14,7 @@
 
 ---
 
-### Task 1: Write the Explanation Page
+## Task 1: Write the Explanation Page
 
 **Files:**
 
@@ -28,7 +28,7 @@
 
 ---
 
-### Task 2: Write the Tutorial
+## Task 2: Write the Tutorial
 
 **Files:**
 
@@ -42,7 +42,7 @@
 
 ---
 
-### Task 3: Write the Five How-To Guides
+## Task 3: Write the Five How-To Guides
 
 **Files:**
 
@@ -70,7 +70,7 @@ All guides follow the template in `docs/how-to/_template.md`: one-line descripti
 
 ---
 
-### Task 4: Update Reference Pages
+## Task 4: Update Reference Pages
 
 **Files:**
 
@@ -93,7 +93,7 @@ All guides follow the template in `docs/how-to/_template.md`: one-line descripti
 
 ---
 
-### Task 5: Final Verification
+## Task 5: Final Verification
 
 - [ ] **Step 1: Run markdownlint on all 11 files** — `npx markdownlint-cli2 "docs/explanation/governance-as-meaning-alignment.md" "docs/tutorials/governance-for-your-harness.md" "docs/how-to/write-a-governance-constraint.md" "docs/how-to/run-a-governance-audit.md" "docs/how-to/check-governance-health.md" "docs/how-to/detect-semantic-drift.md" "docs/how-to/build-a-governance-dashboard.md" "docs/reference/agents.md" "docs/reference/commands.md" "docs/reference/skills.md" "docs/reference/hooks.md"` — Expected: 0 errors across all files.
 

@@ -89,7 +89,7 @@ Check for CI configuration:
 
 Print the dashboard as a structured report:
 
-```
+```text
 AI Literacy Habitat Status
 ==========================
 

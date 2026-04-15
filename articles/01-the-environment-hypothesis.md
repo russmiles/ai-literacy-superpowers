@@ -2,7 +2,7 @@
 
 ## Why every AI coding failure is an environment problem
 
-*The Environment Hypothesis -- Article 1 of 6*
+### *The Environment Hypothesis -- Article 1 of 6*
 
 ---
 

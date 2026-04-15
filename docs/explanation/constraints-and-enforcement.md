@@ -51,7 +51,7 @@ You need constraints, not conventions. But most teams hear "enforcement" and imm
 
 You write the rule down. No automation. No checking. Just a clear, specific statement:
 
-*"All public API functions must return structured error types, not raw strings."*
+#### "All public API functions must return structured error types, not raw strings."
 
 This sounds weak. It is not. Writing a rule precisely forces you to think about what you actually want. Most teams skip this and jump straight to tooling, which is how you end up with linter rules that nobody understands the purpose of.
 
@@ -77,7 +77,7 @@ This is the strongest level. It is also the most expensive and the most dangerou
 
 Every constraint should start soft and earn its way up. This is progressive hardening: start flexible, observe what works, increase enforcement as confidence grows.
 
-```
+```text
     +---------------------------+
     |  DETERMINISTIC            |  <-- Tool enforces it. No exceptions.
     |  (Linter / type checker)  |
@@ -134,17 +134,13 @@ Classify each of these rules by maturity level (Declared, Agent-Backed, or Deter
 4. "A weekly script scans for dependencies with known CVEs."
 5. "Our ESLint config forbids `console.log` in production code."
 
-<details>
-<summary>Answers</summary>
+### Answers
 
-<ol>
-<li>Deterministic / Merge.</li>
-<li>Declared / None (no loop — it is unenforced).</li>
-<li>Agent-Backed / Merge.</li>
-<li>Deterministic / Scheduled.</li>
-<li>Deterministic / Edit and Merge.</li>
-</ol>
-</details>
+1. Deterministic / Merge.
+2. Declared / None (no loop — it is unenforced).
+3. Agent-Backed / Merge.
+4. Deterministic / Scheduled.
+5. Deterministic / Edit and Merge.
 
 ---
 

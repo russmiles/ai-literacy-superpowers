@@ -143,7 +143,7 @@ For each selected feature, replace placeholder values with discovered
 facts and user responses as before. For each unselected feature, replace
 the section body with the placeholder marker:
 
-```
+```text
 <!-- Not yet configured. Run /harness-init and select this feature to set up. -->
 ```
 

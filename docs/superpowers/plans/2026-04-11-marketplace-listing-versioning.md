@@ -10,7 +10,7 @@
 
 ---
 
-### Task 1: Update marketplace.json schema
+## Task 1: Update marketplace.json schema
 
 **Files:**
 
@@ -56,7 +56,7 @@ git commit -m "Add top-level version and plugin_version to marketplace.json"
 
 ---
 
-### Task 2: Add marketplace versioning convention to CLAUDE.md
+## Task 2: Add marketplace versioning convention to CLAUDE.md
 
 **Files:**
 
@@ -104,7 +104,7 @@ git commit -m "Add marketplace versioning convention to CLAUDE.md"
 
 ---
 
-### Task 3: Add marketplace sync constraint to HARNESS.md
+## Task 3: Add marketplace sync constraint to HARNESS.md
 
 **Files:**
 
@@ -143,7 +143,7 @@ git commit -m "Add marketplace plugin version sync constraint to HARNESS.md"
 
 ---
 
-### Task 4: Add marketplace metadata drift GC rule to HARNESS.md
+## Task 4: Add marketplace metadata drift GC rule to HARNESS.md
 
 **Files:**
 
@@ -184,7 +184,7 @@ git commit -m "Add marketplace listing drift GC rule to HARNESS.md"
 
 ---
 
-### Task 5: Extend version-check.yml with marketplace sync check
+## Task 5: Extend version-check.yml with marketplace sync check
 
 **Files:**
 
@@ -247,7 +247,7 @@ git commit -m "Extend version-check workflow with marketplace plugin_version syn
 
 ---
 
-### Task 6: Update CHANGELOG, bump version, update badges
+## Task 6: Update CHANGELOG, bump version, update badges
 
 **Files:**
 
@@ -303,7 +303,7 @@ git commit -m "Bump plugin to 0.10.0 for marketplace listing versioning"
 
 ---
 
-### Task 7: Final verification
+## Task 7: Final verification
 
 - [ ] **Step 1: Run markdownlint**
 

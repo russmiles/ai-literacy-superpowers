@@ -2,7 +2,7 @@
 
 ## From good intentions to automated enforcement
 
-*This is Article 3 of "The Environment Hypothesis," a six-part series on building environments where AI actually produces great work. Article 1 established that AI output quality equals environment quality. Article 2 showed how to engineer context -- the knowledge layer. Now we add teeth.*
+### *This is Article 3 of "The Environment Hypothesis," a six-part series on building environments where AI actually produces great work. Article 1 established that AI output quality equals environment quality. Article 2 showed how to engineer context -- the knowledge layer. Now we add teeth.*
 
 ---
 
@@ -48,15 +48,15 @@ You need constraints, not conventions. But most teams hear "enforcement" and imm
 
 That's like putting a toddler in a straitjacket because they might run into traffic. Technically effective. Wildly counterproductive.
 
-**Level 1: Declared (Unverified)**
+### Level 1: Declared (Unverified)
 
 You write the rule down. No automation. No checking. Just a clear, specific statement:
 
-*"All public API functions must return structured error types, not raw strings."*
+*"All public API functions must return structured error types, not raw strings."*<!-- markdownlint-disable-line MD036 -->
 
 This sounds weak. It isn't. Writing a rule precisely forces you to think about what you actually want. Most teams skip this and jump straight to tooling -- which is how you end up with linter rules that nobody understands the purpose of.
 
-**Level 2: Agent-Backed (Verified by AI)**
+### Level 2: Agent-Backed (Verified by AI)
 
 You give the written rule to an AI reviewer. Every PR gets checked against it. The AI reads the rule, reads the code, flags violations.
 
@@ -64,7 +64,7 @@ Is this deterministic? No. Will it catch everything? No. But it catches *most* t
 
 The speed here matters. You go from "we decided this rule matters" to "something is checking for it" in minutes, not weeks. No custom linter rules. Just a clearly stated expectation and an AI that reads it.
 
-**Level 3: Deterministic (Tool-Enforced)**
+### Level 3: Deterministic (Tool-Enforced)
 
 A linter. A type checker. A security scanner. Something that runs the same way every time, with no false negatives.
 
@@ -78,7 +78,7 @@ This is the strongest level. It's also the most expensive and the most dangerous
 
 Every constraint should start soft and earn its way up. This is **progressive hardening**: start flexible, observe what works, increase enforcement as confidence grows.
 
-```
+```text
     +---------------------------+
     |  DETERMINISTIC            |  <-- Tool enforces it. No exceptions.
     |  (Linter / type checker)  |
@@ -137,7 +137,7 @@ Classify each of these rules by maturity level (Declared, Agent-Backed, or Deter
 4. "A weekly script scans for dependencies with known CVEs."
 5. "Our ESLint config forbids `console.log` in production code."
 
-*(Answers: 1 -- Deterministic/Merge. 2 -- Declared/None (no loop -- it's unenforced). 3 -- Agent-Backed/Merge. 4 -- Deterministic/Scheduled. 5 -- Deterministic/Edit and Merge.)*
+*(Answers: 1 -- Deterministic/Merge. 2 -- Declared/None (no loop -- it's unenforced). 3 -- Agent-Backed/Merge. 4 -- Deterministic/Scheduled. 5 -- Deterministic/Edit and Merge.)*<!-- markdownlint-disable-line MD036 -->
 
 ---
 

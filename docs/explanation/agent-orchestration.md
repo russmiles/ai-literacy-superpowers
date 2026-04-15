@@ -91,7 +91,7 @@ The temptation to give every agent full permissions — just to make things easi
 
 These agents work together in a pipeline with gates:
 
-```
+```text
 Requirements
     |
     v

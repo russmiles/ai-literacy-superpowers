@@ -141,7 +141,7 @@ one exists for today) or write a standalone improvement plan to
 
 After the existing Phase 5 (Workflow Operation Recommendations), add:
 
-**Phase 5b: Improvement Plan**
+### Phase 5b: Improvement Plan
 
 Invoke the `literacy-improvements` skill with the assessed level from
 Phase 3 and the gaps from section 7 of the assessment document. The

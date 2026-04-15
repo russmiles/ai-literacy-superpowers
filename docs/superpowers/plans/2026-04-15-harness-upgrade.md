@@ -12,12 +12,13 @@
 
 ---
 
-### Task 1: Consolidate template files
+## Task 1: Consolidate template files
 
 Remove the duplicate root-level template. The canonical template lives
 at `ai-literacy-superpowers/templates/HARNESS.md`.
 
 **Files:**
+
 - Delete: `templates/HARNESS.md`
 - Modify: `ai-literacy-superpowers/templates/HARNESS.md` (add version marker)
 
@@ -61,12 +62,13 @@ source of truth. Add template-version marker for upgrade tracking."
 
 ---
 
-### Task 2: Add template-version marker to harness-init
+## Task 2: Add template-version marker to harness-init
 
 Update the harness-init command to write the `template-version` marker
 when generating or re-running HARNESS.md.
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md`
 
 - [ ] **Step 1: Update step 7 (Generate HARNESS.md) in harness-init**
@@ -99,12 +101,13 @@ comment in generated HARNESS.md files, enabling upgrade tracking."
 
 ---
 
-### Task 3: Create the template-currency-check hook script
+## Task 3: Create the template-currency-check hook script
 
 The SessionStart hook that detects version mismatch and nudges the
 user.
 
 **Files:**
+
 - Create: `hooks/scripts/template-currency-check.sh`
 
 - [ ] **Step 1: Write the hook script**
@@ -215,11 +218,12 @@ they differ. Advisory only, respects dismissal file."
 
 ---
 
-### Task 4: Register the SessionStart hook
+## Task 4: Register the SessionStart hook
 
 Add the new script to hooks.json as a SessionStart event.
 
 **Files:**
+
 - Modify: `hooks/hooks.json`
 
 - [ ] **Step 1: Add SessionStart entry to hooks.json**
@@ -296,12 +300,13 @@ is behind the installed plugin version."
 
 ---
 
-### Task 5: Add Template currency GC rule to template
+## Task 5: Add Template currency GC rule to template
 
 Add the GC rule to the canonical template so new and upgrading users
 get the persistent push mechanism.
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/templates/HARNESS.md`
 
 - [ ] **Step 1: Add the GC rule**
@@ -346,12 +351,13 @@ plugin version. Persistent push complement to the SessionStart hook."
 
 ---
 
-### Task 6: Create the `/harness-upgrade` command
+## Task 6: Create the `/harness-upgrade` command
 
 The core pull mechanism — a command spec that performs the structural
 diff and presents the accept/skip menu.
 
 **Files:**
+
 - Create: `ai-literacy-superpowers/commands/harness-upgrade.md`
 
 - [ ] **Step 1: Write the command spec**
@@ -529,16 +535,17 @@ dismissal file on completion."
 
 ---
 
-### Task 7: Add .gitignore entry for dismissal file
+## Task 7: Add .gitignore entry for dismissal file
 
 Ensure the dismissal marker is not committed to the repository.
 
 **Files:**
+
 - Create: `.gitignore` (project root — does not currently exist)
 
 - [ ] **Step 1: Create .gitignore**
 
-```
+```text
 # Harness upgrade dismissal marker — local session state, not committed
 .claude/.harness-upgrade-dismissed
 ```
@@ -552,12 +559,13 @@ git commit -m "Add .gitignore for harness upgrade dismissal marker"
 
 ---
 
-### Task 8: Update plugin version, CHANGELOG, and README
+## Task 8: Update plugin version, CHANGELOG, and README
 
 This work adds a new command, a new hook script, and a new GC rule
 in the template — that's a minor version bump.
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/.claude-plugin/plugin.json`
 - Modify: `CHANGELOG.md`
 - Modify: `README.md`
@@ -629,12 +637,13 @@ Consolidate template files. Update badges and changelog."
 
 ---
 
-### Task 9: Update project's own HARNESS.md
+## Task 9: Update project's own HARNESS.md
 
 The project's own HARNESS.md should get the template-version marker
 and the new GC rule, since this plugin eats its own dog food.
 
 **Files:**
+
 - Modify: `HARNESS.md`
 
 - [ ] **Step 1: Add template-version marker**
@@ -665,13 +674,13 @@ before the `---` separator:
 
 Update the GC count in the Status section. Currently:
 
-```
+```text
 Garbage collection active: 3/8
 ```
 
 Change to:
 
-```
+```text
 Garbage collection active: 3/9
 ```
 

@@ -30,7 +30,7 @@ ordering guarantee: intent is recorded in git before code appears.
 
 Two new constraints, layered by enforcement type:
 
-**1. Spec-first commit ordering (deterministic)**
+#### 1. Spec-first commit ordering (deterministic)
 
 A CI workflow inspects the PR's commit history against the base branch:
 
@@ -40,7 +40,7 @@ A CI workflow inspects the PR's commit history against the base branch:
   `docs/superpowers/specs/`
 - Exempt PRs (by label or branch prefix) skip the check entirely
 
-**2. Spec captures intent (agent)**
+#### 2. Spec captures intent (agent)
 
 The harness-enforcer agent reviews the spec for quality:
 

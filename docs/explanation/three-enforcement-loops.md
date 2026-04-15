@@ -124,7 +124,7 @@ The outer loop's findings feed back as changes to `HARNESS.md`. A new constraint
 
 Reflections captured at session end (prompted by the inner loop's Stop hook) accumulate in `REFLECTION_LOG.md`. The orchestrator reads recent reflections before starting a pipeline run (middle loop). The GC agent reads reflections when running entropy checks (outer loop). Reflections are the mechanism that carries learning from the inner loop's moment-of-work observations into the broader enforcement system.
 
-```
+```text
 Inner loop                Middle loop               Outer loop
 (edit time)               (merge time)              (scheduled)
     |                         |                         |

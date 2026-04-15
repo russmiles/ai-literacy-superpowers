@@ -2,7 +2,7 @@
 
 ## Orchestration, review, and trust boundaries
 
-*The Environment Hypothesis -- Article 5 of 6*
+### *The Environment Hypothesis -- Article 5 of 6*
 
 ---
 
@@ -169,7 +169,7 @@ once" is how every trust boundary dies.
 
 How do these agents work together? In a **pipeline**, with gates.
 
-```
+```text
 Requirements
     |
     v

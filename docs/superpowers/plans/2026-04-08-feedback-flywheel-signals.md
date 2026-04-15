@@ -10,7 +10,7 @@
 
 ---
 
-### Task 1: Update `/reflect` command with signal classification
+## Task 1: Update `/reflect` command with signal classification
 
 **Files:**
 
@@ -93,7 +93,7 @@ In `ai-literacy-superpowers/commands/reflect.md`, add a new step between the cur
    git commit -m "Add reflection: [one-line summary of the task]"
    ```
 
-```
+```text
 
 The key changes from the current file:
 - The entry template now includes `- **Signal**: [context | instruction | workflow | failure | none]` between Improvement and Constraint
@@ -118,7 +118,7 @@ by the agent and confirmed by the user."
 
 ---
 
-### Task 2: Update REFLECTION_LOG.md header comment
+## Task 2: Update REFLECTION_LOG.md header comment
 
 **Files:**
 
@@ -187,7 +187,7 @@ entries."
 
 ---
 
-### Task 3: Update self-improving-harness.md docs
+## Task 3: Update self-improving-harness.md docs
 
 **Files:**
 
@@ -271,7 +271,7 @@ further reading."
 
 ---
 
-### Task 4: Add vocabulary mapping to compound-learning.md
+## Task 4: Add vocabulary mapping to compound-learning.md
 
 **Files:**
 
@@ -335,7 +335,7 @@ reading."
 
 ---
 
-### Task 5: Add Session Quality section to snapshot format
+## Task 5: Add Session Quality section to snapshot format
 
 **Files:**
 
@@ -367,7 +367,7 @@ Insert this content:
 | Signal distribution | Count of each signal type across all reflections (cumulative, not just since last snapshot) |
 | Quality trend | Compare "reflections with signal" percentage to previous snapshot. stable = ±2%, improving = >+2%, declining = <-2% |
 
-```
+```text
 
 - [ ] **Step 2: Add row to Trends table**
 
@@ -395,7 +395,7 @@ Adds corresponding row to the Trends table."
 
 ---
 
-### Task 6: Update /harness-health command
+## Task 6: Update /harness-health command
 
 **Files:**
 
@@ -482,7 +482,7 @@ percentage in delta summary output."
 
 ---
 
-### Task 7: Update CHANGELOG and final commit
+## Task 7: Update CHANGELOG and final commit
 
 **Files:**
 
