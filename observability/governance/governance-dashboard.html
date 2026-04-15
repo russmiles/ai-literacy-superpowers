@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governance Health Dashboard — ai-literacy-superpowers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #e2e8f0;
+    padding: 2rem;
+    line-height: 1.6;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid;
+  }
+  .card.green { border-left-color: #22c55e; }
+  .card.amber { border-left-color: #f59e0b; }
+  .card.red { border-left-color: #ef4444; }
+  .card.grey { border-left-color: #6b7280; }
+  .card-label { color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card-value { font-size: 2rem; font-weight: 700; margin: 0.5rem 0; }
+  .card-detail { color: #94a3b8; font-size: 0.85rem; }
+  .card.green .card-value { color: #22c55e; }
+  .card.amber .card-value { color: #f59e0b; }
+  .card.red .card-value { color: #ef4444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th { text-align: left; padding: 0.75rem 1rem; background: #16213e; color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid #1e293b; }
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .badge-green { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+  .badge-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+  .badge-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+  .badge-grey { background: rgba(107, 114, 128, 0.15); color: #6b7280; }
+  .heatmap { display: grid; grid-template-columns: 200px repeat(3, 1fr); gap: 2px; margin: 1rem 0; }
+  .heatmap-header { padding: 0.5rem; font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
+  .heatmap-cell { padding: 0.75rem; text-align: center; border-radius: 4px; font-size: 0.85rem; font-weight: 600; }
+  .heatmap-label { padding: 0.75rem; font-size: 0.9rem; }
+  .cell-green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+  .cell-amber { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+  .cell-red { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+  .cell-grey { background: rgba(107, 114, 128, 0.2); color: #6b7280; }
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+    background: #16213e;
+    border-radius: 8px;
+    font-style: italic;
+  }
+  .timeline {
+    background: #16213e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .timeline-point {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin: 0 0.5rem;
+    vertical-align: middle;
+  }
+  .timeline-label { color: #94a3b8; font-size: 0.85rem; }
+  .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #334155; color: #64748b; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<h1>Governance Health Dashboard</h1>
+<p class="subtitle">ai-literacy-superpowers &mdash; Generated 2026-04-15</p>
+
+<!-- Summary Cards -->
+<div class="cards">
+  <div class="card green">
+    <div class="card-label">Overall Score</div>
+    <div class="card-value">1.00</div>
+    <div class="card-detail">Healthy &mdash; all constraints falsifiable, no drift, no debt</div>
+  </div>
+  <div class="card green">
+    <div class="card-label">Constraint Quality</div>
+    <div class="card-value">1 / 1</div>
+    <div class="card-detail">1 falsifiable &middot; 0 partial &middot; 0 vague</div>
+  </div>
+  <div class="card green">
+    <div class="card-label">Last Audit</div>
+    <div class="card-value">Today</div>
+    <div class="card-detail">2026-04-15 &mdash; 0 days ago</div>
+  </div>
+</div>
+
+<!-- Constraint Quality Table -->
+<h2>Constraint Quality</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Constraint</th>
+      <th>Falsifiability</th>
+      <th>Drift Risk</th>
+      <th>Drift Stage</th>
+      <th>Frame Alignment</th>
+      <th>Enforcement</th>
+      <th>Last Reviewed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Release traceability</td>
+      <td><span class="badge badge-green">Falsifiable</span></td>
+      <td><span class="badge badge-green">Low</span></td>
+      <td>0</td>
+      <td><span class="badge badge-green">Aligned</span></td>
+      <td><span class="badge badge-green">Deterministic</span></td>
+      <td>2026-04-15</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Governance Debt Inventory -->
+<h2>Governance Debt Inventory</h2>
+<div class="empty-state">No governance debt items detected.</div>
+
+<!-- Drift Timeline -->
+<h2>Drift Timeline</h2>
+<div class="timeline">
+  <div class="timeline-label">2026-04-15</div>
+  <div style="margin: 1rem 0;">
+    <span class="timeline-point"></span>
+    <span style="color: #94a3b8; font-size: 0.85rem;">Drift: 0.0 &middot; Falsifiability: 1.0</span>
+  </div>
+  <div class="timeline-label" style="font-style: italic;">Single data point &mdash; trend requires 2+ audits</div>
+</div>
+
+<!-- Three-Frame Alignment Heatmap -->
+<h2>Three-Frame Alignment</h2>
+<div class="heatmap">
+  <div class="heatmap-header"></div>
+  <div class="heatmap-header">Engineering</div>
+  <div class="heatmap-header">Compliance</div>
+  <div class="heatmap-header">AI System</div>
+
+  <div class="heatmap-label">Release traceability</div>
+  <div class="heatmap-cell cell-green">Aligned</div>
+  <div class="heatmap-cell cell-green">Aligned</div>
+  <div class="heatmap-cell cell-green">Aligned</div>
+</div>
+
+<!-- Metrics Summary -->
+<h2>Metrics</h2>
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Value</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Governance constraints</td>
+      <td>1</td>
+      <td><span class="badge badge-green">Active</span></td>
+    </tr>
+    <tr>
+      <td>Falsifiability ratio</td>
+      <td>1.00 (1/1)</td>
+      <td><span class="badge badge-green">Healthy</span></td>
+    </tr>
+    <tr>
+      <td>Drift score</td>
+      <td>0.0 (low)</td>
+      <td><span class="badge badge-green">Healthy</span></td>
+    </tr>
+    <tr>
+      <td>Debt items</td>
+      <td>0</td>
+      <td><span class="badge badge-green">Clear</span></td>
+    </tr>
+    <tr>
+      <td>Frame alignment</td>
+      <td>1.00 (1/1)</td>
+      <td><span class="badge badge-green">All aligned</span></td>
+    </tr>
+    <tr>
+      <td>Drift velocity</td>
+      <td>Stable</td>
+      <td><span class="badge badge-grey">First audit</span></td>
+    </tr>
+    <tr>
+      <td>Next audit due</td>
+      <td>2026-07-15</td>
+      <td><span class="badge badge-green">On schedule</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  <p>Generated by /governance-health --dashboard &middot; Data from audit-2026-04-15.md &middot; ai-literacy-superpowers v0.17.1</p>
+</div>
+
+<script>
+// Embedded audit data for future dashboard updates
+const GOVERNANCE_DATA = {
+  "generated": "2026-04-15",
+  "plugin_version": "0.17.1",
+  "audits": [
+    {
+      "date": "2026-04-15",
+      "constraints": 1,
+      "falsifiable": 1,
+      "partial": 0,
+      "vague": 0,
+      "falsifiability_ratio": 1.0,
+      "drift_score": 0.0,
+      "debt_items": 0,
+      "frame_alignment": 1.0,
+      "health": "Healthy",
+      "constraints_detail": [
+        {
+          "name": "Release traceability",
+          "falsifiability": "falsifiable",
+          "drift_risk": "low",
+          "drift_stage": 0,
+          "frame_alignment": "aligned",
+          "enforcement": "deterministic",
+          "governance_requirement": "All published plugin versions must have a corresponding changelog entry and a tag on GitHub"
+        }
+      ],
+      "debt_inventory": []
+    }
+  ]
+};
+</script>
+
+</body>
+</html>
