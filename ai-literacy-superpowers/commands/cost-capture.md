@@ -98,7 +98,30 @@ MODEL_ROUTING.md. Present each change and ask for approval.
 Create `observability/costs/YYYY-MM-DD-costs.md` using the format
 from the cost-tracking skill.
 
-### 10. Commit
+### 10. Validate Cost Snapshot
+
+**This step is mandatory.** After writing the cost snapshot, read
+`observability/costs/YYYY-MM-DD-costs.md` and verify it contains the
+fields that `/harness-health` needs to parse for the Cost Indicators
+section.
+
+**Structural checks:**
+
+1. File exists at the expected path
+2. Period field present (date range for the snapshot)
+3. Total spend field present (even if estimated)
+4. Model routing reference present (whether MODEL_ROUTING.md was
+   updated)
+
+Reference the `cost-tracking` skill for the full field definitions.
+
+If any check fails, fix the snapshot in place:
+
+- Add missing fields with "not tracked" as the value
+
+Do not re-run the capture conversation. Fix the output directly.
+
+### 11. Commit
 
 ```bash
 mkdir -p observability/costs
@@ -106,7 +129,7 @@ git add observability/costs/ MODEL_ROUTING.md
 git commit -m "Cost snapshot: YYYY-MM-DD"
 ```
 
-### 11. Summary
+### 12. Summary
 
 ```text
 Cost snapshot captured: observability/costs/YYYY-MM-DD-costs.md
