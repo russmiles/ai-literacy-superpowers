@@ -172,7 +172,35 @@ already exists, update it to the current version. If it does not
 exist, insert it after the line containing
 `https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->`.
 
-### 8. Generate CI Configuration
+### 8. Validate Generated HARNESS.md
+
+**This step is mandatory.** After writing HARNESS.md, read it and
+verify its structure against `templates/HARNESS.md`.
+
+**Structural checks:**
+
+1. All 4 top-level sections present: `## Context`,
+   `## Constraints`, `## Garbage Collection`, `## Observability`
+2. Context section has `### Stack` and `### Conventions`
+   subsections (either with content or the placeholder marker)
+3. Observability section has `### Operating cadence`,
+   `### Health thresholds`, and `### Regression detection`
+   subsections
+4. `## Status` section present with all 4 fields: Last audit,
+   Constraints enforced, Garbage collection active, Drift detected
+5. Template version marker comment present:
+   `<!-- template-version: X.Y.Z -->` where X.Y.Z matches the
+   current plugin version
+
+If any check fails, fix HARNESS.md in place:
+
+- Add missing sections from the template with placeholder markers
+- Insert the template version marker if absent
+- Add missing Status fields with default values
+
+Do not re-run the init conversation. Fix the output directly.
+
+### 9. Generate CI Configuration
 
 **Gate**: only run this step if "CI configuration" was selected in
 step 3.
@@ -213,7 +241,7 @@ produced contains any agent-scoped PR constraints. If it does:
 
 If no agent PR constraints exist, skip this offer silently.
 
-### 9. Add README Badge
+### 10. Add README Badge
 
 **Gate**: only run this step if "Observability" was selected in step 3.
 
@@ -233,7 +261,7 @@ manually:
 [![Harness](https://img.shields.io/badge/Harness-0%2FN_enforced-808080?style=flat-square)](HARNESS.md)
 ```
 
-### 10. Commit
+### 11. Commit
 
 Stage and commit all generated files:
 
@@ -243,7 +271,7 @@ Stage and commit all generated files:
 
 Commit message: "Initialize project harness with HARNESS.md"
 
-### 11. Tag Repository
+### 12. Tag Repository
 
 If the project is hosted on GitHub, add the `agent-harness-enabled`
 topic tag to the repository:
@@ -262,7 +290,7 @@ Also add the badge to the README if not already present:
 [![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
 ```
 
-### 12. Summary
+### 13. Summary
 
 Tell the user:
 
