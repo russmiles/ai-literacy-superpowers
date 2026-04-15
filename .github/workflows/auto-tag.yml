@@ -1,0 +1,50 @@
+# Auto-tag on version bump.
+#
+# When plugin.json version changes on push to main, creates a git
+# tag vX.Y.Z pointing at the merge commit. Part of the release
+# governance constraint — ensures every published version has an
+# immutable tag.
+
+name: Auto Tag
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ai-literacy-superpowers/.claude-plugin/plugin.json'
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    name: Create version tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Check if tag needed
+        id: check
+        run: |
+          VERSION=$(grep '"version"' ai-literacy-superpowers/.claude-plugin/plugin.json | sed 's/.*"version": "\(.*\)".*/\1/')
+          TAG="v${VERSION}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+          if git tag -l "$TAG" | grep -q "$TAG"; then
+            echo "Tag $TAG already exists — skipping"
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag $TAG does not exist — will create"
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create tag
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          git tag "${{ steps.check.outputs.tag }}"
+          git push origin "${{ steps.check.outputs.tag }}"
+          echo "Created and pushed tag ${{ steps.check.outputs.tag }}"
