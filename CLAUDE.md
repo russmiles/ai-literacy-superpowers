@@ -102,6 +102,24 @@ see the spec. Two options:
 In the PR description, always link to the upstream spec regardless of
 which option you choose.
 
+## Output Validation Checkpoints
+
+Every command that produces structured output parsed by downstream
+consumers must include a validation checkpoint step. The pattern:
+
+1. Generate the output (agent dispatch or command logic)
+2. Read the output back
+3. Check structure against the format spec reference
+4. Fix deviations in place (do not re-dispatch the agent)
+
+Commands with checkpoints: `/harness-health`, `/assess`, `/reflect`,
+`/cost-capture`, `/harness-constrain`, `/harness-init`,
+`/superpowers-init`, `/governance-audit`, `/harness-onboarding`.
+
+When adding a new command that writes structured markdown, add a
+validation step following this pattern. Reference the format spec
+rather than inlining field definitions.
+
 ## Sync from Source
 
 This plugin's reusable components originate from the
