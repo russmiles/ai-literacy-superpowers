@@ -11,7 +11,7 @@ files are not overwritten unless you confirm.
 
 ## What this command does
 
-It walks through eight steps in sequence:
+It walks through nine steps in sequence:
 
 ### 1. Discover
 
@@ -93,7 +93,36 @@ Copy CI templates from `${CLAUDE_PLUGIN_ROOT}/templates/`:
 Use the harness-engineering skill to verify the scaffold is coherent before
 presenting it to the user.
 
-### 8. Commit and summary
+### 8. Validate Habitat Files
+
+**This step is mandatory.** After all habitat files are generated,
+read each one and verify its structure against the corresponding
+template in `${CLAUDE_PLUGIN_ROOT}/templates/`.
+
+**Structural checks per file:**
+
+1. **CLAUDE.md**: has required sections `## Workflow`,
+   `## Build and Test`, `## Learnings`
+   (reference: `templates/CLAUDE.md`)
+2. **AGENTS.md**: has required sections `## STYLE`, `## GOTCHAS`,
+   `## ARCH_DECISIONS`, `## TEST_STRATEGY`, `## DESIGN_DECISIONS`
+   (reference: `templates/AGENTS.md`)
+3. **MODEL_ROUTING.md**: has required sections
+   `## Agent Routing Table` (with markdown table),
+   `## Token Budget Guidance` (with markdown table)
+   (reference: `templates/MODEL_ROUTING.md`)
+4. **REFLECTION_LOG.md**: exists and has the header comment
+   containing the entry format template
+
+If any check fails, fix the file in place:
+
+- Add missing sections from the corresponding template
+- Do not overwrite existing content in sections that are already
+  populated
+
+Do not re-run the init conversation. Fix each file directly.
+
+### 9. Commit and summary
 
 Stage all new files and commit with a message in the form:
 
