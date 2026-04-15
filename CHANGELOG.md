@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.18.0 — 2026-04-15
+
+### Template adoption
+
+- Add `/harness-upgrade` command — structural diff between user's
+  HARNESS.md and plugin template, with accept/skip menu for new
+  constraints, GC rules, sections, and optional blocks
+- Add SessionStart hook for template currency — nudges user when
+  plugin template has been updated since their harness was generated
+- Add Template currency GC rule to template — weekly persistent
+  reminder for un-reviewed template content
+- Add `template-version` marker to generated HARNESS.md files for
+  upgrade tracking
+- Consolidate two diverged template files into single canonical copy
+  at `ai-literacy-superpowers/templates/HARNESS.md`
+
 ## 0.17.1 — 2026-04-15
 
 ### Lint fix
