@@ -10,6 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
+<!-- template-version: 0.18.0 -->
 
 ## Context
 
@@ -263,6 +264,17 @@
 - **Auto-fix**: true (creates missing tags pointing at the merge
   commit that introduced the version heading)
 
+### Template currency
+
+- **What it checks**: Whether the HARNESS.md template-version marker
+  matches the installed plugin version, indicating new template content
+  is available that hasn't been reviewed
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: compare template-version comment in HARNESS.md against
+  plugin.json version
+- **Auto-fix**: false
+
 ---
 
 ## Status
@@ -271,5 +283,5 @@
 
 Last audit: 2026-04-15
 Constraints enforced: 12/12
-Garbage collection active: 3/8
+Garbage collection active: 3/9
 Drift detected: none
