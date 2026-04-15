@@ -162,6 +162,16 @@ Section boundaries are defined by the `##` headings in the template:
 Each section runs from its `##` heading to the next `##` heading or
 end of file.
 
+**Template version marker (both first run and re-run):**
+
+After writing HARNESS.md, ensure it contains a `<!-- template-version: X.Y.Z -->`
+comment on its own line immediately after the intro comment block,
+where X.Y.Z is the current plugin version read from
+`${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`. If the marker
+already exists, update it to the current version. If it does not
+exist, insert it after the line containing
+`https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->`.
+
 ### 8. Generate CI Configuration
 
 **Gate**: only run this step if "CI configuration" was selected in
