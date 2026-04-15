@@ -87,16 +87,28 @@ After writing the report, update the governance metrics block in the
 most recent harness health snapshot (if one exists in
 `observability/snapshots/`).
 
-## Governance Summary Section
+## Governance Summary Section — CRITICAL FORMAT CONTRACT
+
+**This section is a machine-readable contract.** The Habitat
+Observatory plugin parses it by exact regex. Every deviation —
+wrong heading, missing field, wrong format — breaks the pipeline.
 
 Include a `## Governance Summary` section at the top of the audit
 report, immediately after the `# Governance Audit — YYYY-MM-DD`
-header. The heading **must** be `## Governance Summary` (not
-`## Summary`) — this exact heading is used by the Observatory and
-snapshot agents for regex-based parsing.
+header.
 
-Every field below **must** appear, even when the value is zero. Agents
-consuming this section expect all nine fields in this order.
+**Non-negotiable rules:**
+
+1. The heading **must** be `## Governance Summary` — not
+   `## Summary`, not `## Overview`, not any variant
+2. All nine fields below **must** appear, in this exact order,
+   even when the value is zero
+3. Each field starts with a dash and space on its own line
+4. Field names and annotations must match exactly — they are
+   parsed by regex
+
+**Write this section by copying the template below and filling in
+the values. Do not rephrase, reorder, or omit any field:**
 
 ```text
 ## Governance Summary
@@ -111,6 +123,11 @@ consuming this section expect all nine fields in this order.
 - Aggregate debt score: N (sum of severity x blast radius)
 - Frame alignment score: N%
 ```
+
+**Self-check before finishing:** After writing the report, verify
+your `## Governance Summary` section has exactly 9 bullet lines
+and the heading is `## Governance Summary`. If it does not, fix
+it before returning the report.
 
 **Field computation:**
 
@@ -128,7 +145,8 @@ consuming this section expect all nine fields in this order.
 - `Semantic drift stage`: An integer from 1 to 5 representing drift
   severity, followed by `/5`. Use the drift stage already computed
   for the audit report's drift analysis section. If no drift is
-  detected, use `1/5` (Stage 1 = no drift).
+  detected, use `1/5` (Stage 1 = no drift). **Never use 0 — the
+  scale starts at 1.**
 - `Drift velocity`: Compare the current drift stage with the previous
   audit report's drift stage. `stable` if unchanged, `increasing` if
   the stage rose, `decreasing` if it fell. If no previous audit

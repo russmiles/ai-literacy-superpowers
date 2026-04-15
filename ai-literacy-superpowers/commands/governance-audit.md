@@ -54,7 +54,51 @@ The governance-auditor will:
    `observability/governance/audit-YYYY-MM-DD.md`
 8. Output the governance metrics block
 
-### 5. Update Harness Health Snapshot
+### 5. Validate the Governance Summary
+
+**This step is mandatory.** After the governance-auditor writes the
+report, read `observability/governance/audit-YYYY-MM-DD.md` and
+verify the `## Governance Summary` section meets the Observatory
+contract. Check each requirement:
+
+1. **Heading**: Must be `## Governance Summary` (not `## Summary`
+   or any variant). The Observatory parses this heading by exact
+   regex match.
+
+2. **Nine fields present**: The section must contain exactly these
+   fields in this order, each on its own line as a bullet point:
+
+   ```text
+   - Total constraints: N
+   - Falsifiable: N (with verification criteria)
+   - Vague: N (lacking operational meaning)
+   - Falsifiability ratio: N%
+   - Semantic drift stage: N/5
+   - Drift velocity: stable/increasing/decreasing
+   - Governance debt items: N
+   - Aggregate debt score: N (sum of severity x blast radius)
+   - Frame alignment score: N%
+   ```
+
+3. **Value rules**:
+   - Semantic drift stage must use 1-5 scale (1 = no drift), not 0
+   - Falsifiability ratio and Frame alignment score must be
+     percentages (`N%`), not fractions
+   - Drift velocity must be one of: `stable`, `increasing`,
+     `decreasing`
+   - Aggregate debt score is 0 when no debt items exist
+   - Frame alignment score = `(aligned / total) * 100`, rounded
+
+If any check fails, fix the report in place:
+
+- Rename `## Summary` to `## Governance Summary` if needed
+- Add or reformat missing fields using data from the report body
+  (constraint assessment, debt inventory, drift analysis sections)
+- Rewrite values to match the required format
+
+Do not re-dispatch the agent. Fix the output directly.
+
+### 6. Update Harness Health Snapshot
 
 If a harness health snapshot exists in `observability/snapshots/`,
 update it with the governance metrics block from the audit report.
@@ -63,7 +107,7 @@ If no snapshot exists, create the governance metrics block in the
 audit report and note that it should be included in the next
 `/harness-health` run.
 
-### 6. Present Results
+### 7. Present Results
 
 Show the user:
 
@@ -74,7 +118,7 @@ Show the user:
 - Three-frame alignment summary
 - Any debt cycle reinforcement patterns
 
-### 7. Recommend Actions
+### 8. Recommend Actions
 
 Based on audit findings, suggest next steps:
 
@@ -84,7 +128,7 @@ Based on audit findings, suggest next steps:
 - Governance debt items prioritised by score
 - Frame misalignment that needs resolution
 
-### 8. Offer Dashboard Generation
+### 9. Offer Dashboard Generation
 
 Ask the user if they want to generate or update the governance
 health dashboard:
@@ -92,7 +136,7 @@ health dashboard:
 > Run `/governance-health --dashboard` to generate an HTML dashboard
 > with these results.
 
-### 9. Commit
+### 10. Commit
 
 ```bash
 git add observability/governance/

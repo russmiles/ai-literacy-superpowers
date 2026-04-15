@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.19.3 — 2026-04-15
+
+### Governance Summary validation checkpoint
+
+- Add step 5 to /governance-audit command: validate the Governance
+  Summary section after the governance-auditor agent writes the report,
+  fixing heading, field count, and value formats in place rather than
+  re-dispatching the agent
+- Strengthen governance-auditor agent instructions: mark the Governance
+  Summary section as a critical format contract, add self-check
+  instruction, explicitly forbid 0-based drift stage scale
+- Fix existing governance audit report to use the correct
+  `## Governance Summary` heading with all nine structured fields
+
 ## 0.19.2 — 2026-04-15
 
 ### Observatory signal completeness
