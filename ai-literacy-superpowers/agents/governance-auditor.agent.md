@@ -89,9 +89,14 @@ most recent harness health snapshot (if one exists in
 
 ## Governance Summary Section
 
-Include this markdown section at the top of the audit report, after
-the header. This provides the key metrics in a format that agents
-(including the snapshot generator) can parse directly.
+Include a `## Governance Summary` section at the top of the audit
+report, immediately after the `# Governance Audit — YYYY-MM-DD`
+header. The heading **must** be `## Governance Summary` (not
+`## Summary`) — this exact heading is used by the Observatory and
+snapshot agents for regex-based parsing.
+
+Every field below **must** appear, even when the value is zero. Agents
+consuming this section expect all nine fields in this order.
 
 ```text
 ## Governance Summary
@@ -109,18 +114,34 @@ the header. This provides the key metrics in a format that agents
 
 **Field computation:**
 
+- `Total constraints`: Count governance constraints in HARNESS.md
+  (constraints with a `Governance requirement` field).
 - `Falsifiable`: Count constraints scored "Falsifiable" in the
-  constraint assessment.
+  constraint assessment. Include the annotation
+  `(with verification criteria)`.
 - `Vague`: Count constraints scored "Vague" in the constraint
-  assessment.
-- `Falsifiability ratio`: `(falsifiable_count / constraint_count) * 100`,
-  rounded to nearest integer.
-- `Semantic drift stage`: The numeric 1–5 drift severity already
-  computed for the audit report's drift analysis section.
-- `Aggregate debt score`: Sum of `severity × blast_radius` across all
-  items in the governance debt inventory table.
+  assessment. Include the annotation
+  `(lacking operational meaning)`. Report `0` if none are vague.
+- `Falsifiability ratio`:
+  `(falsifiable_count / constraint_count) * 100`, rounded to nearest
+  integer. Express as `N%`.
+- `Semantic drift stage`: An integer from 1 to 5 representing drift
+  severity, followed by `/5`. Use the drift stage already computed
+  for the audit report's drift analysis section. If no drift is
+  detected, use `1/5` (Stage 1 = no drift).
 - `Drift velocity`: Compare the current drift stage with the previous
-  audit report. If no previous audit exists, use `stable`.
+  audit report's drift stage. `stable` if unchanged, `increasing` if
+  the stage rose, `decreasing` if it fell. If no previous audit
+  exists, use `stable`.
+- `Governance debt items`: Count of items in the governance debt
+  inventory. Report `0` if the inventory is empty.
+- `Aggregate debt score`: Sum of `severity × blast_radius` across all
+  items in the governance debt inventory table. Report `0` when no
+  debt items exist.
+- `Frame alignment score`: Percentage of constraints where all three
+  frames (engineering, compliance, AI system) are confirmed aligned.
+  `(aligned_count / constraint_count) * 100`, rounded to nearest
+  integer. Express as `N%`.
 
 ## What You Do NOT Do
 

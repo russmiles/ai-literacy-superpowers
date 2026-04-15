@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.19.2 — 2026-04-15
+
+### Observatory signal completeness
+
+- Add GC cadence compliance field to snapshot format — reports whether
+  GC runs are within declared schedule, not just the last run date
+- Add per-activity overdue annotations to Operational Cadence section —
+  each activity now shows on-schedule/overdue status with target cadence
+- Add `inactive` as third Learning flow state for projects with zero
+  reflections, alongside existing `active` and `stalled`
+- Add `Cadence compliance` and `Health` fields to Meta section template
+  with full computation instructions — previously produced by agents
+  but undocumented in the format spec
+- Enforce `## Governance Summary` heading in governance-auditor output
+  (was `## Summary`) — fixes regex parsing for Observatory consumers
+- Require all nine Governance Summary fields to be present even when
+  values are zero, with explicit computation instructions for each
+- Enforce numeric `N/5` format for Semantic drift stage (was
+  qualitative) and add `Frame alignment score` percentage computation
+
 ## 0.19.1 — 2026-04-15
 
 ### Markdownlint compliance
