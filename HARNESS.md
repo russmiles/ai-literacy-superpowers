@@ -140,8 +140,11 @@
 ### Version consistency
 
 - **Rule**: plugin.json version, README badge version, and CHANGELOG
-  heading must all match. Skills/agents/commands changes require a
-  version bump.
+  heading must all match. Changes to files inside
+  `ai-literacy-superpowers/` (skills, agents, commands, hooks, config)
+  require a version bump. Changes outside the plugin directory do not.
+  Trivial formatting-only fixes to plugin files can skip the bump with
+  the `no-bump` PR label.
 - **Enforcement**: deterministic
 - **Tool**: .github/workflows/version-check.yml
 - **Scope**: pr

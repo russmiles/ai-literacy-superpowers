@@ -37,14 +37,21 @@ The plugin follows [semver](https://semver.org/) while pre-1.0:
 - **0.MINOR.0** — new skills, agents, commands, or behavioural changes
 - **0.x.PATCH** — bug fixes, doc-only changes, count corrections
 
-Before every PR, check whether the change warrants a version bump:
+Version bumps are only required when files inside `ai-literacy-superpowers/`
+change. Changes outside the plugin directory (articles, docs, observability,
+root config) do not require a version bump.
+
+When a PR touches `ai-literacy-superpowers/` files, check whether the
+change warrants a bump:
 
 1. Read the current version from `ai-literacy-superpowers/.claude-plugin/plugin.json`
 2. If the change adds or removes a skill, agent, or command, or changes
    plugin behaviour, bump the minor version (e.g. 0.4.0 → 0.5.0)
-3. If the change is a fix or doc update only, bump the patch version
-   (e.g. 0.4.0 → 0.4.1)
-4. If the change is trivial (typo, whitespace, internal spec/plan), no bump needed
+3. If the change is a fix or doc update to plugin files only, bump the
+   patch version (e.g. 0.4.0 → 0.4.1)
+4. If the change is trivial (typo, whitespace, formatting-only fixes
+   like adding code fence languages), no bump needed — add the
+   `no-bump` label to the PR to skip the CI check
 5. When bumping, update all three locations:
    - `ai-literacy-superpowers/.claude-plugin/plugin.json` (`"version"` field)
    - `README.md` (Plugin version badge)
