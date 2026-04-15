@@ -97,19 +97,17 @@ After every push and PR creation:
 
 <!-- Replace with actual commands for this project -->
 
-```bash
-# Build
-# <fill in build command>
+    # Build
+    # <fill in build command>
 
-# Test
-# <fill in test command>
+    # Test
+    # <fill in test command>
 
-# Lint
-# <fill in lint command>
+    # Lint
+    # <fill in lint command>
 
-# Format
-# <fill in format command>
-```
+    # Format
+    # <fill in format command>
 
 <!-- PROJECT-SPECIFIC CONSTRAINTS -->
 <!-- Add constraints specific to this project below.

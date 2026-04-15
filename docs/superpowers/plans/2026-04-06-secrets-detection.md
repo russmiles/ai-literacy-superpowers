@@ -325,7 +325,7 @@ Coordinate with your team before running these commands.
 For these gaps, combine gitleaks with runtime secret detection
 (e.g. AWS Macie, HashiCorp Vault audit logs) and regular manual review.
 
-```
+```text
 
 - [ ] **Step 2: Verify the file was created**
 

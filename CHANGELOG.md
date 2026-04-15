@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.19.1 — 2026-04-15
+
+### Markdownlint compliance
+
+- Fix all 58 pre-existing markdownlint violations across articles, docs,
+  commands, templates, and observability snapshots — MD036 (emphasis as
+  heading), MD040 (code fence language), MD033 (inline HTML), MD001
+  (heading increment), MD032 (blanks around lists), and others
+- Upgrade HARNESS.md to template 0.19.0 with Observability section and
+  governance constraint template; correct audit status counts and badge
+
 ## 0.19.0 — 2026-04-15
 
 ### Dev workflow — global plugin sync

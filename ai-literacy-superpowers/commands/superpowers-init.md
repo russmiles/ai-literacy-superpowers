@@ -97,7 +97,7 @@ presenting it to the user.
 
 Stage all new files and commit with a message in the form:
 
-```
+```text
 Bootstrap AI Literacy habitat: conventions, agent team, harness, CI
 ```
 

@@ -132,6 +132,7 @@ as a SessionStart event in `hooks/hooks.json`.
    current plugin version, exit silently — the user has already seen
    this nudge for this version.
 6. If no dismissal or dismissal is for an older version, emit:
+
    ```json
    {"systemMessage": "Plugin template has been updated (your harness: vX.Y.Z, plugin: vA.B.C). Run /harness-upgrade to see what's new."}
    ```

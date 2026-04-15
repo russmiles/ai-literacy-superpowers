@@ -198,6 +198,24 @@
 - **Scope**: pr
 -->
 
+<!-- Uncomment if encoding governance requirements:
+
+### [Governance constraint name]
+
+- **Rule**: [falsifiable statement — what must be true]
+- **Enforcement**: unverified
+- **Tool**: none yet
+- **Scope**: pr
+- **Governance requirement**: [cite the regulation, policy, or standard]
+- **Operational meaning**: [what this means in engineering terms]
+- **Verification method**: [deterministic tool | agent review | manual]
+- **Evidence**: [what artefacts demonstrate compliance]
+- **Failure action**: [what happens when verification fails]
+- **Frame check**: [confirmed aligned | divergence resolved: notes]
+
+Use /governance-constrain for guided authoring of governance constraints.
+-->
+
 ---
 
 ## Garbage Collection
@@ -408,11 +426,49 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 
 ---
 
+## Observability
+
+<!-- Snapshot cadence controls how often /harness-health should run.
+     Options: weekly (staleness threshold: 10 days), fortnightly (21 days),
+     monthly (30 days). Observatory corpus projects should use weekly. -->
+
+- Snapshot cadence: monthly
+
+### Operating cadence
+
+<!-- Target frequency for each observability activity. Meta-observability
+     checks compare actual run dates against these targets. -->
+
+- Harness audit (/harness-audit): quarterly (90 days)
+- AI literacy assessment (/assess): quarterly (90 days)
+- Reflection review and promotion: monthly (30 days)
+- Cost capture (/cost-capture): quarterly (90 days)
+
+### Health thresholds
+
+<!-- Thresholds for the aggregate health status in each snapshot's Meta
+     section. Adjust to match the project's maturity. -->
+
+- Minimum enforcement ratio for Healthy: 70%
+- Consecutive zero-finding GC snapshots before alert: 3
+- Unpromoted reflection age before learning flow is stalled: 60 days
+- Consecutive declining trend snapshots before alert: 3
+
+### Regression detection
+
+<!-- Conditions that trigger the regression flag in each snapshot's
+     Regression Indicators section. -->
+
+- Cadence non-compliance threshold: 2 or more activities overdue
+- Reflection drought threshold: 4 consecutive weeks with zero reflections
+
+---
+
 ## Status
 
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-15
-Constraints enforced: 12/12
-Garbage collection active: 3/9
-Drift detected: none
+Constraints enforced: 12/13
+Garbage collection active: 13/13
+Drift detected: yes

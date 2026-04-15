@@ -2,7 +2,7 @@
 
 ## Why codebases rot and how to fight back
 
-*The Environment Hypothesis -- Article 4 of 6*
+### *The Environment Hypothesis -- Article 4 of 6*
 
 ---
 

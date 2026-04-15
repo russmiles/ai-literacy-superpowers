@@ -2,11 +2,11 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.19.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.19.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-27-2E8B57?style=flat-square)](#skills-27)
 [![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
 [![Commands](https://img.shields.io/badge/Commands-19-2E8B57?style=flat-square)](#commands-19)
-[![Harness](https://img.shields.io/badge/Harness-11%2F11_enforced-2E8B57?style=flat-square)](HARNESS.md)
+[![Harness](https://img.shields.io/badge/Harness-12%2F13_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-15-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 [![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)

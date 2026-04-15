@@ -12,7 +12,7 @@
 
 ---
 
-### Task 1: Add the feature selection step after discovery
+## Task 1: Add the feature selection step after discovery
 
 **Files:**
 
@@ -84,7 +84,7 @@ git commit -m "Add feature selection step to harness-init command"
 
 ---
 
-### Task 2: Gate convention and constraint steps on feature selection
+## Task 2: Gate convention and constraint steps on feature selection
 
 **Files:**
 
@@ -128,7 +128,7 @@ git commit -m "Gate convention, constraint, and GC steps on feature selection"
 
 ---
 
-### Task 3: Update HARNESS.md generation for additive mode
+## Task 3: Update HARNESS.md generation for additive mode
 
 **Files:**
 
@@ -150,7 +150,7 @@ For each selected feature, replace placeholder values with discovered
 facts and user responses as before. For each unselected feature, replace
 the section body with the placeholder marker:
 
-```
+```markdown
 <!-- Not yet configured. Run /harness-init and select this feature to set up. -->
 ```
 
@@ -168,7 +168,6 @@ Section boundaries are defined by the `##` headings in the template:
 `## Context`, `## Constraints`, `## Garbage Collection`, `## Status`.
 Each section runs from its `##` heading to the next `##` heading or
 end of file.
-```
 
 - [ ] **Step 2: Commit**
 
@@ -179,7 +178,7 @@ git commit -m "Update HARNESS.md generation for additive re-run support"
 
 ---
 
-### Task 4: Gate CI and observability steps with dependency handling
+## Task 4: Gate CI and observability steps with dependency handling
 
 **Files:**
 
@@ -237,7 +236,7 @@ git commit -m "Gate CI and observability steps with dependency checks"
 
 ---
 
-### Task 5: Update the summary step to show configuration status
+## Task 5: Update the summary step to show configuration status
 
 **Files:**
 
@@ -271,7 +270,7 @@ git commit -m "Update summary step to show per-feature configuration status"
 
 ---
 
-### Task 6: Update the command description and re-run check
+## Task 6: Update the command description and re-run check
 
 **Files:**
 
@@ -335,7 +334,7 @@ git commit -m "Update command description and discovery for selective re-run"
 
 ---
 
-### Task 7: Update CHANGELOG and create PR
+## Task 7: Update CHANGELOG and create PR
 
 **Files:**
 

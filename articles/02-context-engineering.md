@@ -2,7 +2,7 @@
 
 ## Teaching your AI what your team already knows
 
-*The Environment Hypothesis -- Article 2 of 6*
+### *The Environment Hypothesis -- Article 2 of 6*
 
 ---
 
