@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.19.4 — 2026-04-15
+
+### Output validation checkpoints
+
+- Add validate-and-fix-in-place checkpoint to /harness-health —
+  verifies all 12 snapshot sections present, no deprecated YAML block
+- Add validation checkpoint to /assess — verifies assessment document
+  has required sections and parseable level number for portfolio
+  aggregation
+- Add validation checkpoint to /reflect — verifies all 8 mandatory
+  fields plus 4 session metadata subfields and Signal enum value
+- Add validation checkpoint to /cost-capture — verifies cost snapshot
+  has fields that /harness-health needs for Cost Indicators section
+- Add validation checkpoint to /harness-constrain — verifies
+  constraint block has required fields with valid enum values
+- Add validation checkpoint to /harness-init — verifies generated
+  HARNESS.md has all top-level sections, subsections, and template
+  version marker
+- Add validation checkpoint to /superpowers-init — verifies all 4
+  habitat files (CLAUDE.md, AGENTS.md, MODEL_ROUTING.md,
+  REFLECTION_LOG.md) have required sections
+
 ## 0.19.3 — 2026-04-15
 
 ### Governance Summary validation checkpoint

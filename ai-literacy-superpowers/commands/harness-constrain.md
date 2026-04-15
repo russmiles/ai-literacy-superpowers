@@ -71,11 +71,36 @@ Constraints section. Follow the standard format:
 - **Scope**: [commit | pr | weekly | manual]
 ```
 
-### 9. Update CI (if deterministic + PR scope)
+### 9. Validate Constraint Block
+
+**This step is mandatory.** After adding or updating the constraint
+in HARNESS.md, read the constraint block you just wrote and verify
+its structure against the constraint template in
+`templates/HARNESS.md`.
+
+**Structural checks:**
+
+1. All required fields present: Rule, Enforcement, Tool, Scope
+2. Enforcement value is one of: `deterministic`, `agent`,
+   `unverified`
+3. Scope value is one of: `commit`, `pr`, `weekly`, `manual`
+4. If a `Governance requirement` field is present, all governance
+   fields must also be present: Operational meaning, Verification
+   method, Evidence, Failure action, Frame check
+
+If any check fails, fix the constraint block in place:
+
+- Add missing fields with placeholder values
+- Normalise Enforcement and Scope to valid enum values if they are
+  close matches (e.g. "det" to "deterministic")
+
+Do not restart the constraint conversation. Fix the output directly.
+
+### 10. Update CI (if deterministic + PR scope)
 
 If the constraint is deterministic and PR-scoped, add the tool step
 to the CI workflow file.
 
-### 10. Commit
+### 11. Commit
 
 Commit the updated HARNESS.md (and CI file if changed).

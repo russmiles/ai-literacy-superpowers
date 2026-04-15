@@ -93,6 +93,29 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
 1. Append the entry to `REFLECTION_LOG.md` (after the last existing
    entry, preserving the `---` separator)
 
+1. **Validate the reflection entry.** Read the last entry in
+   `REFLECTION_LOG.md` and verify its structure against the entry
+   template in step 2 above.
+
+   **Structural checks:**
+
+   1. Entry starts with `---` separator
+   2. All 8 mandatory fields present: Date, Agent, Task, Surprise,
+      Proposal, Improvement, Signal, Constraint
+   3. Session metadata block present with all 4 subfields: Duration,
+      Model tiers used, Pipeline stages completed, Agent delegation
+   4. Signal field value is one of: `context`, `instruction`,
+      `workflow`, `failure`, `none`
+
+   If any check fails, fix the entry in place:
+
+   - Add missing fields with `"unknown"` values
+   - Add missing session metadata subfields with `"unknown"`
+   - If Signal value is not in the enum, set it to `none`
+
+   Do not ask the user to re-enter the reflection. Fix the output
+   directly.
+
 1. Do NOT modify `AGENTS.md` — only humans edit that file. If the
    reflection contains a proposal, note it and let the human decide.
 

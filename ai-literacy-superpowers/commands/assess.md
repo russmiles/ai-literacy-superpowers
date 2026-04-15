@@ -44,7 +44,32 @@ The weakest discipline is the ceiling.
 Create `assessments/YYYY-MM-DD-assessment.md` using the template from
 the skill's references. Fill every section with specific evidence.
 
-### 5. Immediate Habitat Adjustments
+### 5. Validate Assessment Document
+
+**This step is mandatory.** After writing the assessment document,
+read `assessments/YYYY-MM-DD-assessment.md` and verify its structure
+against `ai-literacy-assessment/references/assessment-template.md`.
+
+**Structural checks:**
+
+1. Required sections present: Observable Evidence, Level Assessment,
+   Discipline Maturity, Strengths, Gaps, Recommendations
+2. Level Assessment contains a level number (1-5) and a level name
+   (e.g. "Level 3 — Adaptive Collaboration")
+3. Discipline Maturity contains a markdown table with rows for each
+   scored discipline
+4. Gaps section contains at least one item (every project has gaps)
+
+If any check fails, fix the document in place:
+
+- Add missing sections using the structure from the assessment
+  template reference
+- Ensure the level number is a single digit 1-5 that downstream
+  portfolio aggregation can parse
+
+Do not re-dispatch the assessor agent. Fix the output directly.
+
+### 6. Immediate Habitat Adjustments
 
 Identify and apply fixes that require no team discussion — habitat
 hygiene that should always be current:
@@ -65,7 +90,7 @@ hygiene that should always be current:
 Present each adjustment. Apply immediately. Record what was changed
 in the assessment document.
 
-### 6. Workflow Operation Recommendations
+### 7. Workflow Operation Recommendations
 
 Based on gaps identified, recommend changes to how existing artifacts
 are *operated* (not built — they exist, they just need different usage
@@ -87,7 +112,7 @@ If accepted, apply immediately:
 Record accepted and rejected recommendations in the assessment
 document.
 
-### 6b. Improvement Plan
+### 7b. Improvement Plan
 
 Invoke the `literacy-improvements` skill with the assessed level from
 step 3 and the gaps from section 7 of the assessment document. The
@@ -95,10 +120,10 @@ skill asks the user to choose a target level, generates a prioritised
 plan, and walks through each improvement interactively
 (accept/skip/defer).
 
-Phase 6 recommendations (operate better) and 6b improvements (build
+Phase 7 recommendations (operate better) and 7b improvements (build
 toward next level) are complementary — run both.
 
-### 7. Assessment Reflection
+### 8. Assessment Reflection
 
 Append a structured reflection to REFLECTION_LOG.md:
 
@@ -109,12 +134,12 @@ Append a structured reflection to REFLECTION_LOG.md:
 - **Proposal**: any patterns to add to AGENTS.md
 - **Improvement**: what would make the next assessment better
 
-### 8. Check README for broader updates
+### 9. Check README for broader updates
 
-Beyond the specific adjustments in step 5, do a final check:
+Beyond the specific adjustments in step 6, do a final check:
 has anything else in the README become stale? Update if needed.
 
-### 9. Badge
+### 10. Badge
 
 Add or update an AI Literacy badge in the README:
 
@@ -124,7 +149,7 @@ Add or update an AI Literacy badge in the README:
 
 Colours: L0=808080, L1=87CEEB, L2=4682B4, L3=20B2AA, L4=2E8B57, L5=DAA520
 
-### 9b. Tag Repository
+### 10b. Tag Repository
 
 If the assessed level is L3 or above and the project is hosted on
 GitHub, add the `agent-harness-enabled` topic tag:
@@ -142,7 +167,7 @@ Also add the harness-enabled badge to the README if not already present:
 If `gh` is not available, the repo is not on GitHub, or the level is
 below L3, skip silently.
 
-### 10. Commit
+### 11. Commit
 
 ```bash
 mkdir -p assessments
@@ -152,7 +177,7 @@ git commit -m "AI Literacy Assessment: Level N — LEVEL_NAME (YYYY-MM-DD)
 Assessment with immediate adjustments and accepted workflow changes."
 ```
 
-### 11. Report
+### 12. Report
 
 Present a summary to the user:
 
