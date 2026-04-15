@@ -41,6 +41,7 @@ Create or update CLAUDE.md from the template at
 `${CLAUDE_PLUGIN_ROOT}/templates/CLAUDE.md`.
 
 Fill in the placeholders based on the detected stack:
+
 - Language-specific linting and formatting commands
 - Test runner command
 - Build command

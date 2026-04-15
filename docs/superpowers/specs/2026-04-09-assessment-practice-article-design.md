@@ -92,6 +92,7 @@ The core section. Bank balance analogy — you wouldn't check once and
 never look again.
 
 The quarterly cadence:
+
 1. Scan — read repo for evidence
 2. Question — 3-5 clarifying questions
 3. Assess — evidence maps to level, weakest discipline is ceiling

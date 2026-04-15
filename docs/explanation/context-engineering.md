@@ -84,7 +84,7 @@ Vague conventions produce vague output. This is not a minor annoyance. It is the
 Look at these two convention statements:
 
 | Vague convention | Precise convention |
-|---|---|
+| --- | --- |
 | "Write clean code" | Not enforceable -- decompose further |
 | "Keep functions short" | "Functions must not exceed 40 lines excluding blank lines and comments" |
 | "Use meaningful names" | "Variable names must be at least 3 characters except for loop indices (`i`, `j`, `k`) and error values (`err`)" |

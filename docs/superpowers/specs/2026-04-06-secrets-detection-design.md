@@ -78,6 +78,7 @@ Add a GC rule for scanner health:
 New Stop-scope hook script. Advisory only — does not block.
 
 Behaviour:
+
 - Checks if `gitleaks` is on the path (exits silently if not)
 - Checks if HARNESS.md has a `deterministic` "No secrets in source"
   constraint (exits if not)
@@ -100,6 +101,7 @@ Add `secrets-check.sh` to the existing Stop hook array:
 ### 5. Harness-Init Update — `commands/harness-init.md`
 
 Update the harness-init command to guide the discoverer to:
+
 - Check whether `gitleaks` is available on the path
 - If found: promote the constraint to `deterministic` by default
 - If not found: keep `unverified`, suggest installation
@@ -108,7 +110,7 @@ Update the harness-init command to guide the discoverer to:
 ## Enforcement Timescales
 
 | Timescale | Mechanism | Strictness |
-|-----------|-----------|------------|
+| ----------- | ----------- | ------------ |
 | Commit (PreToolUse) | Existing agent-based prompt hook reads HARNESS.md constraints | Advisory |
 | Session end (Stop) | `secrets-check.sh` runs gitleaks on working directory | Advisory |
 | PR (CI) | `gitleaks/gitleaks-action` in GitHub Actions | Blocking |

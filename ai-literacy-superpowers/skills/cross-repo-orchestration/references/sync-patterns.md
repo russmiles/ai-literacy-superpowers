@@ -82,7 +82,7 @@ ai-literacy-for-software-engineers (framework/source)
 ### What flows downstream
 
 | From framework → plugin | From plugin → exemplar |
-|------------------------|----------------------|
+| ------------------------ | ---------------------- |
 | Skill content (SKILL.md files) | Via plugin install (automatic) |
 | Agent definitions | Via plugin install (automatic) |
 | Hook scripts + hooks.json | Via plugin install (automatic) |
@@ -92,7 +92,7 @@ ai-literacy-for-software-engineers (framework/source)
 ### What does NOT flow
 
 | Stays in framework | Stays in exemplar |
-|-------------------|------------------|
+| ------------------- | ------------------ |
 | HARNESS.md (project constraints) | HARNESS.md (project constraints) |
 | AGENTS.md (project learnings) | AGENTS.md (project learnings) |
 | REFLECTION_LOG.md | REFLECTION_LOG.md |
@@ -177,7 +177,7 @@ requiring centralised infrastructure — just git and markdown.
 ## Decision Table
 
 | Question | Git-Mediated | Specification-Mediated |
-|----------|-------------|----------------------|
+| ---------- | ------------- | ---------------------- |
 | How many downstream repos? | 2-5 | 10+ |
 | Who triggers sync? | Human or single agent | Platform orchestrator |
 | How are exports declared? | README section | Formal manifest file |

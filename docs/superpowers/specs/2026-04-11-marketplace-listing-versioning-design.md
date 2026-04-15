@@ -67,7 +67,7 @@ listing version (kept for backward compatibility).
 ## Version Bump Rules
 
 | What changed | Bump `version` (listing) | Update `plugin_version` |
-|---|---|---|
+| --- | --- | --- |
 | Plugin code release | No | Yes |
 | Description, keywords, owner | Yes | No (unless also releasing) |
 | Permissions or consent scope | Yes | No |

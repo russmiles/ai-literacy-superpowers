@@ -13,7 +13,7 @@
 ## File Map
 
 | Action | Path | Responsibility |
-|--------|------|---------------|
+| -------- | ------ | --------------- |
 | Create | `ai-literacy-superpowers/skills/secrets-detection/SKILL.md` | Standalone audit skill |
 | Modify | `ai-literacy-superpowers/templates/HARNESS.md:53-59` | Promote constraint + add GC rule |
 | Create | `ai-literacy-superpowers/hooks/scripts/secrets-check.sh` | Stop-scope advisory scan |
@@ -25,6 +25,7 @@
 ### Task 1: Create the secrets-detection skill
 
 **Files:**
+
 - Create: `ai-literacy-superpowers/skills/secrets-detection/SKILL.md`
 
 - [ ] **Step 1: Create the skill file**
@@ -163,7 +164,7 @@ regexes = [
 ### Common allowlist scenarios
 
 | Scenario | Allowlist approach |
-|----------|-------------------|
+| ---------- | ------------------- |
 | Test fixtures with fake keys | `paths = ['''testdata/''']` |
 | Documentation with placeholder tokens | `regexes = ['''EXAMPLE_.*''']` |
 | Known false positive on a specific line | Add to `.gitleaks-baseline.json` via baseline scan |
@@ -229,6 +230,7 @@ constraint:
 ```
 
 This promotion means:
+
 - The **PreToolUse hook** (agent-based) still warns at write time
 - The **Stop hook** runs gitleaks deterministically at session end
 - The **CI gate** runs gitleaks and blocks merge on findings
@@ -322,6 +324,7 @@ Coordinate with your team before running these commands.
 
 For these gaps, combine gitleaks with runtime secret detection
 (e.g. AWS Macie, HashiCorp Vault audit logs) and regular manual review.
+
 ```
 
 - [ ] **Step 2: Verify the file was created**
@@ -341,6 +344,7 @@ git commit -m "Add secrets-detection skill for gitleaks-based auditing"
 ### Task 2: Update the HARNESS.md template
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/templates/HARNESS.md:53-59` (constraint section)
 - Modify: `ai-literacy-superpowers/templates/HARNESS.md:97-134` (GC section, add new rule)
 - Modify: `ai-literacy-superpowers/templates/HARNESS.md:132` (status count)
@@ -393,12 +397,14 @@ In `ai-literacy-superpowers/templates/HARNESS.md`, after the existing "Command-p
 In `ai-literacy-superpowers/templates/HARNESS.md`, update the status section:
 
 Replace:
+
 ```markdown
 Constraints enforced: 0/3
 Garbage collection active: 0/2
 ```
 
 With:
+
 ```markdown
 Constraints enforced: 1/3
 Garbage collection active: 0/2
@@ -426,6 +432,7 @@ git commit -m "Promote 'No secrets in source' to deterministic with gitleaks in 
 ### Task 3: Create the secrets-check.sh hook script
 
 **Files:**
+
 - Create: `ai-literacy-superpowers/hooks/scripts/secrets-check.sh`
 
 - [ ] **Step 1: Create the hook script**
@@ -494,6 +501,7 @@ git commit -m "Add Stop-scope hook script for gitleaks secret scanning"
 ### Task 4: Update hooks.json to register the new script
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/hooks/hooks.json:30-41` (Stop hook array)
 
 - [ ] **Step 1: Add the secrets-check hook entry**
@@ -542,6 +550,7 @@ git commit -m "Register secrets-check.sh in Stop hook array"
 ### Task 5: Update harness-init to offer gitleaks during setup
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md:49-58` (constraints section)
 
 - [ ] **Step 1: Update the "Ask About Constraints" section**

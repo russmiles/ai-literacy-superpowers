@@ -13,7 +13,7 @@
 ## File Map
 
 | Action | Path | Responsibility |
-|--------|------|---------------|
+| -------- | ------ | --------------- |
 | Create | `.github/workflows/spec-first-check.yml` | Deterministic CI gate — checks first commit contains only a spec file |
 | Modify | `HARNESS.md:108-136` | Add two new constraints after "Spec-scoped changes" |
 | Modify | `ai-literacy-superpowers/agents/harness-enforcer.agent.md:43-103` | Add intent-quality review responsibility |
@@ -23,6 +23,7 @@
 ### Task 1: Create the spec-first-check CI workflow
 
 **Files:**
+
 - Create: `.github/workflows/spec-first-check.yml`
 
 - [ ] **Step 1: Create the workflow file**
@@ -169,6 +170,7 @@ branch prefix."
 ### Task 2: Add constraints to HARNESS.md
 
 **Files:**
+
 - Modify: `HARNESS.md:117-136` (insert after "Spec-scoped changes", before "Version consistency")
 
 - [ ] **Step 1: Add the two new constraints**
@@ -221,6 +223,7 @@ agent review for spec quality. Both exempt bug-fix and maintenance PRs."
 ### Task 3: Extend the harness-enforcer agent prompt
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/agents/harness-enforcer.agent.md:43-103`
 
 - [ ] **Step 1: Add the intent-review responsibility**

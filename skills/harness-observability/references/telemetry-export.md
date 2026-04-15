@@ -13,7 +13,7 @@ semantic conventions.
 ### Enforcement Metrics
 
 | Metric | Type | Unit | Description |
-|--------|------|------|-------------|
+| -------- | ------ | ------ | ------------- |
 | `harness.enforcement.ratio` | Gauge | ratio (0-1) | Enforced constraints / total constraints |
 | `harness.enforcement.deterministic` | Gauge | count | Constraints backed by deterministic tools |
 | `harness.enforcement.agent` | Gauge | count | Constraints backed by agent review |
@@ -22,7 +22,7 @@ semantic conventions.
 ### Mutation Testing Metrics
 
 | Metric | Type | Unit | Description |
-|--------|------|------|-------------|
+| -------- | ------ | ------ | ------------- |
 | `harness.mutation.kill_rate` | Gauge | ratio (0-1) | Mutation kill rate per language |
 
 Attribute: `language` = `go` | `kotlin` | `python` | `csharp` | `js`
@@ -30,21 +30,21 @@ Attribute: `language` = `go` | `kotlin` | `python` | `csharp` | `js`
 ### Garbage Collection Metrics
 
 | Metric | Type | Unit | Description |
-|--------|------|------|-------------|
+| -------- | ------ | ------ | ------------- |
 | `harness.gc.rules_active` | Gauge | count | GC rules with enforcement configured |
 | `harness.gc.findings` | Counter | count | Cumulative GC findings |
 
 ### Compound Learning Metrics
 
 | Metric | Type | Unit | Description |
-|--------|------|------|-------------|
+| -------- | ------ | ------ | ------------- |
 | `harness.learning.reflections` | Counter | count | Total REFLECTION_LOG entries |
 | `harness.learning.promotions` | Counter | count | Entries promoted to AGENTS.md |
 
 ### Operational Metrics
 
 | Metric | Type | Unit | Description |
-|--------|------|------|-------------|
+| -------- | ------ | ------ | ------------- |
 | `harness.cadence.days_since_audit` | Gauge | days | Days since last /harness-audit |
 | `harness.cadence.days_since_assess` | Gauge | days | Days since last /assess |
 | `harness.cadence.days_since_reflect` | Gauge | days | Days since last /reflect |
@@ -168,7 +168,7 @@ batching and retry.
 For teams building dashboards, recommended panels:
 
 | Panel | Metric | Visualisation |
-|-------|--------|--------------|
+| ------- | -------- | -------------- |
 | Enforcement health | `harness.enforcement.ratio` | Gauge (0-100%) |
 | Constraint breakdown | `deterministic` + `agent` + `unverified` | Stacked bar |
 | Mutation trend | `harness.mutation.kill_rate` by language | Time series |

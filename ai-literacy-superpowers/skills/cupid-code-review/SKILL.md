@@ -20,12 +20,14 @@ Use them as questions, not verdicts.
 Code is composable when it can be combined with other code in many contexts without modification.
 
 **Review questions:**
+
 - Can I use this function/module independently, without pulling in unrelated state?
 - Is the API surface the minimum needed — no accidental exposure?
 - Are dependencies explicit (passed in) rather than implicit (global/ambient)?
 - Does it work at multiple call sites, or does it secretly assume one?
 
 **Refactoring signals:**
+
 - Many parameters that describe context rather than the operation itself
 - Functions that only make sense when called in a specific order
 - Hidden global state or singleton dependencies
@@ -40,12 +42,14 @@ Code is composable when it can be combined with other code in many contexts with
 Not just single responsibility — the function does its one thing *completely* and *well*, with a clear, nameable purpose.
 
 **Review questions:**
+
 - Can I describe what this does in one short sentence without using "and"?
 - Does the name match what it actually does?
 - Are there multiple abstraction levels mixed together (orchestration alongside detail)?
 - Would splitting it make each part simpler or just create indirection?
 
 **Refactoring signals:**
+
 - "and" or "or" in function/method names
 - Functions that both compute *and* persist *and* notify
 - Comments that describe sections within a function (each section wants to be a function)
@@ -60,12 +64,14 @@ Not just single responsibility — the function does its one thing *completely* 
 Given its name and context, the code behaves consistently, without surprises. Deterministic where possible. Fails loudly rather than silently.
 
 **Review questions:**
+
 - Given only the name, would a reader expect the observed behaviour?
 - Are there hidden side effects beyond what the signature suggests?
 - Does it behave the same way every time with the same inputs?
 - Does it fail loudly (exception/error) or silently (returns null/zero/empty)?
 
 **Refactoring signals:**
+
 - Boolean parameters that change behaviour significantly (boolean trap)
 - Functions that mutate their arguments
 - Swallowed exceptions or silent fallbacks
@@ -81,12 +87,14 @@ Given its name and context, the code behaves consistently, without surprises. De
 Code that fits its language, ecosystem, and team conventions. A reader familiar with the context should not be surprised by the patterns used.
 
 **Review questions:**
+
 - Would a developer new to this codebase (but experienced in this language) find this familiar?
 - Are language features used as intended, not fought against?
 - Does it follow the team/project conventions established elsewhere?
 - Is anything reimplementing something the standard library provides?
 
 **Refactoring signals:**
+
 - Manual iteration where a higher-order function is conventional
 - Reimplementing collection operations, parsing, or formatting from scratch
 - Patterns that need a comment to explain why they exist
@@ -101,12 +109,14 @@ Code that fits its language, ecosystem, and team conventions. A reader familiar 
 The code uses the language of the business or problem domain. Names come from the domain, not from technical implementation details.
 
 **Review questions:**
+
 - Do the names in this code appear in conversations with domain experts?
 - Could a domain expert (non-programmer) read the high-level logic and recognise what it describes?
 - Are there technical names where domain names exist (e.g. `dataList` vs `invoices`)?
 - Does the structure of the code mirror the structure of the domain?
 
 **Refactoring signals:**
+
 - Generic names: `data`, `item`, `manager`, `handler`, `util`, `helper`
 - Technical names for business concepts: `UserRecord` instead of `Customer`
 - Domain logic buried inside infrastructure or UI code

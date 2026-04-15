@@ -115,7 +115,7 @@ Steps:
 5. **Post PR comment** — compose a markdown comment with a summary table:
 
    | Constraint | Type | Status | Findings |
-   |------------ |------|--------|----------|
+   | ------------ | ------ | -------- | ---------- |
    | No secrets in source | deterministic | PASS | — |
    | All frontmatter complete | agent | ADVISORY | 2 files missing description |
 
@@ -125,6 +125,7 @@ Steps:
    do not affect exit code.
 
 Key implementation notes:
+
 - SHA-pin all third-party actions throughout (per the `github-actions-supply-chain`
   skill); use trusted actions only (actions/checkout, actions/setup-node if needed)
 - The HARNESS.md parser must handle the documented constraint block format; it
@@ -156,7 +157,7 @@ If no agent PR constraints exist, skip this offer silently.
 ## Enforcement Timescales
 
 | Timescale | Mechanism | Constraint Types | Strictness |
-|-----------|-----------|-----------------|------------|
+| ----------- | ----------- | ----------------- | ------------ |
 | Edit (PreToolUse) | Agent-based prompt hook reads HARNESS.md constraints | All scopes (advisory) | Advisory |
 | PR (CI) — deterministic | `harness.yml` runs tool commands for deterministic PR constraints | Deterministic only | Blocking |
 | PR (CI) — agent | `auto-enforcer.yml` calls Claude API for agent PR constraints | Agent only | Advisory (comment) |

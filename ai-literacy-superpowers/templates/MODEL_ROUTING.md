@@ -11,7 +11,7 @@
 ## Agent Routing Table
 
 | Agent | Tier | Rationale |
-|-------|------|-----------|
+| ----- | ---- | --------- |
 | orchestrator | Flagship | Coordinates the full pipeline, makes judgment calls about plan approval, review escalation, and skipping stages — requires strong reasoning |
 | spec-writer | Flagship | Producing precise acceptance scenarios and functional requirements that drive tests and implementation demands careful thinking |
 | tdd-agent | Balanced | Translating well-specified scenarios into test code is a structured task; a mid-tier model handles it well |
@@ -32,7 +32,7 @@
 ## Token Budget Guidance
 
 | Task type | Suggested max tokens | Notes |
-|-----------|---------------------|-------|
+| --------- | ------------------- | ----- |
 | Spec writing | 8 000 | Enough for a user story, 3–5 scenarios, and a plan section |
 | Test generation | 4 000 | Failing tests are small; the limit prevents over-engineering |
 | Implementation (per file) | 6 000 | If a single file needs more, it may be doing too much |

@@ -20,7 +20,7 @@ dashboard at the end — do not stop early if a check fails.
 Check that the core habitat files exist:
 
 | File | Expected location | Status |
-|------|------------------|--------|
+| ------ | ------------------ | -------- |
 | CLAUDE.md | project root | OK / MISSING |
 | AGENTS.md | project root | OK / MISSING |
 | MODEL_ROUTING.md | project root | OK / MISSING |

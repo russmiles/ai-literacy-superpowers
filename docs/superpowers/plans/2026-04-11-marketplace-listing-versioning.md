@@ -13,6 +13,7 @@
 ### Task 1: Update marketplace.json schema
 
 **Files:**
+
 - Modify: `.claude-plugin/marketplace.json`
 
 - [ ] **Step 1: Add top-level version and plugin_version fields**
@@ -58,6 +59,7 @@ git commit -m "Add top-level version and plugin_version to marketplace.json"
 ### Task 2: Add marketplace versioning convention to CLAUDE.md
 
 **Files:**
+
 - Modify: `CLAUDE.md`
 
 - [ ] **Step 1: Add Marketplace Versioning section after Semantic Versioning**
@@ -105,6 +107,7 @@ git commit -m "Add marketplace versioning convention to CLAUDE.md"
 ### Task 3: Add marketplace sync constraint to HARNESS.md
 
 **Files:**
+
 - Modify: `HARNESS.md`
 
 - [ ] **Step 1: Add constraint after Version consistency**
@@ -143,6 +146,7 @@ git commit -m "Add marketplace plugin version sync constraint to HARNESS.md"
 ### Task 4: Add marketplace metadata drift GC rule to HARNESS.md
 
 **Files:**
+
 - Modify: `HARNESS.md`
 
 - [ ] **Step 1: Add GC rule after Plugin manifest currency**
@@ -183,6 +187,7 @@ git commit -m "Add marketplace listing drift GC rule to HARNESS.md"
 ### Task 5: Extend version-check.yml with marketplace sync check
 
 **Files:**
+
 - Modify: `.github/workflows/version-check.yml`
 
 - [ ] **Step 1: Add marketplace version extraction to the Extract versions step**
@@ -245,6 +250,7 @@ git commit -m "Extend version-check workflow with marketplace plugin_version syn
 ### Task 6: Update CHANGELOG, bump version, update badges
 
 **Files:**
+
 - Modify: `CHANGELOG.md`
 - Modify: `README.md`
 - Modify: `ai-literacy-superpowers/.claude-plugin/plugin.json`

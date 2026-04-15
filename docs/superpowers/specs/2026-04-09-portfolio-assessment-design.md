@@ -195,6 +195,7 @@ Weakest discipline across portfolio: [name] (avg N.N/5)
 ```
 
 The Confidence column has three values:
+
 - **assessed** — full assessment document exists
 - **estimated** — lightweight scan only, no clarifying questions
 - **not assessed** — no scan performed (`--no-scan-unassessed`)
@@ -273,6 +274,7 @@ defer to each repo's own improvement plan.
 topic), build a list of repos to assess. Report what was found.
 
 **Step 2: Gather assessments.** For each repo:
+
 - Check for `assessments/*.md` — if found, read the most recent one
   and parse level, discipline scores, gaps
 - If no assessment and `--scan-unassessed` is on, run the lightweight
@@ -327,18 +329,18 @@ At least one of `--local`, `--org`, or `--topic` is required.
 
 ## Files to Update
 
-5. `README.md` — skills count 20 → 21, add portfolio-assessment to
+1. `README.md` — skills count 20 → 21, add portfolio-assessment to
    skills table; commands count 13 → 14, add /portfolio-assess to
    commands table; version badge 0.5.0 → 0.6.0
-6. `ai-literacy-superpowers/.claude-plugin/plugin.json` — version
+2. `ai-literacy-superpowers/.claude-plugin/plugin.json` — version
    0.5.0 → 0.6.0
-7. `docs/index.md` — skills count 20 → 21, commands count 13 → 14
-8. `docs/reference/skills.md` — add portfolio-assessment entry, count
+3. `docs/index.md` — skills count 20 → 21, commands count 13 → 14
+4. `docs/reference/skills.md` — add portfolio-assessment entry, count
    20 → 21
-9. `docs/reference/commands.md` — update count 13 → 14 (stub page)
-10. `docs/tutorials/getting-started.md` — skills count 20 → 21,
+5. `docs/reference/commands.md` — update count 13 → 14 (stub page)
+6. `docs/tutorials/getting-started.md` — skills count 20 → 21,
     commands count 13 → 14 in install output
-11. `CHANGELOG.md` — entry for v0.6.0
+7. `CHANGELOG.md` — entry for v0.6.0
 
 ## Out of Scope
 

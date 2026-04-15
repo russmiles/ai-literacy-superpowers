@@ -17,6 +17,7 @@
 ### Task 1: Write the Explanation Page
 
 **Files:**
+
 - Create: `docs/explanation/governance-as-meaning-alignment.md`
 
 - [ ] **Step 1: Write the explanation page** — Create the file with the full content covering: the core problem (governance language carries different meanings in different frames), semantic drift (five stages), governance debt (fourth debt, vicious cycle), the three-frame translation problem, falsifiable governance (the three questions), and how the plugin helps (commands overview with links to tutorial and how-to guides). Use Jekyll frontmatter: title "Governance as meaning-alignment", parent "Explanation", nav_order 16.
@@ -30,6 +31,7 @@
 ### Task 2: Write the Tutorial
 
 **Files:**
+
 - Create: `docs/tutorials/governance-for-your-harness.md`
 
 - [ ] **Step 1: Write the tutorial** — Create the file walking through: spot governance language in existing constraints, run `/governance-audit` and read the report, write a governance constraint with `/governance-constrain` (show before/after), check health with `/governance-health` (explain the metrics table and colour thresholds), generate the dashboard with `--dashboard` flag. Use Jekyll frontmatter: title "Governance for Your Harness", parent "Tutorials", nav_order 8. End with "What you have now" and "Next steps" sections.
@@ -43,6 +45,7 @@
 ### Task 3: Write the Five How-To Guides
 
 **Files:**
+
 - Create: `docs/how-to/write-a-governance-constraint.md`
 - Create: `docs/how-to/run-a-governance-audit.md`
 - Create: `docs/how-to/check-governance-health.md`
@@ -70,6 +73,7 @@ All guides follow the template in `docs/how-to/_template.md`: one-line descripti
 ### Task 4: Update Reference Pages
 
 **Files:**
+
 - Modify: `docs/reference/agents.md`
 - Modify: `docs/reference/commands.md`
 - Modify: `docs/reference/skills.md`

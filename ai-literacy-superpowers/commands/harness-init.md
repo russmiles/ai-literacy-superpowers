@@ -45,7 +45,7 @@ it."
 Present a feature selection menu. The five selectable areas are:
 
 | Feature | What it configures | Default (first run) |
-|---|---|---|
+| --- | --- | --- |
 | Context engineering | Stack declaration + conventions | on |
 | Architectural constraints | Enforcement rules + secret detection | on |
 | Garbage collection | Periodic entropy checks | on |

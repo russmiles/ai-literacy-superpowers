@@ -44,13 +44,14 @@ threshold.
 - **Auto-fix**: false
 ```
 
-3. **Health snapshot integration** — add a libyear metric to the
+1. **Health snapshot integration** — add a libyear metric to the
    snapshot format so it trends over time alongside enforcement ratio
    and mutation kill rate.
 
 ### Interpretation
 
 The GC agent flags when:
+
 - Total libyears exceed the declared threshold
 - Total libyears increased week-over-week (staleness is accumulating)
 - A single dependency accounts for >3 libyears (concentrated risk)

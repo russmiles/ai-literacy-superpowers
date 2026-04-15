@@ -142,21 +142,21 @@ Inner loop                Middle loop               Outer loop
 
 When you add a new constraint, the question of which loop it belongs in is a design decision with consequences. The wrong loop either fails to catch problems or creates friction that erodes trust.
 
-### Put it in the inner loop when:
+### Put it in the inner loop when
 
 - The constraint is new and untested — you want to observe how it behaves before giving it blocking authority.
 - The constraint is about style or convention — something that benefits from early visibility but should not block a merge if occasionally violated.
 - The constraint can be checked quickly (under 30 seconds) — slow inner-loop checks interrupt flow and defeat the purpose.
 - You want the developer to have agency over when and how to address the issue.
 
-### Put it in the middle loop when:
+### Put it in the middle loop when
 
 - The constraint has been battle-tested in the inner loop and you are confident in its precision.
 - The constraint protects an architectural boundary — something where a violation reaching `main` would cause real damage.
 - The constraint can be expressed deterministically — a linter rule, a type check, a structural assertion — or has a reliable agent-based review.
 - The cost of a false positive (blocking a valid PR) is lower than the cost of a false negative (letting a violation through).
 
-### Put it in the outer loop when:
+### Put it in the outer loop when
 
 - The constraint is about trends, not individual changes — coverage thresholds, dependency freshness, documentation currency.
 - The constraint requires scanning the entire codebase, not just changed files — dead code detection, convention drift analysis.

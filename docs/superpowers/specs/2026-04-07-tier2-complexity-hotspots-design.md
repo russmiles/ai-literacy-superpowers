@@ -30,7 +30,7 @@ tool produces data, the agent interprets the trend. Auto-fix: false.
 - **Auto-fix**: false
 ```
 
-2. **Guidance in the fitness-functions skill** — already added as part
+1. **Guidance in the fitness-functions skill** — already added as part
    of Tier 1. The fitness catalogue includes a complexity hotspots entry
    with tool commands for multiple ecosystems.
 
