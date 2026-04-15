@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Harness Health icon: a pulse line inside a shield shape.
-       The shield represents the harness (protection/enforcement).
-       The pulse represents observability (active monitoring).
-       Monochrome, consistent with text-heavy project aesthetic. -->
-  <path d="M12 2l7 4v5c0 5.25-3.5 9.74-7 11-3.5-1.26-7-5.75-7-11V6l7-4z"/>
-  <polyline points="8 13 10 11 12 14 14 10 16 13"/>
-</svg>
