@@ -155,16 +155,20 @@ lifts and toward which level).
 
 For each assessed project that is locally accessible, check for a
 harness-health snapshot in `observability/snapshots/`. If one exists,
-read the most recent snapshot's `observatory_metrics` YAML block and
-extract:
+read the most recent snapshot's markdown sections and extract:
 
-- `habitat_configuration.constraint_maturity.enforcement_ratio`
-- `habitat_configuration.compound_learning.velocity`
-- `habitat_configuration.entropy_management.gc_active_ratio`
-- `habitat_configuration.context_depth.score`
+- **Enforcement ratio**: from the Enforcement section
+  (`- Constraints: N/M enforced (P%)` → extract P as a decimal)
+- **Learning velocity**: from the Compound Learning section
+  (compute: `promotions_this_period / weeks_between_snapshots`)
+- **GC active ratio**: from the Garbage Collection section
+  (`- Rules active: N/M` → compute N/M as a decimal)
+- **Context depth score**: count how many of these exist and were
+  modified in the last 30 days: CLAUDE.md, HARNESS.md, AGENTS.md,
+  `specs/` directory, threat model doc. Score = count / 5.
 
 If a project has an assessment but no snapshot, its habitat metrics
-are `null`.
+are "unavailable".
 
 Compute means across projects that have values for each metric.
 
@@ -175,10 +179,6 @@ Display the full portfolio view to the user.
 Write the document to `assessments/YYYY-MM-DD-portfolio-assessment.md`
 in the current working directory (typically the portfolio or platform
 repo). Use the template from `references/portfolio-template.md`.
-
-After the markdown content, append the `observatory_portfolio` YAML
-block (fenced by `---`) with all fields populated from the gathered
-data. See the template for the complete schema.
 
 ## What This Skill Does NOT Do
 

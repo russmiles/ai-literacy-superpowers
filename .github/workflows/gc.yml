@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   gc:
@@ -44,12 +44,6 @@ jobs:
           ./gitleaks --version
           ./gitleaks detect --source . --no-banner --exit-code 1
           echo "Secret scanner is operational and scan is clean"
-
-      - name: Log finding (secret-scanner)
-        if: failure()
-        run: |
-          mkdir -p observability
-          echo '{"timestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","loop":"investigative","constraint":"secret-scanner-operational","gc_rule":"secret-scanner","ci_run":"${{ github.run_id }}"}' >> observability/violations.jsonl
 
       - name: "GC: Snapshot staleness"
         run: |
@@ -82,12 +76,6 @@ jobs:
 
           echo "Snapshot is within 30-day freshness window"
 
-      - name: Log finding (snapshot-staleness)
-        if: failure()
-        run: |
-          mkdir -p observability
-          echo '{"timestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","loop":"investigative","constraint":"snapshot-staleness","gc_rule":"snapshot-staleness","ci_run":"${{ github.run_id }}"}' >> observability/violations.jsonl
-
       - name: "GC: Shell scripts pass syntax check"
         run: |
           failed=0
@@ -99,12 +87,6 @@ jobs:
           done < <(find . -name "*.sh" -not -path "./.git/*")
           exit $failed
 
-      - name: Log finding (shell-syntax)
-        if: failure()
-        run: |
-          mkdir -p observability
-          echo '{"timestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","loop":"investigative","constraint":"shell-scripts-syntax-check","gc_rule":"shell-syntax","ci_run":"${{ github.run_id }}"}' >> observability/violations.jsonl
-
       - name: "GC: Shell scripts use strict mode"
         run: |
           failed=0
@@ -115,23 +97,6 @@ jobs:
             fi
           done < <(find . -name "*.sh" -not -path "./.git/*")
           exit $failed
-
-      - name: Log finding (strict-mode)
-        if: failure()
-        run: |
-          mkdir -p observability
-          echo '{"timestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","loop":"investigative","constraint":"shell-scripts-strict-mode","gc_rule":"strict-mode","ci_run":"${{ github.run_id }}"}' >> observability/violations.jsonl
-
-      - name: Commit violation log
-        if: always()
-        run: |
-          if [ -f observability/violations.jsonl ] && ! git diff --quiet observability/violations.jsonl 2>/dev/null; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add observability/violations.jsonl
-            git commit -m "chore: update violation log [skip ci]" --allow-empty || true
-            git push || true
-          fi
 
       - name: Summary
         if: always()

@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Check if HARNESS.md exists in the project root. If it does, read the Constraints section and identify any constraints with scope 'commit'. For each commit-scoped constraint, evaluate whether the file being written or edited would violate it. If violations are found, return a warning describing each violation with the constraint name. Do not block — only warn. Additionally, for each violation detected, append a JSON line to observability/violations.jsonl (create the file if it does not exist) with the fields: timestamp (current ISO 8601 UTC), loop (\"advisory\"), constraint (the constraint name from HARNESS.md), file (the file being written or edited), and description (one-line summary of the violation). If no HARNESS.md exists or no commit-scoped constraints apply, return nothing.",
+            "prompt": "Check if HARNESS.md exists in the project root. If it does, read the Constraints section and identify any constraints with scope 'commit'. For each commit-scoped constraint, evaluate whether the file being written or edited would violate it. If violations are found, return a warning describing each violation with the constraint name. Do not block — only warn. If no HARNESS.md exists or no commit-scoped constraints apply, return nothing.",
             "timeout": 30
           }
         ]

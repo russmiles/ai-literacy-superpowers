@@ -91,38 +91,19 @@ Determine aggregate health status: Healthy / Attention / Degraded.
 Write the snapshot to `observability/snapshots/YYYY-MM-DD-snapshot.md`
 using the format defined in `references/snapshot-format.md`.
 
-Include all sections: Enforcement, Garbage Collection, Mutation Testing,
-Compound Learning, Session Quality, Operational Cadence, Cost Indicators,
-Meta, and Trends (if previous snapshot exists).
+Include all sections: Enforcement, Enforcement Loop History, Garbage
+Collection, Mutation Testing, Compound Learning, Session Quality,
+Operational Cadence, Cost Indicators, Regression Indicators, Meta,
+Changes Since Last Snapshot, and Trends (if previous snapshot exists).
 
-Do NOT close the file yet — Step 7 adds a required block.
-
-### 7. Append Observatory YAML Metrics Block
-
-**This step is mandatory for every snapshot, regardless of whether a
-previous snapshot exists.** Do not skip it.
-
-After the last markdown section, append the Observatory YAML metrics
-block fenced by `---` delimiters. This block contains all quantitative
-metrics in structured, typed YAML for machine consumption. See
-`references/snapshot-format.md` § Observatory Metrics Block for the
-exact schema and generation rules.
-
-Use the data already gathered in steps 2–5 — no new collection is
-needed. The YAML block uses the same values as the markdown sections.
-
-**Verify:** before moving to Step 8, confirm the written file ends with
-the closing `---` fence of the YAML block. If it does not, append the
-block now.
-
-### 8. Update README
+### 7. Update README
 
 Run `${CLAUDE_PLUGIN_ROOT}/scripts/update-health-badge.sh` to update:
 
 - The health badge colour and text
 - The health icon link target (point to the new snapshot)
 
-### 9. Print Summary
+### 8. Print Summary
 
 Print the full snapshot to the session so the developer sees it
 immediately.
@@ -139,7 +120,7 @@ Since last snapshot (YYYY-MM-DD):
   Health: Healthy / Attention / Degraded
 ```
 
-### 10. Nudge Overdue Actions
+### 9. Nudge Overdue Actions
 
 If any cadence is overdue, print a nudge:
 

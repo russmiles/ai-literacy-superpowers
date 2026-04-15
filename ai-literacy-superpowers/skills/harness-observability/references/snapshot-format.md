@@ -37,6 +37,27 @@ fixed format so agents can parse them reliably.
 | Unverified | Count constraints with enforcement = unverified |
 | Drift | Read HARNESS.md Status section drift field |
 
+### Enforcement Loop History
+
+```text
+## Enforcement Loop History
+
+- Advisory (edit-time): active since YYYY-MM-DD
+- Strict (merge-time): active since YYYY-MM-DD (or "not active")
+- Investigative (scheduled): active since YYYY-MM-DD (or "not active")
+```
+
+**Source:** Git history and file existence checks.
+
+| Field | How to compute |
+|-------|---------------|
+| Advisory | Active if hooks exist. First activated = earliest git commit that added hooks configuration (`git log --diff-filter=A --format=%as` on the hooks file). "not active" if no hooks |
+| Strict | Active if CI enforcement workflow exists (`.github/workflows/harness.yml` or similar). First activated = earliest commit adding the harness CI workflow. "not active" if no CI enforcement |
+| Investigative | Active if GC rules exist in HARNESS.md with enforcement. First activated = earliest commit adding a GC rule. "not active" if no GC rules |
+
+After first computation, subsequent snapshots can read the dates from
+the previous snapshot and only re-check if a loop's status changes.
+
 ### Garbage Collection
 
 ```text
@@ -168,6 +189,57 @@ recent file in `observability/costs/` matching `*-costs.md`.
 
 See `references/meta-observability-checks.md` for check definitions
 and thresholds.
+
+### Regression Indicators
+
+```text
+## Regression Indicators
+
+- Snapshot stale: yes/no (> configured cadence threshold)
+- Snapshot age: N days
+- Cadence non-compliance: N of 4 activities overdue (audit, assess, reflect, GC)
+- Consecutive weeks without reflections: N
+- Regression flag: yes/no
+```
+
+**Source:** Computed from Operational Cadence and REFLECTION_LOG.md.
+
+| Field | How to compute |
+|-------|---------------|
+| Snapshot stale | Compare previous snapshot date to today. Stale if age exceeds the cadence threshold (10 days for weekly, 21 for fortnightly, 30 for monthly). Read cadence from HARNESS.md Observability section, default monthly |
+| Snapshot age | Days between previous snapshot date and today. 0 if this is the first snapshot |
+| Cadence non-compliance | Count how many of audit (90-day cadence), assess (90-day), reflect (30-day), and GC (declared cadence) are overdue. Reuse data from Operational Cadence section |
+| Consecutive weeks without reflections | Count calendar weeks backwards from today with zero REFLECTION_LOG.md entries. 0 if the most recent entry is this week |
+| Regression flag | "yes" if any of: stale = yes, non-compliance >= 2, or consecutive weeks >= 4 |
+
+### Changes Since Last Snapshot
+
+```text
+## Changes Since Last Snapshot
+
+- Constraints added: [list or "none"]
+- Constraints promoted: [list with old → new tier, or "none"]
+- Constraints removed: [list or "none"]
+- Assessments completed: [dates and levels, or "none"]
+- Governance audits completed: [dates, or "none"]
+```
+
+**Source:** Comparison of current HARNESS.md with previous snapshot's
+Enforcement section, plus file listings in `assessments/` and
+`observability/governance/`.
+
+| Field | How to compute |
+|-------|---------------|
+| Constraints added | Names of constraints in current HARNESS.md not present in the previous snapshot's Enforcement section |
+| Constraints promoted | Constraints whose tier changed between snapshots, shown as `name: old tier → new tier` |
+| Constraints removed | Constraints present in the previous snapshot but absent from current HARNESS.md |
+| Assessments completed | Dates and levels from assessment files in `assessments/` created since the previous snapshot date |
+| Governance audits completed | Dates from audit files in `observability/governance/` created since the previous snapshot date |
+
+If no previous snapshot exists, report "first snapshot" for all fields.
+
+This section replaces the separate event log — constraint lifecycle
+and assessment events are captured directly in the snapshot.
 
 ### Trends
 

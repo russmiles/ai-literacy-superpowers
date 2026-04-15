@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.16.0 — 2026-04-15
+
+### Observatory rebase: YAML to markdown
+
+- Remove `observatory_metrics` YAML block from snapshot format and
+  generation — snapshots now contain only markdown sections that
+  agents read natively
+- Delete `observatory-metrics-schema.md` — schema versioning is no
+  longer needed; format evolution is handled by Claude's natural
+  ability to read markdown regardless of structural changes
+- Delete `observatory-events.md` and stop appending to
+  `observability/events.jsonl` — event tracking is replaced by the
+  new "Changes Since Last Snapshot" markdown section in each snapshot
+- Remove `observability/violations.jsonl` and all violation logging
+  from CI workflows (`harness.yml`, `gc.yml`) and advisory hook — CI
+  failure annotations and GC findings already capture this data
+- Downgrade CI workflow permissions from `contents: write` to
+  `contents: read` (no longer committing violations.jsonl)
+- Replace governance YAML block in `governance-auditor` with a
+  markdown Governance Summary section containing all expanded metrics
+- Remove `observatory_portfolio` YAML block from portfolio assessment
+  — habitat aggregates are now a markdown section reading snapshot
+  markdown directly
+- Add Regression Indicators section to snapshots — stale detection,
+  cadence non-compliance counting, consecutive zero-reflection weeks,
+  and composite regression flag
+- Add Enforcement Loop History section to snapshots — tracks when
+  advisory, strict, and investigative loops were first activated
+  using git history
+- Add Changes Since Last Snapshot section — captures constraint
+  lifecycle (added, promoted, removed) and completed assessments and
+  audits by diffing against the previous snapshot
+- Add Habitat Aggregates section to portfolio assessment template
+- Remove event emission instructions from `/reflect`,
+  `/harness-constrain`, `/assess`, and governance-auditor commands
+- Update governance-observability skill to use markdown format
+  instead of YAML for metrics catalogue and snapshot extension
+
 ## 0.15.2 — 2026-04-14
 
 ### Bug fix
