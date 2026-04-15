@@ -38,25 +38,25 @@ runs other constraints.
 - **Scope**: pr
 ```
 
-   - How to link specs to tests (naming convention: spec at
+- How to link specs to tests (naming convention: spec at
      `specs/YYYY-MM-DD-feature-design.md` → tests at
      `tests/feature/` or `tests/feature_test.go`)
-   - The distinction: this constraint runs the test suite, not the
+- The distinction: this constraint runs the test suite, not the
      spec itself. The spec is the human-readable requirement; the
      tests are the executable verification.
 
-2. **Update to `writing-plans` skill** — add guidance that every
+1. **Update to `writing-plans` skill** — add guidance that every
    implementation plan should declare where its tests live, so the
    spec conformance constraint knows what to run.
 
-3. **Update to TDD agent** — reinforce that specs produce tests first,
+2. **Update to TDD agent** — reinforce that specs produce tests first,
    and those tests are the executable contract that the spec
    conformance constraint will verify.
 
 ### How It Works in the Enforcement Loop
 
 | Timescale | What happens |
-|-----------|-------------|
+| ----------- | ------------- |
 | Edit (PreToolUse) | Agent warns if changes touch spec-covered code without tests passing |
 | PR (CI) | Test suite runs as a deterministic constraint — blocks merge on failure |
 | PR (auto-enforcer) | Agent reviews whether the implementation matches the spec's intent |

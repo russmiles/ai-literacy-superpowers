@@ -20,7 +20,7 @@ For worked examples and the sync workflow, consult
 ## When to Use
 
 | Situation | Pattern |
-|-----------|---------|
+| ----------- | --------- |
 | Syncing skills, templates, or hooks from a framework repo to a plugin repo | L4: Git-mediated |
 | Propagating harness changes to downstream consumers | L4: Git-mediated |
 | Rolling out a new convention across 2-5 related repos | L4: Git-mediated |
@@ -54,7 +54,7 @@ one or more downstream repos using git's standard workflow.
 Not everything should flow downstream. Define clear boundaries:
 
 | Sync | Don't sync |
-|------|-----------|
+| ------ | ----------- |
 | Skills (tool-agnostic knowledge) | HARNESS.md (project-specific constraints) |
 | Agent definitions (pipeline patterns) | AGENTS.md (project-specific learnings) |
 | Hook scripts and hooks.json | REFLECTION_LOG.md (project-specific reflections) |
@@ -73,7 +73,7 @@ manifest section. At minimum, state:
 ### Anti-Patterns
 
 | Anti-pattern | Problem | Fix |
-|-------------|---------|-----|
+| ------------- | --------- | ----- |
 | Sync without contracts | Nobody knows what should flow where | Declare exports in README or manifest |
 | Bidirectional sync | Changes flow both ways, causing conflicts | Pick one direction — upstream is authoritative |
 | Sync everything | Downstream repos lose their identity | Only sync what's declared as exported |
@@ -165,7 +165,7 @@ organisational scale.
 ## Choosing the Right Pattern
 
 | Factor | Git-Mediated (L4) | Specification-Mediated (L5) |
-|--------|-------------------|---------------------------|
+| -------- | ------------------- | --------------------------- |
 | Number of repos | 2-5 | 10+ |
 | Sync frequency | After specific changes | Continuous/automated |
 | Coordination | Single agent or human | Platform orchestrator |

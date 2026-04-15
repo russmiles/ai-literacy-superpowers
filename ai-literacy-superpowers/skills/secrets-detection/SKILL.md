@@ -129,7 +129,7 @@ regexes = [
 ### Common allowlist scenarios
 
 | Scenario | Allowlist approach |
-|----------|-------------------|
+| ---------- | ------------------- |
 | Test fixtures with fake keys | `paths = ['''testdata/''']` |
 | Documentation with placeholder tokens | `regexes = ['''EXAMPLE_.*''']` |
 | Known false positive on a specific line | Add to `.gitleaks-baseline.json` via baseline scan |
@@ -195,6 +195,7 @@ constraint:
 ```
 
 This promotion means:
+
 - The **PreToolUse hook** (agent-based) still warns at write time
 - The **Stop hook** runs gitleaks deterministically at session end
 - The **CI gate** runs gitleaks and blocks merge on findings

@@ -280,7 +280,7 @@ New pages use `nav_order` values that place them logically within their sections
 ## Component Summary
 
 | Type | File | Status |
-|------|------|--------|
+| ------ | ------ | -------- |
 | Explanation | `explanation/governance-as-meaning-alignment.md` | New |
 | Tutorial | `tutorials/governance-for-your-harness.md` | New |
 | How-To | `how-to/write-a-governance-constraint.md` | New |

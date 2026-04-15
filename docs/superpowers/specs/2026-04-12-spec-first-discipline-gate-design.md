@@ -52,7 +52,7 @@ The harness-enforcer agent reviews the spec for quality:
 ### Relationship to existing constraints
 
 | Constraint | What it checks | Type |
-|---|---|---|
+| --- | --- | --- |
 | Spec-first commit ordering (new) | Spec exists and is committed first | Deterministic |
 | Spec captures intent (new) | Spec quality and intent coverage | Agent |
 | Spec-scoped changes (existing) | PR is coherently scoped to one spec | Agent |
@@ -63,7 +63,7 @@ good (agent) then PR matches spec (existing agent).
 ## Changes required
 
 | File | Change |
-|---|---|
+| --- | --- |
 | `HARNESS.md` | Add two new constraints to the Constraints section |
 | `.github/workflows/spec-first-check.yml` | New workflow implementing the deterministic gate |
 | Harness-enforcer agent | Extend prompt to include intent-quality review |

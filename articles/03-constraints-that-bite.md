@@ -105,7 +105,7 @@ Here's what most articles about constraints won't tell you: **some rules should 
 
 ---
 
-> ### Watch it!
+> ### Watch it
 >
 > **The over-constraining trap.** It is very tempting to look at the promotion ladder and think "let's just make everything deterministic from day one." Do not do this. Rules you haven't battle-tested will have edge cases you haven't imagined. A deterministic rule with bad edge cases blocks your team, generates workarounds, and erodes trust in the entire constraint system. Start soft. Harden with evidence.
 

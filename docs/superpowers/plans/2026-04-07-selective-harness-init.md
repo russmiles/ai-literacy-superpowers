@@ -15,6 +15,7 @@
 ### Task 1: Add the feature selection step after discovery
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md:16-30`
 
 This task inserts a new step 3 between "Present Findings" and the current "Ask About Conventions" step, and renumbers all subsequent steps.
@@ -69,6 +70,7 @@ The current steps are numbered 3 through 10. Renumber them to 4 through 11:
 - [ ] **Step 3: Verify the renumbering is consistent**
 
 Read through the full file and check that:
+
 - No step number is duplicated
 - No step references an old number in its body text
 - The flow reads correctly from 1 through 11
@@ -85,6 +87,7 @@ git commit -m "Add feature selection step to harness-init command"
 ### Task 2: Gate convention and constraint steps on feature selection
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md` (steps 4 and 5)
 
 This task adds conditional gates so the conversational steps only run when their feature is selected.
@@ -128,6 +131,7 @@ git commit -m "Gate convention, constraint, and GC steps on feature selection"
 ### Task 3: Update HARNESS.md generation for additive mode
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md` (step 7, formerly step 6)
 
 This task rewrites the generation step to support both first-run and additive re-run modes.
@@ -178,6 +182,7 @@ git commit -m "Update HARNESS.md generation for additive re-run support"
 ### Task 4: Gate CI and observability steps with dependency handling
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md` (steps 8 and 9)
 
 - [ ] **Step 1: Add gate and dependency logic to CI configuration step**
@@ -235,6 +240,7 @@ git commit -m "Gate CI and observability steps with dependency checks"
 ### Task 5: Update the summary step to show configuration status
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md` (step 11, formerly step 10)
 
 - [ ] **Step 1: Rewrite the summary step**
@@ -268,6 +274,7 @@ git commit -m "Update summary step to show per-feature configuration status"
 ### Task 6: Update the command description and re-run check
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-init.md` (frontmatter and step 1)
 
 - [ ] **Step 1: Update the frontmatter description**
@@ -331,6 +338,7 @@ git commit -m "Update command description and discovery for selective re-run"
 ### Task 7: Update CHANGELOG and create PR
 
 **Files:**
+
 - Modify: `CHANGELOG.md`
 
 - [ ] **Step 1: Add CHANGELOG entry**

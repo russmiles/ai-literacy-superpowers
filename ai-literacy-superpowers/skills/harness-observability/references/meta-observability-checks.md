@@ -16,6 +16,7 @@ works."
 `observability/snapshots/` is less than 30 days old.
 
 **How to check:**
+
 1. List files in `observability/snapshots/`
 2. Parse the most recent filename date (YYYY-MM-DD)
 3. Compare with today's date
@@ -23,7 +24,7 @@ works."
 **Thresholds:**
 
 | Age | Status | Signal |
-|-----|--------|--------|
+| ----- | -------- | -------- |
 | < 30 days | On schedule | Outer loop is running |
 | 30-60 days | Overdue | Outer loop slipping |
 | > 60 days | Stale | Outer loop not running |
@@ -38,6 +39,7 @@ this one.
 cadence.
 
 **How to check:**
+
 1. Read HARNESS.md Status section for last audit date
 2. Read most recent assessment file date in `assessments/`
 3. Read most recent reflection date in REFLECTION_LOG.md
@@ -46,7 +48,7 @@ cadence.
 **Declared cadences:**
 
 | Operation | Cadence | Source |
-|-----------|---------|--------|
+| ----------- | --------- | -------- |
 | /harness-audit | Quarterly (90 days) | CLAUDE.md quarterly cadence |
 | /assess | Quarterly (90 days) | CLAUDE.md quarterly cadence |
 | /reflect | Monthly (30 days) | Best practice for active projects |
@@ -54,7 +56,7 @@ cadence.
 **Thresholds:**
 
 | Overdue by | Status |
-|------------|--------|
+| ------------ | -------- |
 | 0 | On schedule |
 | 1-30 days | Slightly overdue |
 | > 30 days | Significantly overdue |
@@ -66,6 +68,7 @@ to AGENTS.md. The compound learning lifecycle (reflect → curate →
 benefit) is active.
 
 **How to check:**
+
 1. Count REFLECTION_LOG.md entries added since last snapshot
 2. Count AGENTS.md entries added since last snapshot
 3. If reflections were added but no promotions occurred in 2+
@@ -74,7 +77,7 @@ benefit) is active.
 **Thresholds:**
 
 | Condition | Status |
-|-----------|--------|
+| ----------- | -------- |
 | Reflections added AND promotions occurring | Active |
 | Reflections added but no promotions for 2+ snapshots | Stalled |
 | No reflections added for 2+ snapshots | Inactive |
@@ -91,6 +94,7 @@ entropy. Silent GC rules may indicate misconfiguration or that the
 rules are checking the wrong things.
 
 **How to check:**
+
 1. Read the current and previous snapshot's "GC findings" count
 2. If findings have been 0 for 3+ consecutive snapshots, flag as
    silent
@@ -98,7 +102,7 @@ rules are checking the wrong things.
 **Thresholds:**
 
 | Condition | Status |
-|-----------|--------|
+| ----------- | -------- |
 | Findings > 0 in at least one of last 3 snapshots | Productive |
 | Findings = 0 for 3+ consecutive snapshots | Silent |
 | No GC rules configured | Not configured |
@@ -114,12 +118,14 @@ panic.
 snapshots without acknowledgement.
 
 **How to check:**
+
 1. Read the Trends sections from the last 3 snapshots
 2. For each tracked metric, check if it has declined in all 3
 3. If so, check whether the decline has been acknowledged (a comment
    in the snapshot's Meta section or a reflection entry)
 
 **Tracked metrics:**
+
 - Enforcement ratio
 - Mutation kill rates (per language)
 - Compound learning entries
@@ -127,7 +133,7 @@ snapshots without acknowledgement.
 **Thresholds:**
 
 | Condition | Status |
-|-----------|--------|
+| ----------- | -------- |
 | No sustained declines | Stable |
 | Decline for 3+ snapshots, acknowledged | Acknowledged |
 | Decline for 3+ snapshots, unacknowledged | Alert |
@@ -144,7 +150,7 @@ The five checks combine into the snapshot's Meta section and the README
 badge colour:
 
 | Badge | Condition |
-|-------|-----------|
+| ------- | ----------- |
 | Healthy (green) | All five checks pass |
 | Attention (amber) | One check is overdue/stalled/silent/alert |
 | Degraded (red) | Two or more checks are overdue/stalled/silent/alert, OR snapshot is stale (>30 days), OR enforcement ratio < 70% |

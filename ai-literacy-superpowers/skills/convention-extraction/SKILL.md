@@ -27,7 +27,7 @@ For the full interview protocol with worked examples, consult
 ## When to Extract
 
 | Situation | Signal |
-|-----------|--------|
+| ----------- | -------- |
 | New project setup | CLAUDE.md and HARNESS.md are empty or boilerplate |
 | Onboarding AI to existing codebase | AI-generated code keeps violating unwritten rules |
 | After team composition changes | New members or departures change the tacit knowledge base |
@@ -69,7 +69,7 @@ structured one-on-one interviews with senior engineers.
 Each answer maps to a specific artefact type and location:
 
 | Answer category | Priority tier | Artefact type | Where it lives |
-|----------------|---------------|---------------|----------------|
+| ---------------- | --------------- | --------------- | ---------------- |
 | Non-negotiable patterns | Must-follow | Constraint | HARNESS.md |
 | Frequent corrections | Should-follow | Convention | CLAUDE.md |
 | Security instincts | Must-follow | Threat-model item | HARNESS.md or security skill |
@@ -102,7 +102,7 @@ context, applicable constraints. Makes dependencies explicit.
 Organised by priority tier:
 
 | Tier | Meaning | Enforcement |
-|------|---------|-------------|
+| ------ | --------- | ------------- |
 | Must-follow | Non-negotiable. Violations are blockers. | HARNESS.md constraint |
 | Should-follow | Strong expectation. Exceptions need justification. | CLAUDE.md convention |
 | Nice-to-have | Preferred but not enforced. | CLAUDE.md or skill reference |
@@ -116,7 +116,7 @@ developers and sessions.
 ## Anti-Patterns
 
 | Anti-pattern | Problem | Fix |
-|-------------|---------|-----|
+| ------------- | --------- | ----- |
 | Over-prescriptive instructions | Brittle, false positives on edge cases | Test the instruction against real code before committing |
 | Encoding aspirations | "Write clean code" is not enforceable | Decompose into observable properties |
 | Documentation graveyards | Created with enthusiasm, abandoned in months | Place artefacts close to the workflow; use GC rules for freshness |

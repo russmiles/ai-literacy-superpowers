@@ -139,7 +139,7 @@ to AI agents. Every agent gets exactly the permissions it needs to do
 its job, and not one permission more.
 
 | Agent | Can do | Cannot do |
-|-------|--------|-----------|
+| ------- | -------- | ----------- |
 | Spec Writer | Read requirements, write specs | Execute code, access shell |
 | Test Writer | Read specs, write test files | Write implementation code |
 | Implementer | Read tests, write implementation | Approve or merge PRs |

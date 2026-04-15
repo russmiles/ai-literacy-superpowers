@@ -130,7 +130,7 @@ one?"
 ## Mapping Table
 
 | Answer type | Priority | Artefact | Location | Enforcement |
-|------------|----------|----------|----------|-------------|
+| ------------ | ---------- | ---------- | ---------- | ------------- |
 | Hard boundary (always wrong) | Must-follow | Constraint | HARNESS.md | Deterministic or agent |
 | Strong expectation | Should-follow | Convention | CLAUDE.md | Advisory (hooks) |
 | Preference | Nice-to-have | Style guide | CLAUDE.md or skill | None (guidance only) |
@@ -189,7 +189,7 @@ This became a note in the code-reviewer agent's instructions.
 ## Sizing Heuristic
 
 | Team size | Recommendation |
-|-----------|---------------|
+| ----------- | --------------- |
 | 1-5 | Informal — conventions emerge through pairing. Formal extraction optional. |
 | 6-15 | Recommended — tacit knowledge starts to diverge. One extraction session per quarter. |
 | 15+ | Essential — without extraction, AI output will vary significantly by prompter. Monthly review of encoded conventions. |

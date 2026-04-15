@@ -8,6 +8,7 @@ it misses a crucial dimension: **architectural fitness functions** — periodic
 automated checks that verify system-wide architectural properties.
 
 These checks are:
+
 - Too slow or expensive for every PR (full dependency graph analysis,
   coupling metric computation, churn-complexity correlation)
 - Too important to skip entirely (architectural erosion is cumulative
@@ -34,7 +35,7 @@ The distinction between constraints and fitness functions maps directly
 to the harness's existing architecture:
 
 | Aspect | Constraint | Fitness Function |
-|--------|-----------|-----------------|
+| -------- | ----------- | ----------------- |
 | Scope | Per-change (commit or PR) | System-wide (weekly) |
 | What it checks | This change violates a rule | The system has drifted from a property |
 | Trigger | Code is written or merged | Scheduled GC run |

@@ -24,7 +24,7 @@ For the snapshot schema and field definitions, consult
 ## The Four Layers
 
 | Layer | Question | Timescale | Consumer |
-|-------|----------|-----------|----------|
+| ----- | -------- | --------- | -------- |
 | Operational Cadence | "Is the harness running?" | Session / weekly / quarterly | Developer in session |
 | Trend Visibility | "How has the harness changed?" | Weekly / quarterly | Team over time |
 | Telemetry Export | "Can I visualise this externally?" | Continuous | External dashboards |
@@ -46,7 +46,7 @@ actually fire on schedule.
 **Recommended cadences:**
 
 | Mechanism | Cadence | Command |
-|-----------|---------|---------|
+| --------- | ------- | ------- |
 | Health snapshot | Monthly | `/harness-health` |
 | Full audit | Quarterly | `/harness-audit` |
 | Assessment | Quarterly | `/assess` |
@@ -99,7 +99,7 @@ works."
 The harness-auditor agent runs five meta-checks:
 
 | Check | Signal |
-|-------|--------|
+| ----- | ------ |
 | Snapshot currency | Stale = outer loop not running |
 | Cadence compliance | Overdue = practice not followed |
 | Learning flow | Stalled = compound learning broken |
@@ -171,7 +171,7 @@ If no previous snapshot exists, report "first snapshot" for all fields.
 ## When to Use This Skill
 
 | Situation | Action |
-|-----------|--------|
+| --------- | ------ |
 | Starting a new quarter | Run `/harness-health` to baseline |
 | After a major feature lands | Run `/harness-health` to check impact |
 | Harness feels stale | Run `/harness-health --deep` for authoritative check |
@@ -186,7 +186,7 @@ If no previous snapshot exists, report "first snapshot" for all fields.
 **Health badge** — shields.io, colour-coded:
 
 | Status | Condition | Colour |
-|--------|-----------|--------|
+| ------ | --------- | ------ |
 | Healthy | All layers operating, no overdue cadences | Green |
 | Attention | One layer degraded or outer loop overdue | Amber |
 | Degraded | Multiple layers degraded or no snapshot in 30+ days | Red |

@@ -25,7 +25,7 @@ standalone) and invoked by `/assess` after Phase 5.
 ### L1 → L2 (Prompting → Verification)
 
 | Gap | Command/Skill | What it does |
-|---|---|---|
+| --- | --- | --- |
 | No CI test pipeline | (manual — outside plugin scope) | Set up CI with test suite |
 | No linting in CI | `auto-enforcer-action` skill | Adds GitHub Action for PR checks |
 | No vulnerability scanning | `dependency-vulnerability-audit` skill | Guides CVE scanning setup |
@@ -35,7 +35,7 @@ standalone) and invoked by `/assess` after Phase 5.
 ### L2 → L3 (Verification → Habitat Engineering)
 
 | Gap | Command/Skill | What it does |
-|---|---|---|
+| --- | --- | --- |
 | No CLAUDE.md or conventions | `/harness-init` (context feature) | Discovers stack, generates conventions |
 | No HARNESS.md | `/harness-init` (constraints feature) | Generates constraints with enforcement |
 | Constraints declared but not enforced | `/harness-constrain` | Promotes unverified → agent → deterministic |
@@ -49,7 +49,7 @@ standalone) and invoked by `/assess` after Phase 5.
 ### L3 → L4 (Habitat → Specification Architecture)
 
 | Gap | Command/Skill | What it does |
-|---|---|---|
+| --- | --- | --- |
 | No spec-first workflow | `harness-engineering` skill (spec-first section) | Guidance on specification architecture |
 | No agent pipeline | `/superpowers-init` (agent team feature) | Scaffolds orchestrator + agent team |
 | No safety gates in orchestrator | `constraint-design` skill | Design guardrails for agent loops |
@@ -59,7 +59,7 @@ standalone) and invoked by `/assess` after Phase 5.
 ### L4 → L5 (Specification → Sovereign Engineering)
 
 | Gap | Command/Skill | What it does |
-|---|---|---|
+| --- | --- | --- |
 | No reusable plugin | `cross-repo-orchestration` skill | Patterns for cross-team sharing |
 | No model routing | `model-sovereignty` skill | Decision framework for model selection |
 | No cost tracking | `model-sovereignty` skill (cost section) | Break-even analysis |
@@ -75,6 +75,7 @@ standalone) and invoked by `/assess` after Phase 5.
 ### Process
 
 **Input:** An assessed level and a list of gaps. These come from either:
+
 - The `/assess` command (which passes them after Phase 5)
 - The user directly ("I'm at L2, what should I do next?")
 
@@ -148,6 +149,7 @@ skill handles target level selection, plan generation, and interactive
 execution.
 
 The existing Phase 5 and Phase 5b are complementary:
+
 - Phase 5 = **operate better** at your current level
 - Phase 5b = **build toward** the next level
 

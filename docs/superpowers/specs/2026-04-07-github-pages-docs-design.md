@@ -42,11 +42,13 @@ command, and links to get started.
 ### 3. Diataxis sections (4 index pages + content)
 
 **Tutorials** (`docs/tutorials/`):
+
 - `index.md` — section overview
 - `getting-started.md` — full tutorial: install, harness-init, first constraint
 - Stubs: `your-first-skill.md`, `harness-from-scratch.md`
 
 **How-to Guides** (`docs/how-to/`):
+
 - `index.md` — section overview
 - `set-up-secret-detection.md` — full guide: gitleaks setup
 - Stubs: `add-a-constraint.md`, `sync-conventions.md`,
@@ -54,12 +56,14 @@ command, and links to get started.
   `add-fitness-functions.md`
 
 **Reference** (`docs/reference/`):
+
 - `index.md` — section overview
 - `skills.md` — full catalogue: all 24 skills with descriptions
 - Stubs: `agents.md`, `commands.md`, `hooks.md`,
   `harness-md-format.md`, `templates.md`
 
 **Explanation** (`docs/explanation/`):
+
 - `index.md` — section overview
 - `harness-engineering.md` — full explanation: three components,
   Boeckeler's framing

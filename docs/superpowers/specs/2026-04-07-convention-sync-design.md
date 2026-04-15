@@ -24,6 +24,7 @@ HARNESS.md is the single source of truth. Sync is one-way only: HARNESS.md
 drives the other files; no tool-specific file feeds back into HARNESS.md.
 
 Deliver it as:
+
 1. A skill (`convention-sync/SKILL.md`) for on-demand generation
 2. A GC rule in the template for weekly drift detection
 3. A slash command (`convention-sync.md`) for direct invocation
@@ -100,6 +101,7 @@ additions. It reports and delegates.
 New slash command at `ai-literacy-superpowers/commands/convention-sync.md`.
 
 Behaviour:
+
 - Reads HARNESS.md from the project root (errors if not found)
 - Parses Context and Constraints sections
 - Generates or updates convention files for each supported tool

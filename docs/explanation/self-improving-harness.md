@@ -88,7 +88,7 @@ After the header, entries accumulate chronologically. The most recent entry is a
 Different agents read different windows of the log, calibrated to their role and the cost of reading context:
 
 | Agent | Reading window | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | Orchestrator | 20 most recent entries | Inform pipeline strategy -- avoid repeating past failures, adjust agent dispatch order |
 | Harness enforcer | 10 most recent entries | Calibrate scrutiny -- pay attention to patterns that past reflections flagged as missed |
 | Harness GC | 10 most recent entries | Detect entropy signals -- reflections mentioning drift, staleness, or documentation rot guide GC focus |
@@ -231,7 +231,7 @@ The discoverer presents its findings and asks the developer to confirm, reject, 
 `/harness-init` supports selective feature configuration. Teams choose which areas to configure on the first run:
 
 | Feature | What it configures |
-|---|---|
+| --- | --- |
 | Context engineering | Stack declaration and conventions |
 | Architectural constraints | Enforcement rules and secret detection |
 | Garbage collection | Periodic entropy checks |

@@ -71,7 +71,7 @@ If your reviewer agent can also modify the code it is reviewing, you do not have
 This is **bounded trust** — the principle of least privilege applied to AI agents. Every agent gets exactly the permissions it needs to do its job, and not one permission more.
 
 | Agent | Can do | Cannot do |
-|-------|--------|-----------|
+| ------- | -------- | ----------- |
 | Spec Writer | Read requirements, write specs | Execute code, access shell |
 | Test Writer | Read specs, write test files | Write implementation code |
 | Implementer | Read tests, write implementation | Approve or merge PRs |

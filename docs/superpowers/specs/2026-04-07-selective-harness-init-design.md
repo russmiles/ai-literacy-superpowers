@@ -41,7 +41,7 @@ After stack discovery (steps 1-2, unchanged), the command presents a feature
 selection menu with five areas:
 
 | Feature | What it configures | HARNESS.md section |
-|---|---|---|
+| --- | --- | --- |
 | Context engineering | Stack declaration + conventions | `## Context` |
 | Architectural constraints | Enforcement rules + secret detection | `## Constraints` |
 | Garbage collection | Periodic entropy checks | `## Garbage Collection` |
@@ -80,6 +80,7 @@ CI configuration and observability generate separate files rather than
 HARNESS.md sections. They have dependencies:
 
 **CI configuration** depends on constraints existing:
+
 - If selected but no constraints exist (first run without constraints): warn
   that there's nothing to enforce, skip CI generation
 - If selected and constraints exist (re-run or both selected): generate the
@@ -87,6 +88,7 @@ HARNESS.md sections. They have dependencies:
   constraints exist.
 
 **Observability** (README badge) depends on HARNESS.md existing:
+
 - If selected but nothing else is configured: skip with a note
 - Otherwise add/update the badge reflecting current state
 
@@ -128,7 +130,7 @@ The 10-step process becomes:
 ## Files Changed
 
 | File | Change |
-|---|---|
+| --- | --- |
 | `ai-literacy-superpowers/commands/harness-init.md` | Add feature selection step, gate subsequent steps on selections, add re-run detection and additive generation logic |
 
 ## Files Unchanged

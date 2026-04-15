@@ -31,7 +31,7 @@ during curation.
 Add a `Signal` field to the reflection entry format. Values:
 
 | Signal | Meaning | Routes to |
-|--------|---------|-----------|
+| -------- | --------- | ----------- |
 | `context` | Gap in priming — missing convention, outdated stack info, incomplete domain knowledge | HARNESS.md Context section |
 | `instruction` | Prompt or command that produced notably better or worse results | Skills or shared commands |
 | `workflow` | Sequence or process pattern that reliably succeeded or failed | AGENTS.md (STYLE, ARCH_DECISIONS) |
@@ -99,7 +99,7 @@ and before the FAQ. The section:
 Mapping table:
 
 | Article term | Plugin equivalent |
-|---|---|
+| --- | --- |
 | Feedback flywheel | Three-loop system (inner/middle/outer) |
 | Priming document | HARNESS.md Context section + CLAUDE.md |
 | Shared commands | Skills and slash commands |
@@ -147,7 +147,7 @@ Add a `Session Quality` section to the snapshot format after
 Computation:
 
 | Field | How to compute |
-|---|---|
+| --- | --- |
 | Reflections with signal | Count reflections where Signal field exists and is not "none", divided by total reflections |
 | Signal distribution | Count of each signal type across all reflections (cumulative) |
 | Quality trend | Compare "reflections with signal" percentage to previous snapshot. Stable = ±2%, improving = >+2%, declining = <-2% |

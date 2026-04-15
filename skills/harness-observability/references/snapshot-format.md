@@ -28,7 +28,7 @@ fixed format so agents can parse them reliably.
 **Source:** HARNESS.md Status section and constraint definitions.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | N (enforced) | Count constraints with enforcement = deterministic or agent |
 | M (total) | Count all constraints |
 | P% | (N / M) * 100, rounded to nearest integer |
@@ -50,7 +50,7 @@ fixed format so agents can parse them reliably.
 **Source:** Git history and file existence checks.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Advisory | Active if hooks exist. First activated = earliest git commit that added hooks configuration (`git log --diff-filter=A --format=%as` on the hooks file). "not active" if no hooks |
 | Strict | Active if CI enforcement workflow exists (`.github/workflows/harness.yml` or similar). First activated = earliest commit adding the harness CI workflow. "not active" if no CI enforcement |
 | Investigative | Active if GC rules exist in HARNESS.md with enforcement. First activated = earliest commit adding a GC rule. "not active" if no GC rules |
@@ -70,7 +70,7 @@ the previous snapshot and only re-check if a loop's status changes.
 **Source:** HARNESS.md GC section and audit history.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | N (active) | Count GC rules with enforcement != none |
 | M (total) | Count all GC rules |
 | Last run | Date of most recent /harness-gc or /harness-audit |
@@ -89,7 +89,7 @@ the previous snapshot and only re-check if a loop's status changes.
 **Source:** Latest mutation testing CI artifacts.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Kill rate per language | Parse from CI artifact HTML reports or workflow logs |
 | Trend | Compare with previous snapshot's kill rates. stable = ±2%, improving = >+2%, declining = <-2% |
 
@@ -108,8 +108,8 @@ guessing.
 **Source:** REFLECTION_LOG.md and AGENTS.md.
 
 | Field | How to compute |
-|-------|---------------|
-| REFLECTION_LOG entries | Count entries (each starts with `## ` heading with a date) |
+| ------- | --------------- |
+| REFLECTION_LOG entries | Count entries (each starts with `##` heading with a date) |
 | New since last snapshot | Count entries with dates after previous snapshot date |
 | AGENTS.md entries | Count `GOTCHA:` and `ARCH_DECISION:` lines |
 | Promotions | New AGENTS.md entries since previous snapshot date |
@@ -127,7 +127,7 @@ guessing.
 **Source:** Git log, assessment files, HARNESS.md Status section.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Last /harness-audit | HARNESS.md Status section "Last audit" date |
 | Last /assess | Most recent file in assessments/ directory |
 | Last /reflect | Most recent date in REFLECTION_LOG.md |
@@ -173,7 +173,7 @@ and thresholds.
 **Source:** Computed from Operational Cadence and REFLECTION_LOG.md.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Snapshot stale | Compare previous snapshot date to today. Stale if age exceeds the cadence threshold (10 days for weekly, 21 for fortnightly, 30 for monthly). Read cadence from HARNESS.md Observability section, default monthly |
 | Snapshot age | Days between previous snapshot date and today. 0 if this is the first snapshot |
 | Cadence non-compliance | Count how many of audit (90-day cadence), assess (90-day), reflect (30-day), and GC (declared cadence) are overdue. Reuse data from Operational Cadence section |
@@ -197,7 +197,7 @@ Enforcement section, plus file listings in `assessments/` and
 `observability/governance/`.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Constraints added | Names of constraints in current HARNESS.md not present in the previous snapshot's Enforcement section |
 | Constraints promoted | Constraints whose tier changed between snapshots, shown as `name: old tier → new tier` |
 | Constraints removed | Constraints present in the previous snapshot but absent from current HARNESS.md |
@@ -215,7 +215,7 @@ and assessment events are captured directly in the snapshot.
 ## Trends (vs YYYY-MM-DD)
 
 | Metric | Previous | Current | Change |
-|--------|----------|---------|--------|
+| -------- | ---------- | --------- | -------- |
 | Enforcement ratio | P% (N/M) | P% (N/M) | ±N% |
 | Mutation (Go) | N% | N% | ±N% |
 | Mutation (Kotlin) | N% | N% | ±N% |
@@ -234,10 +234,9 @@ this section entirely.
 Agents reading snapshots should:
 
 1. Find the latest file in `observability/snapshots/` by filename date
-2. Parse each section by its `## ` heading
+2. Parse each section by its `##` heading
 3. Extract values from the `- Field: Value` format
 4. For the Trends table, parse the markdown table rows
 
 The format is deliberately simple and consistent so regex-based parsing
 works reliably.
-

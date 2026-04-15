@@ -13,6 +13,7 @@
 ### Task 1: Update `/reflect` command with signal classification
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/reflect.md`
 
 - [ ] **Step 1: Add signal classification step to the `/reflect` command**
@@ -91,6 +92,7 @@ In `ai-literacy-superpowers/commands/reflect.md`, add a new step between the cur
    git add REFLECTION_LOG.md
    git commit -m "Add reflection: [one-line summary of the task]"
    ```
+
 ```
 
 The key changes from the current file:
@@ -119,6 +121,7 @@ by the agent and confirmed by the user."
 ### Task 2: Update REFLECTION_LOG.md header comment
 
 **Files:**
+
 - Modify: `REFLECTION_LOG.md`
 
 - [ ] **Step 1: Update the header comment to include the Signal field**
@@ -161,6 +164,7 @@ Replace the existing header comment block in `REFLECTION_LOG.md` with:
 ```
 
 The key additions:
+
 - `Signal` field added to the entry format template
 - Signal type routing table added below the format
 - Backwards-compatibility note for pre-existing entries
@@ -186,6 +190,7 @@ entries."
 ### Task 3: Update self-improving-harness.md docs
 
 **Files:**
+
 - Modify: `docs/explanation/self-improving-harness.md`
 
 - [ ] **Step 1: Update "What Gets Captured" section**
@@ -269,6 +274,7 @@ further reading."
 ### Task 4: Add vocabulary mapping to compound-learning.md
 
 **Files:**
+
 - Modify: `docs/explanation/compound-learning.md`
 
 - [ ] **Step 1: Add "Relationship to the Feedback Flywheel" section**
@@ -332,6 +338,7 @@ reading."
 ### Task 5: Add Session Quality section to snapshot format
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/skills/harness-observability/references/snapshot-format.md`
 
 - [ ] **Step 1: Add Session Quality section definition**
@@ -355,10 +362,11 @@ Insert this content:
 **Source:** REFLECTION_LOG.md Signal fields.
 
 | Field | How to compute |
-|-------|---------------|
+| ------- | --------------- |
 | Reflections with signal | Count reflections where Signal field exists and is not "none", divided by total reflections. Entries predating the Signal field (before 2026-04-08) count as "none". |
 | Signal distribution | Count of each signal type across all reflections (cumulative, not just since last snapshot) |
 | Quality trend | Compare "reflections with signal" percentage to previous snapshot. stable = ±2%, improving = >+2%, declining = <-2% |
+
 ```
 
 - [ ] **Step 2: Add row to Trends table**
@@ -390,6 +398,7 @@ Adds corresponding row to the Trends table."
 ### Task 6: Update /harness-health command
 
 **Files:**
+
 - Modify: `ai-literacy-superpowers/commands/harness-health.md`
 
 - [ ] **Step 1: Add REFLECTION_LOG.md Signal fields to data gathering**
@@ -476,6 +485,7 @@ percentage in delta summary output."
 ### Task 7: Update CHANGELOG and final commit
 
 **Files:**
+
 - Modify: `CHANGELOG.md`
 
 - [ ] **Step 1: Add changelog entry**

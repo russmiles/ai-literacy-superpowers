@@ -77,7 +77,7 @@ REFLECTION_LOG.md will grow over time. Agents should read a bounded
 number of recent entries to avoid context bloat:
 
 | Agent | Entries to read | Rationale |
-|-------|----------------|-----------|
+| ------- | ---------------- | ----------- |
 | Orchestrator | Last 20 | Makes high-level pipeline decisions |
 | Harness-enforcer | Last 10 | Focused on current review |
 | Harness-gc | Last 10 | Focused on current GC run |

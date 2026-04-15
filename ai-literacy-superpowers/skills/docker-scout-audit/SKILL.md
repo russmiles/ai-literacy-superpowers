@@ -129,7 +129,7 @@ A hardened image eliminates the OS-layer CVE surface rather than patching
 individual packages one at a time.
 
 | TUI | Previous base | Hardened base | Why |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Go | `alpine:3.21` | `gcr.io/distroless/static:nonroot` | Static binary needs no shell, no libc, no package manager — minimal attack surface |
 | C# | `dotnet/runtime:8.0-alpine` | `mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled` | Ubuntu Chiseled strips shell and package manager; bash not required on glibc images |
 | Kotlin | `eclipse-temurin:21-jre-alpine` | (no drop-in yet) | Kotlin/Lanterna requires bash at runtime; stay with Alpine + full upgrade |
@@ -171,7 +171,7 @@ uses Ubuntu (glibc) where Terminal.Gui's curses initialisation works without a s
 ## Common Findings for This Project's Base Images
 
 | Base image | Common CVE surface | Typical fix |
-|---|---|---|
+| --- | --- | --- |
 | `gcr.io/distroless/static:nonroot` | Near-zero — no OS packages | Rebuild against updated distroless digest |
 | `dotnet/runtime:8.0-jammy-chiseled` | Minimal — chiseled Ubuntu; .NET patched frequently | Monitor MSRC advisories; bump minor version |
 | `python:3.12-slim` | Debian packages (openssl, libssl, glibc) | Bump to latest `-slim` digest |
