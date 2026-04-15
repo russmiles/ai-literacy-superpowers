@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.18.0 -->
+<!-- template-version: 0.19.0 -->
 
 ## Context
 
@@ -179,6 +179,25 @@
 - **Frame check**: engineering / compliance / AI system interpretations
   confirmed aligned (see spec 2026-04-15-release-governance-constraint-design.md)
 
+### Tests must pass
+
+- **Rule**: The project's test suite must pass with zero failures before
+  any code is merged
+- **Enforcement**: unverified
+- **Tool**: none yet
+- **Scope**: pr
+
+<!-- Uncomment if using spec-first development:
+
+### Spec conformance
+
+- **Rule**: All code changes covered by a spec must pass the spec's
+  associated test suite before merge
+- **Enforcement**: deterministic
+- **Tool**: <project test runner command>
+- **Scope**: pr
+-->
+
 ---
 
 ## Garbage Collection
@@ -274,6 +293,118 @@
 - **Tool**: compare template-version comment in HARNESS.md against
   plugin.json version
 - **Auto-fix**: false
+
+### Dependency currency
+
+- **What it checks**: Whether project dependencies have known
+  vulnerabilities or are more than one major version behind latest
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Observability archive
+
+- **What it checks**: Whether snapshots older than 6 months exist in
+  `observability/snapshots/` and should be moved to
+  `observability/archive/`
+- **Frequency**: monthly
+- **Enforcement**: deterministic
+- **Tool**: file date check
+- **Auto-fix**: true (move to archive directory)
+
+### Convention file sync
+
+- **What it checks**: Whether .cursor/rules/, .github/copilot-instructions.md,
+  and .windsurf/rules/ exist and reflect the current HARNESS.md conventions
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Reflection-driven regression detection
+
+- **What it checks**: Whether REFLECTION_LOG.md contains recurring
+  failure patterns (same type of surprise across 2+ entries) that
+  are not yet covered by a HARNESS.md constraint
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+<!-- Uncomment if governance constraints are declared above:
+
+### Governance constraint freshness
+
+- **What it checks**: Whether governance constraints have been
+  reviewed since the technology or process they govern changed
+- **Frequency**: monthly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+### Semantic drift early warning
+
+- **What it checks**: Whether implementation files referenced by
+  governance constraints have changed substantially since the
+  constraint was last audited
+- **Frequency**: monthly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+### Governance debt cycle check
+
+- **What it checks**: Whether governance constraints reference other
+  constraints that have unresolved governance debt, indicating the
+  four-debt vicious cycle may be active
+- **Frequency**: quarterly
+- **Enforcement**: agent
+- **Tool**: governance-auditor agent
+- **Auto-fix**: false
+
+Run /governance-audit quarterly to keep governance constraints fresh.
+-->
+
+<!-- Uncomment fitness function rules relevant to your stack:
+
+### Layer boundary compliance
+
+- **What it checks**: Whether modules respect declared architectural
+  boundaries (no imports from forbidden layers)
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: npx dependency-cruiser --validate .dependency-cruiser.js src/
+- **Auto-fix**: false
+
+### Complexity hotspots
+
+- **What it checks**: Whether any files show increasing cognitive
+  complexity correlated with high git churn
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Coupling trend
+
+- **What it checks**: Whether inter-module coupling metrics have
+  increased since the last snapshot
+- **Frequency**: weekly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Dependency age budget
+
+- **What it checks**: Whether the total dependency age (libyear score)
+  exceeds the project's declared threshold or has increased since the
+  last snapshot
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: npx libyear (or ecosystem equivalent)
+- **Auto-fix**: false
+-->
 
 ---
 

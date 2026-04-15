@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.18.0 -->
+<!-- template-version: 0.19.0 -->
 
 ## Context
 
@@ -265,6 +265,44 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 - **Tool**: npx libyear (or ecosystem equivalent)
 - **Auto-fix**: false
 -->
+---
+
+## Observability
+
+<!-- Snapshot cadence controls how often /harness-health should run.
+     Options: weekly (staleness threshold: 10 days), fortnightly (21 days),
+     monthly (30 days). Observatory corpus projects should use weekly. -->
+
+- Snapshot cadence: monthly
+
+### Operating cadence
+
+<!-- Target frequency for each observability activity. Meta-observability
+     checks compare actual run dates against these targets. -->
+
+- Harness audit (/harness-audit): quarterly (90 days)
+- AI literacy assessment (/assess): quarterly (90 days)
+- Reflection review and promotion: monthly (30 days)
+- Cost capture (/cost-capture): quarterly (90 days)
+
+### Health thresholds
+
+<!-- Thresholds for the aggregate health status in each snapshot's Meta
+     section. Adjust to match the project's maturity. -->
+
+- Minimum enforcement ratio for Healthy: 70%
+- Consecutive zero-finding GC snapshots before alert: 3
+- Unpromoted reflection age before learning flow is stalled: 60 days
+- Consecutive declining trend snapshots before alert: 3
+
+### Regression detection
+
+<!-- Conditions that trigger the regression flag in each snapshot's
+     Regression Indicators section. -->
+
+- Cadence non-compliance threshold: 2 or more activities overdue
+- Reflection drought threshold: 4 consecutive weeks with zero reflections
+
 ---
 
 ## Status
