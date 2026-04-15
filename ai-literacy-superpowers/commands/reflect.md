@@ -93,16 +93,6 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
 1. Append the entry to `REFLECTION_LOG.md` (after the last existing
    entry, preserving the `---` separator)
 
-1. **Emit Observatory event.** Append a `reflection.captured` event
-   to `observability/events.jsonl` (create the file if it does not
-   exist):
-
-   ```json
-   {"type": "reflection.captured", "timestamp": "<ISO 8601 UTC>", "signal": "<signal value>", "has_proposal": <bool>, "has_constraint": <bool>}
-   ```
-
-   Event logging is best-effort — if writing fails, continue normally.
-
 1. Do NOT modify `AGENTS.md` — only humans edit that file. If the
    reflection contains a proposal, note it and let the human decide.
 

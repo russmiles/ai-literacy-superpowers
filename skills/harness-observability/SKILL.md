@@ -109,76 +109,64 @@ The harness-auditor agent runs five meta-checks:
 For thresholds and detailed check definitions, consult
 `references/meta-observability-checks.md`.
 
-## Observatory Metrics Block
+## Snapshot Generation: Additional Sections
 
-Every snapshot must include a YAML metrics block appended after all
-markdown sections (including Trends, if present). This block provides
-all quantitative metrics in a structured, typed format for machine
-consumption by the Observatory.
+When `/harness-health` generates a snapshot, it includes the standard
+markdown sections (Enforcement, Garbage Collection, etc.) plus these
+additional sections that provide deeper observability signals.
 
-**Generation steps:**
+### Regression Indicators
 
-1. After writing all markdown sections to the snapshot file, append
-   the YAML metrics block as described in
-   `references/snapshot-format.md` § Observatory Metrics Block. The
-   block is fenced by `---` delimiters and contains the
-   `observatory_metrics` root key.
+After computing the Meta section, compute the Regression Indicators
+section:
 
-2. **Read the configured cadence.** Check the HARNESS.md Observability
+1. **Read the configured cadence.** Check the HARNESS.md Observability
    section for `Snapshot cadence`. Map to a threshold: weekly=10 days,
-   fortnightly=21 days, monthly=30 days. Default to monthly if not
-   configured. Include `configured_cadence` and
-   `cadence_threshold_days` in the `observability` section.
+   fortnightly=21 days, monthly=30 days. Default to monthly.
+2. **Snapshot stale**: Compare previous snapshot date to today. Stale
+   if age exceeds the cadence threshold.
+3. **Cadence non-compliance**: Count how many of audit (90-day),
+   assess (90-day), reflect (30-day), and GC (declared cadence) are
+   overdue. Reuse data already computed for Operational Cadence.
+4. **Consecutive weeks without reflections**: Count calendar weeks
+   backwards from today with zero REFLECTION_LOG.md entries.
+5. **Regression flag**: "yes" if any of: stale = yes,
+   non-compliance >= 2, or consecutive weeks >= 4.
 
-3. **Compute feedback loop activation.** For each loop (advisory,
-   strict, investigative), determine whether it is active and when it
-   was first activated using git history. Cache `first_activated` dates
-   from the previous snapshot — only re-check git history when a
-   loop's status transitions from inactive to active.
+### Enforcement Loop History
 
-4. **Compute regression indicators.** After computing the meta-
-   observability checks, populate the `regression_indicators` section:
-   - `snapshot_stale`: previous snapshot age exceeds cadence threshold
-   - `cadence_non_compliant_count`: count of overdue activities
-     (already computed for Meta section)
-   - `consecutive_zero_reflection_weeks`: count consecutive weeks
-     without REFLECTION_LOG entries, working backwards from today
-   - `regression_flag`: logical OR of the three trigger conditions
+Compute activation dates for each enforcement loop:
 
-5. **Read the violation log.** If `observability/violations.jsonl`
-   exists, read it and count violations since the previous snapshot
-   date, grouped by loop (advisory, strict, investigative). Include
-   the counts in `feedback_loops.latency` and the total line count
-   in `feedback_loops.violations_total`. If the file does not exist,
-   all counts are `0`.
+1. **Advisory (edit-time)**: Active if hooks exist. First activated =
+   earliest git commit that added hooks configuration. Use
+   `git log --diff-filter=A --format=%as` on the hooks file.
+2. **Strict (merge-time)**: Active if CI enforcement workflow exists.
+   First activated = earliest commit adding the harness CI workflow.
+3. **Investigative (scheduled)**: Active if GC rules exist in
+   HARNESS.md with enforcement. First activated = earliest commit
+   adding a GC rule.
 
-6. **Emit Observatory events.** After writing the snapshot file,
-   append events to `observability/events.jsonl` (create the file if
-   it does not exist). See `references/observatory-events.md` for
-   the full event specification.
+After first computation, subsequent snapshots can read the dates from
+the previous snapshot and only re-check if a loop's status changes.
 
-   - Always emit a `snapshot.created` event.
-   - **Constraint diff:** Compare the current HARNESS.md constraints
-     with the previous snapshot's `constraint_maturity.constraints`
-     array. Emit `constraint.added` for new constraints,
-     `constraint.promoted` for tier changes, and `constraint.removed`
-     for absent constraints.
-   - **Regression transitions:** Compare the current
-     `regression_flag` with the previous snapshot. Emit
-     `regression.detected` if it transitions false → true, or
-     `regression.cleared` if it transitions true → false.
+### Changes Since Last Snapshot
 
-   Event logging is best-effort — if writing fails, complete the
-   snapshot normally.
+Derive constraint lifecycle and assessment events by comparing the
+current HARNESS.md constraints against the previous snapshot's
+Enforcement section:
 
-All values in the YAML block come from the same data sources already
-read for the markdown sections — the only additional reads are the
-violation log and event log. Follow the generation rules and
-null-handling policy in the format spec.
+1. **Constraints added**: Names of constraints in current HARNESS.md
+   not present in the previous snapshot's Enforcement section.
+2. **Constraints promoted**: Constraints whose tier changed between
+   snapshots, shown as `name: old tier → new tier`.
+3. **Constraints removed**: Constraints present in the previous
+   snapshot but absent from current HARNESS.md.
+4. **Assessments completed**: Dates and levels from assessment files
+   created since the previous snapshot.
+5. **Governance audits completed**: Dates from audit files in
+   `observability/governance/` created since the previous snapshot.
 
-The schema version is tracked in
-`references/observatory-metrics-schema.md`. The `schema_version` field
-in the YAML block must match the current documented version (1.2.0).
+If no previous snapshot exists, report "first snapshot" for all fields.
 
 ## When to Use This Skill
 

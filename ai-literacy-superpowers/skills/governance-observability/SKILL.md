@@ -17,39 +17,34 @@ for governance health. This skill is referenced by:
 
 | Metric | Type | Description |
 | --- | --- | --- |
-| `schema_version` | string | Version of the governance metrics schema |
-| `constraint_count` | integer | Total governance constraints in HARNESS.md |
-| `falsifiability_ratio` | float (0-1) | Proportion of governance constraints scored as "falsifiable" |
-| `falsifiable_count` | integer | Number of constraints rated "Falsifiable" |
-| `vague_count` | integer | Number of constraints rated "Vague" |
-| `drift_stage` | integer (1-5) | Numeric semantic drift severity from the five-stage model |
-| `drift_score` | enum (low/medium/high) | Overall semantic drift risk across all governance constraints |
-| `drift_velocity` | enum (stable/increasing/decreasing) | Direction of drift trend between audits |
-| `debt_inventory_size` | integer | Number of governance debt items identified |
-| `debt_total_score` | integer | Sum of (severity x blast_radius) across all debt items |
-| `frame_alignment_score` | float (0-1) | Proportion of governance constraints with confirmed three-frame alignment |
-| `last_audit` | date (YYYY-MM-DD) | Date of most recent governance audit |
+| Total constraints | integer | Total governance constraints in HARNESS.md |
+| Falsifiability ratio | percentage | Proportion of governance constraints scored as "falsifiable" |
+| Falsifiable | integer | Number of constraints rated "Falsifiable" |
+| Vague | integer | Number of constraints rated "Vague" |
+| Semantic drift stage | integer (1-5) | Numeric semantic drift severity from the five-stage model |
+| Drift velocity | enum (stable/increasing/decreasing) | Direction of drift trend between audits |
+| Governance debt items | integer | Number of governance debt items identified |
+| Aggregate debt score | integer | Sum of (severity x blast_radius) across all debt items |
+| Frame alignment score | percentage | Proportion of governance constraints with confirmed three-frame alignment |
 
 ## Snapshot Format Extension
 
-The governance block is added to existing harness health snapshots
-in `observability/snapshots/`. It sits alongside the existing
-harness metrics:
+Governance metrics are expressed as a markdown section in audit
+reports. The governance-auditor includes a Governance Summary section
+that agents (including the snapshot generator) can parse directly:
 
-```yaml
-governance:
-  schema_version: "1.0.0"
-  constraint_count: 4
-  falsifiability_ratio: 0.75
-  falsifiable_count: 3
-  vague_count: 0
-  drift_stage: 1
-  drift_score: low
-  drift_velocity: stable
-  debt_inventory_size: 2
-  debt_total_score: 8
-  frame_alignment_score: 0.50
-  last_audit: 2026-04-13
+```text
+## Governance Summary
+
+- Total constraints: 4
+- Falsifiable: 3 (with verification criteria)
+- Vague: 0 (lacking operational meaning)
+- Falsifiability ratio: 75%
+- Semantic drift stage: 1/5
+- Drift velocity: stable
+- Governance debt items: 2
+- Aggregate debt score: 8 (sum of severity x blast radius)
+- Frame alignment score: 50%
 ```
 
 ## Staleness Thresholds
@@ -73,9 +68,7 @@ governance-auditor agent. Each report contains:
 3. **Governance Debt Inventory** — per-item table with severity,
    blast radius, score, affected constraints, recommendation
 4. **Debt Cycle Analysis** — any reinforcement patterns detected
-5. **Governance Metrics Block** — the YAML block for snapshot
-   inclusion
-6. **Prioritised Recommendations** — ordered by debt score
+5. **Prioritised Recommendations** — ordered by debt score
 
 ## Dashboard Specification
 

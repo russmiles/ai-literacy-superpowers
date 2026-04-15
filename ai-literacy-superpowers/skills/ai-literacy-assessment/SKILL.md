@@ -180,21 +180,7 @@ Capture a reflection on the assessment itself:
 
 Append this to REFLECTION_LOG.md as a structured entry.
 
-### Phase 7: Emit Observatory Event
-
-After writing the assessment document, append an `assessment.completed`
-event to `observability/events.jsonl` (create the file if it does not
-exist):
-
-```json
-{"type": "assessment.completed", "timestamp": "<ISO 8601 UTC>", "path": "assessments/YYYY-MM-DD-assessment.md", "level": <int>, "previous_level": <int or null>}
-```
-
-Read the previous assessment to determine `previous_level`. If no
-previous assessment exists, use `null`. Event logging is best-effort —
-if writing fails, continue normally.
-
-### Phase 8: README Badge
+### Phase 7: README Badge
 
 Add or update a badge in the project's README showing the assessed
 level:
