@@ -64,6 +64,7 @@ the previous snapshot and only re-check if a loop's status changes.
 ## Garbage Collection
 - Rules active: N/M
 - Last run: YYYY-MM-DD
+- Cadence compliance: on schedule / overdue (N days since last run, threshold T)
 - Findings since last snapshot: N
 ```
 
@@ -74,6 +75,7 @@ the previous snapshot and only re-check if a loop's status changes.
 | N (active) | Count GC rules with enforcement != none |
 | M (total) | Count all GC rules |
 | Last run | Date of most recent /harness-gc or /harness-audit |
+| Cadence compliance | Compare days since last run against the declared GC cadence. "on schedule" if within threshold, "overdue" if exceeded. Include days since last run and the threshold value for parsability |
 | Findings | Count of GC findings since previous snapshot date (from audit reports or commit messages) |
 
 ### Mutation Testing
@@ -136,9 +138,9 @@ guessing.
 
 ```text
 ## Operational Cadence
-- Last /harness-audit: YYYY-MM-DD
-- Last /assess: YYYY-MM-DD
-- Last /reflect: YYYY-MM-DD
+- Last /harness-audit: YYYY-MM-DD (N days ago — on schedule / overdue, target T days)
+- Last /assess: YYYY-MM-DD (N days ago — on schedule / overdue, target T days)
+- Last /reflect: YYYY-MM-DD (N days ago — on schedule / overdue, target T days)
 - Outer loop overdue: yes/no
 ```
 
@@ -146,10 +148,10 @@ guessing.
 
 | Field | How to compute |
 | ------- | --------------- |
-| Last /harness-audit | HARNESS.md Status section "Last audit" date |
-| Last /assess | Most recent file in assessments/ directory |
-| Last /reflect | Most recent date in REFLECTION_LOG.md |
-| Outer loop overdue | yes if any of the above is older than its declared cadence (audit: 90 days, assess: 90 days, reflect: 30 days) |
+| Last /harness-audit | HARNESS.md Status section "Last audit" date. Annotate with days ago, `on schedule` or `overdue`, and the cadence target from HARNESS.md Observability section (default 90 days) |
+| Last /assess | Most recent file in assessments/ directory. Same annotation format |
+| Last /reflect | Most recent date in REFLECTION_LOG.md. Same annotation format (default 30 days) |
+| Outer loop overdue | yes if any of the above is overdue relative to its declared cadence |
 
 ### Cost Indicators
 
@@ -180,15 +182,26 @@ recent file in `observability/costs/` matching `*-costs.md`.
 ```text
 ## Meta
 - Snapshot cadence: on schedule / overdue
-- Learning flow: active / stalled
+- Cadence compliance: N/4 on schedule (audit, assess, reflect, GC)
+- Learning flow: active / stalled / inactive
 - GC effectiveness: productive / silent
 - Trend alerts: none / [list declining metrics]
+- Health: Healthy / Attention / Degraded
 ```
 
 **Source:** Computed from other sections and previous snapshot.
 
-See `references/meta-observability-checks.md` for check definitions
-and thresholds.
+| Field | How to compute |
+| ------- | --------------- |
+| Snapshot cadence | Compare days since previous snapshot to cadence threshold from HARNESS.md Observability section. "on schedule" if within threshold, "overdue" if exceeded |
+| Cadence compliance | Count how many of the four tracked activities (audit, assess, reflect, GC) are on schedule. Report as `N/4 on schedule` |
+| Learning flow | `active` if new reflections exist since last snapshot. `stalled` if REFLECTION_LOG has entries but none are recent (> unpromoted reflection age threshold from HARNESS.md). `inactive` if REFLECTION_LOG has zero entries or does not exist |
+| GC effectiveness | `productive` if any GC rule produced a finding since the last snapshot. `silent` if all rules reported zero findings |
+| Trend alerts | List any metrics that have declined for the configured consecutive-declining-trend threshold (from HARNESS.md Health thresholds). "none" if no alerts |
+| Health | `Healthy` if all layers operating and no overdue cadences. `Attention` if one layer degraded or outer loop overdue. `Degraded` if multiple layers degraded or no snapshot in 30+ days. See SKILL.md README Health Indicator for colour mapping |
+
+See `references/meta-observability-checks.md` for additional check
+definitions and thresholds.
 
 ### Regression Indicators
 
