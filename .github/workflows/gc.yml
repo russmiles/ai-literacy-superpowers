@@ -9,6 +9,8 @@
 # This workflow covers the deterministic subset:
 #   - Secret scanner operational
 #   - Snapshot staleness
+#   - Release tag completeness (auto-fix: creates missing tags)
+#   - Observability archive (auto-fix: moves old snapshots)
 #
 # Findings are reported as workflow annotations. Non-zero exit
 # fails the workflow so the badge turns red.
@@ -21,7 +23,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   gc:
@@ -29,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          fetch-depth: 0  # Full history needed for tag checks
 
       - name: Check HARNESS.md exists
         run: |
@@ -97,6 +101,64 @@ jobs:
             fi
           done < <(find . -name "*.sh" -not -path "./.git/*")
           exit $failed
+
+      - name: "GC: Release tag completeness"
+        run: |
+          missing=0
+          while IFS= read -r version; do
+            if ! git tag -l "v$version" | grep -q "v$version"; then
+              echo "::warning::Missing tag: v$version"
+              # Auto-fix: find the merge commit that introduced this version
+              commit=$(git log --all --format="%H" --grep="$version" -- CHANGELOG.md | head -1)
+              if [ -n "$commit" ]; then
+                echo "Creating tag v$version at $commit"
+                git tag "v$version" "$commit"
+                git push origin "v$version"
+              else
+                echo "::error::Cannot find commit for v$version — manual tag needed"
+                missing=1
+              fi
+            fi
+          done < <(grep -oP '(?<=^## )\d+\.\d+\.\d+' CHANGELOG.md)
+
+          if [ "$missing" -eq 0 ]; then
+            echo "All release tags present"
+          else
+            exit 1
+          fi
+
+      - name: "GC: Observability archive"
+        run: |
+          if [ ! -d observability/snapshots ]; then
+            echo "No snapshots directory — skipping"
+            exit 0
+          fi
+
+          mkdir -p observability/archive
+          cutoff=$(date -d "6 months ago" +%Y-%m-%d)
+          moved=0
+
+          for f in observability/snapshots/*-snapshot.md; do
+            [ -f "$f" ] || continue
+            filename=$(basename "$f")
+            snapshot_date="${filename%-snapshot.md}"
+            if [[ "$snapshot_date" < "$cutoff" ]]; then
+              echo "Archiving $filename (older than 6 months)"
+              mv "$f" observability/archive/
+              moved=$((moved + 1))
+            fi
+          done
+
+          if [ "$moved" -gt 0 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add observability/archive/ observability/snapshots/
+            git commit -m "GC: Archive $moved snapshot(s) older than 6 months"
+            git push
+            echo "Archived $moved snapshot(s)"
+          else
+            echo "No snapshots older than 6 months — nothing to archive"
+          fi
 
       - name: Summary
         if: always()
