@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.19.0 — 2026-04-15
+
+### Harness template — Observability section
+
+- Add `## Observability` section to HARNESS.md template with snapshot
+  cadence, operating cadence, health thresholds, and regression
+  detection configuration — new harnesses now include self-monitoring
+  defaults out of the box
+
+### Harness upgrade — adopt 0.18.1 template content
+
+- Accept all new template items: 2 constraints (Tests must pass,
+  Spec conformance), 4 active GC rules (Dependency currency,
+  Observability archive, Convention file sync, Reflection-driven
+  regression detection), and 7 commented-out GC rules (governance
+  and fitness function templates)
+- Update template-version marker to 0.19.0
+
 ## 0.18.1 — 2026-04-15
 
 ### Repo cleanup
