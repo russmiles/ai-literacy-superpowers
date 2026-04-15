@@ -96,14 +96,43 @@ Collection, Mutation Testing, Compound Learning, Session Quality,
 Operational Cadence, Cost Indicators, Regression Indicators, Meta,
 Changes Since Last Snapshot, and Trends (if previous snapshot exists).
 
-### 7. Update README
+### 7. Validate Snapshot Structure
+
+**This step is mandatory.** After writing the snapshot file, read
+`observability/snapshots/YYYY-MM-DD-snapshot.md` and verify its
+structure against `references/snapshot-format.md`.
+
+**Structural checks:**
+
+1. All 12 section headings present in order: Enforcement,
+   Enforcement Loop History, Garbage Collection, Mutation Testing,
+   Compound Learning, Session Quality, Operational Cadence,
+   Cost Indicators, Regression Indicators, Meta,
+   Changes Since Last Snapshot, Trends
+2. Trends section is conditional — required only when a previous
+   snapshot exists (step 3 found one)
+3. No YAML `observatory_metrics` block anywhere in the file
+   (deprecated in v0.16.0)
+4. Each section contains the fields defined in
+   `references/snapshot-format.md` for that section
+
+If any check fails, fix the snapshot in place:
+
+- Add missing sections using the field templates from
+  `references/snapshot-format.md` with placeholder values
+- Reorder sections if present but misordered
+- Remove any YAML `observatory_metrics` block if found
+
+Do not regenerate the snapshot. Fix the output directly.
+
+### 8. Update README
 
 Run `${CLAUDE_PLUGIN_ROOT}/scripts/update-health-badge.sh` to update:
 
 - The health badge colour and text
 - The health icon link target (point to the new snapshot)
 
-### 8. Print Summary
+### 9. Print Summary
 
 Print the full snapshot to the session so the developer sees it
 immediately.
@@ -120,7 +149,7 @@ Since last snapshot (YYYY-MM-DD):
   Health: Healthy / Attention / Degraded
 ```
 
-### 9. Nudge Overdue Actions
+### 10. Nudge Overdue Actions
 
 If any cadence is overdue, print a nudge:
 
