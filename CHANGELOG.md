@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.17.0 — 2026-04-15
+
+### Release governance
+
+- Add first governance constraint: release traceability — every
+  plugin version must have a matching changelog heading and git tag
+- Add auto-tag workflow (`.github/workflows/auto-tag.yml`) that
+  creates `vX.Y.Z` tags on merge when the version changes
+- Add "Release tag completeness" GC rule with auto-fix for missing
+  tags
+- HARNESS.md Status: 12/12 constraints enforced, 3/8 GC rules active
+
 ## 0.16.0 — 2026-04-15
 
 ### Observatory rebase: YAML to markdown

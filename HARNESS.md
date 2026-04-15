@@ -154,6 +154,30 @@
 - **Tool**: .github/workflows/version-check.yml
 - **Scope**: pr
 
+### Release traceability
+
+- **Rule**: Every version in `plugin.json` must have a matching
+  `## X.Y.Z — YYYY-MM-DD` heading in `CHANGELOG.md` and a `vX.Y.Z`
+  git tag. The changelog heading must match at PR time. The git tag
+  is created automatically on merge by the auto-tag workflow.
+- **Enforcement**: deterministic
+- **Tool**: .github/workflows/version-check.yml (changelog match),
+  .github/workflows/auto-tag.yml (tag creation)
+- **Scope**: pr + post-merge
+- **Governance requirement**: All published plugin versions must have
+  a corresponding changelog entry and a tag on GitHub
+- **Operational meaning**: PR is blocked if `CHANGELOG.md` top heading
+  does not match `plugin.json` version. On merge to main, CI creates a
+  `vX.Y.Z` git tag if one does not already exist. A GC rule verifies
+  completeness and auto-creates any missing tags.
+- **Verification method**: deterministic — version-check CI (PR gate),
+  auto-tag CI (post-merge), release-tag-completeness GC (periodic)
+- **Evidence**: CI check output, git tag list, GC run logs
+- **Failure action**: block merge (changelog mismatch); auto-create
+  tag (GC finding)
+- **Frame check**: engineering / compliance / AI system interpretations
+  confirmed aligned (see spec 2026-04-15-release-governance-constraint-design.md)
+
 ---
 
 ## Garbage Collection
@@ -229,13 +253,23 @@
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Release tag completeness
+
+- **What it checks**: Whether every version heading in `CHANGELOG.md`
+  has a corresponding `vX.Y.Z` git tag
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: for v in $(grep -oP '(?<=^## )\d+\.\d+\.\d+' CHANGELOG.md); do git tag -l "v$v" | grep -q "v$v" || echo "MISSING: v$v"; done
+- **Auto-fix**: true (creates missing tags pointing at the merge
+  commit that introduced the version heading)
+
 ---
 
 ## Status
 
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
-Last audit: 2026-04-11
-Constraints enforced: 11/11
-Garbage collection active: 2/7
+Last audit: 2026-04-15
+Constraints enforced: 12/12
+Garbage collection active: 3/8
 Drift detected: none
