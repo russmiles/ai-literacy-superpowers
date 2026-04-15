@@ -166,7 +166,7 @@ A coordinated team that handles the full development lifecycle.
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
 
-### Commands (18)
+### Commands (19)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -188,6 +188,7 @@ A coordinated team that handles the full development lifecycle.
 | `/governance-constrain` | Guided governance constraint authoring with three-frame alignment check |
 | `/governance-audit` | Deep governance investigation — semantic drift, debt inventory, frame alignment |
 | `/governance-health` | Governance health pulse check and dashboard generation |
+| `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
 
 ### Templates (9)
 
