@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.21.0 — 2026-04-15
+
+### Observatory signal verification
+
+- Add /observatory-verify command — runs the 82-signal checklist
+  against the latest output files, reporting PRESENT/PARTIAL/MISSING
+  status for each signal the Observatory expects to read
+- Add observatory-signals.md reference — the authoritative checklist
+  of all signals across 5 sources (snapshot, governance, reflections,
+  HARNESS.md, assessments)
+
 ## 0.20.0 — 2026-04-15
 
 ### Human-readable harness onboarding
