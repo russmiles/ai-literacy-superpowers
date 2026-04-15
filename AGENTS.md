@@ -82,6 +82,20 @@
   cadence. Alternative considered: PR workflow for snapshots
   (rejected — would discourage frequent snapshot generation).
 
+- Decision: every command that produces structured output parsed by
+  downstream consumers must include a validation checkpoint step.
+  The pattern is: generate, read back, check against format spec,
+  fix in place. Reason: agents consistently drift from format specs
+  under cognitive load — the governance-auditor ignored its own
+  9-field format spec, /harness-health generated deprecated YAML
+  blocks. Reference templates set intent but do not guarantee
+  compliance. The checkpoint is the verification layer, analogous
+  to type checking in compiled code. Alternative considered:
+  relying on agent instructions alone (rejected — proven unreliable
+  across 8 commands). Alternative considered: hook-based validation
+  (rejected — hooks are advisory-only with 30-second timeouts, too
+  limited for format verification). (Source: REFLECTION_LOG 2026-04-15)
+
 ## TEST_STRATEGY
 
 <!-- How tests are structured in this project. Helps agents write consistent

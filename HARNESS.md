@@ -182,6 +182,18 @@
 - **Frame check**: engineering / compliance / AI system interpretations
   confirmed aligned (see spec 2026-04-15-release-governance-constraint-design.md)
 
+### Output validation checkpoints
+
+- **Rule**: Every command that produces structured output parsed by
+  downstream consumers (snapshots, assessments, audit reports,
+  reflections, cost snapshots, HARNESS.md sections, habitat files,
+  onboarding documents) must include a validation checkpoint step
+  that reads the output, checks structure against the format spec
+  reference, and fixes deviations in place
+- **Enforcement**: agent
+- **Tool**: harness-enforcer agent
+- **Scope**: pr
+
 ### Tests must pass
 
 - **Rule**: The project's test suite must pass with zero failures before
@@ -481,6 +493,6 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-15
-Constraints enforced: 12/13
+Constraints enforced: 13/14
 Garbage collection active: 14/14
 Drift detected: yes
