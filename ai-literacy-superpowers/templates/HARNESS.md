@@ -10,6 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
+<!-- template-version: 0.18.0 -->
 
 ## Context
 
@@ -178,6 +179,17 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Frequency**: weekly
 - **Enforcement**: agent
 - **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Template currency
+
+- **What it checks**: Whether the HARNESS.md template-version marker
+  matches the installed plugin version, indicating new template content
+  is available that hasn't been reviewed
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: compare template-version comment in HARNESS.md against
+  plugin.json version
 - **Auto-fix**: false
 
 <!-- Uncomment if governance constraints are declared above:

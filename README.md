@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.17.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.18.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-27-2E8B57?style=flat-square)](#skills-27)
 [![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
-[![Commands](https://img.shields.io/badge/Commands-18-2E8B57?style=flat-square)](#commands-18)
+[![Commands](https://img.shields.io/badge/Commands-19-2E8B57?style=flat-square)](#commands-19)
 [![Harness](https://img.shields.io/badge/Harness-11%2F11_enforced-2E8B57?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/2026-04-15-snapshot.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -166,7 +166,7 @@ A coordinated team that handles the full development lifecycle.
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
 
-### Commands (18)
+### Commands (19)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -188,6 +188,7 @@ A coordinated team that handles the full development lifecycle.
 | `/governance-constrain` | Guided governance constraint authoring with three-frame alignment check |
 | `/governance-audit` | Deep governance investigation — semantic drift, debt inventory, frame alignment |
 | `/governance-health` | Governance health pulse check and dashboard generation |
+| `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
 
 ### Templates (9)
 
