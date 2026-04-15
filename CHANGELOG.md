@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.18.1 — 2026-04-15
+
+### Repo cleanup
+
+- Remove 6 stale root-level directories (agents, commands, hooks,
+  skills, scripts, templates) — all content already exists in the
+  `ai-literacy-superpowers/` plugin directory
+- Move template-currency-check.sh into plugin and wire up as
+  SessionStart hook — completes the hook that 0.18.0 described
+  but did not ship
+
 ## 0.18.0 — 2026-04-15
 
 ### Template adoption
