@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 19 slash commands registered in `commands/`. Each command is
+All 21 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -92,6 +92,35 @@ Generate a comprehensive health snapshot. Two modes:
 
 Snapshots are saved to `observability/snapshots/` with a datestamped
 filename.
+
+### /harness-onboarding
+
+- **Skills read**: harness-onboarding
+- **Agents dispatched**: none
+
+Generate `ONBOARDING.md` — a human-readable onboarding guide for new
+team members. Reads three sources (HARNESS.md, AGENTS.md,
+REFLECTION_LOG.md) and synthesises them into friendly, practical prose
+organised by what a new contributor needs to know: tech stack,
+conventions, what's enforced and when, common pitfalls, architecture
+decisions, testing approach, how the harness works, and a first-PR
+checklist. Includes a validation checkpoint that verifies all 10
+sections are present and fixes any missing content. A GC rule checks
+monthly whether ONBOARDING.md has become stale relative to its
+sources.
+
+### /observatory-verify
+
+- **Skills read**: none
+- **Agents dispatched**: none
+
+Verify that all data signals the Habitat Observatory expects are
+present and correctly formatted. Runs an 82-signal checklist across
+five source categories (harness health snapshots, assessment documents,
+reflection logs, governance audit reports, and cost snapshots).
+Reports each signal as PRESENT, PARTIAL, or MISSING with a summary
+table showing coverage by category. Use this after generating new
+output files to confirm the Observatory contract is satisfied.
 
 ### /harness-upgrade
 

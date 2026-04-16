@@ -50,8 +50,9 @@ It gives you:
   design, context engineering, fitness functions, model sovereignty, and more
 - **11 agents** — autonomous workers for orchestration, enforcement,
   garbage collection, code review, governance auditing, and TDD
-- **19 commands** — slash commands for harness lifecycle, assessment,
-  portfolio assessment, reflection, governance, and convention management
+- **21 commands** — slash commands for harness lifecycle, assessment,
+  portfolio assessment, reflection, governance, onboarding, and
+  convention management
 - **3 enforcement loops** — advisory at edit time, strict at merge
   time, investigative on schedule
 
