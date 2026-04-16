@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 27 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 28 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -36,6 +36,10 @@ Entropy-fighting periodic checks. Covers how to define GC rules that detect drif
 ### harness-observability
 
 Harness health snapshots and observability. Covers how to read a health snapshot, interpret enforcement scores, and set up alerting when the harness degrades.
+
+### harness-onboarding
+
+Generating human-readable onboarding documentation from harness state. Covers the three-source synthesis (HARNESS.md, AGENTS.md, REFLECTION_LOG.md), tone guidelines for writing for new contributors, section-by-section content mapping, and the validation checkpoint that verifies structural completeness.
 
 ---
 
