@@ -2,6 +2,20 @@
 
 ## 0.22.0 — 2026-04-16
 
+### Marketplace source schema fix
+
+- Fix `source` field in `.claude-plugin/marketplace.json` — bare string
+  form (`"ai-literacy-superpowers"`) from #164 is rejected by the
+  Claude Code marketplace schema with `plugins.0.source: Invalid input`;
+  restore the required `./` prefix (`"./ai-literacy-superpowers"`) so
+  `claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers`
+  parses again
+- Bump listing `version` 0.2.2 → 0.2.3 (source path is a listing
+  contract change per CLAUDE.md); `plugin_version` unchanged
+- Documented behaviour: marketplace `source` as a plain string must be
+  a relative path starting with `./`; the runtime resolves it to the
+  plugin directory and loads `.claude-plugin/plugin.json` from there
+
 ### Copilot CLI install instructions
 
 - Fix README Copilot CLI install block — add missing
