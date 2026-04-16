@@ -28,14 +28,17 @@ the clone if they differ.
 Three properties are non-negotiable:
 
 1. **Silent no-op when state is unusual.** Missing cache directory,
-   offline, non-fast-forward state, or already-current versions all
+   offline, non-fast-forward state, or already-current file all
    exit 0 without output. A failed sync is a diagnostic annoyance,
    never a reason to block the parent hook chain or the user's work.
-2. **Version-gated pull.** The script compares the top-level
-   `version` field (listing version) between cache and
-   `origin/main`. It only pulls when they differ. This matches the
-   user's request ("when the marketplace version changes") and
-   avoids pulling on every merge.
+2. **File-diff-gated pull.** The script pulls when
+   `marketplace.json` on `origin/main` differs from the cached
+   copy — any byte difference qualifies. The narrower "listing
+   version changed" reading was considered and rejected: most
+   plugin release PRs change `plugin_version` (or the per-plugin
+   version) but leave the listing version untouched, which would
+   leave the cache stale after every ordinary release. Gating on
+   the whole file catches all cases at negligible extra cost.
 3. **Fast-forward only.** If the cache has diverged from
    `origin/main` (unexpected), the script refuses to rewrite its
    history and exits silently. The user investigates manually.

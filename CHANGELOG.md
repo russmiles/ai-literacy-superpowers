@@ -6,8 +6,10 @@
 
 - Add `ai-literacy-superpowers/scripts/sync-marketplace-cache.sh` —
   fast-forwards `~/.claude/plugins/marketplaces/ai-literacy-superpowers`
-  when the listing version on `origin/main` differs from the cached
-  one; no-ops silently when cache missing, offline, or already current
+  when `marketplace.json` on `origin/main` differs from the cached
+  copy (any byte difference — covers listing version, `plugin_version`,
+  and per-plugin version bumps); no-ops silently when cache missing,
+  offline, or already current
 - Complements the existing `sync-to-global-cache.sh` (plugin content
   sync); this script handles the marketplace-clone side
 - Wire via a `PostToolUse` hook on `Bash(gh pr merge*)` in

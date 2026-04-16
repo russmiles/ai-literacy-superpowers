@@ -139,9 +139,10 @@ Two scripts handle cache freshness:
 - `ai-literacy-superpowers/scripts/sync-to-global-cache.sh` — rsyncs
   plugin content into the versioned plugin cache (runs on every `Stop`)
 - `ai-literacy-superpowers/scripts/sync-marketplace-cache.sh` — fast-
-  forwards the marketplace clone when the listing version on
-  `origin/main` differs from the cached one (runs on `PostToolUse`
-  matching `Bash(gh pr merge*)`)
+  forwards the marketplace clone whenever `marketplace.json` on
+  `origin/main` differs from the cached copy (runs on `PostToolUse`
+  matching `Bash(gh pr merge*)`; catches listing version,
+  `plugin_version`, and per-plugin version bumps alike)
 
 The hooks that invoke these scripts live in `.claude/settings.local.json`
 (gitignored, per-machine). Collaborators who want the same behaviour
