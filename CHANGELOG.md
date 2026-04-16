@@ -2,6 +2,20 @@
 
 ## 0.22.0 — 2026-04-16
 
+### Copilot CLI install instructions
+
+- Fix README Copilot CLI install block — add missing
+  `copilot plugin marketplace add` step and correct the install
+  command to `copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers`
+  so users on Copilot CLI can actually install the plugin without
+  hitting "plugin not found"
+- Mirror the corrected install block in `docs/index.md` Quick Install
+  so the docs site and README agree; Claude Code and Copilot CLI
+  steps are now shown side-by-side in both places
+- Partial fix for #168 (leaves `docs/how-to/install-the-plugin.md`
+  how-to page and `docs/tutorials/getting-started.md` tutorial-step
+  update for a follow-up)
+
 ### Marketplace cache auto-sync
 
 - Add `ai-literacy-superpowers/scripts/sync-marketplace-cache.sh` —

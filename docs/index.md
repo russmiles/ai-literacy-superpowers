@@ -20,9 +20,18 @@ session.
 
 ## Quick Install
 
+**Claude Code:**
+
 ```bash
 claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
 claude plugin install ai-literacy-superpowers
+```
+
+**GitHub Copilot CLI:**
+
+```bash
+copilot plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
+copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers
 ```
 
 Then in any project:
