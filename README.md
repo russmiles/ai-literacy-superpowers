@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.20.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.21.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-28-2E8B57?style=flat-square)](#skills-27)
 [![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
-[![Commands](https://img.shields.io/badge/Commands-20-2E8B57?style=flat-square)](#commands-19)
+[![Commands](https://img.shields.io/badge/Commands-21-2E8B57?style=flat-square)](#commands-19)
 [![Harness](https://img.shields.io/badge/Harness-13%2F14_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -190,6 +190,7 @@ A coordinated team that handles the full development lifecycle.
 | `/governance-health` | Governance health pulse check and dashboard generation |
 | `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
 | `/harness-onboarding` | Generate a human-readable onboarding guide from harness state |
+| `/observatory-verify` | Verify all Observatory signal contracts against latest output files |
 
 ### Templates (11)
 
