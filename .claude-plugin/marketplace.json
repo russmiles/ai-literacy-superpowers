@@ -3,7 +3,7 @@
   "owner": {
     "name": "Russ Miles"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "plugin_version": "0.21.0",
   "description": "Marketplace listing for the ai-literacy-superpowers Copilot plugin — provides easy install and canonical plugin metadata.",
   "repository": {
@@ -13,7 +13,7 @@
   "plugins": [
     {
       "name": "ai-literacy-superpowers",
-      "source": "./ai-literacy-superpowers/.claude-plugin/plugin.json",
+      "source": "ai-literacy-superpowers",
       "description": "The AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops",
       "version": "0.21.0"
     }

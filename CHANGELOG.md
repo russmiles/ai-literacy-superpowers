@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-16
+
+### Marketplace listing fix
+
+- Correct marketplace.json `source` to point at the plugin directory
+  (`ai-literacy-superpowers`) instead of the full path to `plugin.json`;
+  Claude Code resolves `.claude-plugin/plugin.json` inside the
+  directory automatically
+- Bump listing version 0.2.1 → 0.2.2 (listing contract change; plugin
+  version unchanged)
+
 ## 0.21.0 — 2026-04-15
 
 ### Observatory signal verification
