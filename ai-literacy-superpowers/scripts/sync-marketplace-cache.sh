@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Pull the global marketplace cache when marketplace.json changes upstream.
 #
 # Claude Code keeps ~/.claude/plugins/marketplaces/ai-literacy-superpowers
@@ -14,8 +15,6 @@
 # to block further work.
 #
 # Usage: bash sync-marketplace-cache.sh
-
-set -euo pipefail
 
 CACHE="${HOME}/.claude/plugins/marketplaces/ai-literacy-superpowers"
 
