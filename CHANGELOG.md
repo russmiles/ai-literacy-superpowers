@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.22.0 — 2026-04-16
+
+### Marketplace cache auto-sync
+
+- Add `ai-literacy-superpowers/scripts/sync-marketplace-cache.sh` —
+  fast-forwards `~/.claude/plugins/marketplaces/ai-literacy-superpowers`
+  when `marketplace.json` on `origin/main` differs from the cached
+  copy (any byte difference — covers listing version, `plugin_version`,
+  and per-plugin version bumps); no-ops silently when cache missing,
+  offline, or already current
+- Complements the existing `sync-to-global-cache.sh` (plugin content
+  sync); this script handles the marketplace-clone side
+- Wire via a `PostToolUse` hook on `Bash(gh pr merge*)` in
+  `.claude/settings.local.json` so the cache refreshes the moment a
+  marketplace-affecting PR is merged through the CLI
+- Document the rule under **Marketplace Cache Auto-Sync** in CLAUDE.md
+  so collaborators can opt in by adding the same hook locally
+
 ## 0.21.0 — 2026-04-15
 
 ### Observatory signal verification

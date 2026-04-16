@@ -126,3 +126,24 @@ This plugin's reusable components originate from the
 `ai-literacy-for-software-engineers` repo. When syncing changes,
 use the `/sync-repos` command in that repo to identify what
 needs updating, then apply changes via the PR workflow above.
+
+## Marketplace Cache Auto-Sync
+
+Claude Code keeps a git clone of this repo at
+`~/.claude/plugins/marketplaces/ai-literacy-superpowers/`. When a PR
+that changes `.claude-plugin/marketplace.json` is merged, the clone is
+stale until someone pulls it.
+
+Two scripts handle cache freshness:
+
+- `ai-literacy-superpowers/scripts/sync-to-global-cache.sh` — rsyncs
+  plugin content into the versioned plugin cache (runs on every `Stop`)
+- `ai-literacy-superpowers/scripts/sync-marketplace-cache.sh` — fast-
+  forwards the marketplace clone whenever `marketplace.json` on
+  `origin/main` differs from the cached copy (runs on `PostToolUse`
+  matching `Bash(gh pr merge*)`; catches listing version,
+  `plugin_version`, and per-plugin version bumps alike)
+
+The hooks that invoke these scripts live in `.claude/settings.local.json`
+(gitignored, per-machine). Collaborators who want the same behaviour
+should copy those entries into their own local settings.
