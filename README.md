@@ -36,7 +36,11 @@ claude plugin install ai-literacy-superpowers
 ### GitHub Copilot CLI
 
 ```bash
-/plugin install ai-literacy-superpowers
+# Add the marketplace
+copilot plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
+
+# Install the plugin
+copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers
 ```
 
 Once installed, the plugin's skills, agents, hooks, and commands (or prompts) are available in any session within your project.
