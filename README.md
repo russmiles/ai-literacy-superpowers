@@ -17,6 +17,8 @@ A plugin for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CL
 
 Install the plugin, run `/superpowers-init`, and get a fully operational habitat for AI-assisted development.
 
+New to the project? Start with [ONBOARDING.md](ONBOARDING.md).
+
 ---
 
 ## Installation
