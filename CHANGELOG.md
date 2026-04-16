@@ -2,6 +2,15 @@
 
 ## 0.22.0 — 2026-04-16
 
+### Harness template-version marker bump
+
+- Bump `HARNESS.md` template-version marker 0.21.0 → 0.22.0 after
+  running `/harness-upgrade`; no new constraints, GC rules, or sections
+  to adopt (template content is unchanged since 0.19.0 — the plugin
+  version advanced three releases without template edits)
+- Silences the template-currency GC finding until the next plugin
+  upgrade introduces new template content
+
 ### Marketplace source schema fix
 
 - Fix `source` field in `.claude-plugin/marketplace.json` — bare string
