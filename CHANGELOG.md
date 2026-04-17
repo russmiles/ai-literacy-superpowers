@@ -1,6 +1,19 @@
 # Changelog
 
-## 0.22.0 — 2026-04-16
+## 0.22.0 — 2026-04-17
+
+### Docs — first-time tour tutorial
+
+- Add `docs/tutorials/first-time-tour.md` — a single route through
+  every plugin capability in the order it is most useful on a first
+  run, with the reason each step comes where it does; grouped into
+  eight phases (orient, foundation, measure, adjust, learning loop,
+  governance, cadence, share and scale) plus two day-to-day
+  capabilities (`/worktree`, `/harness-upgrade`)
+- Point `docs/tutorials/getting-started.md` "Next Steps" at the new
+  tour so first-time users land on it naturally after the
+  installation walkthrough
+- Docs-only change; no plugin version bump (0.22.0 retained)
 
 ### Harness template-version marker bump
 
