@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-04-17
+## 0.22.0 — 2026-04-17
 
 ### Docs — first-time tour tutorial
 
@@ -13,8 +13,7 @@
 - Point `docs/tutorials/getting-started.md` "Next Steps" at the new
   tour so first-time users land on it naturally after the
   installation walkthrough
-
-## 0.22.0 — 2026-04-16
+- Docs-only change; no plugin version bump (0.22.0 retained)
 
 ### Harness template-version marker bump
 
