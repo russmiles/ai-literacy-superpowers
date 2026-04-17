@@ -400,6 +400,9 @@ run reflections, and discover patterns worth encoding.
 
 ## Next Steps
 
+- [A First-Time Tour of Every Capability](first-time-tour) — the full
+  tour of every command in the order it is most useful, with the reason
+  each step comes where it does
 - [Creating Your First Skill](your-first-skill) — encode domain knowledge
   that agents will carry into every session
 - [Harness for an Existing Codebase](harness-from-scratch) — strategies for
