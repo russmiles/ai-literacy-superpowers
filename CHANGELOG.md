@@ -15,6 +15,21 @@
   installation walkthrough
 - Docs-only change; no plugin version bump (0.22.0 retained)
 
+### Docs — surfacing-tacit-knowledge tutorial
+
+- Add `docs/tutorials/surfacing-tacit-knowledge.md` — a five-phase
+  walkthrough for turning tacit team knowledge into versioned,
+  enforceable artefacts: scaffold the habitat with
+  `/superpowers-init`, run guided extraction with
+  `/extract-conventions`, mine existing code/PRs/wikis with AI,
+  introduce lightweight ADRs captured in flow (plus `/reflect` for
+  micro-decisions), and generate team-specific onboarding with
+  `/harness-onboarding`. Each command is explained in terms of why
+  it comes where it does and what it produces, with an ATM
+  scheduling-service running example and a closing flywheel that
+  turns the one-time exercise into a quarterly habit
+- Docs-only change; no plugin version bump (0.22.0 retained)
+
 ### CLAUDE.md — CHANGELOG heading format made explicit
 
 - Rewrite the "CHANGELOG" section of `CLAUDE.md` to state the hard
