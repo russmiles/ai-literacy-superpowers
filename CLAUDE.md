@@ -26,9 +26,20 @@ No postamble, trailer, or attribution lines.
 
 Before every PR, update `CHANGELOG.md`:
 
-- Add a dated section at the top if today's date is not already present
-- Group entries under a short theme heading
-- One bullet per change: what changed and why it matters
+- **Every top-level `## ...` heading MUST begin with a semver version
+  followed by a dash and date — `## X.Y.Z — YYYY-MM-DD`.** CI
+  (`Check version consistency`) reads the first whitespace-delimited
+  token after `##` and matches it against `plugin.json`. A date-only
+  heading like `## 2026-04-18` silently parses as `2026` and fails the
+  check with a cryptic version-mismatch error.
+- **For docs-only or other changes that do not bump the plugin
+  version**, append entries under the most recent version's heading.
+  Do not create a new top-level heading without a version.
+- **For plugin changes that warrant a version bump** (see "Semantic
+  Versioning" below), update the top heading to the new version and
+  today's date, then add your entries underneath.
+- Group entries under a short theme heading (`### ...`).
+- One bullet per change: what changed and why it matters.
 
 ## Semantic Versioning
 

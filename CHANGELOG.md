@@ -15,6 +15,20 @@
   installation walkthrough
 - Docs-only change; no plugin version bump (0.22.0 retained)
 
+### CLAUDE.md — CHANGELOG heading format made explicit
+
+- Rewrite the "CHANGELOG" section of `CLAUDE.md` to state the hard
+  invariant enforced by the `Check version consistency` CI step:
+  every top-level `## ...` heading MUST begin with a semver version
+  (`## X.Y.Z — YYYY-MM-DD`). Date-only headings silently parse as the
+  first token (for example `2026`) and fail CI with a cryptic
+  mismatch error.
+- Make the docs-only path explicit: append entries under the most
+  recent version's heading; do not create a new top-level heading
+  without a version. Closes the recommendation from the 2026-04-16
+  reflection that had gone unactioned and caused a repeat CI failure
+  on PR #173 (captured in the 2026-04-18 reflection).
+
 ### Harness template-version marker bump
 
 - Bump `HARNESS.md` template-version marker 0.21.0 → 0.22.0 after
