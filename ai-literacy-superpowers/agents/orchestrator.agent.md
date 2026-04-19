@@ -40,7 +40,14 @@ Run the agents in this order. Steps marked PARALLEL may be dispatched in a singl
 message with multiple Agent tool calls.
 
   1. SEQUENTIAL  — spec-writer        Update spec and plan files first.
-     GATE: Plan Approval — present plan summary to user; wait for approval.
+  1a. SEQUENTIAL — advocatus-diaboli  Read the spec; produce objection record.
+     GATE: Objection Adjudication — surface the objection record to the user.
+           Refuse to proceed while any disposition is `pending`. The user writes
+           dispositions (`accepted`/`deferred`/`rejected`) and rationales inline
+           in docs/superpowers/objections/<spec-slug>.md. Do NOT let any agent
+           write dispositions — this is the cognitive-engagement mechanism.
+     GATE: Plan Approval — once all dispositions are resolved, present the plan
+           summary alongside the adjudicated objection record; wait for approval.
   2. SEQUENTIAL  — tdd-agent          Write failing tests from the new scenarios.
   3. PARALLEL    — (implementers)     Make tests green — dispatch one agent per
                                        language or implementation domain as needed.
@@ -65,19 +72,61 @@ message with multiple Agent tool calls.
    `gh issue create --title "TITLE" --body "DESCRIPTION"`
    Record the issue number — pass it to integration-agent at the end.
 
-## After spec-writer completes — Plan Approval Gate
+## After spec-writer completes — Diaboli and Plan Approval Gate
 
-Before dispatching tdd-agent, PAUSE and present the plan to the user for approval.
-Show:
+### Step 1: Dispatch advocatus-diaboli
+
+Dispatch the advocatus-diaboli agent with the spec file path as input. The agent
+returns the full objection record content. Write that content to
+`docs/superpowers/objections/<spec-slug>.md`.
+
+The spec slug is derived from the spec filename: strip the date prefix and `.md`
+extension. Example:
+`docs/superpowers/specs/2026-04-19-advocatus-diaboli.md` → `advocatus-diaboli`
+
+### Step 2: Validate the objection record
+
+Read back the written file and verify:
+
+1. YAML frontmatter present with `spec`, `date`, `diaboli_model`, `objections` fields
+2. Each objection has `id`, `category`, `severity`, `claim`, `evidence`,
+   `disposition: pending`, `disposition_rationale: null`
+3. Categories are one of: `premise`, `design`, `threat`, `failure`, `operational`, `cost`
+4. Severities are one of: `major`, `minor`
+5. Objection count is between 1 and 12 inclusive
+6. Prose sections present for each objection
+7. "Explicitly not objecting to" section present with at least three entries
+
+Fix any deviations in place. Do not re-dispatch the agent.
+
+### Step 3: Surface the objection record
+
+PAUSE and present the objection record to the user. Show:
+
+- Total objections (major / minor split)
+- Category distribution
+- Each objection's claim and evidence
+
+Tell the user: "Fill in `disposition` and `disposition_rationale` for each
+objection in `docs/superpowers/objections/<slug>.md` before proceeding."
+
+Do NOT proceed while any `disposition` is `pending`.
+
+### Step 4: Plan Approval Gate
+
+Once the user confirms all dispositions are resolved, PAUSE and present the
+plan alongside the adjudicated objection record. Show:
 
 - What spec changes were made (new/modified user stories, scenarios, requirements)
 - What the implementation plan proposes (modules, files, approach)
 - Estimated scope (number of files, languages affected)
+- Summary of objection dispositions (how many accepted, deferred, rejected)
 
 Then ask the user to choose:
 
 - **Approve** — proceed to tdd-agent
 - **Request changes** — re-dispatch spec-writer with the user's feedback
+  (if major objections were accepted, re-run advocatus-diaboli on the revised spec)
 - **Take over** — exit the pipeline; the user will work manually
 
 Do NOT dispatch tdd-agent without user approval. This gate exists because it is

@@ -194,6 +194,20 @@
 - **Tool**: harness-enforcer agent
 - **Scope**: pr
 
+### Spec has adjudicated objections
+
+- **Rule**: Every feature or behaviour-change spec must have a corresponding
+  objection record at `docs/superpowers/objections/<spec-slug>.md` with all
+  dispositions resolved (no `pending` values). Bug fixes, dependency updates,
+  and maintenance PRs (labelled `bug`, `fix`, `chore`, `maintenance` or
+  branch-prefixed `fix/`, `chore/`) are exempt on the same terms as
+  spec-first-commit-ordering. Specs created before 2026-04-19 are exempt —
+  add `diaboli: exempt-pre-existing` to their frontmatter or rely on the
+  dated cutoff in the constraint text.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: pr
+
 ### Tests must pass
 
 - **Rule**: The project's test suite must pass with zero failures before
@@ -374,6 +388,17 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Objection record freshness
+
+- **What it checks**: Whether any spec file in `docs/superpowers/specs/`
+  has been modified more recently than its corresponding objection record
+  in `docs/superpowers/objections/` — a spec edited without re-running
+  `/diaboli` produces a stale objection record
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: find docs/superpowers/specs -name "*.md" -newer docs/superpowers/objections/$(basename "$f" .md | sed 's/^[0-9-]*-//').md 2>/dev/null | grep .
+- **Auto-fix**: false
+
 <!-- Uncomment if governance constraints are declared above:
 
 ### Governance constraint freshness
@@ -493,6 +518,6 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-15
-Constraints enforced: 13/14
-Garbage collection active: 14/14
+Constraints enforced: 13/15
+Garbage collection active: 15/15
 Drift detected: yes

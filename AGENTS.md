@@ -96,6 +96,24 @@
   (rejected — hooks are advisory-only with 30-second timeouts, too
   limited for format verification). (Source: REFLECTION_LOG 2026-04-15)
 
+- Decision: advocatus-diaboli is hard-wired into the spec-first pipeline as an
+  agent-enforced PR constraint from the outset (Option B — not optional, not
+  advisory). The agent is dispatched after spec-writer and before plan approval;
+  the plan-approval gate refuses progression while any disposition is `pending`;
+  the harness-enforcer checks objection record completeness at PR time.
+  Alternatives considered and rejected: (1) manual invocation only — discovers
+  utility in early PRs but never creates discipline; users skip it under pressure;
+  (2) advisory gate without constraint — same failure mode; the gate exists only
+  when someone remembers to run it; (3) deterministic schema check alone — can
+  verify no `pending` values remain but cannot detect rubber-stamping
+  (`disposition: accepted, rationale: "ok"` would pass). Agent enforcement is
+  chosen because "resolved" is a judgment call on rationale quality. Conditions
+  under which this would be revisited: if disposition distribution clusters on
+  `deferred — not material` over a meaningful sample (20+ PRs), tune the SKILL.md
+  charter (tighten evidence requirements, raise the evidence bar) before weakening
+  the constraint. Do not weaken the constraint at first friction — that builds
+  ceremony, not a gate.
+
 ## TEST_STRATEGY
 
 <!-- How tests are structured in this project. Helps agents write consistent
