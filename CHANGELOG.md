@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.25.0 — 2026-04-19
+
+### Feature — diaboli observability panel
+
+- Add Diaboli panel to `commands/superpowers-status.md` (Section 7) — surfaces
+  in-scope vs exempt spec count, objection records present, in-scope specs without
+  a record, fully-resolved record rate, objections total with severity breakdown,
+  mean objections per spec, disposition distribution, and median days
+  spec-to-disposition; summary uses standard `OK`/`MISSING` tokens; error handling
+  for malformed YAML frontmatter
+- Add Diaboli section to snapshot format (`skills/harness-observability/references/
+  snapshot-format.md`) after Session Quality and before Operational Cadence, with
+  field computation table
+- Update `commands/harness-health.md` — Diaboli included in required section list;
+  step 7 validation updated from 12 to 13 required section headings with Diaboli
+  in enumerated list
+- Update `skills/harness-observability/SKILL.md` — reference to Diaboli panel added
+- Add `skills/advocatus-diaboli/references/observability.md` — metric computation
+  definitions, interpretive notes, and watch-for patterns (what each field means
+  and what it does NOT mean)
+- Fix `commands/diaboli.md` validation checkpoint — category and severity taxonomy
+  corrected to match SKILL.md: premise/scope/implementation/risk/alternatives/
+  specification quality and critical/high/medium/low
+- Add ARCH_DECISION to `AGENTS.md` — observability-before-enforcement principle,
+  revisit conditions (10 fully-resolved records or 2026-07-19)
+- Update `docs/explanation/adversarial-review.md` — disposition patterns section
+  now references Diaboli panel surfaces; three-loops section adds observability loop
+- Update `docs/how-to/review-a-spec-adversarially.md` — "What you have now" notes
+  that disposition patterns accumulate and are visible in status/health surfaces
+
 ## 0.24.0 — 2026-04-19
 
 ### Docs and taxonomy — advocatus-diaboli coverage and SKILL.md update
