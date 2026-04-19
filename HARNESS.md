@@ -228,6 +228,17 @@
   origin/main -- REFLECTION_LOG.md | grep -v "#[0-9]" | grep -q .`
 - **Scope**: weekly
 
+### Label PRs at creation time
+
+- **Rule**: When creating a PR with `gh pr create` that requires a label
+  (`chore`, `fix`, `cross-repo`) to bypass a CI gate, always pass
+  `--label <label>` in the `gh pr create` command itself. Labels added after
+  the initial push are invisible to already-queued CI runs and require an
+  empty-commit retrigger.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: manual
+
 <!-- Uncomment if using spec-first development:
 
 ### Spec conformance
