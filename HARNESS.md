@@ -194,6 +194,17 @@
 - **Tool**: harness-enforcer agent
 - **Scope**: pr
 
+### Docs site kept current
+
+- **Rule**: When a PR adds, removes, or substantially changes a skill, agent,
+  or command, the corresponding docs pages in `docs/` (how-to guides,
+  explanation pages, reference material) must be reviewed and updated in the
+  same PR. A PR that changes plugin behaviour without a docs review note in the
+  PR description is incomplete.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer agent
+- **Scope**: pr
+
 ### PRs have adjudicated objections
 
 - **Rule**: Every feature or behaviour-change PR must have (a) a spec-mode

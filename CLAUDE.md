@@ -131,6 +131,28 @@ When adding a new command that writes structured markdown, add a
 validation step following this pattern. Reference the format spec
 rather than inlining field definitions.
 
+## Docs Site Review
+
+The `docs/` directory is the project's documentation site. When presenting a
+plan or opening a PR, always check whether any docs pages need to be created
+or updated:
+
+- `docs/how-to/` — task-oriented guides (one guide per command or workflow)
+- `docs/explanation/` — conceptual background (why things work the way they do)
+- `docs/reference/` — API/schema reference material
+- `docs/tutorials/` — end-to-end walkthroughs
+
+**When a feature adds a new command, skill, or agent**: check for an existing
+how-to guide and create one if missing.
+
+**When a feature changes behaviour**: check whether explanation pages reference
+the old behaviour and update them.
+
+**When a feature changes a format or schema**: check whether reference pages
+are current.
+
+Include docs changes in the same PR as the implementation, not as a follow-up.
+
 ## Sync from Source
 
 This plugin's reusable components originate from the
