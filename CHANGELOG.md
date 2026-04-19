@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.24.0 — 2026-04-19
+
+### Docs and taxonomy — advocatus-diaboli coverage and SKILL.md update
+
+- Add `docs/explanation/adversarial-review.md` — standalone explanation of
+  the Promoter Fidei precedent, Popperian falsifiability, the Schopenhauer
+  non-goal, the human-cognition gate, and disposition patterns as signals
+- Add `docs/how-to/review-a-spec-adversarially.md` — practical guide for
+  running `/diaboli`, reading the objection record, and writing dispositions
+- Update `docs/reference/commands.md` — add `/diaboli` entry with correct
+  taxonomy; count updated to 22
+- Update `docs/reference/agents.md` — add `advocatus-diaboli` agent entry;
+  count updated to 12; pipeline description updated to six-stage sequence
+- Update `docs/explanation/agent-orchestration.md` — pipeline diagram now
+  shows advocatus-diaboli and two human gates; "Where This Breaks Down"
+  names the structural solution; duplicate link removed from Further Reading
+- Update `docs/tutorials/first-time-tour.md` — `/diaboli` section added;
+  count updated to twenty-two
+- Update `skills/advocatus-diaboli/SKILL.md` — category taxonomy updated
+  to premise/scope/implementation/risk/alternatives/specification quality;
+  severity updated to critical/high/medium/low (replaces major/minor);
+  change driven by spec-first review of the docs work itself via /diaboli
+
 ## 0.23.0 — 2026-04-19
 
 ### Feature — advocatus-diaboli adversarial spec review
