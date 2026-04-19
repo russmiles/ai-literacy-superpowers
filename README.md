@@ -49,6 +49,22 @@ Once installed, the plugin's skills, agents, hooks, and commands (or prompts) ar
 
 ### Updating
 
+#### Check if an update is available
+
+Three signals surface new versions without manual polling:
+
+- **SessionStart hook** — if your project has a HARNESS.md, the hook compares
+  its `template-version` marker against the installed plugin version and emits
+  a nudge if they differ. This fires once per upgrade and goes silent after you
+  run `/harness-upgrade`.
+- **Weekly GC rule** — the `Template currency` rule checks the same marker on
+  its weekly schedule and includes any mismatch in the `/harness-health` report.
+- **Manual check** — compare installed vs latest at any time:
+
+```bash
+claude plugin list
+```
+
 #### Update the plugin
 
 When a new version is released, update your local installation:
@@ -62,6 +78,9 @@ claude plugin update ai-literacy-superpowers
 ```
 
 Check the [CHANGELOG](CHANGELOG.md) for what changed between versions.
+
+After updating, run `/harness-upgrade` to review and adopt any new template
+content (constraints, GC rules, optional blocks) into your HARNESS.md.
 
 #### Update the marketplace listing
 
