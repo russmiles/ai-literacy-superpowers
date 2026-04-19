@@ -53,7 +53,7 @@ Pull the latest version into your local environment:
 
 ```bash
 # Claude Code
-claude plugin update ai-literacy-superpowers
+claude plugin update ai-literacy-superpowers@ai-literacy-superpowers
 ```
 
 ```bash
