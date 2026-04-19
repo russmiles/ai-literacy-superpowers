@@ -216,6 +216,18 @@
 - **Tool**: none yet
 - **Scope**: pr
 
+### Reflections via PR workflow
+
+- **Rule**: Every addition to `REFLECTION_LOG.md` must be committed on a
+  branch and merged to `main` via a PR with CI passing. Direct commits to
+  `main` that modify `REFLECTION_LOG.md` are prohibited. Applies to all
+  `/reflect` invocations. Effective from 2026-04-20 — commits before that
+  date are exempt (historical pattern pre-dates this constraint).
+- **Enforcement**: deterministic
+- **Tool**: `! git log --no-merges --format="%H %s" --since="2026-04-20"
+  origin/main -- REFLECTION_LOG.md | grep -v "#[0-9]" | grep -q .`
+- **Scope**: weekly
+
 <!-- Uncomment if using spec-first development:
 
 ### Spec conformance
