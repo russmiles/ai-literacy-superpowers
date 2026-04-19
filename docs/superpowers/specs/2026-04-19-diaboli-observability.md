@@ -166,6 +166,8 @@ at 10 fully-resolved objection records or 2026-07-19, whichever comes first.
 
 ## Artefacts
 
+### Plugin files
+
 1. `ai-literacy-superpowers/commands/superpowers-status.md` — add Section 7; summary
    line uses `OK` / `MISSING` tokens; includes in-scope/exempt split and error handling
 2. `ai-literacy-superpowers/skills/harness-observability/references/snapshot-format.md`
@@ -179,12 +181,31 @@ at 10 fully-resolved objection records or 2026-07-19, whichever comes first.
    metric reference file (computation definitions and interpretive notes only; no arch
    decision content)
 6. `ai-literacy-superpowers/commands/diaboli.md` — fix validation checkpoint taxonomy
+
+### Project files
+
 7. `AGENTS.md` — add ARCH_DECISION (observability-before-enforcement principle,
    revisit conditions)
-8. `ai-literacy-superpowers/.claude-plugin/plugin.json` — 0.24.0 → 0.25.0
-9. `README.md` — badge bump
-10. `.claude-plugin/marketplace.json` — plugin_version bump
-11. `CHANGELOG.md` — new version entry
+
+### Docs site
+
+8. `docs/explanation/adversarial-review.md` — two updates:
+   - "Disposition patterns as a signal" section: add a sentence indicating where
+     these patterns are visible — the Diaboli panel in `/superpowers-status` and the
+     harness-health snapshot
+   - "How this fits the three loops" section: add the observability loop — disposition
+     patterns accumulate in the Diaboli panel and are surfaced by `/superpowers-status`
+     and `/harness-health` on their normal cadence
+9. `docs/how-to/review-a-spec-adversarially.md` — update "What you have now" to note
+   that disposition patterns accumulate across records and become visible in
+   `/superpowers-status` (Section 7: Diaboli Activity) and the harness-health snapshot
+
+### Version
+
+10. `ai-literacy-superpowers/.claude-plugin/plugin.json` — 0.24.0 → 0.25.0
+11. `README.md` — badge bump
+12. `.claude-plugin/marketplace.json` — plugin_version bump
+13. `CHANGELOG.md` — new version entry
 
 ## Exemptions
 
