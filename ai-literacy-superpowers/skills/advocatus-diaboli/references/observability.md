@@ -1,6 +1,6 @@
 ---
 name: diaboli-observability-reference
-description: Metric computation definitions and interpretive notes for the Diaboli panel in /superpowers-status and the harness-health snapshot — what each field means, what it does NOT mean, and watch-for patterns
+description: Metric computation definitions and interpretive notes for the Diaboli panel in /superpowers-status and the harness-health snapshot — what each field means, what it does NOT mean, watch-for patterns, and mode-split interpretation
 ---
 
 # Diaboli Observability Reference
@@ -10,7 +10,7 @@ The Diaboli panel surfaces advocatus-diaboli activity as descriptive stats in
 documents how each metric is computed, how to interpret it, and what it does not tell you.
 
 For the arch decision behind this approach (observability-before-enforcement, revisit
-conditions), see `AGENTS.md` → ARCH_DECISIONS.
+conditions, and the one-agent two-dispatch design), see `AGENTS.md` → ARCH_DECISIONS.
 
 ---
 
@@ -18,16 +18,21 @@ conditions), see `AGENTS.md` → ARCH_DECISIONS.
 
 A spec is **in-scope** for diaboli coverage if its filename date is on or after
 `2026-04-19` — the date the advocatus-diaboli feature shipped. Specs predating this
-date are **exempt** and counted separately. All metrics that compare specs to objection
-records use only in-scope specs.
+date are **exempt** and counted separately.
 
 A **spec slug** is the filename with the `YYYY-MM-DD-` date prefix and `.md` extension
-stripped. A matching **objection record** is the file at
-`docs/superpowers/objections/<slug>.md`.
+stripped.
+
+- A **spec-mode record** is at `docs/superpowers/objections/<slug>.md`
+- A **code-mode record** is at `docs/superpowers/objections/<slug>-code.md`
 
 ---
 
 ## Field definitions
+
+The panel reports **overall totals** (all records, both modes) and **per-mode
+breakdowns** (spec-mode and code-mode separately). The overall totals preserve
+backward comparability with snapshots generated before code-mode existed.
 
 ### In-scope specs
 
@@ -122,6 +127,45 @@ is overwritten. The git date then reflects the post-revision fill date, not the 
 one. This makes the metric an approximation of disposition speed rather than a precise
 measurement. It is useful as an order-of-magnitude indicator of friction, not as a precise
 SLA metric.
+
+---
+
+## Mode-split interpretation
+
+The panel reports per-mode breakdowns for objection records present, disposition
+distribution, and mean objections per record. These cross-mode comparisons carry
+interpretive signal that the per-mode numbers alone do not.
+
+### Code-time objection counts trending up
+
+May indicate spec-time charter is too loose — premise and design issues are not being
+caught at spec time and are slipping through to the implementation. Check whether
+spec-time objection counts are stable or declining at the same time.
+
+**Does not mean:** code-time is working incorrectly. It may also mean specs are arriving
+with genuine ambiguity that only code reveals, or that implementations have broader risk
+surface. Read recent code-mode records to distinguish.
+
+### Code-time objection counts trending down
+
+May indicate spec-time charter is working (fewer issues reaching code), OR may indicate
+code-time charter is too narrow (risk and implementation concerns not being raised). The
+direction alone cannot distinguish these. Check code-mode disposition distribution: a
+high `rejected` rate suggests the agent is raising concerns but humans find them
+unconvincing. A low count with high `accepted` rate may mean the agent is under-challenging.
+
+**Does not mean:** fewer code-time objections is better. The target is raising the
+objections that matter, not minimising objections.
+
+### Disposition distribution diverging sharply between modes
+
+If spec-mode clusters on `rejected` while code-mode clusters on `accepted` (or vice
+versa), the weighting difference is producing qualitatively different objection quality.
+This is a candidate for a reflection — the charter may need mode-specific tuning beyond
+weighting adjustment.
+
+No thresholds are defined. These patterns are candidates for reflection entries, not
+automatic actions.
 
 ---
 

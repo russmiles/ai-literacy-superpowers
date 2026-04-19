@@ -89,35 +89,50 @@ Check for CI configuration:
 
 Check `docs/superpowers/specs/` and `docs/superpowers/objections/`.
 
-A spec is **in-scope** if its filename date is on or after `2026-04-19` (the date
-advocatus-diaboli shipped). Specs with earlier dates are **exempt**. A spec slug is
-the filename with the `YYYY-MM-DD-` date prefix and `.md` extension stripped. A
-matching objection record is `docs/superpowers/objections/<slug>.md`.
+A spec is **in-scope** if its filename date is on or after `2026-04-19`. Specs with
+earlier dates are **exempt**. A spec slug is the filename with the `YYYY-MM-DD-` date
+prefix and `.md` extension stripped.
 
-Compute and report these fields. All are descriptive — no pass/fail status:
+- A **spec-mode record** matches `docs/superpowers/objections/<slug>.md`
+- A **code-mode record** matches `docs/superpowers/objections/<slug>-code.md`
+
+**Error handling**: if any file at `docs/superpowers/objections/` fails YAML parse,
+report it by name as "parse error" and exclude it from all metrics.
+
+#### Overall totals (all records, both modes)
 
 - **In-scope specs**: count of `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-19
 - **Exempt specs (pre-feature)**: count of specs with filename date < 2026-04-19
-- **Objection records present**: count of `docs/superpowers/objections/*.md`,
+- **Objection records present**: count of all `docs/superpowers/objections/*.md`,
   excluding `.gitkeep`
-- **In-scope specs without a record**: in-scope spec slugs with no matching file in
-  `docs/superpowers/objections/`
-- **Fully-resolved record rate**: records where every `disposition` field is
-  non-`pending` / total records (record-level ratio)
+- **In-scope specs without any record**: in-scope spec slugs with no matching spec-mode
+  or code-mode file
 - **Objections total**: sum of `objections` list lengths across all records
-- **Severity breakdown**: count of critical / high / medium / low across all objections
-- **Mean objections per spec**: total objections / count of records (1 decimal)
-- **Disposition distribution**: among non-`pending` dispositions — accepted% / deferred% /
-  rejected%
-- **Median days spec-to-disposition**: spec date from filename; resolution date from
-  `git log` on the objection file; median across fully-resolved records. Report
-  "insufficient data" if fewer than 3 fully-resolved records exist.
+- **Mean objections per record**: total objections / count of records (1 decimal)
 
-**Error handling**: if a file at `docs/superpowers/objections/` fails YAML parse,
-report it by name in the Details section as "parse error" and exclude it from all
-metrics.
+#### Spec-mode breakdown
 
-Summary line: `Diaboli [OK]` when at least one in-scope objection record is present;
+- **Spec-mode records present**: count of `docs/superpowers/objections/<slug>.md` files
+  (no `-code` suffix), excluding `.gitkeep`
+- **Fully-resolved rate (spec-mode)**: records where every `disposition` is non-`pending`
+  / total spec-mode records (record-level ratio)
+- **Disposition distribution (spec-mode)**: among non-`pending` dispositions —
+  accepted% / deferred% / rejected%
+- **Mean objections per spec-mode record**: (1 decimal)
+
+#### Code-mode breakdown
+
+- **Code-mode records present**: count of `docs/superpowers/objections/<slug>-code.md`
+  files
+- **In-scope specs with spec-mode record but no code-mode record**: slugs where
+  `<slug>.md` exists but `<slug>-code.md` does not
+- **Fully-resolved rate (code-mode)**: records where every `disposition` is non-`pending`
+  / total code-mode records (record-level ratio)
+- **Disposition distribution (code-mode)**: among non-`pending` dispositions —
+  accepted% / deferred% / rejected%
+- **Mean objections per code-mode record**: (1 decimal)
+
+Summary line: `Diaboli [OK]` when at least one in-scope spec-mode record is present;
 `Diaboli [MISSING]` when none exist. No `WARNING` state — no threshold is defined yet.
 
 ## Output format

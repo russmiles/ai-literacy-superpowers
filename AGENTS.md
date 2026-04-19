@@ -114,6 +114,23 @@
   the constraint. Do not weaken the constraint at first friction — that builds
   ceremony, not a gate.
 
+- Decision: diaboli runs at two dispatch points (spec-time and code-time) using
+  a single agent with mode-based category weighting. One agent, two dispatches —
+  not two agents. Spec-time dispatch runs after spec-writer, before plan approval;
+  code-time dispatch runs once after the final code-reviewer PASS (or escalation),
+  before integration-agent. The integration-approval gate mirrors the plan-approval
+  gate: refuses while any code-mode disposition is `pending`. Alternatives
+  considered and rejected: (1) separate code-diaboli agent — rejected: duplicates
+  charter, fragments maintenance, creates divergent evolution risk; (2) running
+  diaboli inside the code-reviewer loop per cycle — rejected: burns tokens on draft
+  code, and adversarial review of drafts conflates the code-reviewer's constructive
+  role with diaboli's adversarial one; (3) running code-time diaboli only for PRs
+  above a size threshold — rejected: premature optimisation without
+  disposition-distribution data to justify it. Conditions for revisit: if code-time
+  disposition distribution diverges sharply from spec-time across a meaningful sample
+  (20+ PRs), consider whether the two modes need genuinely separate charters rather
+  than weighting.
+
 - Decision: diaboli activity is surfaced as descriptive stats in existing
   observability surfaces (`/superpowers-status` Section 7 and the harness-health
   snapshot Diaboli panel) without thresholds or new enforcement, pending a

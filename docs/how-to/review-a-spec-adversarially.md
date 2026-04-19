@@ -7,14 +7,23 @@ nav_order: 38
 
 # Review a Spec Adversarially
 
-Run `/diaboli` to get an adversarial review of a spec file before approving the implementation plan.
+Run `/diaboli` to get an adversarial review of a spec (before plan approval) or an
+implementation (before integration). The same command, same agent, same output format —
+only the category weighting and output path differ by mode.
 
 ## When to use this
+
+**Spec mode (default):**
 
 - After `/spec-writer` completes and before you approve the plan
 - When a spec is substantially edited after an objection record already exists
   (the command regenerates the record; prior dispositions are lost — this is intentional)
 - When working outside the full orchestrator pipeline and you want adversarial review on demand
+
+**Code mode (`--mode code`):**
+
+- After the final code-reviewer PASS (or MAX_REVIEW_CYCLES escalation), before integration-agent
+- When working outside the orchestrator pipeline and you want adversarial review of the implementation
 
 Do not use this as a quality check on your own reasoning. The point of the agent is that it
 disagrees with you from a clean context. Running it after you have already decided to proceed
@@ -22,19 +31,24 @@ removes the gate it is meant to enforce.
 
 ---
 
-## 1. Run `/diaboli <spec-path>`
+## 1. Run `/diaboli <spec-path> [--mode spec|code]`
 
-Pass the path to a spec file under `docs/superpowers/specs/`:
+Pass the path to the spec file and an optional mode flag:
 
 ```text
+# Spec mode (default — before plan approval)
 /diaboli docs/superpowers/specs/2026-04-19-my-feature.md
-```
 
-The command dispatches the advocatus-diaboli agent, which reads the spec and produces a
-structured objection record at `docs/superpowers/objections/<spec-slug>.md`.
+# Code mode (after final code-reviewer PASS, before integration)
+/diaboli docs/superpowers/specs/2026-04-19-my-feature.md --mode code
+```
 
 The slug is derived from the spec filename by stripping the date prefix and `.md` extension.
 For example, `2026-04-19-my-feature.md` → `my-feature`.
+
+Output paths:
+- Spec mode: `docs/superpowers/objections/my-feature.md`
+- Code mode: `docs/superpowers/objections/my-feature-code.md`
 
 ---
 
@@ -100,23 +114,27 @@ new thing and deserves a fresh adversarial review.
 ## 5. What you have now
 
 An adjudicated objection record with all dispositions filled and all rationales written.
-The plan-approval gate will not advance while any disposition is `pending`.
 
-The record lives at `docs/superpowers/objections/<slug>.md` and accumulates alongside
-other objection records over time. A GC rule checks weekly whether any spec has been
-modified more recently than its objection record — if so, it flags the record as stale.
+- **Spec mode**: the plan-approval gate will not advance while any disposition is `pending`.
+  The record lives at `docs/superpowers/objections/<slug>.md`.
+- **Code mode**: the integration-approval gate will not advance while any disposition is
+  `pending`. The record lives at `docs/superpowers/objections/<slug>-code.md`.
 
-As records accumulate, disposition patterns (distribution, mean objections per spec,
-median days to adjudication) become visible in `/superpowers-status` Section 7 and the
-harness-health snapshot Diaboli panel. These surfaces update on the normal health cadence
-without requiring a separate command.
+A GC rule checks weekly whether specs or implementations have been modified more recently
+than their corresponding records — if so, the record is flagged as stale.
+
+As records accumulate, disposition patterns (distribution, mean objections per record,
+split by mode) become visible in `/superpowers-status` Section 7 and the harness-health
+snapshot Diaboli panel. These surfaces update on the normal health cadence without
+requiring a separate command. Cross-mode patterns (spec-time vs code-time objection rates)
+carry interpretive signal about whether the spec-time charter is catching issues early.
 
 ---
 
 ## Next steps
 
-- Present the plan for approval — once all dispositions are filled, return to the
-  orchestrator pipeline and approve the spec
-- Proceed to tdd-agent only after plan approval
+- **Spec mode**: once all dispositions are filled, return to the orchestrator pipeline and
+  present the plan for approval; proceed to tdd-agent only after plan approval
+- **Code mode**: once all dispositions are filled, proceed to integration-agent
 - See [Adversarial Review]({% link explanation/adversarial-review.md %}) for the
   conceptual background on why this gate exists and what the agent is not allowed to do

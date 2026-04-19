@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.26.0 — 2026-04-19
+
+### Feature — diaboli code-time dispatch point
+
+- Add Dispatch Modes section to `skills/advocatus-diaboli/SKILL.md` documenting
+  spec-time weighting (premise, alternatives, scope, specification quality) and
+  code-time weighting (risk, implementation); six categories and trust boundary
+  unchanged across modes
+- Update `agents/advocatus-diaboli.agent.md` to accept `mode: spec|code` input
+  (default `spec`); apply mode-appropriate weighting; write to
+  `docs/superpowers/objections/<slug>.md` (spec mode) or
+  `docs/superpowers/objections/<slug>-code.md` (code mode); add `mode:` field to
+  frontmatter
+- Update `commands/diaboli.md` and `.github/prompts/diaboli.prompt.md` to accept
+  optional `--mode` flag; extend validation checkpoint to verify `mode:` field and
+  mode-appropriate required frontmatter fields explicitly
+- Update `agents/orchestrator.agent.md` — add code-time dispatch (step 4a) after
+  code-reviewer loop exits (PASS or escalation); add Integration Approval gate
+  that refuses while any code-mode disposition is `pending`; extend context object
+  with `code_diaboli_slug` field
+- Rename HARNESS.md constraint from "Spec has adjudicated objections" to "PRs have
+  adjudicated objections"; extend rule to require both spec-mode and code-mode
+  records; extend "Objection record freshness" GC rule to cover both record types
+- Extend `commands/superpowers-status.md` Section 7 Diaboli panel with mode-split
+  breakdown (spec-mode and code-mode separately) and overall totals for backward
+  compatibility
+- Extend `skills/harness-observability/references/snapshot-format.md` Diaboli
+  section with mode-split field definitions and computation table
+- Update `skills/advocatus-diaboli/references/observability.md` with mode-split
+  field definitions and cross-mode interpretation patterns (code-time counts
+  trending up/down, distribution divergence)
+- Update `MODEL_ROUTING.md` and `templates/MODEL_ROUTING.md` — note code-time
+  dispatch routes to most-capable tier; judgment load equivalent across modes
+- Update `templates/HARNESS.md` — extended constraint and GC rule for new projects
+- Add ARCH_DECISION to `AGENTS.md` — one agent, two dispatches; alternatives
+  considered and rejected; conditions for revisit at 20+ PRs
+- Update `README.md` — pipeline diagram shows both dispatch points and both gates;
+  Agents table row updated; agent count unchanged at 12
+- Update `docs/explanation/adversarial-review.md` — intro and three-loops section
+  describe both dispatch modes; disposition patterns section notes mode-split stats
+- Update `docs/how-to/review-a-spec-adversarially.md` — code mode documented with
+  `--mode code` flag, output path, and integration-approval gate
+
 ## 0.25.0 — 2026-04-19
 
 ### Feature — diaboli observability panel

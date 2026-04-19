@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.23.0 -->
+<!-- template-version: 0.25.0 -->
 
 ## Context
 
@@ -194,16 +194,18 @@
 - **Tool**: harness-enforcer agent
 - **Scope**: pr
 
-### Spec has adjudicated objections
+### PRs have adjudicated objections
 
-- **Rule**: Every feature or behaviour-change spec must have a corresponding
+- **Rule**: Every feature or behaviour-change PR must have (a) a spec-mode
   objection record at `docs/superpowers/objections/<spec-slug>.md` with all
-  dispositions resolved (no `pending` values). Bug fixes, dependency updates,
-  and maintenance PRs (labelled `bug`, `fix`, `chore`, `maintenance` or
-  branch-prefixed `fix/`, `chore/`) are exempt on the same terms as
-  spec-first-commit-ordering. Specs created before 2026-04-19 are exempt —
-  add `diaboli: exempt-pre-existing` to their frontmatter or rely on the
-  dated cutoff in the constraint text.
+  dispositions resolved (no `pending` values), and (b) a code-mode objection
+  record at `docs/superpowers/objections/<spec-slug>-code.md` with all
+  dispositions resolved. Bug fixes, dependency updates, and maintenance PRs
+  (labelled `bug`, `fix`, `chore`, `maintenance` or branch-prefixed `fix/`,
+  `chore/`) are exempt on the same terms as spec-first-commit-ordering. Specs
+  created before 2026-04-19 are exempt — add `diaboli: exempt-pre-existing`
+  to their frontmatter or rely on the dated cutoff. "Resolved" is a judgment
+  call on rationale quality, not a schema check.
 - **Enforcement**: agent
 - **Tool**: harness-enforcer
 - **Scope**: pr
@@ -413,10 +415,12 @@ Use /governance-constrain for guided authoring of governance constraints.
 
 ### Objection record freshness
 
-- **What it checks**: Whether any spec file in `docs/superpowers/specs/`
-  has been modified more recently than its corresponding objection record
-  in `docs/superpowers/objections/` — a spec edited without re-running
-  `/diaboli` produces a stale objection record
+- **What it checks**: (a) Whether any spec file in `docs/superpowers/specs/`
+  has been modified more recently than its corresponding spec-mode objection
+  record — a spec edited without re-running `/diaboli` produces a stale record.
+  (b) Whether any code-mode record (`<slug>-code.md`) is older than the most
+  recent implementation commit on the branch that introduced it — implementation
+  changes after code-time review produce a stale code-mode record.
 - **Frequency**: weekly
 - **Enforcement**: deterministic
 - **Tool**: find docs/superpowers/specs -name "*.md" -newer docs/superpowers/objections/$(basename "$f" .md | sed 's/^[0-9-]*-//').md 2>/dev/null | grep .
