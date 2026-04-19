@@ -71,7 +71,7 @@ When a new version is released, update your local installation:
 
 ```bash
 # Claude Code
-claude plugin update ai-literacy-superpowers
+claude plugin update ai-literacy-superpowers@ai-literacy-superpowers
 
 # Copilot CLI
 /plugin update ai-literacy-superpowers
