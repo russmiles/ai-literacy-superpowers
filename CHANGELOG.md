@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.23.0 — 2026-04-19
+
+### Feature — advocatus-diaboli adversarial spec review
+
+- Add `skills/advocatus-diaboli/SKILL.md` — charter for the adversarial
+  spec reviewer: six objection categories (premise, design, threat, failure,
+  operational, cost), severity levels (major/minor), 12-objection cap,
+  evidence requirement per objection, mandatory "Explicitly not objecting to"
+  section; intellectual foundations grounded in the historical Promoter of
+  the Faith, Popper on falsifiability, and an explicit anti-Schopenhauer
+  framing (no rhetorical tricks, no winning for its own sake)
+- Add `agents/advocatus-diaboli.agent.md` — read-only agent (Read/Glob/Grep
+  only) that reads a spec and returns objection record content to the
+  orchestrator; disposition fields cannot be written by any agent — this
+  constraint is the human-cognition gate
+- Add `commands/diaboli.md` — `/diaboli <spec-path>` for manual invocation
+  and regeneration; includes a 10-point validation checkpoint per the
+  output-validation-checkpoints constraint
+- Add `.github/prompts/diaboli.prompt.md` — Copilot CLI equivalent
+- Update `agents/orchestrator.agent.md` — pipeline is now: spec-writer →
+  advocatus-diaboli → GATE (objection adjudication, blocked on `pending`) →
+  GATE (plan approval with adjudicated record) → tdd-agent → …
+- Update `HARNESS.md` — add "Spec has adjudicated objections" constraint
+  (agent-enforced, scope pr) with pre-2026-04-19 exemption; add "Objection
+  record freshness" GC rule (deterministic, weekly)
+- Update `templates/HARNESS.md` — new projects scaffolded by `/superpowers-init`
+  inherit both the constraint and the GC rule
+- Update `MODEL_ROUTING.md` — advocatus-diaboli routed to most-capable tier
+  (judgment-heavy, not throughput-heavy)
+- Update `AGENTS.md` — ARCH_DECISION: diaboli hard-wired as PR constraint
+  from the outset; rejected alternatives documented (manual-only, advisory
+  gate, deterministic schema check alone)
+- Create `docs/superpowers/objections/` — directory for objection records
+
 ## 0.22.0 — 2026-04-17
 
 ### Docs — first-time tour tutorial

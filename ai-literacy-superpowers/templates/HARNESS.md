@@ -60,6 +60,19 @@
 - **Tool**: gitleaks detect --source . --no-banner --exit-code 1
 - **Scope**: commit
 
+### Spec has adjudicated objections
+
+- **Rule**: Every feature or behaviour-change spec must have a corresponding
+  objection record at `docs/superpowers/objections/<spec-slug>.md` with all
+  dispositions resolved (no `pending` values). Bug fixes, dependency updates,
+  and maintenance PRs (labelled `bug`, `fix`, `chore`, `maintenance` or
+  branch-prefixed `fix/`, `chore/`) are exempt on the same terms as
+  spec-first-commit-ordering. Specs created before the constraint was added
+  are exempt — add `diaboli: exempt-pre-existing` to their frontmatter.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: pr
+
 ### Tests must pass
 
 - **Rule**: The project's test suite must pass with zero failures before
@@ -179,6 +192,17 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Frequency**: weekly
 - **Enforcement**: agent
 - **Tool**: harness-gc agent
+- **Auto-fix**: false
+
+### Objection record freshness
+
+- **What it checks**: Whether any spec file in `docs/superpowers/specs/`
+  has been modified more recently than its corresponding objection record
+  in `docs/superpowers/objections/` — a spec edited without re-running
+  `/diaboli` produces a stale objection record
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: file mtime comparison between spec and objection record
 - **Auto-fix**: false
 
 ### Onboarding document staleness
