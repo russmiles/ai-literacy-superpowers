@@ -61,6 +61,16 @@ message with multiple Agent tool calls.
            - Summarise what the implementer attempted in each cycle
            - Recommend: accept remaining findings as minor, or intervene manually
            Do NOT continue looping. Human judgment is needed.
+  4a. SEQUENTIAL — advocatus-diaboli  code mode — runs ONCE after the review
+           loop exits, whether by PASS or by escalation. Dispatch regardless of
+           how the loop exited; a PR that exhausted review cycles still requires
+           a code-mode objection record.
+     GATE: Integration Approval — surface the code-mode objection record to the
+           user. Refuse to dispatch integration-agent while any disposition is
+           `pending`. The user writes dispositions (`accepted`/`deferred`/
+           `rejected`) and rationales inline in
+           `docs/superpowers/objections/<spec-slug>-code.md`. Do NOT let any
+           agent write dispositions.
   5. SEQUENTIAL  — integration-agent  CHANGELOG, commit, PR, CI, merge, cleanup.
 
 ## Before dispatching spec-writer
@@ -72,12 +82,12 @@ message with multiple Agent tool calls.
    `gh issue create --title "TITLE" --body "DESCRIPTION"`
    Record the issue number — pass it to integration-agent at the end.
 
-## After spec-writer completes — Diaboli and Plan Approval Gate
+## After spec-writer completes — Diaboli (spec mode) and Plan Approval Gate
 
-### Step 1: Dispatch advocatus-diaboli
+### Step 1: Dispatch advocatus-diaboli in spec mode
 
-Dispatch the advocatus-diaboli agent with the spec file path as input. The agent
-returns the full objection record content. Write that content to
+Dispatch the advocatus-diaboli agent with the spec file path and `mode: spec`.
+The agent returns the full objection record content. Write that content to
 `docs/superpowers/objections/<spec-slug>.md`.
 
 The spec slug is derived from the spec filename: strip the date prefix and `.md`
@@ -133,6 +143,51 @@ Do NOT dispatch tdd-agent without user approval. This gate exists because it is
 far cheaper to fix a bad plan than to fix bad code — especially when the plan
 drives tests that drive implementation.
 
+## After code-reviewer exits — Diaboli (code mode) and Integration Approval Gate
+
+This runs once after the code-reviewer loop exits — whether by PASS or by
+MAX_REVIEW_CYCLES escalation. Do not run per cycle.
+
+### Step 1: Dispatch advocatus-diaboli in code mode
+
+Dispatch the advocatus-diaboli agent with the spec file path and `mode: code`.
+The agent reads the spec for intent and all implementation files changed on the
+branch. Write the returned content to
+`docs/superpowers/objections/<spec-slug>-code.md`.
+
+### Step 2: Validate the code-mode objection record
+
+Read back the written file and verify:
+
+1. YAML frontmatter present with `spec`, `date`, `mode: code`, `diaboli_model`,
+   `objections` fields
+2. Each objection has `id`, `category`, `severity`, `claim`, `evidence`,
+   `disposition: pending`, `disposition_rationale: null`
+3. Categories are one of: `premise`, `scope`, `implementation`, `risk`,
+   `alternatives`, `specification quality`
+4. Severities are one of: `critical`, `high`, `medium`, `low`
+5. Objection count is between 1 and 12 inclusive
+6. Prose sections present for each objection
+7. "Explicitly not objecting to" section present with at least three entries
+
+Fix any deviations in place. Do not re-dispatch the agent.
+
+### Step 3: Integration Approval Gate
+
+PAUSE and present the code-mode objection record to the user. Show:
+
+- Total objections (by severity)
+- Category distribution
+- Each objection's claim and evidence
+
+Tell the user: "Fill in `disposition` and `disposition_rationale` for each
+objection in `docs/superpowers/objections/<slug>-code.md` before proceeding."
+
+Do NOT dispatch integration-agent while any `disposition` is `pending`.
+
+Once the user confirms all code-mode dispositions are resolved, proceed to
+integration-agent.
+
 ## Context object
 
 Maintain a running context string that you update after each agent completes
@@ -144,6 +199,7 @@ and pass to the next. It should always contain:
   spec_changes: what changed in spec/plans (from spec-writer)
   failing_tests: test names confirmed red (from tdd-agent)
   review_result: PASS or findings summary (from code-reviewer)
+  code_diaboli_slug: slug used for the code-mode objection record
 
 ## Skipping stages
 

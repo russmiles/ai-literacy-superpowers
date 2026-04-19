@@ -1,6 +1,6 @@
 ---
 name: advocatus-diaboli
-description: Use after spec-writer completes and before plan approval — reads a spec file and produces a structured objection record at docs/superpowers/objections/<spec-slug>.md; read-only trust boundary enforces the human-cognition gate on dispositions
+description: Use after spec-writer completes (spec mode) or after the final code-reviewer PASS (code mode) — reads the spec or implementation and produces a structured objection record; read-only trust boundary enforces the human-cognition gate on dispositions at both gates
 tools: [Read, Glob, Grep]
 ---
 
@@ -25,10 +25,18 @@ exactly.
 
 ## Input
 
-You receive a spec file path. Read the spec in full before raising any objections.
-Also read any referenced files the spec explicitly points to (linked designs,
-existing constraints, related specs) — objections grounded only in the spec text
-may miss context the spec assumed the reader already had.
+You receive a spec file path and an optional mode: `spec` (default) or `code`.
+
+**Spec mode** (default): Read the spec in full before raising any objections.
+Also read any referenced files the spec explicitly points to — objections grounded
+only in the spec text may miss context the spec assumed the reader already had.
+
+**Code mode**: Read the spec to understand intent, then read all implementation
+files changed by the current branch (use Glob and Grep to find them). Your
+objections must be grounded in the implementation, not just the spec.
+
+Apply the category weighting for the active mode as defined in the Dispatch Modes
+section of the skill. Do not apply spec-time weighting in code mode or vice versa.
 
 ## Trust Boundary
 
@@ -65,8 +73,10 @@ the highest severity and strongest evidence.
 ## Output
 
 Return the full content of the objection record in your response to the
-orchestrator. The orchestrator writes it to
-`docs/superpowers/objections/<spec-slug>.md`.
+orchestrator. The orchestrator writes it to the mode-appropriate path:
+
+- **Spec mode**: `docs/superpowers/objections/<spec-slug>.md`
+- **Code mode**: `docs/superpowers/objections/<spec-slug>-code.md`
 
 The slug is derived from the spec filename: strip the date prefix and `.md`
 extension. Example:
@@ -74,8 +84,8 @@ extension. Example:
 
 Use the exact output format specified in the skill:
 
-- YAML frontmatter with all objections, each having `disposition: pending` and
-  `disposition_rationale: null`
+- YAML frontmatter with `mode: spec` or `mode: code` field, all objections
+  each having `disposition: pending` and `disposition_rationale: null`
 - One prose section per objection (`## O<N> — <category> — <severity>`)
 - A closing "Explicitly not objecting to" section with at least three entries
 
@@ -85,7 +95,8 @@ Return:
 
 1. The full objection record content (to be written to the objections file)
 2. A summary: number of objections by category and severity
-3. Whether any major objections were raised (yes/no)
+3. Whether any high or critical objections were raised (yes/no)
 4. The slug used for the output path
+5. The mode used (`spec` or `code`)
 
 The orchestrator writes the file; you provide the content.

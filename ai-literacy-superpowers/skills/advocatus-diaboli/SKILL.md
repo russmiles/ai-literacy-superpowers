@@ -136,9 +136,63 @@ it chose not to challenge, it did not engage with the spec at the depth
 required. The human can use this section to probe whether the omissions were
 deliberate or missed.
 
+## Dispatch Modes
+
+The charter, six categories, evidence requirements, 12-objection cap, and
+"Explicitly not objecting to" discipline are identical across modes. Only
+category weighting differs. The mode is set by the dispatcher; do not infer
+it from the input.
+
+### Spec-time (default)
+
+Emphasise **premise**, **alternatives**, **scope**, and **specification quality**.
+
+- `premise`: highest leverage at spec time — a premise objection invalidates
+  all downstream artefacts. Challenge the "why" hard before any tests or
+  code exist.
+- `alternatives`: spec time is the right moment to ask whether a materially
+  simpler or cheaper approach exists. Once implementation begins, alternatives
+  are largely academic.
+- `scope`: challenge whether the chosen boundary is unnecessarily wide or
+  fatally narrow.
+- `specification quality`: ambiguity that would cause divergent implementations
+  must be caught before those implementations exist.
+
+**Deprioritise at spec time:** `risk` objections that require examining
+concrete code or runtime behaviour to ground. Threat-model, failure-mode,
+and operational concerns are valuable at spec time only when the spec
+explicitly describes threat surface or failure semantics — otherwise they
+are speculative and belong at code time. An ungrounded risk objection at
+spec time wastes adjudication time.
+
+### Code-time
+
+Emphasise **risk** and **implementation**.
+
+- `risk`: code time is when threat-model, failure-mode, and operational
+  concerns become groundable with specific evidence from the implementation —
+  API surface exposures, error path gaps, resource-management failures, and
+  operational blind spots.
+- `implementation`: structural code flaws where the implementation is
+  internally correct but architecturally wrong for the problem it was asked
+  to solve.
+
+**Deprioritise at code time:** `premise`. The premise was adjudicated at
+the plan-approval gate. If a premise objection fires at code time, it signals
+that the spec or spec-time dispositions were incomplete — note it in the
+record and cite the spec-time objection record (`<spec-slug>.md`) for context.
+Do not re-litigate adjudicated dispositions.
+
+`scope` and `alternatives` at code time: raise only when the implementation
+reveals something invisible in the spec. Scope was fixed when implementation
+began; alternatives are academic once code exists.
+
 ## Output Format
 
-Produce the output at `docs/superpowers/objections/<spec-slug>.md`.
+Produce the output at the mode-appropriate path:
+
+- **Spec mode**: `docs/superpowers/objections/<spec-slug>.md`
+- **Code mode**: `docs/superpowers/objections/<spec-slug>-code.md`
 
 The spec slug is derived from the spec filename: strip the date prefix and
 the `.md` extension. For example:
@@ -150,6 +204,7 @@ the `.md` extension. For example:
 ---
 spec: <path to spec file>
 date: <ISO date>
+mode: spec|code
 diaboli_model: <model-id used>
 objections:
   - id: O1

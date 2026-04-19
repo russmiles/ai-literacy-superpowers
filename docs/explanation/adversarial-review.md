@@ -7,10 +7,12 @@ nav_order: 19
 
 # Adversarial Review
 
-The advocatus-diaboli agent raises objections to a spec before any implementation
-artefacts exist. This page explains why the mechanism is designed the way it is —
-the structural sycophancy problem it addresses, its historical and philosophical roots,
-and what the human-cognition gate actually does.
+The advocatus-diaboli agent runs at two points in the pipeline: once before plan
+approval (spec mode — challenging the premise and design before any code exists) and
+once before integration (code mode — challenging the implementation for threat-model,
+failure-mode, and operational concerns). This page explains why the mechanism is
+designed the way it is — the structural sycophancy problem it addresses, its historical
+and philosophical roots, and what the human-cognition gate actually does.
 
 ---
 
@@ -118,9 +120,14 @@ makes the adversarial review load-bearing rather than advisory.
 
 Over time, the distribution of dispositions across objection records becomes observable.
 These patterns are surfaced in `/superpowers-status` (Section 7: Diaboli Activity) and
-the harness-health snapshot (Diaboli panel), both of which report disposition distribution,
-mean objections per spec, and other descriptive stats across all records. No thresholds are
-set yet — the panel is diagnostic, not evaluative.
+the harness-health snapshot (Diaboli panel), both of which report disposition distribution
+and mean objections split by mode (spec-mode and code-mode) alongside overall totals.
+No thresholds are set yet — the panel is diagnostic, not evaluative.
+
+Cross-mode patterns carry additional signal: code-time objection counts trending up may
+indicate spec-time charter is too loose; code-time counts trending down may indicate
+spec-time is working OR code-time charter is too narrow. See the observability reference
+for interpretation guidance.
 
 Patterns carry information:
 
@@ -145,8 +152,8 @@ against them with reasons. This is the healthy pattern.
 
 ## How this fits the three loops
 
-Adversarial review operates in the commit-time loop — it fires once per feature spec,
-before implementation begins.
+Adversarial review operates in the commit-time loop — it fires twice per feature PR:
+once before implementation begins (spec mode) and once before merge (code mode).
 
 Objection records accumulate in `docs/superpowers/objections/` and feed the other loops:
 

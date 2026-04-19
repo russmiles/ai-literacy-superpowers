@@ -14,6 +14,7 @@
 | ----- | ---- | --------- |
 | orchestrator | Flagship | Coordinates the full pipeline, makes judgment calls about plan approval, review escalation, and skipping stages — requires strong reasoning |
 | spec-writer | Flagship | Producing precise acceptance scenarios and functional requirements that drive tests and implementation demands careful thinking |
+| advocatus-diaboli | Flagship | Adversarial reasoning, evidence-grounded objection — judgment-heavy, not throughput-heavy. Both spec-time and code-time dispatches use this tier; the judgment load is equivalent across modes. |
 | tdd-agent | Balanced | Translating well-specified scenarios into test code is a structured task; a mid-tier model handles it well |
 | code-reviewer | Balanced | Applying CUPID and literate programming lenses is systematic; a mid-tier model can work through the checklist reliably |
 | integration-agent | Efficient | CHANGELOG updates, commit messages, and PR descriptions are templated tasks; a fast, cheap model is sufficient |

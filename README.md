@@ -2,7 +2,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.25.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.26.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-29-2E8B57?style=flat-square)](#skills-29)
 [![Agents](https://img.shields.io/badge/Agents-12-2E8B57?style=flat-square)](#agents-12)
 [![Commands](https://img.shields.io/badge/Commands-22-2E8B57?style=flat-square)](#commands-22)
@@ -191,7 +191,7 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
-| advocatus-diaboli | Adversarial spec reviewer — six-category objection record, read-only trust boundary, human-cognition gate on dispositions | Read only |
+| advocatus-diaboli | Adversarial reviewer — spec-time (premise/design focus, before plan approval) and code-time (risk/implementation focus, before integration); six-category objection record, read-only trust boundary, human-cognition gate on dispositions at both gates | Read only |
 
 ### Commands (22)
 
@@ -497,17 +497,19 @@ When you use the orchestrator agent, it runs this pipeline:
 ```text
 orchestrator
   → spec-writer
-  → advocatus-diaboli (adversarial review — read-only, produces objection record)
-  → GATE: objection adjudication (user writes dispositions; gate blocked while any is `pending`)
-  → GATE: plan approval (user reviews plan + adjudicated objection record)
+  → advocatus-diaboli (spec mode — read-only, produces spec objection record)
+  → GATE: objection adjudication — spec mode (user writes dispositions; gate blocked while any is `pending`)
+  → GATE: plan approval (user reviews plan + adjudicated spec objection record)
   → tdd-agent
   → implementer(s) (parallel, one per language — user-created per project)
   → code-reviewer
   → GUARDRAIL: MAX_REVIEW_CYCLES=3 (escalate after 3 loops)
+  → advocatus-diaboli (code mode — read-only, produces code objection record; runs once after loop exits)
+  → GATE: integration approval — code mode (user writes dispositions; gate blocked while any is `pending`)
   → integration-agent (includes reflection step)
 ```
 
-The objection adjudication gate raises premise-level challenges before any tests or code exist — the cheapest moment to change course. The plan approval gate catches bad plans before they become bad code. The loop guardrail prevents unbounded reviewer cycles.
+The spec objection adjudication gate raises premise-level challenges before any tests or code exist — the cheapest moment to change course. The plan approval gate catches bad plans before they become bad code. The loop guardrail prevents unbounded reviewer cycles. The code objection adjudication gate surfaces threat-model, failure-mode, and operational concerns visible in the implementation before merge.
 
 The plugin ships the orchestrator, spec-writer, tdd-agent, code-reviewer, and integration-agent. Language-specific implementers are not included — each project creates its own based on the stack. See [How to Extend](#how-to-extend) for instructions.
 
