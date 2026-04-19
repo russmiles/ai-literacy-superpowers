@@ -117,6 +117,11 @@ makes the adversarial review load-bearing rather than advisory.
 ## Disposition patterns as a signal
 
 Over time, the distribution of dispositions across objection records becomes observable.
+These patterns are surfaced in `/superpowers-status` (Section 7: Diaboli Activity) and
+the harness-health snapshot (Diaboli panel), both of which report disposition distribution,
+mean objections per spec, and other descriptive stats across all records. No thresholds are
+set yet — the panel is diagnostic, not evaluative.
+
 Patterns carry information:
 
 **Clustering of `low` severity objections that are all deferred:** The agent is raising
@@ -150,6 +155,10 @@ Objection records accumulate in `docs/superpowers/objections/` and feed the othe
 - **Reflection loop**: Recurring patterns in objection types — `scope` objections
   appearing on every PR, for example — are candidates for HARNESS.md constraints or
   CLAUDE.md conventions. When a pattern repeats, it belongs in the harness.
+- **Observability loop**: Disposition distribution, mean objections per spec, and
+  median days to adjudication are surfaced in the Diaboli panel of `/superpowers-status`
+  and the harness-health snapshot. These accumulate across records and become visible on
+  the normal health cadence, without requiring a separate audit.
 
 ---
 

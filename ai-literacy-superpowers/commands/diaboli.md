@@ -55,9 +55,9 @@ Read back `docs/superpowers/objections/<slug>.md` and verify:
    `disposition`, `disposition_rationale`
 4. `disposition` value is `pending` for all entries (not pre-filled)
 5. `disposition_rationale` value is `null` for all entries (not pre-filled)
-6. Category values are one of: `premise`, `design`, `threat`, `failure`,
-   `operational`, `cost`
-7. Severity values are one of: `major`, `minor`
+6. Category values are one of: `premise`, `scope`, `implementation`, `risk`,
+   `alternatives`, `specification quality`
+7. Severity values are one of: `critical`, `high`, `medium`, `low`
 8. Objection count is between 1 and 12 inclusive
 9. Prose body contains one `## O<N>` section per objection
 10. File ends with an `## Explicitly not objecting to` section containing
