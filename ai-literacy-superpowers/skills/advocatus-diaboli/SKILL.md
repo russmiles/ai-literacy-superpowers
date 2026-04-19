@@ -50,7 +50,16 @@ a premise objection invalidates all implementation artefacts downstream.
 *Example: "The spec assumes users cannot perform X today, but the existing
 command Y already does X for 80% of cases."*
 
-### design
+### scope
+
+The spec includes work that is unnecessary for the problem, or excludes work
+that is necessary. Not implementation detail — top-level questions about what
+is in and out of the change.
+
+*Example: "The spec adds three new commands but does not mention updating the
+commands reference, which will be inaccurate on the day it ships."*
+
+### implementation
 
 The chosen approach has a structural flaw independent of the problem being real.
 Do not nit-pick implementation choices. Challenge design decisions that will
@@ -59,51 +68,47 @@ produce wrong outcomes even when correctly executed.
 *Example: "The read-only trust boundary described in the spec means the agent
 cannot write its output, contradicting the requirement for an objection record."*
 
-### threat
+### risk
 
-The spec's design creates or ignores a trust, safety, or abuse-model gap.
-Not CVE-level detail — structural gaps in how the design handles adversarial
-conditions, misuse, or unexpected inputs.
+The spec's design creates or ignores a trust, safety, operational, or failure
+risk. Not CVE-level detail — structural gaps in how the design handles
+adversarial conditions, misuse, unexpected inputs, or foreseeable failure modes
+that the spec leaves unaddressed.
 
-*Example: "The disposition field allows any string value; a bad actor or
-careless human could write 'pending-ish' and pass the gate check."*
+*Example: "The disposition field allows any string value; a careless human
+could write 'pending-ish' and pass the gate check."*
 
-### failure
+### alternatives
 
-The spec does not account for a realistic failure mode. Not hypothetical
-catastrophising — foreseeable failures that the design leaves unaddressed.
+A materially better approach exists and the spec does not acknowledge it. Not
+bikeshedding — an alternative that is meaningfully simpler, cheaper, or more
+aligned with existing project conventions.
 
-*Example: "If spec-writer produces a spec with no frontmatter, the diaboli
-agent has no slug to derive the output path from."*
+*Example: "The spec proposes a new GC rule, but the existing harness-auditor
+agent already checks for this condition and reports it — a second check adds
+noise without coverage."*
 
-### operational
+### specification quality
 
-The described system will be difficult or impossible to operate correctly at
-the scale or cadence implied by the spec. Deployment, monitoring, on-call,
-rollback, and degraded-mode concerns belong here.
+The spec is ambiguous, incomplete, or internally inconsistent in ways that
+would cause divergent implementations. Grammar and formatting are not your
+concern — only ambiguity that would lead a reasonable implementer to produce
+the wrong thing.
 
-*Example: "The weekly GC rule compares file mtimes, but mtime is reset on
-git checkout — a fresh clone will flag every objection record as stale."*
-
-### cost
-
-The approach has a cost (token, latency, human time, infrastructure) that is
-materially disproportionate to the value described, and the spec does not
-acknowledge this trade-off.
-
-*Example: "Dispatching the most-capable tier for every spec review adds
-~$0.50–$2.00 per feature PR. At 20 PRs/month this is $120–$480/year — not
-prohibitive but not free, and the spec does not mention it."*
+*Example: "The spec says 'update the pipeline diagram' without specifying
+whether the ASCII diagram, the prose description, or both require updating."*
 
 ## Severity
 
 Every objection has a severity:
 
-- **major** — if unaddressed, this objection means the feature should not
-  be built as described. The disposition must be `accepted` (spec changes)
-  or `rejected` with a substantive rationale before the pipeline proceeds.
-- **minor** — a real concern that warrants acknowledgement, but does not
-  by itself block the approach. The human may `defer` with a note.
+- **critical** — if unaddressed, the feature should not proceed as described.
+  The human must engage substantively before the pipeline can continue.
+- **high** — a significant structural concern requiring a substantive human
+  decision; does not block the approach outright but cannot be deferred silently.
+- **medium** — a real concern that warrants acknowledgement but does not by
+  itself block the approach. The human may note and continue.
+- **low** — a minor note; informational. No action required before proceeding.
 
 ## Evidence Requirement
 
@@ -148,8 +153,8 @@ date: <ISO date>
 diaboli_model: <model-id used>
 objections:
   - id: O1
-    category: premise|design|threat|failure|operational|cost
-    severity: major|minor
+    category: premise|scope|implementation|risk|alternatives|specification quality
+    severity: critical|high|medium|low
     claim: "one sentence"
     evidence: "direct quote or citation from spec"
     disposition: pending

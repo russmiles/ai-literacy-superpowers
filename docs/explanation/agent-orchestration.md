@@ -98,6 +98,12 @@ Requirements
 [Spec Writer] --> Spec document
     |
     v
+[Advocatus Diaboli] --> Objection record
+    |
+    v
+*** HUMAN ADJUDICATES OBJECTIONS ***
+    |
+    v
 *** HUMAN REVIEWS AND APPROVES SPEC ***
     |
     v
@@ -127,7 +133,7 @@ Requirements
 
 Two things matter here.
 
-**The human gate.** You review and approve the *spec*, before any code is written. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you.
+**The human gates.** There are now two. First, the advocatus-diaboli reviews the spec and produces an objection record — you adjudicate each objection, writing your disposition and rationale inline. The agent cannot do this for you: its trust boundary is read-only. Second, you review and approve the *spec* itself. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you.
 
 **The cycle limit.** When the reviewer rejects and the implementer fixes, there is a maximum of three cycles. Without a limit, you get agent ping-pong: the reviewer keeps finding issues, the implementer keeps introducing new ones, and the token cost keeps climbing. Three cycles is enough for genuine iteration. If it is not resolved in three, a human needs to look — and the problem is usually in the spec, not the code.
 
@@ -162,6 +168,8 @@ The pipeline assumes clean handoffs. In practice, specs are ambiguous. The test 
 
 **Agents that agree too easily.** A reviewer that approves everything is worse than no reviewer, because it gives you false confidence. You need to tune your reviewer's instructions to be genuinely adversarial — not hostile, but sceptical. "What is wrong with this?" is a better reviewer prompt than "Is this OK?"
 
+The structural solution to sycophantic reviewers is not better instructions — it is a separate agent whose entire charter is disagreement, dispatched before any implementation artefacts exist. This is the advocatus-diaboli: a read-only agent that reviews the spec, raises evidence-grounded objections, and cannot write its own dispositions. The last constraint is structural: a human must open the objection record and adjudicate before the pipeline proceeds. This is not a quality filter — it is a cognitive-engagement gate. See [Adversarial Review]({% link explanation/adversarial-review.md %}) for the full conceptual background.
+
 **Context loss between agents.** Each agent starts fresh. That is the point — fresh eyes. But it also means the implementer's reasoning about *why* it made a particular trade-off does not reach the reviewer. The reviewer sees a choice and flags it as wrong without knowing the constraint that forced it. Good pipeline design mitigates this with structured handoff documents, but it does not eliminate it.
 
 > **The Pragmatist:** "OK but what do I actually do on Monday?"
@@ -187,7 +195,7 @@ That is the review process working. The reviewer can reject, and the implementer
 ## Key Takeaways
 
 - **The single-agent bottleneck** — one agent doing everything makes *you* the only quality gate. That does not scale.
-- **Specialised agents** — spec writer, test writer, implementer, reviewer, integrator. Five focused jobs, no overlap.
+- **Specialised agents** — spec writer, adversarial reviewer, test writer, implementer, reviewer, integrator. Six focused jobs, no overlap.
 - **Trust boundaries** — each agent gets exactly the permissions it needs. The reviewer cannot write code. The implementer cannot merge. The implementer cannot edit tests. This is least privilege applied to AI.
 - **The pipeline** — agents work in sequence with gates. The most important gate is the human approving the spec before any code is written.
 - **Where it breaks** — ambiguous specs, compliant reviewers, and context loss between agents. The architecture helps; it does not solve everything.
@@ -197,7 +205,7 @@ That is the review process working. The reviewer can reject, and the implementer
 ## Further reading
 
 - [Agents Reference]({% link reference/agents.md %}) — detailed catalogue of all agents in this plugin
+- [Adversarial Review]({% link explanation/adversarial-review.md %}) — the concepts behind the advocatus-diaboli and the human-cognition gate
 - [Compound Learning]({% link explanation/compound-learning.md %}) — how agent output feeds the learning loop
 - [Constraints and Enforcement]({% link explanation/constraints-and-enforcement.md %}) — the constraints agents enforce
 - [Harness Engineering]({% link explanation/harness-engineering.md %}) — the broader framework that agent orchestration fits within
-- [Agents Reference]({% link reference/agents.md %}) — detailed catalogue of all agents in this plugin

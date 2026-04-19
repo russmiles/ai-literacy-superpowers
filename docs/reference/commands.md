@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 21 slash commands registered in `commands/`. Each command is
+All 22 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -267,6 +267,30 @@ Context and Constraints sections of `HARNESS.md` and generates
 tool-specific convention files for Cursor, Copilot, and Windsurf.
 Ensures all AI coding tools in the team share the same project rules
 regardless of which editor is used.
+
+### /diaboli
+
+- **Skills read**: advocatus-diaboli
+- **Agents dispatched**: advocatus-diaboli
+
+Run the adversarial spec reviewer on a spec file. Takes a path to a spec
+file under `docs/superpowers/specs/` and produces a structured objection
+record at `docs/superpowers/objections/<spec-slug>.md`.
+
+The record contains up to 12 objections across six categories — premise,
+scope, implementation, risk, alternatives, and specification quality — each
+rated critical, high, medium, or low severity. Every objection must include
+evidence quoted from the spec. The agent cannot raise objections without
+grounding them in the spec text.
+
+Objection dispositions must be written by a human before the plan-approval
+gate allows the pipeline to proceed. The agent's trust boundary is
+read-only — it cannot write dispositions for itself. This is the structural
+mechanism that enforces human cognitive engagement before implementation
+begins.
+
+Run `/diaboli <spec-path>` after spec-writer completes and before approving
+the plan. Re-run it if the spec is substantively edited after initial review.
 
 ### /worktree
 

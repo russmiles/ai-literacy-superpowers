@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.22.0 -->
+<!-- template-version: 0.23.0 -->
 
 ## Context
 
