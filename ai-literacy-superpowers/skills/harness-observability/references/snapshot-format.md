@@ -134,6 +134,46 @@ guessing.
 | Signal distribution | Count of each signal type across all reflections (cumulative, not just since last snapshot) |
 | Quality trend | Compare "reflections with signal" percentage to previous snapshot. stable = ±2%, improving = >+2%, declining = <-2% |
 
+### Diaboli
+
+```text
+## Diaboli
+
+- In-scope specs: N (specs dated ≥ 2026-04-19)
+- Exempt specs (pre-feature): N
+- Objection records present: N
+- In-scope specs without a record: N
+- Fully-resolved record rate: P% (N of M records fully resolved)
+- Objections total: N (critical: A | high: B | medium: C | low: D)
+- Mean objections per spec: N.N
+- Disposition distribution: accepted: P% | deferred: P% | rejected: P%
+- Median days spec-to-disposition: N (or "insufficient data")
+```
+
+**Source:** `docs/superpowers/specs/` and `docs/superpowers/objections/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-19`. A spec
+slug is the filename with the `YYYY-MM-DD-` prefix and `.md` extension stripped.
+A matching objection record is `docs/superpowers/objections/<slug>.md`.
+
+| Field | How to compute |
+| ------- | --------------- |
+| In-scope specs | Count `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-19 |
+| Exempt specs (pre-feature) | Count specs with filename date < 2026-04-19 |
+| Objection records present | Count `docs/superpowers/objections/*.md`, excluding `.gitkeep` |
+| In-scope specs without a record | In-scope spec slugs with no matching file in `docs/superpowers/objections/` |
+| Fully-resolved record rate | Records where every `disposition` field is non-`pending` / total records (record-level ratio) |
+| Objections total | Sum of `objections` list lengths across all records |
+| Severity breakdown | Count critical/high/medium/low across all `objections` entries |
+| Mean objections per spec | Total objections / count of records, rounded to 1 decimal |
+| Disposition distribution | Among non-`pending` dispositions only: percentage accepted / deferred / rejected |
+| Median days spec-to-disposition | For each fully-resolved record: days between spec filename date and `git log --format=%as -1` date on the objection file. Median across all fully-resolved records. Report "insufficient data" if fewer than 3 fully-resolved records exist |
+
+**Error handling:** If a file at `docs/superpowers/objections/` fails YAML parse,
+report it by name as "parse error" and exclude it from all metrics.
+
+All fields are descriptive. No pass/fail status, no thresholds defined yet.
+
 ### Operational Cadence
 
 ```text

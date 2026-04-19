@@ -85,6 +85,41 @@ Check for CI configuration:
 - If on a branch with an open PR, show the PR check status:
   `gh pr checks --json name,status,conclusion 2>/dev/null || echo "No open PR"`
 
+### Section 7: Diaboli activity
+
+Check `docs/superpowers/specs/` and `docs/superpowers/objections/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-19` (the date
+advocatus-diaboli shipped). Specs with earlier dates are **exempt**. A spec slug is
+the filename with the `YYYY-MM-DD-` date prefix and `.md` extension stripped. A
+matching objection record is `docs/superpowers/objections/<slug>.md`.
+
+Compute and report these fields. All are descriptive — no pass/fail status:
+
+- **In-scope specs**: count of `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-19
+- **Exempt specs (pre-feature)**: count of specs with filename date < 2026-04-19
+- **Objection records present**: count of `docs/superpowers/objections/*.md`,
+  excluding `.gitkeep`
+- **In-scope specs without a record**: in-scope spec slugs with no matching file in
+  `docs/superpowers/objections/`
+- **Fully-resolved record rate**: records where every `disposition` field is
+  non-`pending` / total records (record-level ratio)
+- **Objections total**: sum of `objections` list lengths across all records
+- **Severity breakdown**: count of critical / high / medium / low across all objections
+- **Mean objections per spec**: total objections / count of records (1 decimal)
+- **Disposition distribution**: among non-`pending` dispositions — accepted% / deferred% /
+  rejected%
+- **Median days spec-to-disposition**: spec date from filename; resolution date from
+  `git log` on the objection file; median across fully-resolved records. Report
+  "insufficient data" if fewer than 3 fully-resolved records exist.
+
+**Error handling**: if a file at `docs/superpowers/objections/` fails YAML parse,
+report it by name in the Details section as "parse error" and exclude it from all
+metrics.
+
+Summary line: `Diaboli [OK]` when at least one in-scope objection record is present;
+`Diaboli [MISSING]` when none exist. No `WARNING` state — no threshold is defined yet.
+
 ## Output format
 
 Print the dashboard as a structured report:
@@ -99,14 +134,17 @@ Agent team       [OK / WARNING / MISSING]
 Compound learning [OK / WARNING / MISSING]
 Model routing    [OK / WARNING / MISSING]
 CI               [OK / WARNING / MISSING]
+Diaboli          [OK / MISSING]
 
 --- Details ---
 
-[Section-by-section findings, flagging anything that is WARNING or MISSING]
+[Section-by-section findings, flagging anything that is WARNING or MISSING;
+ Diaboli section always shown as descriptive stats with no pass/fail colouring]
 
 --- Recommendations ---
 
 [Prioritised list of actions to reach full green, if any]
 ```
 
-If all sections are OK, end with: "Habitat is healthy. All checks passed."
+If all sections are OK and Diaboli has at least one record, end with:
+"Habitat is healthy. All checks passed."

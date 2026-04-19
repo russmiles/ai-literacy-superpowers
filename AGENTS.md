@@ -114,6 +114,22 @@
   the constraint. Do not weaken the constraint at first friction — that builds
   ceremony, not a gate.
 
+- Decision: diaboli activity is surfaced as descriptive stats in existing
+  observability surfaces (`/superpowers-status` Section 7 and the harness-health
+  snapshot Diaboli panel) without thresholds or new enforcement, pending a
+  reflection-informed evaluation. Alternatives considered and rejected:
+  (1) adding a disposition-balance GC rule now — rejected because no data yet
+  exists on what healthy looks like, and a premature threshold creates
+  rubber-stamping pressure (the exact failure mode the mechanism is designed to
+  prevent); (2) adding a separate `/diaboli-status` command — rejected because it
+  fragments the observability surface; status and health are already the canonical
+  panels and adding a third creates a maintenance surface with no corresponding
+  benefit. Conditions under which this is revisited: after 10 fully-resolved
+  objection records OR by 2026-07-19, whichever comes first — write a reflection
+  on the observed patterns (disposition distribution, mean objections, median
+  days) and decide whether a threshold or GC rule is warranted. The revisit
+  output is a reflection entry, not an automatic constraint.
+
 ## TEST_STRATEGY
 
 <!-- How tests are structured in this project. Helps agents write consistent

@@ -106,6 +106,11 @@ The record lives at `docs/superpowers/objections/<slug>.md` and accumulates alon
 other objection records over time. A GC rule checks weekly whether any spec has been
 modified more recently than its objection record — if so, it flags the record as stale.
 
+As records accumulate, disposition patterns (distribution, mean objections per spec,
+median days to adjudication) become visible in `/superpowers-status` Section 7 and the
+harness-health snapshot Diaboli panel. These surfaces update on the normal health cadence
+without requiring a separate command.
+
 ---
 
 ## Next steps
