@@ -119,9 +119,35 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
 1. Do NOT modify `AGENTS.md` — only humans edit that file. If the
    reflection contains a proposal, note it and let the human decide.
 
-1. Commit the updated REFLECTION_LOG.md:
+1. Commit the updated REFLECTION_LOG.md.
+
+   Check whether the project declares a "Reflections via PR workflow"
+   constraint (or equivalent) in `HARNESS.md`. If yes, use a branch and
+   a labelled PR; if not, commit directly to the current branch.
+
+   **PR workflow (when the constraint is declared):**
+
+   ```bash
+   slug="<short-slug-derived-from-task>"
+   git checkout -b "add-reflection-${slug}"
+   git add REFLECTION_LOG.md
+   git commit -m "Add reflection: <one-line summary of the task>"
+   git push -u origin "add-reflection-${slug}"
+   gh pr create --label chore \
+     --title "Add reflection: <one-line summary of the task>" \
+     --body "<short body summarising the surprise + signal classification>"
+   ```
+
+   Pass `--label chore` directly on `gh pr create` (per the "Label PRs
+   at creation time" constraint, where present) so the PR is exempt
+   from spec-first-commit-ordering and adjudicated-objections gates
+   that would otherwise block a docs-only reflection PR. Wait for CI
+   to pass, then merge with
+   `gh pr merge <n> --squash --delete-branch` and `git pull` on main.
+
+   **Direct commit (when the constraint is not declared):**
 
    ```bash
    git add REFLECTION_LOG.md
-   git commit -m "Add reflection: [one-line summary of the task]"
+   git commit -m "Add reflection: <one-line summary of the task>"
    ```

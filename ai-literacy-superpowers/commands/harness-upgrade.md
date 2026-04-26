@@ -17,6 +17,29 @@ selectively adopt what you want.
 Verify HARNESS.md exists at the project root. If not, tell the user:
 "No HARNESS.md found. Run /harness-init to create one."
 
+**Verify local main is in sync with origin.** The marketplace cache
+auto-syncs from `origin/main` on every PR merge, so this command
+compares the user's local HARNESS.md against a near-real-time view of
+main. If the local clone is stale, the upgrade will suggest content
+that has already merged, and the resulting PR will conflict at push
+time. Run:
+
+```bash
+git fetch origin main 2>/dev/null && \
+  git rev-list HEAD..origin/main --count 2>/dev/null
+```
+
+If the count is non-zero, warn the user: "Your local clone is N
+commits behind origin/main. The upgrade comparison may suggest content
+that has already merged. Recommend `git pull` (if on main) or rebasing
+your branch before continuing."
+
+Offer to abort so the user can sync, or continue if the divergence is
+known to be safe. Default: prompt the user. If `git fetch` or
+`git rev-list` fails (no remote `main`, detached HEAD), skip this
+check and continue silently — the staleness guard is best-effort, not
+a hard block.
+
 Read the plugin version from
 `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`.
 
