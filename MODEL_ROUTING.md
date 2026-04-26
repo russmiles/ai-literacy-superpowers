@@ -9,6 +9,7 @@
 | --- | --- | --- |
 | orchestrator | Most capable | Coordination, judgment, decomposition |
 | spec-writer | Most capable | Design judgment, specification quality |
+| advocatus-diaboli | Most capable | Adversarial reasoning, evidence-grounded objection — judgment-heavy, not throughput-heavy. Both spec-time and code-time dispatches use this tier; the judgment load is equivalent across modes. |
 | tdd-agent | Standard | Structured output from specs |
 | {{LANGUAGE}}-implementer | Standard / Capable | Depends on task complexity |
 | code-reviewer | Most capable | Nuance, quality judgment |

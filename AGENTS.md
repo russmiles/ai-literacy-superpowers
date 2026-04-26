@@ -96,6 +96,57 @@
   (rejected — hooks are advisory-only with 30-second timeouts, too
   limited for format verification). (Source: REFLECTION_LOG 2026-04-15)
 
+- Decision: advocatus-diaboli is hard-wired into the spec-first pipeline as an
+  agent-enforced PR constraint from the outset (Option B — not optional, not
+  advisory). The agent is dispatched after spec-writer and before plan approval;
+  the plan-approval gate refuses progression while any disposition is `pending`;
+  the harness-enforcer checks objection record completeness at PR time.
+  Alternatives considered and rejected: (1) manual invocation only — discovers
+  utility in early PRs but never creates discipline; users skip it under pressure;
+  (2) advisory gate without constraint — same failure mode; the gate exists only
+  when someone remembers to run it; (3) deterministic schema check alone — can
+  verify no `pending` values remain but cannot detect rubber-stamping
+  (`disposition: accepted, rationale: "ok"` would pass). Agent enforcement is
+  chosen because "resolved" is a judgment call on rationale quality. Conditions
+  under which this would be revisited: if disposition distribution clusters on
+  `deferred — not material` over a meaningful sample (20+ PRs), tune the SKILL.md
+  charter (tighten evidence requirements, raise the evidence bar) before weakening
+  the constraint. Do not weaken the constraint at first friction — that builds
+  ceremony, not a gate.
+
+- Decision: diaboli runs at two dispatch points (spec-time and code-time) using
+  a single agent with mode-based category weighting. One agent, two dispatches —
+  not two agents. Spec-time dispatch runs after spec-writer, before plan approval;
+  code-time dispatch runs once after the final code-reviewer PASS (or escalation),
+  before integration-agent. The integration-approval gate mirrors the plan-approval
+  gate: refuses while any code-mode disposition is `pending`. Alternatives
+  considered and rejected: (1) separate code-diaboli agent — rejected: duplicates
+  charter, fragments maintenance, creates divergent evolution risk; (2) running
+  diaboli inside the code-reviewer loop per cycle — rejected: burns tokens on draft
+  code, and adversarial review of drafts conflates the code-reviewer's constructive
+  role with diaboli's adversarial one; (3) running code-time diaboli only for PRs
+  above a size threshold — rejected: premature optimisation without
+  disposition-distribution data to justify it. Conditions for revisit: if code-time
+  disposition distribution diverges sharply from spec-time across a meaningful sample
+  (20+ PRs), consider whether the two modes need genuinely separate charters rather
+  than weighting.
+
+- Decision: diaboli activity is surfaced as descriptive stats in existing
+  observability surfaces (`/superpowers-status` Section 7 and the harness-health
+  snapshot Diaboli panel) without thresholds or new enforcement, pending a
+  reflection-informed evaluation. Alternatives considered and rejected:
+  (1) adding a disposition-balance GC rule now — rejected because no data yet
+  exists on what healthy looks like, and a premature threshold creates
+  rubber-stamping pressure (the exact failure mode the mechanism is designed to
+  prevent); (2) adding a separate `/diaboli-status` command — rejected because it
+  fragments the observability surface; status and health are already the canonical
+  panels and adding a third creates a maintenance surface with no corresponding
+  benefit. Conditions under which this is revisited: after 10 fully-resolved
+  objection records OR by 2026-07-19, whichever comes first — write a reflection
+  on the observed patterns (disposition distribution, mean objections, median
+  days) and decide whether a threshold or GC rule is warranted. The revisit
+  output is a reflection entry, not an automatic constraint.
+
 ## TEST_STRATEGY
 
 <!-- How tests are structured in this project. Helps agents write consistent

@@ -7,7 +7,7 @@ nav_order: 7
 
 # A First-Time Tour of Every Capability
 
-The plugin ships with twenty-one slash commands, a dozen agents, and
+The plugin ships with twenty-two slash commands, a dozen agents, and
 dozens of skills. Opened all at once, that is a lot of surface area.
 This tutorial gives you a single route through it — every capability
 in the order it is most useful on a first run, with the reason each
@@ -508,6 +508,26 @@ removes it.
 agents on independent work streams, or run a risky refactor in
 isolation from your main workspace.
 
+### `/diaboli`
+
+**What it does.** Dispatches the advocatus-diaboli agent against a
+spec file and produces a structured objection record at
+`docs/superpowers/objections/<slug>.md`. The agent raises up to 12
+objections across six categories (premise, scope, implementation,
+risk, alternatives, specification quality), each with a severity
+rating (critical, high, medium, low). Objection dispositions must
+be written by a human — the agent cannot do this for itself.
+
+**When to reach for it.** After spec-writer produces a spec and
+before you approve the plan. The orchestrator invokes it
+automatically in the pipeline; run it manually when working outside
+the full pipeline or when a spec is substantially revised after
+initial review.
+
+```text
+/diaboli docs/superpowers/specs/2026-04-19-my-feature.md
+```
+
 ### `/harness-upgrade`
 
 **What it does.** Compares the template version marker in your
@@ -557,7 +577,9 @@ it is short:
 
 Between quarters: `/reflect` after meaningful sessions,
 `/harness-constrain` to promote unverified constraints as tooling
-arrives, `/harness-upgrade` when plugin updates land.
+arrives, `/harness-upgrade` when plugin updates land,
+`/diaboli <spec-path>` after spec-writer when starting any feature —
+before plan approval.
 
 ---
 

@@ -194,12 +194,15 @@
 - **Tool**: harness-enforcer agent
 - **Scope**: pr
 
-### Tests must pass
+### Docs site kept current
 
-- **Rule**: The project's test suite must pass with zero failures before
-  any code is merged
-- **Enforcement**: unverified
-- **Tool**: none yet
+- **Rule**: When a PR adds, removes, or substantially changes a skill, agent,
+  or command, the corresponding docs pages in `docs/` (how-to guides,
+  explanation pages, reference material) must be reviewed and updated in the
+  same PR. A PR that changes plugin behaviour without a docs review note in the
+  PR description is incomplete.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer agent
 - **Scope**: pr
 
 ### PRs have adjudicated objections
@@ -211,12 +214,43 @@
   dispositions resolved. Bug fixes, dependency updates, and maintenance PRs
   (labelled `bug`, `fix`, `chore`, `maintenance` or branch-prefixed `fix/`,
   `chore/`) are exempt on the same terms as spec-first-commit-ordering. Specs
-  created before the constraint was added are exempt — add
-  `diaboli: exempt-pre-existing` to their frontmatter. "Resolved" is a judgment
+  created before 2026-04-19 are exempt — add `diaboli: exempt-pre-existing`
+  to their frontmatter or rely on the dated cutoff. "Resolved" is a judgment
   call on rationale quality, not a schema check.
 - **Enforcement**: agent
 - **Tool**: harness-enforcer
 - **Scope**: pr
+
+### Tests must pass
+
+- **Rule**: The project's test suite must pass with zero failures before
+  any code is merged
+- **Enforcement**: unverified
+- **Tool**: none yet
+- **Scope**: pr
+
+### Reflections via PR workflow
+
+- **Rule**: Every addition to `REFLECTION_LOG.md` must be committed on a
+  branch and merged to `main` via a PR with CI passing. Direct commits to
+  `main` that modify `REFLECTION_LOG.md` are prohibited. Applies to all
+  `/reflect` invocations. Effective from 2026-04-20 — commits before that
+  date are exempt (historical pattern pre-dates this constraint).
+- **Enforcement**: deterministic
+- **Tool**: `! git log --no-merges --format="%H %s" --since="2026-04-20"
+  origin/main -- REFLECTION_LOG.md | grep -v "#[0-9]" | grep -q .`
+- **Scope**: weekly
+
+### Label PRs at creation time
+
+- **Rule**: When creating a PR with `gh pr create` that requires a label
+  (`chore`, `fix`, `cross-repo`) to bypass a CI gate, always pass
+  `--label <label>` in the `gh pr create` command itself. Labels added after
+  the initial push are invisible to already-queued CI runs and require an
+  empty-commit retrigger.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: manual
 
 <!-- Uncomment if using spec-first development:
 
@@ -396,10 +430,11 @@ Use /governance-constrain for guided authoring of governance constraints.
   has been modified more recently than its corresponding spec-mode objection
   record — a spec edited without re-running `/diaboli` produces a stale record.
   (b) Whether any code-mode record (`<slug>-code.md`) is older than the most
-  recent implementation commit on the branch that introduced it.
+  recent implementation commit on the branch that introduced it — implementation
+  changes after code-time review produce a stale code-mode record.
 - **Frequency**: weekly
 - **Enforcement**: deterministic
-- **Tool**: file mtime comparison between spec and objection record
+- **Tool**: find docs/superpowers/specs -name "*.md" -newer docs/superpowers/objections/$(basename "$f" .md | sed 's/^[0-9-]*-//').md 2>/dev/null | grep .
 - **Auto-fix**: false
 
 <!-- Uncomment if governance constraints are declared above:
@@ -521,6 +556,6 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-15
-Constraints enforced: 13/14
-Garbage collection active: 14/14
+Constraints enforced: 13/15
+Garbage collection active: 15/15
 Drift detected: yes

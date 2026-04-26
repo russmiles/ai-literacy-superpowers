@@ -276,3 +276,51 @@
   - Model tiers used: most-capable (main conversation, 100%; no subagents dispatched)
   - Pipeline stages completed: manual tutorial draft, commit, push, PR, 2 CI failures (spec-first, version-consistency), fix-up commit, label add (chore), merge; no orchestrator pipeline used
   - Agent delegation: manual
+
+---
+
+- **Date**: 2026-04-19
+- **Agent**: claude-sonnet-4-6 (main conversation, no subagents)
+- **Task**: Added advocatus-diaboli adversarial spec review — skill, agent, command, Copilot CLI prompt, orchestrator wiring, HARNESS.md constraint + GC rule, MODEL_ROUTING.md update, AGENTS.md ARCH_DECISION, README badge/table/pipeline-diagram updates, plugin v0.22.0 → v0.23.0. PR #177 merged; follow-up PR #178 added .gitkeep to docs/superpowers/objections/.
+- **Surprise**: All 5 CI checks (spec-first commit ordering, version consistency, constraint enforcement, markdownlint ×2) passed on the first push — no iteration required for a 14-file, 693-insertion PR. The deeper surprise was structural: `docs/superpowers/objections/` was created with `mkdir -p` and staged, but git does not track empty directories. The directory was absent from the repo after merge, meaning the harness-enforcer's path reference and the constraint wording pointed into a location that would not exist until the first `/diaboli` run. The fix (a `.gitkeep`) is one file, but discovering the gap required a post-merge reflection — not CI.
+- **Proposal**: STYLE: When a PR introduces a new directory that must exist for a constraint or agent to function correctly, always commit a `.gitkeep` in that directory as part of the implementation commit — not as a follow-up. Git's empty-directory behaviour is a well-known gotcha but easy to forget under implementation load. This applies to any `docs/`, `observability/`, or `objections/`-style directory referenced in a constraint rule.
+- **Improvement**: The read-only tool boundary on the advocatus-diaboli agent (`tools: [Read, Glob, Grep]`) is the cognitive-engagement mechanism, not a security afterthought. Future agents or contributors modifying the agent definition should understand that adding Write access would silently bypass the human-disposition gate. This design intent is not obvious from the file alone — it is explained in the skill and the orchestrator, but the agent file would benefit from a short note in its Trust Boundary section (already present, but worth reinforcing in AGENTS.md if the pattern is adopted elsewhere).
+- **Signal**: workflow
+- **Constraint**: none
+- **Session metadata**:
+  - Duration: ~60 min
+  - Model tiers used: most-capable (main conversation, 100%; no subagents dispatched)
+  - Pipeline stages completed: spec (commit 1), implementation (commit 2), version bump (commit 3), PR #177, CI pass, merge; follow-up fix PR #178, CI pass, merge; reflect
+  - Agent delegation: manual (direct implementation; no orchestrator pipeline invoked)
+
+---
+
+- **Date**: 2026-04-19
+- **Agent**: claude-sonnet-4-6 (main conversation, no subagents)
+- **Task**: Added update-the-plugin documentation to README and docs site (three discovery signals: SessionStart hook, weekly GC rule, `claude plugin list`; `/harness-upgrade` as post-update step); fixed the Claude Code plugin update command to include the marketplace specifier (`ai-literacy-superpowers@ai-literacy-superpowers`). Two PRs: #183 and #184.
+- **Surprise**: The `chore` label applied to a PR *after* creation does not affect already-triggered CI runs — the spec-first check reads labels at trigger time, so anything added post-push is invisible to the running job. The fix (push an empty no-op commit) works but leaves junk history, and we hit this exact pattern twice in the same session (PRs #183 and #184).
+- **Proposal**: WORKFLOW: When a PR needs a `chore`, `fix`, or `cross-repo` label to skip a CI gate, pass `--label` directly in `gh pr create` rather than adding it after. This ensures the label is present when the first CI run is queued.
+- **Improvement**: `gh pr create` accepts `--label <label>` — use it in the create command itself so the label is present at trigger time. No empty commits needed.
+- **Signal**: failure
+- **Constraint**: Label PRs at creation time (agent)
+- **Session metadata**:
+  - Duration: ~30 min (this session; total across summarised + live session ~3 hrs)
+  - Model tiers used: most-capable (main conversation, 100%; no subagents dispatched)
+  - Pipeline stages completed: docs update (commit, push, PR #183, empty-commit retrigger, CI pass, merge), fix command (branch, commit, push, PR #184, label, empty-commit retrigger, CI pass, merge)
+  - Agent delegation: manual
+
+---
+
+- **Date**: 2026-04-19
+- **Agent**: claude-sonnet-4-6 (main conversation, no subagents)
+- **Task**: Extended advocatus-diaboli from single spec-time dispatch to two dispatch points — spec-time (before plan approval) and code-time (after code-reviewer, before integration); same agent, same trust boundary, mode-based category weighting. PR #188, v0.26.0. Also added docs site review convention to CLAUDE.md and HARNESS.md constraint. PR #190.
+- **Surprise**: Two things. (1) Dogfooding `/diaboli` on the spec caught real structural issues before implementation: O2 identified that `pr_ref:` in code-mode frontmatter was impossible (the PR does not exist when code-time runs — integration-agent creates it after the gate); O1 identified "after PASS" was too narrow (MAX_REVIEW_CYCLES escalation exits without a PASS). Both were spec-level gaps caught exactly where the gate was designed to catch them. (2) The docs site review gap was not caught at plan time — the user had to prompt "have we missed checking docs site changes?" mid-session after implementation was complete.
+- **Proposal**: WORKFLOW: When extending an existing agent or skill to a new dispatch point, treat the dispatch context (inputs available, pipeline state) as potentially different even when core behaviour is identical. The `pr_ref:` gap arose because the spec assumed the same context as spec-time; code-time has different available inputs and different downstream state.
+- **Improvement**: Plan-presentation should include docs site review as a named, visible checkpoint — not just a standing convention, but an explicit stage in the file-change list so it is not missed under implementation momentum.
+- **Signal**: workflow
+- **Constraint**: Docs site kept current constraint added in this session (HARNESS.md + CLAUDE.md); no further constraint proposed.
+- **Session metadata**:
+  - Duration: ~3 hrs across two sessions (second session ~30 min post-compaction)
+  - Model tiers used: flagship (main conversation, 100%; no subagents)
+  - Pipeline stages completed: spec commit, diaboli spec-mode (dogfood), dispositions by user, implementation commit, version bump commit, PR #188, CI, merge; docs convention branch, commit, PR #190, CI, merge
+  - Agent delegation: manual

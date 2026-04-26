@@ -7,7 +7,7 @@ nav_order: 2
 
 # Agents
 
-The plugin ships 11 agents organised into four groups: the
+The plugin ships 12 agents organised into four groups: the
 **spec-first pipeline** that coordinates feature work end to end,
 the **harness agents** that verify and maintain infrastructure
 conventions, and the **assessor** that measures AI literacy.
@@ -21,9 +21,11 @@ makes this explicit.
 
 ## Pipeline Agents
 
-These five agents form the spec-first development pipeline.
-The orchestrator dispatches them in sequence: spec, test, implement,
-review, integrate.
+These six agents form the spec-first development pipeline. After
+spec-writer produces the spec, the advocatus-diaboli reviews it
+adversarially and a human adjudicates the objections before plan
+approval; only then do tdd-agent, code-reviewer, and
+integration-agent run.
 
 ### orchestrator
 
@@ -50,6 +52,24 @@ First specialist in every pipeline run. Updates `spec.md` and
 written. Produces user stories, acceptance scenarios in
 Given/When/Then format, and numbered functional requirements that
 the TDD agent will translate into tests.
+
+### advocatus-diaboli
+
+- **Tools**: Read, Glob, Grep
+- **Dispatched by**: orchestrator (after spec-writer, before plan approval)
+- **Trust boundary**: Read-only
+
+Adversarial spec reviewer. Reads the spec file produced by spec-writer and
+raises steel-manned objections across six categories: premise, scope,
+implementation, risk, alternatives, and specification quality. Produces a
+structured objection record at `docs/superpowers/objections/<spec-slug>.md`.
+
+Cannot modify the spec. Cannot write objection dispositions. Both
+constraints are structural: the read-only boundary makes it impossible to
+alter the problem statement, and the absence of a disposition-writing tool
+forces a human to open the record and adjudicate before the pipeline
+proceeds. This human-cognition gate is the primary purpose of the agent —
+not finding objections, but ensuring a human engages with them.
 
 ### tdd-agent
 
@@ -206,6 +226,7 @@ governance analysis requires nuanced judgement about meaning.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | orchestrator | x | x | x | x | x | x | x | x | read-write |
 | spec-writer | x | x | x | x | x | | | | read-write |
+| advocatus-diaboli | x | | | x | x | | | | read-only |
 | tdd-agent | x | x | x | x | x | x | | | read-write |
 | code-reviewer | x | | | x | x | x | | | read-only |
 | integration-agent | x | x | x | | | x | | | read-write |

@@ -1,26 +1,150 @@
 # Changelog
 
-## 0.22.0 — 2026-04-17
+## 0.26.0 — 2026-04-19
 
-### Harness — adopt diaboli constraint and exempt pre-existing specs
+### Harness — bump local template marker and exempt pre-existing specs
 
-- Bump `HARNESS.md` template-version marker from `0.22.0` to `0.26.0`
-  via `/harness-upgrade`
-- Adopt new constraint **"PRs have adjudicated objections"** (agent
-  enforcement, pr scope) — requires both spec-mode and code-mode
-  objection records under `docs/superpowers/objections/` for every
-  feature or behaviour-change PR, with the standard chore/fix
-  branch-prefix exemptions
-- Adopt new GC rule **"Objection record freshness"** (deterministic,
-  weekly) — flags specs edited after their objection record and
-  code-mode records older than the implementation commit that
-  introduced them
+- Bump `HARNESS.md` template-version marker `0.25.0` → `0.26.0` to reflect
+  the installed plugin version (the constraint and GC rule themselves
+  already shipped under this version above)
 - Add `diaboli: exempt-pre-existing` frontmatter to all 26 specs in
-  `docs/superpowers/specs/` so the new constraint does not retroactively
-  block PRs that re-touch lineage created before the constraint existed
-- No plugin version bump — `HARNESS.md`, `.claude/`, and
-  `docs/superpowers/specs/` are all outside `ai-literacy-superpowers/`
-  (0.22.0 retained)
+  `docs/superpowers/specs/` — belt-and-braces alongside the date cutoff
+  in the "PRs have adjudicated objections" rule, so the exemption is
+  explicit and greppable per file
+- Drive-by: add the blank line MD032 wants before a list in
+  `docs/superpowers/specs/2026-04-15-observatory-verify-design.md`
+- No plugin version bump — `HARNESS.md` and `docs/superpowers/specs/`
+  are outside `ai-literacy-superpowers/` (0.26.0 retained)
+
+### Feature — diaboli code-time dispatch point
+
+- Add Dispatch Modes section to `skills/advocatus-diaboli/SKILL.md` documenting
+  spec-time weighting (premise, alternatives, scope, specification quality) and
+  code-time weighting (risk, implementation); six categories and trust boundary
+  unchanged across modes
+- Update `agents/advocatus-diaboli.agent.md` to accept `mode: spec|code` input
+  (default `spec`); apply mode-appropriate weighting; write to
+  `docs/superpowers/objections/<slug>.md` (spec mode) or
+  `docs/superpowers/objections/<slug>-code.md` (code mode); add `mode:` field to
+  frontmatter
+- Update `commands/diaboli.md` and `.github/prompts/diaboli.prompt.md` to accept
+  optional `--mode` flag; extend validation checkpoint to verify `mode:` field and
+  mode-appropriate required frontmatter fields explicitly
+- Update `agents/orchestrator.agent.md` — add code-time dispatch (step 4a) after
+  code-reviewer loop exits (PASS or escalation); add Integration Approval gate
+  that refuses while any code-mode disposition is `pending`; extend context object
+  with `code_diaboli_slug` field
+- Rename HARNESS.md constraint from "Spec has adjudicated objections" to "PRs have
+  adjudicated objections"; extend rule to require both spec-mode and code-mode
+  records; extend "Objection record freshness" GC rule to cover both record types
+- Extend `commands/superpowers-status.md` Section 7 Diaboli panel with mode-split
+  breakdown (spec-mode and code-mode separately) and overall totals for backward
+  compatibility
+- Extend `skills/harness-observability/references/snapshot-format.md` Diaboli
+  section with mode-split field definitions and computation table
+- Update `skills/advocatus-diaboli/references/observability.md` with mode-split
+  field definitions and cross-mode interpretation patterns (code-time counts
+  trending up/down, distribution divergence)
+- Update `MODEL_ROUTING.md` and `templates/MODEL_ROUTING.md` — note code-time
+  dispatch routes to most-capable tier; judgment load equivalent across modes
+- Update `templates/HARNESS.md` — extended constraint and GC rule for new projects
+- Add ARCH_DECISION to `AGENTS.md` — one agent, two dispatches; alternatives
+  considered and rejected; conditions for revisit at 20+ PRs
+- Update `README.md` — pipeline diagram shows both dispatch points and both gates;
+  Agents table row updated; agent count unchanged at 12
+- Update `docs/explanation/adversarial-review.md` — intro and three-loops section
+  describe both dispatch modes; disposition patterns section notes mode-split stats
+- Update `docs/how-to/review-a-spec-adversarially.md` — code mode documented with
+  `--mode code` flag, output path, and integration-approval gate
+
+## 0.25.0 — 2026-04-19
+
+### Feature — diaboli observability panel
+
+- Add Diaboli panel to `commands/superpowers-status.md` (Section 7) — surfaces
+  in-scope vs exempt spec count, objection records present, in-scope specs without
+  a record, fully-resolved record rate, objections total with severity breakdown,
+  mean objections per spec, disposition distribution, and median days
+  spec-to-disposition; summary uses standard `OK`/`MISSING` tokens; error handling
+  for malformed YAML frontmatter
+- Add Diaboli section to snapshot format (`skills/harness-observability/references/
+  snapshot-format.md`) after Session Quality and before Operational Cadence, with
+  field computation table
+- Update `commands/harness-health.md` — Diaboli included in required section list;
+  step 7 validation updated from 12 to 13 required section headings with Diaboli
+  in enumerated list
+- Update `skills/harness-observability/SKILL.md` — reference to Diaboli panel added
+- Add `skills/advocatus-diaboli/references/observability.md` — metric computation
+  definitions, interpretive notes, and watch-for patterns (what each field means
+  and what it does NOT mean)
+- Fix `commands/diaboli.md` validation checkpoint — category and severity taxonomy
+  corrected to match SKILL.md: premise/scope/implementation/risk/alternatives/
+  specification quality and critical/high/medium/low
+- Add ARCH_DECISION to `AGENTS.md` — observability-before-enforcement principle,
+  revisit conditions (10 fully-resolved records or 2026-07-19)
+- Update `docs/explanation/adversarial-review.md` — disposition patterns section
+  now references Diaboli panel surfaces; three-loops section adds observability loop
+- Update `docs/how-to/review-a-spec-adversarially.md` — "What you have now" notes
+  that disposition patterns accumulate and are visible in status/health surfaces
+
+## 0.24.0 — 2026-04-19
+
+### Docs and taxonomy — advocatus-diaboli coverage and SKILL.md update
+
+- Add `docs/explanation/adversarial-review.md` — standalone explanation of
+  the Promoter Fidei precedent, Popperian falsifiability, the Schopenhauer
+  non-goal, the human-cognition gate, and disposition patterns as signals
+- Add `docs/how-to/review-a-spec-adversarially.md` — practical guide for
+  running `/diaboli`, reading the objection record, and writing dispositions
+- Update `docs/reference/commands.md` — add `/diaboli` entry with correct
+  taxonomy; count updated to 22
+- Update `docs/reference/agents.md` — add `advocatus-diaboli` agent entry;
+  count updated to 12; pipeline description updated to six-stage sequence
+- Update `docs/explanation/agent-orchestration.md` — pipeline diagram now
+  shows advocatus-diaboli and two human gates; "Where This Breaks Down"
+  names the structural solution; duplicate link removed from Further Reading
+- Update `docs/tutorials/first-time-tour.md` — `/diaboli` section added;
+  count updated to twenty-two
+- Update `skills/advocatus-diaboli/SKILL.md` — category taxonomy updated
+  to premise/scope/implementation/risk/alternatives/specification quality;
+  severity updated to critical/high/medium/low (replaces major/minor);
+  change driven by spec-first review of the docs work itself via /diaboli
+
+## 0.23.0 — 2026-04-19
+
+### Feature — advocatus-diaboli adversarial spec review
+
+- Add `skills/advocatus-diaboli/SKILL.md` — charter for the adversarial
+  spec reviewer: six objection categories (premise, design, threat, failure,
+  operational, cost), severity levels (major/minor), 12-objection cap,
+  evidence requirement per objection, mandatory "Explicitly not objecting to"
+  section; intellectual foundations grounded in the historical Promoter of
+  the Faith, Popper on falsifiability, and an explicit anti-Schopenhauer
+  framing (no rhetorical tricks, no winning for its own sake)
+- Add `agents/advocatus-diaboli.agent.md` — read-only agent (Read/Glob/Grep
+  only) that reads a spec and returns objection record content to the
+  orchestrator; disposition fields cannot be written by any agent — this
+  constraint is the human-cognition gate
+- Add `commands/diaboli.md` — `/diaboli <spec-path>` for manual invocation
+  and regeneration; includes a 10-point validation checkpoint per the
+  output-validation-checkpoints constraint
+- Add `.github/prompts/diaboli.prompt.md` — Copilot CLI equivalent
+- Update `agents/orchestrator.agent.md` — pipeline is now: spec-writer →
+  advocatus-diaboli → GATE (objection adjudication, blocked on `pending`) →
+  GATE (plan approval with adjudicated record) → tdd-agent → …
+- Update `HARNESS.md` — add "Spec has adjudicated objections" constraint
+  (agent-enforced, scope pr) with pre-2026-04-19 exemption; add "Objection
+  record freshness" GC rule (deterministic, weekly)
+- Update `templates/HARNESS.md` — new projects scaffolded by `/superpowers-init`
+  inherit both the constraint and the GC rule
+- Update `MODEL_ROUTING.md` — advocatus-diaboli routed to most-capable tier
+  (judgment-heavy, not throughput-heavy)
+- Update `AGENTS.md` — ARCH_DECISION: diaboli hard-wired as PR constraint
+  from the outset; rejected alternatives documented (manual-only, advisory
+  gate, deterministic schema check alone)
+- Create `docs/superpowers/objections/` — directory for objection records
+
+## 0.22.0 — 2026-04-17
 
 ### Docs — first-time tour tutorial
 

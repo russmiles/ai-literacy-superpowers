@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.22.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-28-2E8B57?style=flat-square)](#skills-27)
-[![Agents](https://img.shields.io/badge/Agents-11-2E8B57?style=flat-square)](#agents-11)
-[![Commands](https://img.shields.io/badge/Commands-21-2E8B57?style=flat-square)](#commands-19)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.26.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-29-2E8B57?style=flat-square)](#skills-29)
+[![Agents](https://img.shields.io/badge/Agents-12-2E8B57?style=flat-square)](#agents-12)
+[![Commands](https://img.shields.io/badge/Commands-22-2E8B57?style=flat-square)](#commands-22)
 [![Harness](https://img.shields.io/badge/Harness-13%2F14_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -49,19 +49,38 @@ Once installed, the plugin's skills, agents, hooks, and commands (or prompts) ar
 
 ### Updating
 
+#### Check if an update is available
+
+Three signals surface new versions without manual polling:
+
+- **SessionStart hook** — if your project has a HARNESS.md, the hook compares
+  its `template-version` marker against the installed plugin version and emits
+  a nudge if they differ. This fires once per upgrade and goes silent after you
+  run `/harness-upgrade`.
+- **Weekly GC rule** — the `Template currency` rule checks the same marker on
+  its weekly schedule and includes any mismatch in the `/harness-health` report.
+- **Manual check** — compare installed vs latest at any time:
+
+```bash
+claude plugin list
+```
+
 #### Update the plugin
 
 When a new version is released, update your local installation:
 
 ```bash
 # Claude Code
-claude plugin update ai-literacy-superpowers
+claude plugin update ai-literacy-superpowers@ai-literacy-superpowers
 
 # Copilot CLI
 /plugin update ai-literacy-superpowers
 ```
 
 Check the [CHANGELOG](CHANGELOG.md) for what changed between versions.
+
+After updating, run `/harness-upgrade` to review and adopt any new template
+content (constraints, GC rules, optional blocks) into your HARNESS.md.
 
 #### Update the marketplace listing
 
@@ -120,7 +139,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (27)
+### Skills (29)
 
 Code quality, harness engineering, and governance knowledge that agents read when working in your codebase.
 
@@ -153,8 +172,9 @@ Code quality, harness engineering, and governance knowledge that agents read whe
 | governance-constraint-design | Falsifiable governance constraint authoring — three-frame translation, anti-patterns gallery, governance constraint template |
 | governance-audit-practice | Governance audit methodology — five-stage semantic drift model, debt scoring matrix, frame alignment review |
 | governance-observability | Governance metrics catalogue, snapshot format extension, and HTML dashboard specification |
+| advocatus-diaboli | Adversarial spec review — six-category objection framework, evidence requirements, steel-manned challenge before plan approval |
 
-### Agents (11)
+### Agents (12)
 
 A coordinated team that handles the full development lifecycle.
 
@@ -171,8 +191,9 @@ A coordinated team that handles the full development lifecycle.
 | harness-auditor | Meta-agent — checks whether the harness matches reality | Write to Status only |
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
+| advocatus-diaboli | Adversarial reviewer — spec-time (premise/design focus, before plan approval) and code-time (risk/implementation focus, before integration); six-category objection record, read-only trust boundary, human-cognition gate on dispositions at both gates | Read only |
 
-### Commands (19)
+### Commands (22)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -197,6 +218,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-upgrade` | Discover and adopt new template content after a plugin upgrade |
 | `/harness-onboarding` | Generate a human-readable onboarding guide from harness state |
 | `/observatory-verify` | Verify all Observatory signal contracts against latest output files |
+| `/diaboli` | Run the adversarial spec reviewer — produces objection record at `docs/superpowers/objections/<slug>.md` |
 
 ### Templates (11)
 
@@ -347,7 +369,7 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (27)                     Domain knowledge for agents
+│   └── Skills (29)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings
@@ -364,9 +386,11 @@ STRICT LOOP (merge time — block until green)
 │
 ├── Agent Pipeline
 │   ├── orchestrator                    Coordinates full pipeline
-│   │   ├── GATE: plan approval         User reviews spec before implementation
+│   │   ├── GATE: objection adjudication User resolves objections before proceeding
+│   │   ├── GATE: plan approval         User reviews spec + adjudicated objections
 │   │   └── GUARDRAIL: MAX_REVIEW_CYCLES=3
 │   ├── spec-writer                     Spec + plan updates (no Bash)
+│   ├── advocatus-diaboli               Adversarial spec review (read-only)
 │   ├── tdd-agent                       Failing tests from spec scenarios
 │   ├── implementer(s)                  Makes tests green — user-created per
 │   │                                   language, not shipped by the plugin
@@ -473,15 +497,19 @@ When you use the orchestrator agent, it runs this pipeline:
 ```text
 orchestrator
   → spec-writer
-  → GATE: plan approval (user reviews before proceeding)
+  → advocatus-diaboli (spec mode — read-only, produces spec objection record)
+  → GATE: objection adjudication — spec mode (user writes dispositions; gate blocked while any is `pending`)
+  → GATE: plan approval (user reviews plan + adjudicated spec objection record)
   → tdd-agent
   → implementer(s) (parallel, one per language — user-created per project)
   → code-reviewer
   → GUARDRAIL: MAX_REVIEW_CYCLES=3 (escalate after 3 loops)
+  → advocatus-diaboli (code mode — read-only, produces code objection record; runs once after loop exits)
+  → GATE: integration approval — code mode (user writes dispositions; gate blocked while any is `pending`)
   → integration-agent (includes reflection step)
 ```
 
-The plan approval gate catches bad plans before they become bad code. The loop guardrail prevents unbounded reviewer cycles. Both keep the orchestration from running away.
+The spec objection adjudication gate raises premise-level challenges before any tests or code exist — the cheapest moment to change course. The plan approval gate catches bad plans before they become bad code. The loop guardrail prevents unbounded reviewer cycles. The code objection adjudication gate surfaces threat-model, failure-mode, and operational concerns visible in the implementation before merge.
 
 The plugin ships the orchestrator, spec-writer, tdd-agent, code-reviewer, and integration-agent. Language-specific implementers are not included — each project creates its own based on the stack. See [How to Extend](#how-to-extend) for instructions.
 

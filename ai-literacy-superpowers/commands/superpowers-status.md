@@ -85,6 +85,56 @@ Check for CI configuration:
 - If on a branch with an open PR, show the PR check status:
   `gh pr checks --json name,status,conclusion 2>/dev/null || echo "No open PR"`
 
+### Section 7: Diaboli activity
+
+Check `docs/superpowers/specs/` and `docs/superpowers/objections/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-19`. Specs with
+earlier dates are **exempt**. A spec slug is the filename with the `YYYY-MM-DD-` date
+prefix and `.md` extension stripped.
+
+- A **spec-mode record** matches `docs/superpowers/objections/<slug>.md`
+- A **code-mode record** matches `docs/superpowers/objections/<slug>-code.md`
+
+**Error handling**: if any file at `docs/superpowers/objections/` fails YAML parse,
+report it by name as "parse error" and exclude it from all metrics.
+
+#### Overall totals (all records, both modes)
+
+- **In-scope specs**: count of `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-19
+- **Exempt specs (pre-feature)**: count of specs with filename date < 2026-04-19
+- **Objection records present**: count of all `docs/superpowers/objections/*.md`,
+  excluding `.gitkeep`
+- **In-scope specs without any record**: in-scope spec slugs with no matching spec-mode
+  or code-mode file
+- **Objections total**: sum of `objections` list lengths across all records
+- **Mean objections per record**: total objections / count of records (1 decimal)
+
+#### Spec-mode breakdown
+
+- **Spec-mode records present**: count of `docs/superpowers/objections/<slug>.md` files
+  (no `-code` suffix), excluding `.gitkeep`
+- **Fully-resolved rate (spec-mode)**: records where every `disposition` is non-`pending`
+  / total spec-mode records (record-level ratio)
+- **Disposition distribution (spec-mode)**: among non-`pending` dispositions —
+  accepted% / deferred% / rejected%
+- **Mean objections per spec-mode record**: (1 decimal)
+
+#### Code-mode breakdown
+
+- **Code-mode records present**: count of `docs/superpowers/objections/<slug>-code.md`
+  files
+- **In-scope specs with spec-mode record but no code-mode record**: slugs where
+  `<slug>.md` exists but `<slug>-code.md` does not
+- **Fully-resolved rate (code-mode)**: records where every `disposition` is non-`pending`
+  / total code-mode records (record-level ratio)
+- **Disposition distribution (code-mode)**: among non-`pending` dispositions —
+  accepted% / deferred% / rejected%
+- **Mean objections per code-mode record**: (1 decimal)
+
+Summary line: `Diaboli [OK]` when at least one in-scope spec-mode record is present;
+`Diaboli [MISSING]` when none exist. No `WARNING` state — no threshold is defined yet.
+
 ## Output format
 
 Print the dashboard as a structured report:
@@ -99,14 +149,17 @@ Agent team       [OK / WARNING / MISSING]
 Compound learning [OK / WARNING / MISSING]
 Model routing    [OK / WARNING / MISSING]
 CI               [OK / WARNING / MISSING]
+Diaboli          [OK / MISSING]
 
 --- Details ---
 
-[Section-by-section findings, flagging anything that is WARNING or MISSING]
+[Section-by-section findings, flagging anything that is WARNING or MISSING;
+ Diaboli section always shown as descriptive stats with no pass/fail colouring]
 
 --- Recommendations ---
 
 [Prioritised list of actions to reach full green, if any]
 ```
 
-If all sections are OK, end with: "Habitat is healthy. All checks passed."
+If all sections are OK and Diaboli has at least one record, end with:
+"Habitat is healthy. All checks passed."

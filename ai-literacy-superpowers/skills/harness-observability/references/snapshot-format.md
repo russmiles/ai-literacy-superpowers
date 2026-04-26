@@ -134,6 +134,65 @@ guessing.
 | Signal distribution | Count of each signal type across all reflections (cumulative, not just since last snapshot) |
 | Quality trend | Compare "reflections with signal" percentage to previous snapshot. stable = ±2%, improving = >+2%, declining = <-2% |
 
+### Diaboli
+
+```text
+## Diaboli
+
+Overall:
+- In-scope specs: N (specs dated ≥ 2026-04-19)
+- Exempt specs (pre-feature): N
+- Objection records present: N (spec-mode: A | code-mode: B)
+- In-scope specs without any record: N
+- Objections total: N (critical: A | high: B | medium: C | low: D)
+- Mean objections per record: N.N
+
+Spec-mode:
+- Records present: N
+- Fully-resolved rate: P% (N of M records fully resolved)
+- Disposition distribution: accepted: P% | deferred: P% | rejected: P%
+- Mean objections per record: N.N
+
+Code-mode:
+- Records present: N
+- In-scope specs with spec-mode but no code-mode record: N
+- Fully-resolved rate: P% (N of M records fully resolved)
+- Disposition distribution: accepted: P% | deferred: P% | rejected: P%
+- Mean objections per record: N.N
+```
+
+**Source:** `docs/superpowers/specs/` and `docs/superpowers/objections/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-19`. A spec
+slug is the filename with the `YYYY-MM-DD-` prefix and `.md` extension stripped.
+
+- A **spec-mode record** matches `docs/superpowers/objections/<slug>.md`
+- A **code-mode record** matches `docs/superpowers/objections/<slug>-code.md`
+
+| Field | How to compute |
+| ------- | --------------- |
+| In-scope specs | Count `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-19 |
+| Exempt specs (pre-feature) | Count specs with filename date < 2026-04-19 |
+| Objection records present | Count all `docs/superpowers/objections/*.md`, excluding `.gitkeep` |
+| In-scope specs without any record | In-scope slugs with no matching spec-mode or code-mode file |
+| Objections total | Sum of `objections` list lengths across all records |
+| Severity breakdown | Count critical/high/medium/low across all `objections` entries |
+| Mean objections per record | Total objections / count of all records, rounded to 1 decimal |
+| Spec-mode records present | Count `docs/superpowers/objections/<slug>.md` files (no `-code` suffix), excluding `.gitkeep` |
+| Fully-resolved rate (spec-mode) | Spec-mode records where every `disposition` is non-`pending` / total spec-mode records |
+| Disposition distribution (spec-mode) | Among non-`pending` dispositions in spec-mode records: accepted% / deferred% / rejected% |
+| Mean objections per spec-mode record | Sum of spec-mode objection counts / count of spec-mode records, 1 decimal |
+| Code-mode records present | Count `docs/superpowers/objections/<slug>-code.md` files |
+| Specs with spec-mode but no code-mode | In-scope slugs where `<slug>.md` exists but `<slug>-code.md` does not |
+| Fully-resolved rate (code-mode) | Code-mode records where every `disposition` is non-`pending` / total code-mode records |
+| Disposition distribution (code-mode) | Among non-`pending` dispositions in code-mode records: accepted% / deferred% / rejected% |
+| Mean objections per code-mode record | Sum of code-mode objection counts / count of code-mode records, 1 decimal |
+
+**Error handling:** If a file at `docs/superpowers/objections/` fails YAML parse,
+report it by name as "parse error" and exclude it from all metrics.
+
+All fields are descriptive. No pass/fail status, no thresholds defined yet.
+
 ### Operational Cadence
 
 ```text

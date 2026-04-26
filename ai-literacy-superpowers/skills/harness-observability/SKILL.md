@@ -19,7 +19,9 @@ those belong to their respective skills. It covers how to observe
 whether those mechanisms are operating effectively.
 
 For the snapshot schema and field definitions, consult
-`references/snapshot-format.md`.
+`references/snapshot-format.md`. The snapshot includes a Diaboli panel
+(after Session Quality, before Operational Cadence) that surfaces
+advocatus-diaboli activity as descriptive stats across all objection records.
 
 ## The Four Layers
 
