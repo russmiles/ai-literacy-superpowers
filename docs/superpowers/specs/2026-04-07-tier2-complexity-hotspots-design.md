@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Complexity Hotspot Detection — Design Proposal (Tier 2)
 
 ## Problem

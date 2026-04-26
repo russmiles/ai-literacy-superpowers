@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Build an AI Literacy Portfolio Dashboard — How-To Design
 
 **Date:** 2026-04-09

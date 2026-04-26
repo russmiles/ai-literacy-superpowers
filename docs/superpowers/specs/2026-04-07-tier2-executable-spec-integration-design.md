@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Executable Spec Integration — Design Proposal (Tier 2)
 
 ## Problem

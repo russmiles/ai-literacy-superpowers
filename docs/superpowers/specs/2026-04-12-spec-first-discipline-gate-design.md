@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Spec-First Discipline Gate
 
 **Date**: 2026-04-12

@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Harness Upgrade — Design Spec
 
 ## Problem

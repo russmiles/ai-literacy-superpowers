@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Output Validation Checkpoints
 
 ## Problem

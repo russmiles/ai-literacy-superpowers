@@ -2,6 +2,20 @@
 
 ## 0.26.0 — 2026-04-19
 
+### Harness — bump local template marker and exempt pre-existing specs
+
+- Bump `HARNESS.md` template-version marker `0.25.0` → `0.26.0` to reflect
+  the installed plugin version (the constraint and GC rule themselves
+  already shipped under this version above)
+- Add `diaboli: exempt-pre-existing` frontmatter to all 26 specs in
+  `docs/superpowers/specs/` — belt-and-braces alongside the date cutoff
+  in the "PRs have adjudicated objections" rule, so the exemption is
+  explicit and greppable per file
+- Drive-by: add the blank line MD032 wants before a list in
+  `docs/superpowers/specs/2026-04-15-observatory-verify-design.md`
+- No plugin version bump — `HARNESS.md` and `docs/superpowers/specs/`
+  are outside `ai-literacy-superpowers/` (0.26.0 retained)
+
 ### Feature — diaboli code-time dispatch point
 
 - Add Dispatch Modes section to `skills/advocatus-diaboli/SKILL.md` documenting

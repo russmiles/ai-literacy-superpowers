@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Release Governance Constraint
 
 ## Problem

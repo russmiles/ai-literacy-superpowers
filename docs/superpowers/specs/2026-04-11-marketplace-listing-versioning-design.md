@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Marketplace Listing Versioning — Design
 
 ## Problem

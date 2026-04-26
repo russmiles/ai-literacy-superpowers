@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Observatory Signal Verification Command
 
 ## Problem
@@ -100,6 +104,7 @@ Summary: N PRESENT, N PARTIAL, N MISSING out of N total signals
 ```
 
 Status values:
+
 - **PRESENT** — signal documented in format spec and present in latest output
 - **PARTIAL** — signal exists but incomplete (e.g. section present, field missing)
 - **MISSING** — signal not found in latest output

@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Literacy Improvements Skill — Design
 
 **Date:** 2026-04-09

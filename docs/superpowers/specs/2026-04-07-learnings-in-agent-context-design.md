@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Feed Learnings into Agent Context — Design Spec
 
 ## Problem

@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Auto-Constraint Generation from Reflections — Design Spec
 
 ## Problem

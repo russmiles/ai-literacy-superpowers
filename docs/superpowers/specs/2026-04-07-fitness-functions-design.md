@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Architectural Fitness Functions for GC — Design Spec
 
 ## Problem

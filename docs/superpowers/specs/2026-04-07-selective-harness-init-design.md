@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Selective Harness Init — Design Spec
 
 ## Problem

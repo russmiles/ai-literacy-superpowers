@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Design: Governance Dimension Documentation
 
 **Date:** 2026-04-13
