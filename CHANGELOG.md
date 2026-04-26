@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.27.0 — 2026-04-26
+
+### Commands — sync check on /harness-upgrade and PR workflow on /reflect
+
+- Update `commands/harness-upgrade.md` step 1 — fetch `origin/main` and
+  warn when the local clone is behind. The marketplace cache reflects
+  `origin/main` in near real time, so a stale local clone produces an
+  upgrade comparison that suggests content already on main and yields a
+  conflicting PR at push time. Best-effort: skipped silently if no
+  remote main, detached HEAD, or fetch failure
+- Update `commands/reflect.md` step 7 — replace the unconditional
+  `git commit` with a branch + labelled-PR workflow when the project
+  declares a "Reflections via PR workflow" constraint, and keep direct
+  commit as the fallback when no such constraint is declared. The PR
+  variant uses `--label chore` on `gh pr create` directly so the
+  spec-first and adjudicated-objections gates exempt the reflection
+- Both updates trace to a reflection in PR #196 captured during the
+  /harness-upgrade run that produced PRs #195 and #196
+
 ## 0.26.0 — 2026-04-19
 
 ### Harness — bump local template marker and exempt pre-existing specs
