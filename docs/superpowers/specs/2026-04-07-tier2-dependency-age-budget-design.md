@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Dependency Age Budget (libyear) — Design Proposal (Tier 2)
 
 ## Problem

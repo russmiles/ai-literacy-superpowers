@@ -2,6 +2,26 @@
 
 ## 0.22.0 — 2026-04-17
 
+### Harness — adopt diaboli constraint and exempt pre-existing specs
+
+- Bump `HARNESS.md` template-version marker from `0.22.0` to `0.26.0`
+  via `/harness-upgrade`
+- Adopt new constraint **"PRs have adjudicated objections"** (agent
+  enforcement, pr scope) — requires both spec-mode and code-mode
+  objection records under `docs/superpowers/objections/` for every
+  feature or behaviour-change PR, with the standard chore/fix
+  branch-prefix exemptions
+- Adopt new GC rule **"Objection record freshness"** (deterministic,
+  weekly) — flags specs edited after their objection record and
+  code-mode records older than the implementation commit that
+  introduced them
+- Add `diaboli: exempt-pre-existing` frontmatter to all 26 specs in
+  `docs/superpowers/specs/` so the new constraint does not retroactively
+  block PRs that re-touch lineage created before the constraint existed
+- No plugin version bump — `HARNESS.md`, `.claude/`, and
+  `docs/superpowers/specs/` are all outside `ai-literacy-superpowers/`
+  (0.22.0 retained)
+
 ### Docs — first-time tour tutorial
 
 - Add `docs/tutorials/first-time-tour.md` — a single route through

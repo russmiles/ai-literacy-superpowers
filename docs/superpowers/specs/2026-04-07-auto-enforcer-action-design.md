@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Auto-Enforcer GitHub Action — Design Spec
 
 ## Problem

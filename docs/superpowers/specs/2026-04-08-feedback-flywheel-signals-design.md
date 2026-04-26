@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Feedback Flywheel Signal Classification, Vocabulary Alignment, and Quality Metrics
 
 **Date:** 2026-04-08

@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # The Assessment Practice — Article Design
 
 **Date:** 2026-04-09

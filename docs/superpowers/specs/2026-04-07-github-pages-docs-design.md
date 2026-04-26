@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # GitHub Pages Documentation Site — Design Spec
 
 ## Problem

@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Harness Onboarding Documentation Generator
 
 ## Problem

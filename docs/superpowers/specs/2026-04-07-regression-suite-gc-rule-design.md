@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Regression Suite GC Rule from Reflection Patterns — Design Spec
 
 ## Problem

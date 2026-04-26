@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Secrets Detection for the Harness — Design Spec
 
 ## Problem

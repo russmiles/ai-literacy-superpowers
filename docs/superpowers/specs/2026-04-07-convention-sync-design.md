@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Convention Sync Across AI Tools — Design Spec
 
 ## Problem

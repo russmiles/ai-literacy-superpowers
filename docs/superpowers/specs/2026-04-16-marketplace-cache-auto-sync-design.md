@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Marketplace Cache Auto-Sync — Design Spec
 
 ## Problem

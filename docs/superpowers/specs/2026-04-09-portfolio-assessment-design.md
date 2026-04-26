@@ -1,3 +1,7 @@
+---
+diaboli: exempt-pre-existing
+---
+
 # Portfolio Assessment — Design
 
 **Date:** 2026-04-09
