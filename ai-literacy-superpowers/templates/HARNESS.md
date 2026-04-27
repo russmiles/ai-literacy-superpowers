@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.19.0 -->
+<!-- template-version: 0.29.0 -->
 
 ## Context
 
@@ -72,6 +72,28 @@
   created before the constraint was added are exempt — add
   `diaboli: exempt-pre-existing` to their frontmatter. "Resolved" is a judgment
   call on rationale quality, not a schema check.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: pr
+
+### PRs have adjudicated choice stories
+
+- **Rule**: Every non-exempt PR must have either (a) at least one spec in
+  `docs/superpowers/specs/` with a corresponding choice-story record at
+  `docs/superpowers/stories/<spec-slug>.md` whose every story has
+  `disposition` set to one of `accepted`, `revisit` (deferred), or
+  `promoted` — no `pending` values; or (b) one of the exempt labels: `bug`,
+  `fix`, `chore`, `maintenance`, `cross-repo`, or a branch prefixed `fix/`
+  or `chore/`. A PR that has no spec **and** no exempt label fails the
+  constraint — the constraint requires an active exemption claim, not
+  silent elision through spec-first bypass. Per-spec exemptions: specs
+  with filename date before the project's choice-cartographer adoption
+  date are exempt; specs with `cartographer: exempt-pre-existing` in
+  their frontmatter are exempt individually. "Resolved" is a judgment
+  call on rationale quality, not a schema check. The Choice Cartographer
+  agent maps the implicit decision terrain a spec has committed to; this
+  constraint ensures that map is read before merge, when the team can
+  still act on it.
 - **Enforcement**: agent
 - **Tool**: harness-enforcer
 - **Scope**: pr

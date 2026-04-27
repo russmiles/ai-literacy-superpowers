@@ -2,11 +2,11 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.28.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
-[![Skills](https://img.shields.io/badge/Skills-29-2E8B57?style=flat-square)](#skills-29)
-[![Agents](https://img.shields.io/badge/Agents-12-2E8B57?style=flat-square)](#agents-12)
-[![Commands](https://img.shields.io/badge/Commands-23-2E8B57?style=flat-square)](#commands-23)
-[![Harness](https://img.shields.io/badge/Harness-13%2F14_enforced-4682B4?style=flat-square)](HARNESS.md)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.29.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Skills](https://img.shields.io/badge/Skills-30-2E8B57?style=flat-square)](#skills-30)
+[![Agents](https://img.shields.io/badge/Agents-13-2E8B57?style=flat-square)](#agents-13)
+[![Commands](https://img.shields.io/badge/Commands-24-2E8B57?style=flat-square)](#commands-24)
+[![Harness](https://img.shields.io/badge/Harness-14%2F15_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 [![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
@@ -139,7 +139,7 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ## What You Get
 
-### Skills (29)
+### Skills (30)
 
 Code quality, harness engineering, and governance knowledge that agents read when working in your codebase.
 
@@ -173,8 +173,9 @@ Code quality, harness engineering, and governance knowledge that agents read whe
 | governance-audit-practice | Governance audit methodology — five-stage semantic drift model, debt scoring matrix, frame alignment review |
 | governance-observability | Governance metrics catalogue, snapshot format extension, and HTML dashboard specification |
 | advocatus-diaboli | Adversarial spec review — six-category objection framework, evidence requirements, steel-manned challenge before plan approval |
+| choice-cartographer | Decision archaeology — six-lens map of implicit choices a spec has made (forces, alternatives, defaults, patterns, consequences, coherence); routing rule partitions findings between the Cartographer and the diaboli |
 
-### Agents (12)
+### Agents (13)
 
 A coordinated team that handles the full development lifecycle.
 
@@ -192,8 +193,9 @@ A coordinated team that handles the full development lifecycle.
 | assessor | AI literacy assessment — scans repo, asks questions, applies fixes, recommends workflow changes | Read + Write |
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
 | advocatus-diaboli | Adversarial reviewer — spec-time (premise/design focus, before plan approval) and code-time (risk/implementation focus, before integration); six-category objection record, read-only trust boundary, human-cognition gate on dispositions at both gates | Read only |
+| choice-cartographer | Decision-archaeology mapper — runs after spec-mode diaboli dispositions are resolved; emits choice stories (Henney pattern stories) for each material implicit decision; soft gate at plan approval, merge-time HARNESS constraint enforces resolution | Read only |
 
-### Commands (23)
+### Commands (24)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -219,6 +221,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-onboarding` | Generate a human-readable onboarding guide from harness state |
 | `/observatory-verify` | Verify all Observatory signal contracts against latest output files |
 | `/diaboli` | Run the adversarial spec reviewer — produces objection record at `docs/superpowers/objections/<slug>.md` |
+| `/choice-cartograph` | Run the Choice Cartographer — produces choice-story record at `docs/superpowers/stories/<slug>.md` after spec-mode diaboli dispositions are resolved |
 | `/harness-affordance` | Manage the project's affordance inventory — `discover` scans config to produce a draft inventory; `add` and `review` planned |
 
 ### Templates (11)

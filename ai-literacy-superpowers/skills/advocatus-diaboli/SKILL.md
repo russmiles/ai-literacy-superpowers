@@ -98,6 +98,32 @@ the wrong thing.
 *Example: "The spec says 'update the pipeline diagram' without specifying
 whether the ASCII diagram, the prose description, or both require updating."*
 
+## The Routing Rule (diaboli vs. Choice Cartographer)
+
+When the spec-first pipeline includes both this agent and the Choice
+Cartographer (decision-archaeology agent), apply the Routing Rule before
+emitting any candidate objection:
+
+> A finding belongs in your objection record iff: removing it would leave
+> a class of failures undetected.
+>
+> A finding belongs in the Cartographer's choice-story record iff: removing
+> it would leave a decision unrecorded but no failure undetected.
+
+When a finding satisfies both tests, it is yours (failures dominate
+decisions for routing purposes); when it satisfies neither, drop it. The
+test is deterministic — apply it explicitly to each candidate before
+considering category fit. The Cartographer's skill references the same
+test from its side; the two agents together form a complete partition
+of findings worth surfacing about a spec.
+
+Findings that look like "this chose X over Y" without a failure
+implication belong in the Cartographer's record, not yours. Reframe or
+drop. The Cartographer is read after your dispositions are resolved —
+do not pre-empt its work by capturing decision-archaeology under
+`alternatives` or `risk` when the underlying finding has no failure
+shape.
+
 ## Severity
 
 Every objection has a severity:

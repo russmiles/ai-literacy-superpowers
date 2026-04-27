@@ -193,6 +193,52 @@ report it by name as "parse error" and exclude it from all metrics.
 
 All fields are descriptive. No pass/fail status, no thresholds defined yet.
 
+### Cartographer
+
+```text
+## Cartographer
+
+- In-scope specs: N (specs dated ≥ 2026-04-27)
+- Choice-story records present: N
+- In-scope specs without a record: N
+- Stories total: N
+- Mean stories per record: N.N
+- cartograph_pending_count: N
+- Fully-resolved rate: P% (N of M records fully resolved)
+- Disposition distribution: accepted: P% | revisit: P% | promoted: P%
+- Lens distribution: forces: N | alternatives: N | defaults: N | patterns: N | consequences: N | coherence: N
+```
+
+**Source:** `docs/superpowers/specs/` and `docs/superpowers/stories/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-27`.
+A spec slug is the filename with the `YYYY-MM-DD-` prefix and `.md`
+extension stripped. A choice-story record matches
+`docs/superpowers/stories/<slug>.md`.
+
+| Field | How to compute |
+| ------- | --------------- |
+| In-scope specs | Count `docs/superpowers/specs/*.md` with filename date ≥ 2026-04-27 |
+| Choice-story records present | Count `docs/superpowers/stories/*.md`, excluding `.gitkeep` |
+| In-scope specs without a record | In-scope slugs with no matching `<slug>.md` file in `docs/superpowers/stories/` |
+| Stories total | Sum of `stories` list lengths across all records |
+| Mean stories per record | Total stories / count of records, 1 decimal |
+| `cartograph_pending_count` | Total count of stories with `disposition: pending` across all records |
+| Fully-resolved rate | Records where every `disposition` is non-`pending` / total records |
+| Disposition distribution | Among non-`pending` dispositions: accepted% / revisit% / promoted% |
+| Lens distribution | Count of stories per lens across all records (a story with multiple lens values counts toward each) |
+
+**Error handling:** If a file at `docs/superpowers/stories/` fails YAML
+parse, report it by name as "parse error" and exclude it from all
+metrics.
+
+`cartograph_pending_count` is the load-bearing field — it is also the
+field surfaced at plan approval by the orchestrator and read by the
+merge-time HARNESS constraint `PRs have adjudicated choice stories`.
+A non-zero value at snapshot time indicates choice stories awaiting
+adjudication; the merge-time constraint will block any affected PR
+from merging until the count goes to zero for that spec's record.
+
 ### Operational Cadence
 
 ```text

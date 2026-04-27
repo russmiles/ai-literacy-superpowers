@@ -64,6 +64,68 @@ When reviewing a PR for the "Spec captures intent" constraint:
    three areas and aligns with the implementation passes. A spec that
    is missing any area or diverges significantly from the code fails.
 
+**Choice Story Adjudication Review (for "PRs have adjudicated choice stories" constraint):**
+
+The constraint is exemption-driven: every non-exempt PR must have either
+(a) a spec with a corresponding choice-story record whose dispositions
+are all resolved, or (b) one of the exempt labels. A PR that elides
+spec-first ordering does NOT trivially pass — it must claim an
+exemption.
+
+When reviewing a PR for this constraint:
+
+1. **Check label exemptions.** PR is exempt if it carries any of:
+   `bug`, `fix`, `chore`, `maintenance`, or `cross-repo`; or if its
+   branch name starts with `fix/` or `chore/`.
+
+2. **Find spec file(s) in the PR.** Look in `docs/superpowers/specs/`
+   for files added or modified by the PR. Derive each slug by
+   stripping the date prefix and `.md` extension.
+
+3. **Apply spec-level exemptions** for each spec found:
+   - **Date-cutoff exemption.** If the spec's filename date is before
+     2026-04-27 (parse the `YYYY-MM-DD-` prefix), the spec is exempt
+     from the choice-stories constraint. Note: this date is the
+     project-level cutoff; other projects adopting the constraint use
+     their own cutoff per their HARNESS.md.
+   - **Frontmatter-flag exemption.** Read the spec's YAML frontmatter
+     (between the opening `---` and the next `---`). If the
+     frontmatter contains `cartographer: exempt-pre-existing`, the
+     spec is exempt. Same shape as `diaboli: exempt-pre-existing`.
+
+4. **For each non-exempt spec**, look for a choice-story record at
+   `docs/superpowers/stories/<slug>.md`:
+   - **If the file exists**: parse the YAML frontmatter `stories`
+     array and verify that every entry has `disposition` set to one
+     of `accepted`, `revisit`, or `promoted` (no `pending`). Report
+     each unresolved story with its `id` and `title`.
+   - **If the file does not exist**: this is a finding — every
+     non-exempt PR with a non-exempt spec must have a choice-story
+     record. Recommend the user run `/choice-cartograph <spec-path>`.
+
+5. **PR with no spec at all.** If the PR has no spec files (added or
+   modified) and is not label-exempt, this is a finding — the
+   constraint requires an exemption claim, not silent elision. Report
+   "PR has no spec and no exempt label; the constraint requires
+   either." This closes the chained-bypass path through PRs that
+   skip spec-first ordering.
+
+6. **Disposition-value semantics.** `accepted` and `promoted` are
+   resolved-and-passing. `revisit` is resolved-and-deferred — it
+   counts as a non-pending disposition for this gate (the
+   choice-story record acknowledges the decision is captured-but-
+   to-be-revisited later; merge is permitted). `pending` is the
+   only blocking value.
+
+7. **Report findings** per the standard format. A PR that satisfies
+   one of the exemption paths or has all dispositions resolved
+   passes. Any other PR fails with the specific reason cited.
+
+This is symmetric with `PRs have adjudicated objections` — same shape,
+different file path. The cognitive-engagement gate is identical:
+agents propose stories, humans set dispositions, the constraint
+enforces that they did.
+
 **Verification Process:**
 
 1. **Read HARNESS.md**: Parse the Constraints section. Filter to

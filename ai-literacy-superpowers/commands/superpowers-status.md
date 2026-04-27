@@ -135,6 +135,55 @@ report it by name as "parse error" and exclude it from all metrics.
 Summary line: `Diaboli [OK]` when at least one in-scope spec-mode record is present;
 `Diaboli [MISSING]` when none exist. No `WARNING` state — no threshold is defined yet.
 
+### Section 8: Cartographer activity
+
+Check `docs/superpowers/specs/` and `docs/superpowers/stories/`.
+
+A spec is **in-scope** if its filename date is on or after `2026-04-27`. Specs
+with earlier dates are **exempt**. A spec slug is the filename with the
+`YYYY-MM-DD-` date prefix and `.md` extension stripped.
+
+A **choice-story record** matches `docs/superpowers/stories/<slug>.md`.
+
+**Error handling**: if any file at `docs/superpowers/stories/` fails YAML parse,
+report it by name as "parse error" and exclude it from all metrics.
+
+#### Totals
+
+- **In-scope specs**: count of `docs/superpowers/specs/*.md` with filename
+  date ≥ 2026-04-27
+- **Choice-story records present**: count of
+  `docs/superpowers/stories/*.md`, excluding `.gitkeep`
+- **In-scope specs without a choice-story record**: in-scope spec slugs with
+  no matching `<slug>.md` file
+- **Stories total**: sum of `stories` list lengths across all records
+- **Mean stories per record**: total stories / count of records (1 decimal)
+
+#### Disposition state
+
+- **`cartograph_pending_count`**: total count of stories with
+  `disposition: pending` across all in-scope records. This is the field
+  surfaced at plan approval and tracked by harness-health snapshots.
+- **Fully-resolved rate**: records where every `disposition` is
+  non-`pending` / total records (record-level ratio)
+- **Disposition distribution**: among non-`pending` dispositions —
+  accepted% / revisit% / promoted%
+
+#### Lens activity
+
+- **Lens distribution**: count of stories per lens across all records,
+  reported as the six-lens histogram (forces / alternatives / defaults /
+  patterns / consequences / coherence). Each story may count toward
+  multiple lenses if its `lens` field has multiple values.
+
+Summary line: `Cartographer [OK]` when at least one in-scope choice-story
+record is present and `cartograph_pending_count` is 0; `Cartographer
+[WARNING]` when records exist but `cartograph_pending_count > 0`;
+`Cartographer [MISSING]` when no in-scope record exists. The WARNING
+state surfaces unadjudicated stories — the merge-time HARNESS constraint
+will block the PR until they are resolved, so `WARNING` is an early-look
+signal, not a steady state.
+
 ## Output format
 
 Print the dashboard as a structured report:
@@ -150,11 +199,15 @@ Compound learning [OK / WARNING / MISSING]
 Model routing    [OK / WARNING / MISSING]
 CI               [OK / WARNING / MISSING]
 Diaboli          [OK / MISSING]
+Cartographer     [OK / WARNING / MISSING]
 
 --- Details ---
 
 [Section-by-section findings, flagging anything that is WARNING or MISSING;
- Diaboli section always shown as descriptive stats with no pass/fail colouring]
+ Diaboli and Cartographer sections always shown as descriptive stats —
+ Cartographer's WARNING state means cartograph_pending_count > 0,
+ surfaced as an early-look signal before the merge-time HARNESS gate
+ fires]
 
 --- Recommendations ---
 
