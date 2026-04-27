@@ -1,3 +1,10 @@
+---
+title: Discover Affordances
+layout: default
+parent: How-to Guides
+nav_order: 39
+---
+
 # Discover Affordances
 
 Run the affordance discovery scanner against your project's existing
@@ -36,16 +43,16 @@ From a Claude Code session:
 /harness-affordance discover
 ```
 
-Or from a terminal directly:
+Or from a terminal directly (assumes the plugin is installed via
+the `ai-literacy-superpowers` marketplace):
 
 ```bash
-bash ${CLAUDE_PLUGIN_ROOT}/scripts/harness-affordance-discover.sh
+bash ~/.claude/plugins/cache/ai-literacy-superpowers/ai-literacy-superpowers/<version>/scripts/harness-affordance-discover.sh
 ```
 
-(`${CLAUDE_PLUGIN_ROOT}` resolves to the plugin's installed cache
-path; the script reads from the current working directory by
-default. Pass an explicit project directory as the first argument
-if you want to scan a different project.)
+The script reads from the current working directory by default. Pass
+an explicit project directory as the first argument if you want to
+scan a different project.
 
 ## Read the output
 
@@ -82,10 +89,14 @@ in the **machine-derivable fields** (`Mode`, `Trigger` for hooks,
 ```
 
 If the scanner finds an MCP server declared in `.mcp.json` but no
-matching `mcp__<server>__*` permission entry, it emits a warning at
-the top of the file. That is the *affordance-without-permission*
-case from the harness-affordances design — worth resolving before
-the corresponding constraint goes live.
+matching `mcp__<server>__*` permission entry, it emits a draft
+affordance entry for that server with a `WARN:` note in the `Notes`
+field explaining the missing permission. The header summary also
+reports the count of orphan MCP servers. This is the
+*affordance-without-permission* case from the harness-affordances
+design — the entry surfaces in the inventory itself rather than as a
+separate warning paragraph, so it is impossible to miss when scanning
+the entries.
 
 ## Promote entries to HARNESS.md
 
@@ -110,16 +121,21 @@ this annotation interactively. For now it is hand-edited.
 If two permission patterns derive to the same name (e.g. eight
 different `Bash(awk ...)` patterns all derive to `awk-cli`), the
 scanner appends a numeric suffix: `awk-cli`, `awk-cli-2`,
-`awk-cli-3`, etc. This is deterministic — re-running the scanner
-produces the same suffixes for the same patterns in the same input
-order.
+`awk-cli-3`, etc. This is deterministic and **independent of the
+order patterns appear in your `permissions.allow` array** — the
+scanner sorts patterns lex-ascending before assigning suffixes, so
+re-ordering the array (e.g. alphabetising it) does not silently
+re-name entries you have already promoted to `HARNESS.md`.
 
 ## Idempotency
 
 Running the scanner twice on identical input produces output that
 differs only in the date in the heading. Entry order is alphabetical
-by derived name; no timestamps appear inside entries. This makes it
-safe to `diff` successive runs to find what changed.
+by derived name (basename, not full path); no timestamps appear
+inside entries. Sort and listing are pinned to the `C` locale so
+output is byte-identical across machines with different default
+locales. This makes it safe to `diff` successive runs to find what
+changed.
 
 ## What the scanner does NOT do
 
