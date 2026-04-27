@@ -59,37 +59,21 @@ any prior dispositions are replaced and they will need to re-adjudicate.
 
 ### 5. Validation checkpoint
 
-Read back the written file and verify:
+Read back the written file and apply the validation checks defined in:
 
-1. YAML frontmatter is present and parseable (opens with `---`).
-2. Required frontmatter fields present: `spec`, `date`, `mode`,
-   `cartographer_model`, `stories`.
-3. `mode` value is `spec`.
-4. Each story entry has: `id`, `lens`, `title`, `disposition`,
-   `disposition_rationale`.
-5. `disposition` value is `pending` for all entries (not pre-filled).
-6. `disposition_rationale` value is `null` for all entries (not
-   pre-filled).
-7. `lens` values are drawn from the six-lens set: `forces`,
-   `alternatives`, `defaults`, `patterns`, `consequences`, `coherence`.
-8. Story count is between 1 and 15 inclusive. Surface a warning if the
-   count is ≥ 13 (signal that the spec may need rewriting before
-   annotation).
-9. Prose body contains one `## Story #N` section per frontmatter entry,
-   numbered consecutively from 1.
-10. **Cross-reference resolution — objection IDs.** For every story,
-    every `O\d+` token in the `Refs` field must correspond to an
-    existing entry in `docs/superpowers/objections/<slug>.md`. If the
-    objections record does not exist or the referenced ID is not
-    present, this is a validation error.
-11. **Cross-reference resolution — story IDs.** For every story, every
-    `#\d+` token in the `Refs` field must satisfy
-    `N < current_story_id`. Self-references and forward references are
-    validation errors.
+```text
+ai-literacy-superpowers/skills/choice-cartographer/references/validation-checks.md
+```
 
-If any check fails, fix the deviation in place. Do not re-dispatch the
-agent. The selectivity cap (15) is enforced inside the agent's
-reasoning protocol, so the validator never refuses to write.
+That file is the single source of truth for the checkpoint. It defines
+the frontmatter checks (F1–F8), prose-body checks (P1–P2), and
+cross-reference resolution rules (CR1–CR3), each with an explicit
+fix-recipe. Apply the checks in order and apply the fix-recipe in place
+when a check fails.
+
+Do not inline check definitions here. Edits to the validation contract
+live in the reference file so the orchestrator and this command stay
+in sync.
 
 ### 6. Present the record to the user
 

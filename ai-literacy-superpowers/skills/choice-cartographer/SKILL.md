@@ -238,6 +238,19 @@ stories:
 The agent always writes `pending`; humans set the final value. Compound
 values are not permitted — the human picks one.
 
+Disposition meanings:
+
+- `accepted` — the choice is intentional; the story is sufficient
+  documentation. Most common for sound specs.
+- `revisit` — **deferred**. The choice is captured-but-to-be-revisited
+  later. The team has acknowledged the decision but isn't ready to
+  finalise it; the rationale field captures why. This is a *passing*
+  disposition for the merge-time HARNESS gate — `revisit` means
+  "considered and noted", not "spec needs to change before merge".
+- `promoted` — the choice is durable enough to carry forward as an
+  AGENTS.md ARCH_DECISION or a HARNESS.md constraint. Promotion
+  mechanism is tracked under issue #211.
+
 `disposition_rationale` is `null` until the human writes it. Do not
 pre-fill.
 

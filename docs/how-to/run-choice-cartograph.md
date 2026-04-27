@@ -108,14 +108,25 @@ Valid `disposition` values (pick one — no compounds):
 
 - `accepted` — the choice is intentional; the story is sufficient
   documentation. The most common disposition for sound specs.
-- `revisit` — the choice should be reconsidered before plan approval.
-  This is the "the agent surfaced something I want to change in the
-  spec" disposition.
+- `revisit` — **deferred**. The choice is captured-but-to-be-revisited
+  later. Use this when the team has acknowledged the decision but
+  isn't ready to finalise it. The rationale field captures *why* the
+  revisit is deferred. This is a passing disposition at the
+  merge-time HARNESS gate — `revisit` means "considered and noted",
+  not "spec needs to change before merge". A common use is "we'll
+  re-evaluate when we have more data after running with this for a
+  cycle."
 - `promoted` — the choice is durable enough to carry forward as an
   AGENTS.md ARCH_DECISION or a HARNESS.md constraint. The promotion
   mechanism is tracked at
   [issue #211](https://github.com/Habitat-Thinking/ai-literacy-superpowers/issues/211).
   For now, ticking `promoted` records intent without producing routing.
+
+If a story surfaces a choice you genuinely want to change in the spec
+*before* merging, edit the spec directly (or re-run `/spec-writer`)
+and re-run `/choice-cartograph` afterwards — the old story record
+will be overwritten with a fresh map. This is the "the agent surfaced
+something I want to change" path; it is not a disposition value.
 
 **This step cannot be delegated back to an agent.** The Cartographer's
 trust boundary is read-only — it cannot write dispositions. This is
@@ -133,16 +144,19 @@ because the spec context is fresh.
 
 ---
 
-## 5. Update the spec if a story is `revisit`
+## 5. Update the spec if you want to change a captured choice
 
-If any story is dispositioned `revisit`, the spec needs to change to
-reflect the reconsidered decision. Re-running `/spec-writer` (or
-editing manually) on the spec triggers a re-run of `/diaboli` and
-`/choice-cartograph`. The old story record will be overwritten; old
-dispositions are not preserved. This is intentional: a substantially
-revised spec deserves a fresh map.
+If a story surfaces a choice you genuinely want to revise *before*
+merging, edit the spec (directly or via `/spec-writer`) and re-run
+`/choice-cartograph` afterwards. The old story record is overwritten
+with a fresh map; old dispositions are not preserved. This is
+intentional — a substantially revised spec deserves a fresh map.
 
-If all stories are `accepted` or `promoted`, no spec change is needed.
+`revisit` dispositions do not require a spec edit. They are deferred
+considerations the team has acknowledged but isn't acting on now;
+the rationale field carries the thinking. Treat `accepted`,
+`revisit`, and `promoted` as three legitimate landing states — none
+of them block merge.
 
 ---
 

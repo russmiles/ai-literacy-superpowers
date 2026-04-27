@@ -88,9 +88,12 @@ The rule is referenced from both skills (`advocatus-diaboli` and
 `choice-cartographer`), applied by both agents before they emit
 anything. Findings that violate the rule are routing errors and
 should be flagged when adjudicating. The agents calibrate against
-human disposition over time — `revisit` dispositions on stories
-that should have been objections shift the routing pressure back
-toward the diaboli's lens set on subsequent runs.
+human disposition over time. Stories that the team consistently
+dispositions `revisit` (deferred) carry a different signal than those
+dispositioned `accepted` — frequent `revisit` on a particular lens
+suggests the team is consistently capturing-but-not-committing on that
+kind of decision, which is itself a finding the next adjudication
+cycle should consider.
 
 ---
 
@@ -229,7 +232,7 @@ This is not a limitation. It is the mechanism.
 
 Dispositioning a choice story requires reading it, recognising
 the choice it surfaces, deciding whether the choice is sound
-(`accepted`), needs reconsideration (`revisit`), or is durable
+(`accepted`), captured-but-deferred (`revisit`), or durable
 enough to carry forward (`promoted`), and writing a rationale.
 That is cognitive work. If an agent could fill in the
 dispositions, the work would not get done. Empty boxes

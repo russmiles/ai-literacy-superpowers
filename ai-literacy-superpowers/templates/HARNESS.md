@@ -78,18 +78,22 @@
 
 ### PRs have adjudicated choice stories
 
-- **Rule**: Every feature or behaviour-change PR with a spec must have a
-  choice-story record at `docs/superpowers/stories/<spec-slug>.md` with every
-  story's `disposition` set to one of `accepted`, `revisit`, or `promoted`
-  (no `pending` values). Bug fixes, dependency updates, and maintenance PRs
-  (labelled `bug`, `fix`, `chore`, `maintenance` or branch-prefixed `fix/`,
-  `chore/`) are exempt on the same terms as `PRs have adjudicated objections`.
-  Specs created before this constraint was added are exempt — add
-  `cartographer: exempt-pre-existing` to their frontmatter. "Resolved" is a
-  judgment call on rationale quality, not a schema check. The Choice
-  Cartographer agent maps the implicit decision terrain a spec has committed
-  to; this constraint ensures that map is read before merge, when the team
-  can still act on it.
+- **Rule**: Every non-exempt PR must have either (a) at least one spec in
+  `docs/superpowers/specs/` with a corresponding choice-story record at
+  `docs/superpowers/stories/<spec-slug>.md` whose every story has
+  `disposition` set to one of `accepted`, `revisit` (deferred), or
+  `promoted` — no `pending` values; or (b) one of the exempt labels: `bug`,
+  `fix`, `chore`, `maintenance`, `cross-repo`, or a branch prefixed `fix/`
+  or `chore/`. A PR that has no spec **and** no exempt label fails the
+  constraint — the constraint requires an active exemption claim, not
+  silent elision through spec-first bypass. Per-spec exemptions: specs
+  with filename date before the project's choice-cartographer adoption
+  date are exempt; specs with `cartographer: exempt-pre-existing` in
+  their frontmatter are exempt individually. "Resolved" is a judgment
+  call on rationale quality, not a schema check. The Choice Cartographer
+  agent maps the implicit decision terrain a spec has committed to; this
+  constraint ensures that map is read before merge, when the team can
+  still act on it.
 - **Enforcement**: agent
 - **Tool**: harness-enforcer
 - **Scope**: pr

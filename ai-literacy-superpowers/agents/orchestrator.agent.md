@@ -150,24 +150,17 @@ returned content.
 
 ### Step 5: Validate the choice-story record
 
-Read back the written file and verify:
+Read back the written file and apply the validation checks defined in:
 
-1. YAML frontmatter present with `spec`, `date`, `mode: spec`,
-   `cartographer_model`, `stories` fields
-2. Each story has `id`, `lens`, `title`, `disposition: pending`,
-   `disposition_rationale: null`
-3. Lens values are drawn from the six-lens set: `forces`, `alternatives`,
-   `defaults`, `patterns`, `consequences`, `coherence`
-4. Story count is between 1 and 15 inclusive (warning at ≥ 13)
-5. Prose body has one `## Story #N` section per frontmatter entry,
-   numbered consecutively from 1
-6. Cross-reference resolution: every `O\d+` token in any `Refs` field
-   corresponds to an entry in `docs/superpowers/objections/<slug>.md`;
-   every `#\d+` token satisfies `N < current_story_id`
+```text
+ai-literacy-superpowers/skills/choice-cartographer/references/validation-checks.md
+```
 
-Fix any deviations in place. Do not re-dispatch the agent. The selectivity
-cap (15) is enforced inside the agent's reasoning protocol so the validator
-never refuses to write.
+That file is the single source of truth for the checkpoint. Apply each
+check in order and apply the fix-recipe in place when a check fails.
+Do not inline check definitions here — edits to the validation contract
+live in the reference file so this orchestrator and the
+`/choice-cartograph` command stay in sync.
 
 ### Step 6: Surface the choice-story record (soft gate)
 
@@ -204,17 +197,26 @@ adjudicated records. Show:
 
 Then ask the user to choose:
 
-- **Approve** — proceed to tdd-agent. Note: if `cartograph_pending_count > 0`,
-  the user is opting to defer choice-story dispositions to merge time. The
-  merge-time constraint will block the PR until they are resolved.
+- **Approve** — proceed to tdd-agent
 - **Request changes** — re-dispatch spec-writer with the user's feedback
   (if major objections were accepted, re-run advocatus-diaboli on the revised
   spec; the choice-cartographer will need to re-run too)
 - **Take over** — exit the pipeline; the user will work manually
 
+`cartograph_pending_count` is presented in the summary above as
+informational observability — it is **not** a separate decision point at
+this gate. The Cartographer's soft gate continues without an extra
+keypress; the merge-time HARNESS constraint is the forcing function that
+blocks the PR until choice-story dispositions are resolved. If the user
+chooses Approve with `cartograph_pending_count > 0`, the orchestrator
+proceeds to tdd-agent without further prompting on the cartographer
+state.
+
 Do NOT dispatch tdd-agent without user approval. This gate exists because it is
 far cheaper to fix a bad plan than to fix bad code — especially when the plan
-drives tests that drive implementation.
+drives tests that drive implementation. The diaboli's hard gate is what makes
+the prompt necessary; the cartographer's soft gate adds no friction beyond
+what the diaboli already requires.
 
 ## After code-reviewer exits — Diaboli (code mode) and Integration Approval Gate
 
