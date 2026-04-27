@@ -2,10 +2,10 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.27.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.28.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-29-2E8B57?style=flat-square)](#skills-29)
 [![Agents](https://img.shields.io/badge/Agents-12-2E8B57?style=flat-square)](#agents-12)
-[![Commands](https://img.shields.io/badge/Commands-22-2E8B57?style=flat-square)](#commands-22)
+[![Commands](https://img.shields.io/badge/Commands-23-2E8B57?style=flat-square)](#commands-23)
 [![Harness](https://img.shields.io/badge/Harness-13%2F14_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -193,7 +193,7 @@ A coordinated team that handles the full development lifecycle.
 | governance-auditor | Governance specialist — semantic drift analysis, debt inventory, three-frame alignment | Read + limited Write |
 | advocatus-diaboli | Adversarial reviewer — spec-time (premise/design focus, before plan approval) and code-time (risk/implementation focus, before integration); six-category objection record, read-only trust boundary, human-cognition gate on dispositions at both gates | Read only |
 
-### Commands (22)
+### Commands (23)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -219,6 +219,7 @@ A coordinated team that handles the full development lifecycle.
 | `/harness-onboarding` | Generate a human-readable onboarding guide from harness state |
 | `/observatory-verify` | Verify all Observatory signal contracts against latest output files |
 | `/diaboli` | Run the adversarial spec reviewer — produces objection record at `docs/superpowers/objections/<slug>.md` |
+| `/harness-affordance` | Manage the project's affordance inventory — `discover` scans config to produce a draft inventory; `add` and `review` planned |
 
 ### Templates (11)
 
