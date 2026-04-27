@@ -2,6 +2,15 @@
 
 ## 0.28.0 — 2026-04-27
 
+### Chore — harness marker bump
+
+- Bump `HARNESS.md` template-version marker from 0.26.0 to 0.28.0 after
+  running `/harness-upgrade` (issue #206). No new template content to
+  adopt — the plugin's `templates/HARNESS.md` carries internal marker
+  0.19.0, and the project HARNESS.md already contains every active rule
+  and commented block in the template plus many project-specific
+  additions. The bump records that v0.28.0 has been reviewed.
+
 ### Feature — `/harness-affordance discover` (sequencing step 2 of harness-affordances)
 
 - Add `commands/harness-affordance.md` — parent command for the
