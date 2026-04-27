@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 # Discovery scanner for /harness-affordance discover.
 #
 # Reads project-level config (.claude/settings.json,
@@ -37,8 +39,6 @@
 #
 # Usage: bash harness-affordance-discover.sh [project-dir]
 #        Default project-dir is $CLAUDE_PROJECT_DIR or "."
-
-set -euo pipefail
 
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-${1:-.}}"
 PROJECT_DIR="${PROJECT_DIR%/}"  # Strip trailing slash
