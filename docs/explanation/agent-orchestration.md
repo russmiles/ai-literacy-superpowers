@@ -101,7 +101,13 @@ Requirements
 [Advocatus Diaboli] --> Objection record
     |
     v
-*** HUMAN ADJUDICATES OBJECTIONS ***
+*** HUMAN ADJUDICATES OBJECTIONS (hard gate) ***
+    |
+    v
+[Choice Cartographer] --> Choice-story record
+    |
+    v
+*** HUMAN ADJUDICATES STORIES (soft gate) ***
     |
     v
 *** HUMAN REVIEWS AND APPROVES SPEC ***
@@ -131,9 +137,9 @@ Requirements
 [Integrator] --> Changelog, commit, PR, CI
 ```
 
-Two things matter here.
+Three things matter here.
 
-**The human gates.** There are now two. First, the advocatus-diaboli reviews the spec and produces an objection record — you adjudicate each objection, writing your disposition and rationale inline. The agent cannot do this for you: its trust boundary is read-only. Second, you review and approve the *spec* itself. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you.
+**The human gates.** There are now three. First, the advocatus-diaboli reviews the spec and produces an objection record — you adjudicate each objection, writing your disposition and rationale inline. The agent cannot do this for you: its trust boundary is read-only. The diaboli's gate is **hard** — the pipeline refuses to advance while any disposition is `pending`. Second, the choice-cartographer maps the implicit decisions the spec has made and produces a choice-story record — you write dispositions for each story (the same trust-boundary mechanism applies). The cartographer's gate is **soft** — `cartograph_pending_count` is surfaced as observability and the pipeline continues; the merge-time HARNESS constraint blocks the PR until dispositions are written. Third, you review and approve the *spec* itself. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you. See [Decision Archaeology]({% link explanation/decision-archaeology.md %}) for why the cartographer's gate is soft and the diaboli's is hard.
 
 **The cycle limit.** When the reviewer rejects and the implementer fixes, there is a maximum of three cycles. Without a limit, you get agent ping-pong: the reviewer keeps finding issues, the implementer keeps introducing new ones, and the token cost keeps climbing. Three cycles is enough for genuine iteration. If it is not resolved in three, a human needs to look — and the problem is usually in the spec, not the code.
 
@@ -206,6 +212,7 @@ That is the review process working. The reviewer can reject, and the implementer
 
 - [Agents Reference]({% link reference/agents.md %}) — detailed catalogue of all agents in this plugin
 - [Adversarial Review]({% link explanation/adversarial-review.md %}) — the concepts behind the advocatus-diaboli and the human-cognition gate
+- [Decision Archaeology]({% link explanation/decision-archaeology.md %}) — the choice-cartographer's role; intent debt and cognitive debt; the soft gate / hard gate asymmetry
 - [Compound Learning]({% link explanation/compound-learning.md %}) — how agent output feeds the learning loop
 - [Constraints and Enforcement]({% link explanation/constraints-and-enforcement.md %}) — the constraints agents enforce
 - [Harness Engineering]({% link explanation/harness-engineering.md %}) — the broader framework that agent orchestration fits within

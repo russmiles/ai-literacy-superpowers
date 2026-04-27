@@ -172,6 +172,8 @@ Objection records accumulate in `docs/superpowers/objections/` and feed the othe
 ## Further reading
 
 - [How to: Review a Spec Adversarially]({% link how-to/review-a-spec-adversarially.md %}) — the practical steps for running `/diaboli` and adjudicating the record
+- [Decision Archaeology]({% link explanation/decision-archaeology.md %}) — the paired Choice Cartographer agent that runs after diaboli adjudication; the Routing Rule that partitions findings between the two
+- [How to: Run the Choice Cartographer]({% link how-to/run-choice-cartograph.md %}) — practical steps for `/choice-cartograph`
 - [Agent Orchestration]({% link explanation/agent-orchestration.md %}) — the full pipeline in which adversarial review sits
 - [Agents Reference]({% link reference/agents.md %}) — the advocatus-diaboli agent's tools and trust boundary
 - [Commands Reference: /diaboli]({% link reference/commands.md %}) — command invocation and output format

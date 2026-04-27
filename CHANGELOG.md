@@ -2,6 +2,29 @@
 
 ## 0.29.0 — 2026-04-27
 
+### Docs — Choice Cartographer integration into docs site
+
+- `docs/reference/agents.md`: add `choice-cartographer` entry alongside
+  `advocatus-diaboli` with Routing Rule cross-reference; bump count from
+  12 to 13; expand pipeline-agents framing to seven agents with two
+  human gates (hard + soft); add row to the Tool Summary table.
+- `docs/reference/commands.md`: add `/choice-cartograph` entry under
+  Workflow with disposition values and merge-time gate context; bump
+  count from 23 to 24.
+- `docs/reference/skills.md`: add new "Spec-First Pipeline" section
+  containing both `advocatus-diaboli` and `choice-cartographer` skill
+  entries; bump count from 28 to 30 (advocatus-diaboli was missing too
+  and is now added under the new section).
+- `docs/explanation/agent-orchestration.md`: insert Choice Cartographer
+  step into the pipeline diagram; expand "Two things matter here" to
+  three to cover the soft-gate / hard-gate asymmetry; add cross-link to
+  `decision-archaeology.md`.
+- `docs/explanation/adversarial-review.md`: add Further Reading links
+  to `decision-archaeology.md` and `run-choice-cartograph.md` so the
+  paired agents are discoverable from each other.
+- `docs/index.md`: bump skills/agents/commands counts to 30/13/24 and
+  call out decision-archaeology in the value bullets.
+
 ### Feature — Choice Cartographer (decision-archaeology agent)
 
 - Add `agents/choice-cartographer.agent.md` — second chartered read-only
