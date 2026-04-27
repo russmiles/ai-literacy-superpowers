@@ -1,5 +1,5 @@
 ---
-spec: docs/superpowers/specs/2026-04-27-henney-agent.md
+spec: docs/superpowers/specs/2026-04-27-choice-cartographer.md
 date: 2026-04-27
 mode: spec
 diaboli_model: claude-opus-4-7[1m]
@@ -90,7 +90,20 @@ objections:
     disposition_rationale: "Accepted with option B: stay strict serial, but the spec's Sequencing section must explicitly address parallel dispatch as an option and cite REFLECTION_LOG 2026-04-07 (parallel agent dispatch reliability problems in this codebase) as the defensible reason serial is preferred."
 ---
 
-# Objections — henney-agent (spec mode)
+# Objections — choice-cartographer (spec mode)
+
+> **Renamed-after-adjudication note.** The agent was renamed from "Henney"
+> to "Choice Cartographer" after this objection record was adjudicated.
+> References in the body and dispositions to "Henney" / `the Henney` /
+> `/henney` / `henney_pending_count` / `henney_model` /
+> `agents/henney.agent.md` / "Henney stories" refer to what is now the
+> Choice Cartographer / `/choice-cartograph` / `cartograph_pending_count`
+> / `cartographer_model` / `agents/choice-cartographer.agent.md` /
+> "choice stories" respectively. The format ("choice stories") and the
+> Henney pattern-stories lineage (POSA Vol. 5) are preserved by design;
+> the rename affects the agent role, not the format. The dispositions
+> below stand as written — rewriting them post-rename would falsify the
+> adjudication record.
 
 ## O1 — premise — high
 
