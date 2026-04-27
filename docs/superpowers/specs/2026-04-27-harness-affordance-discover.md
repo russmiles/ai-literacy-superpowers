@@ -156,7 +156,12 @@ diff successive runs.
 - Missing source file → skip silently (not all projects have all
   three).
 - Malformed JSON → emit the file path and parse error to stderr,
-  exit non-zero so CI can catch.
+  exit non-zero so CI can catch. **Behaviour is all-or-nothing**: a
+  malformed source file aborts the scanner before subsequent sources
+  are processed, and no output file is written. This is deliberate —
+  loud failure beats partial output of dubious provenance, and a
+  partial write would mislead downstream tools that compare counts in
+  the heading against entries below. Per O10 of the code-mode review.
 - `jq` not installed → fail with a clear message: "jq is required
   for /harness-affordance discover. Install via `brew install jq`
   or `apt install jq`."
