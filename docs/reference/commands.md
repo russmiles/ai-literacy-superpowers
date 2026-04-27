@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 22 slash commands registered in `commands/`. Each command is
+All 23 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -135,6 +135,42 @@ template not in your HARNESS.md), Updated (changed items), and Removed
 accepted or dismissed individually. Dismissing writes a
 `.claude/.harness-upgrade-dismissed` marker so the SessionStart hook
 does not re-prompt until the next plugin update.
+
+### /harness-affordance
+
+- **Skills read**: none
+- **Agents dispatched**: none
+- **Subcommands**: `discover` (implemented), `add` and `review`
+  (planned)
+
+Manage the project's affordance inventory — the declared tools the
+agent can invoke, with the identity each tool runs under, the audit
+trail each tool produces, and the permission allowlist that
+authorises it. See the
+[harness-affordances design spec](../superpowers/specs/2026-04-26-harness-affordances-design.md)
+for the full schema.
+
+`/harness-affordance discover` reads `.claude/settings.json`,
+`.claude/settings.local.json`, and `.mcp.json`, and writes a draft
+affordance inventory to `<project>/.claude/affordance-discovery-<date>.md`
+(gitignored). One draft entry per permission pattern, hook entry, and
+MCP server. Machine-derivable fields (`Mode`, `Trigger` for hooks,
+`Permission`, `Notes` when needed) are filled in; human-owned
+governance fields (`Identity`, `Audit trail`, `Last reviewed`) are
+left as `TODO` placeholders. The scanner is the **backfill path** for
+existing harness adopters: running it once produces a draft for every
+existing permission. See
+[Discover Affordances](../how-to/discover-affordances.md) for the
+full how-to.
+
+`/harness-affordance add <name>` (planned, sequencing step 3 of the
+affordances design) will guide annotation of a draft entry —
+prompts for Identity, Audit trail, optional Notes, then appends the
+completed entry to `HARNESS.md`.
+
+`/harness-affordance review <name>` (planned, sequencing step 6)
+will walk through the three re-validation checks (Identity, Audit
+trail, Permission) and bump `Last reviewed` if all pass.
 
 ---
 

@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.28.0 — 2026-04-27
+
+### Feature — `/harness-affordance discover` (sequencing step 2 of harness-affordances)
+
+- Add `commands/harness-affordance.md` — parent command for the
+  affordance inventory workflow with three subcommands: `discover`
+  (implemented), `add` (planned, sequencing step 3), `review`
+  (planned, sequencing step 6). `add` and `review` print a clear
+  "not yet implemented" message pointing at the design spec.
+- Add `scripts/harness-affordance-discover.sh` — bash discovery
+  scanner that reads `.claude/settings.json`,
+  `.claude/settings.local.json`, and `.mcp.json`, deriving one draft
+  affordance per permission pattern, hook entry, and MCP server.
+  Output goes to `<project>/.claude/affordance-discovery-<date>.md`,
+  never to `HARNESS.md`. Idempotent — re-running on the same input
+  produces the same output modulo the date in the heading.
+- Output entries fill machine-derivable fields (Mode, Trigger for
+  hooks, Permission) and leave human-owned governance fields
+  (Identity, Audit trail, Notes) as `TODO` placeholders.
+- Disambiguates colliding derived names by appending numeric
+  suffixes (`awk-cli`, `awk-cli-2`, ...).
+- Cross-checks `.mcp.json` against permission allowlists and
+  warns when an MCP server is declared without a matching
+  `mcp__<server>__*` permission entry.
+- Add `docs/how-to/discover-affordances.md` — one-page guide
+  covering prerequisites (jq), invocation, output structure, and
+  the promote-to-HARNESS.md flow.
+- Update `.gitignore` to exclude `.claude/affordance-discovery-*.md`
+  so drafts never accidentally land in version control.
+- Update README Commands count badge from 22 to 23 and Commands
+  table to include `/harness-affordance`.
+- This is the **backfill path** for existing harness adopters
+  promised by sequencing step 2 of the affordances design — running
+  the scanner once produces a draft for every existing permission,
+  hook, and MCP server in any project that already declared them.
+
 ## 0.27.0 — 2026-04-26
 
 ### Commands — sync check on /harness-upgrade and PR workflow on /reflect
