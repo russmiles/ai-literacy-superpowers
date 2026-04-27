@@ -7,7 +7,7 @@ nav_order: 1
 
 # Skills
 
-The plugin ships 28 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
+The plugin ships 30 skills. Each skill is a focused unit of domain knowledge that Claude can invoke during a session. They are grouped below by category.
 
 ---
 
@@ -144,3 +144,36 @@ Governance audit methodology. Covers the seven-step audit process, the five-stag
 ### governance-observability
 
 Governance metrics and dashboard specification. Covers the seven governance metrics (constraint count, falsifiability ratio, drift score, debt inventory size, frame alignment score, last audit date, drift velocity), the snapshot format extension, staleness thresholds, audit report format, HTML dashboard section specifications, and portfolio integration. Referenced by the governance-auditor agent and `/governance-health`.
+
+---
+
+## Spec-First Pipeline
+
+Two paired read-only agents that run between spec-writer and plan
+approval. The diaboli challenges; the cartographer maps. Both have
+read-only trust boundaries that enforce a human-cognition gate on
+dispositions. They share a deterministic Routing Rule that partitions
+findings between them.
+
+### advocatus-diaboli
+
+Adversarial spec review. Covers the six objection categories
+(premise, scope, implementation, risk, alternatives, specification
+quality), severity levels (critical, high, medium, low), evidence
+requirements grounded in the spec text, the 12-objection cap, the
+"Explicitly not objecting to" discipline, dispatch-mode category
+weighting (spec-time vs. code-time), and the Routing Rule that
+partitions findings with the choice-cartographer. Referenced by
+`/diaboli` and the advocatus-diaboli agent.
+
+### choice-cartographer
+
+Decision archaeology. Covers the six lenses (forces, alternatives,
+unspoken, defaults inherited, patterns unnamed, consequences accepted,
+story coherence), the Routing Rule (failure-vs-decision test that
+partitions findings with the diaboli), the selectivity protocol
+(5–8 stories per spec target with a self-imposed 15-cap inside the
+agent's reasoning), the cross-reference protocol (deterministic
+resolution of `O\d+` and `#N` tokens in `Refs` fields), and the
+output format. Referenced by `/choice-cartograph` and the
+choice-cartographer agent.

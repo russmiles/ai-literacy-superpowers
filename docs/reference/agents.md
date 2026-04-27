@@ -7,7 +7,7 @@ nav_order: 2
 
 # Agents
 
-The plugin ships 12 agents organised into four groups: the
+The plugin ships 13 agents organised into three groups: the
 **spec-first pipeline** that coordinates feature work end to end,
 the **harness agents** that verify and maintain infrastructure
 conventions, and the **assessor** that measures AI literacy.
@@ -21,11 +21,12 @@ makes this explicit.
 
 ## Pipeline Agents
 
-These six agents form the spec-first development pipeline. After
+These seven agents form the spec-first development pipeline. After
 spec-writer produces the spec, the advocatus-diaboli reviews it
-adversarially and a human adjudicates the objections before plan
-approval; only then do tdd-agent, code-reviewer, and
-integration-agent run.
+adversarially and a human adjudicates the objections (hard gate);
+the choice-cartographer then maps the implicit decisions and a human
+adjudicates the choice-stories (soft gate); only then is the plan
+approved and tdd-agent, code-reviewer, and integration-agent run.
 
 ### orchestrator
 
@@ -70,6 +71,43 @@ alter the problem statement, and the absence of a disposition-writing tool
 forces a human to open the record and adjudicate before the pipeline
 proceeds. This human-cognition gate is the primary purpose of the agent —
 not finding objections, but ensuring a human engages with them.
+
+Applies the **Routing Rule** before emitting any candidate: a finding
+belongs in the diaboli's record iff removing it would leave a class of
+failures undetected. Findings shaped "this chose X over Y" without a
+failure implication belong in the choice-cartographer's record (see
+below). The two agents form a complete partition of findings worth
+surfacing about a spec.
+
+### choice-cartographer
+
+- **Tools**: Read, Glob, Grep
+- **Dispatched by**: orchestrator (after spec-mode advocatus-diaboli
+  dispositions are resolved, before plan approval)
+- **Trust boundary**: Read-only
+
+Decision-archaeology agent. Reads the spec and the matching adjudicated
+diaboli record, then maps the implicit decisions the spec has committed
+to — defaults inherited, alternatives unspoken, patterns unnamed,
+consequences accepted. Emits each material choice as a *choice story*
+(Henney-style pattern story, POSA Vol. 5) for human disposition.
+Produces a structured choice-story record at
+`docs/superpowers/stories/<spec-slug>.md`.
+
+Six lenses: forces, alternatives, defaults, patterns, consequences,
+coherence. Selectivity is enforced inside the agent's reasoning protocol
+(bias toward 5–8 stories per spec, hard cap of 15). Mirrors the diaboli's
+read-only mechanism: cannot modify the spec, cannot write dispositions.
+
+Applies the **Routing Rule** as the partition with the diaboli: a finding
+belongs in the cartographer's record iff removing it would leave a
+decision unrecorded but no failure undetected. The plan-approval gate is
+**soft** — `cartograph_pending_count` is surfaced as observability but
+does not block progression. The merge-time HARNESS constraint
+**PRs have adjudicated choice stories** is the forcing function.
+
+This release is spec-mode only. Code-mode behaviour is tracked under
+[issue #209](https://github.com/Habitat-Thinking/ai-literacy-superpowers/issues/209).
 
 ### tdd-agent
 
@@ -227,6 +265,7 @@ governance analysis requires nuanced judgement about meaning.
 | orchestrator | x | x | x | x | x | x | x | x | read-write |
 | spec-writer | x | x | x | x | x | | | | read-write |
 | advocatus-diaboli | x | | | x | x | | | | read-only |
+| choice-cartographer | x | | | x | x | | | | read-only |
 | tdd-agent | x | x | x | x | x | x | | | read-write |
 | code-reviewer | x | | | x | x | x | | | read-only |
 | integration-agent | x | x | x | | | x | | | read-write |

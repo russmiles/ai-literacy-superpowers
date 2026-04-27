@@ -55,14 +55,15 @@ stays trustworthy at scale.
 
 It gives you:
 
-- **29 skills** — domain knowledge for security auditing, constraint
-  design, context engineering, fitness functions, model sovereignty, and more
-- **12 agents** — autonomous workers for orchestration, enforcement,
+- **30 skills** — domain knowledge for security auditing, constraint
+  design, context engineering, fitness functions, model sovereignty,
+  decision archaeology, and more
+- **13 agents** — autonomous workers for orchestration, enforcement,
   garbage collection, code review, governance auditing, adversarial
-  spec/code review, and TDD
-- **23 commands** — slash commands for harness lifecycle, assessment,
+  spec/code review, decision archaeology, and TDD
+- **24 commands** — slash commands for harness lifecycle, assessment,
   portfolio assessment, reflection, governance, onboarding, affordance
-  inventory, and convention management
+  inventory, decision-archaeology mapping, and convention management
 - **3 enforcement loops** — advisory at edit time, strict at merge
   time, investigative on schedule
 

@@ -7,7 +7,7 @@ nav_order: 3
 
 # Commands
 
-All 23 slash commands registered in `commands/`. Each command is
+All 24 slash commands registered in `commands/`. Each command is
 invoked as `/command-name` in a Claude Code session.
 
 ---
@@ -327,6 +327,48 @@ begins.
 
 Run `/diaboli <spec-path>` after spec-writer completes and before approving
 the plan. Re-run it if the spec is substantively edited after initial review.
+
+### /choice-cartograph
+
+- **Skills read**: choice-cartographer
+- **Agents dispatched**: choice-cartographer
+
+Run the Choice Cartographer (decision-archaeology agent) on a spec file.
+Takes a path to a spec file under `docs/superpowers/specs/` and produces
+a structured choice-story record at
+`docs/superpowers/stories/<spec-slug>.md`.
+
+The record contains up to 15 stories across six lenses — forces,
+alternatives unspoken, defaults inherited, patterns unnamed, consequences
+accepted, and story coherence. Each story names a choice the spec made
+implicitly: a force resolved silently, a default inherited, a pattern
+not named. The agent biases toward 5–8 stories per spec; selectivity is
+the value, and pedantic enumeration is dropped in the agent's reasoning
+protocol.
+
+The agent applies the **Routing Rule** with the diaboli before emitting
+any candidate: a finding belongs in the cartographer's record iff
+removing it would leave a decision unrecorded but no failure undetected.
+Findings shaped "this could fail" belong in the diaboli's record
+instead.
+
+Story dispositions must be written by a human, but the plan-approval
+gate is **soft** — `cartograph_pending_count` is surfaced as
+observability and progression is allowed even with pending stories.
+The merge-time HARNESS constraint
+**"PRs have adjudicated choice stories"** is the forcing function:
+PR merge is blocked while any story is `pending`.
+
+Disposition values: `accepted`, `revisit` (deferred), `promoted`. All
+three are passing values at the merge gate — `revisit` carries the
+"captured-but-deferred" semantic, not "spec needs to change."
+
+Run `/choice-cartograph <spec-path>` after spec-mode `/diaboli`
+dispositions are resolved. Re-run it if the spec is substantively
+edited after initial mapping.
+
+This release is spec-mode only. Code-mode behaviour is tracked under
+[issue #209](https://github.com/Habitat-Thinking/ai-literacy-superpowers/issues/209).
 
 ### /worktree
 
