@@ -98,41 +98,59 @@ by design; needless friction discredits the role.
   not worth telling and drops it.
 - **Not exhaustive decision-archaeology.** Pedantic enumeration of every
   micro-choice produces noise that masks signal. Selectivity is the value.
-- **Not a disposition-writer.** The agent emits stories with empty disposition
-  checkboxes. Humans tick the boxes; no agent is permitted to.
+- **Not a disposition-writer.** The agent emits stories with `disposition: pending`
+  in the frontmatter. Humans set the disposition by editing the frontmatter
+  directly; no agent is permitted to.
 - **Not a hard plan-approval gate.** The diaboli already imposes a hard gate
   at the same point. Adding a second hard gate compounds friction punitively.
-  The Henney is a soft gate — see "Soft gate semantics" below.
+  The Henney is a soft gate at plan approval; the merge-time HARNESS
+  constraint supplies the forcing function — see "Soft gate semantics" and
+  "Constraints" below.
+
+## Routing rule (Henney vs. diaboli)
+
+A finding belongs in the Henney's story record iff: removing it would leave
+a decision unrecorded but no failure undetected. A finding belongs in the
+diaboli's objection record iff: removing it would leave a class of failures
+undetected. This is the deterministic test both agents reference; their
+skills must apply it before emitting any candidate. When a finding satisfies
+both tests, it is a diaboli risk (failures dominate decisions for routing
+purposes); when it satisfies neither, it is dropped.
 
 ## Scope
 
 ### In scope (this release)
 
-- `henney` agent with spec mode only.
-- `/henney <spec-path>` command accepting `--mode spec|code` (code-mode
-  contract stable; behaviour deferred).
-- `henney` skill describing the six lenses, output format, selectivity rule,
-  and cross-reference protocol.
+- `henney` agent with spec mode only. No `--mode` flag — single invocation
+  shape until code-mode work in #209 introduces it.
+- `/henney <spec-path>` command. Single positional argument.
+- `henney` skill describing the six lenses, the routing rule, output format,
+  selectivity rule, and cross-reference protocol.
 - Per-spec story records at `docs/superpowers/stories/<spec-slug>.md`.
 - Orchestrator step 1b: after spec-mode diaboli dispositions are resolved,
   before plan approval.
-- Soft gate at plan approval (see semantics below).
-- Validation checkpoint in `/henney` mirroring `/diaboli`.
+- Soft gate at plan approval, with structured `henney_pending_count: N`
+  surfaced in the plan-approval summary and exposed in observability — see
+  semantics below.
+- HARNESS constraint **"PRs have adjudicated stories"** — agent-enforced
+  via harness-enforcer. PR merge is blocked until every story in
+  `docs/superpowers/stories/<slug>.md` has `disposition != pending`. This
+  is the merge-time forcing function; the plan-approval gate stays soft.
+- Validation checkpoint in `/henney` mirroring `/diaboli`, including
+  cross-reference resolution.
 - Docs: how-to guide, explanation page.
 - Follow-up issue raised at PR open time tracking code-mode implementation
-  (issue #209).
+  (#209) and story-promotion mechanism (#211).
 
 ### Out of scope (deferred)
 
-- **Code mode behaviour.** The agent definition will accept `--mode spec|code`
-  so the contract is stable, but the orchestrator will not dispatch code-mode
-  in this release. `/henney --mode code` returns "out of scope in this release"
-  and exits non-error. Tracked under issue #209.
-- **HARNESS.md constraint "PRs have adjudicated stories".** Premature; revisit
-  after spec-mode has produced records on at least three real specs.
-- **Promotion of stories to AGENTS.md ARCH_DECISION or HARNESS.md constraints.**
-  The `promote` checkbox is scaffolding for a future workflow; the actual
-  promotion mechanism is a follow-up.
+- **Code mode behaviour.** Tracked under issue #209. `/henney` is spec-only
+  in this release; the `--mode` flag is introduced alongside the actual
+  code-mode implementation, not reserved in advance.
+- **Promotion of stories to AGENTS.md ARCH_DECISION or HARNESS.md
+  constraints.** Tracked under issue #211. The `promoted` disposition value
+  is captured from day one; a future command (`/henney-promote` or similar)
+  reads stories with `disposition: promoted` and proposes routing targets.
 - **Aggregate `STORIES.md` index.** Future enhancement once enough per-spec
   records exist to justify cross-spec navigation.
 
@@ -140,19 +158,30 @@ by design; needless friction discredits the role.
 
 At plan approval, the orchestrator presents the plan summary, the adjudicated
 diaboli record (already gated as hard), **and** the Henney story record. The
-Henney record is surfaced for the human to read, but progression is allowed
-even if no story disposition is ticked.
+Henney record is surfaced for the human to read; progression is allowed even
+if every story is still `pending`. The merge-time HARNESS constraint (see
+"In scope" above) supplies the forcing function — the soft gate at plan
+approval can stay genuinely soft because the PR cannot land while any
+disposition remains `pending`.
+
+The orchestrator's plan-approval surface is precise:
+
+- Emit a structured field `henney_pending_count: N` in the plan-approval
+  summary, where N is the number of stories with `disposition: pending`.
+- Print the count in the user-facing summary alongside the diaboli outcome,
+  e.g. `Henney: N pending dispositions in docs/superpowers/stories/<slug>.md`.
+- Expose the same field in `/superpowers-status` and harness-health snapshot
+  output so the team has a metric for whether dispositions are being
+  resolved at plan-approval time or deferred to merge time.
+- Continue execution after surfacing — no acknowledgement keypress is
+  required at plan approval.
 
 This is deliberate. The diaboli gate exists because a `pending` objection is
-a risk that has not been triaged. A Henney story without a tick is *not* a
-risk — it is a captured decision waiting for the human to decide whether to
-accept, revisit, or promote. The decision is not load-bearing for plan
-approval; it is load-bearing for compound learning. We trade some discipline
-for less ceremony.
-
-A subsequent constraint can re-introduce a hard gate at PR merge if the team
-finds dispositions are routinely skipped. This is reversible if we observe
-the soft gate failing.
+a risk that has not been triaged. A Henney story without a disposition is
+*not* a risk — it is a captured decision waiting for human curation. The
+decision is not load-bearing for plan approval; it is load-bearing for
+compound learning, and the merge-time constraint ensures it is resolved
+before the work ships.
 
 ## Sequencing
 
@@ -168,19 +197,34 @@ Strict serial, mirroring the diaboli ordering:
 8. advocatus-diaboli (code mode) → user adjudicates dispositions (hard gate)
 9. integration-agent
 
-Parallel adjudication of diaboli + Henney was considered and rejected:
-stories that cite or counter objections should be authored *after* the team
-has resolved the objection record, not in parallel with it. Cross-references
-from stories to objection IDs are explicitly supported in the Refs field.
+Two parallel-dispatch alternatives were considered and rejected:
+
+1. **Parallel adjudication of diaboli + Henney.** Rejected because stories
+   that cite or counter objections should be authored *after* the team has
+   resolved the objection record, not in parallel with it. Cross-references
+   from stories to objection IDs are explicitly supported in the Refs field
+   and depend on the diaboli record being settled at the moment the Henney
+   reads.
+
+2. **Parallel agent dispatch with serial adjudication** (dispatch both agents
+   simultaneously after spec-writer; human adjudicates diaboli first, then
+   Henney). This would halve wall-clock latency without losing the
+   cross-reference benefit at adjudication time. Rejected because
+   parallel agent dispatch is currently unreliable in this codebase:
+   REFLECTION_LOG 2026-04-07 documents that worktree-isolated subagents lose
+   Bash permissions and that non-worktree parallel agents cross-contaminate
+   branches. Until that platform-level issue is resolved, the latency saving
+   does not justify the orchestration risk. If the underlying reliability
+   issue is fixed, this configuration is the right next step.
 
 ## Output format
 
-Each story:
+Each story (prose body):
 
 ```markdown
 ### Story #N — <short evocative title>
 
-**Mode:** spec | code
+**Mode:** spec
 **Source:** `<path/to/spec.md>` (section if useful)
 **Lens:** <one or more of: forces / alternatives / defaults / patterns / consequences / coherence>
 **Refs:** <story IDs / objection IDs, else —>
@@ -192,13 +236,12 @@ Each story:
 **Consequences.** What this forecloses or accepts.
 **Pattern.** Named pattern with citation, or `—`.
 
-**Disposition.**
-- [ ] accept
-- [ ] revisit
-- [ ] promote
-
 **Notes.** Optional flag for the curator.
 ```
+
+The disposition lives in the frontmatter only — there are no prose
+checkboxes. This mirrors the diaboli pattern and keeps the canonical
+source of truth in a single machine-readable field.
 
 YAML frontmatter for the file:
 
@@ -206,7 +249,7 @@ YAML frontmatter for the file:
 ---
 spec: <path/to/spec.md>
 date: <YYYY-MM-DD>
-mode: spec | code
+mode: spec
 henney_model: <model identifier>
 stories:
   - id: 1
@@ -218,16 +261,25 @@ stories:
 ---
 ```
 
-`disposition: pending` until the human ticks at least one box and writes a
-rationale. `disposition_rationale` may be `null` until the human writes it.
+`disposition` legal values are `pending | accepted | revisit | promoted`.
+Compound values are not permitted — the human picks one. The frontmatter
+is canonical: downstream consumers (the merge-time HARNESS constraint,
+observability) read frontmatter only.
+
+`disposition: pending` until the human edits the frontmatter to a non-pending
+value and writes a `disposition_rationale`. `disposition_rationale` may be
+`null` until the human writes it.
 
 ## Selectivity guardrail
 
-The agent biases toward 5–8 stories per spec. If it emits more than 12, the
-command flags this in its output as a possible signal that the spec needs
-rewriting before annotation is useful. The validation checkpoint enforces a
-hard cap of 15 stories per record — beyond that, the command refuses to
-write and surfaces the count to the user.
+Selectivity is enforced inside the agent's reasoning protocol, not at the
+validator. The skill instructs the agent to bias toward 5–8 stories per spec
+and to enforce a self-imposed cap of 15 — if it has more than 15 candidate
+stories, it selects the 15 with the highest signal/leverage and drops the
+rest, mirroring the diaboli's 12-objection cap pattern. This keeps the
+validation-checkpoint contract clean: the validator verifies count is in
+range and surfaces a warning at ≥13, but never refuses to write or discards
+the agent's work. Fix-in-place remains the codified pattern.
 
 ## Six lenses (full definitions in the skill)
 
@@ -244,57 +296,88 @@ write and surfaces the count to the user.
 
 1. YAML frontmatter parseable; required fields present (`spec`, `date`,
    `mode`, `henney_model`, `stories`).
-2. `mode` matches the flag passed.
+2. `mode` is `spec`.
 3. Each story has `id`, `lens`, `title`, `disposition`,
    `disposition_rationale`.
-4. `disposition: pending` for all entries (not pre-filled).
-5. `disposition_rationale: null` for all entries (not pre-filled).
-6. Lens values drawn from the six-category set.
-7. Story count between 1 and 15 inclusive (warning ≥ 13).
-8. Prose body has one `### Story #N` section per frontmatter entry.
+4. `disposition: pending` for all entries (not pre-filled by the agent).
+5. `disposition_rationale: null` for all entries (not pre-filled by the
+   agent).
+6. Lens values drawn from the six-lens set (forces, alternatives, defaults,
+   patterns, consequences, coherence).
+7. Story count between 1 and 15 inclusive (warning at ≥ 13).
+8. Prose body has one `### Story #N` section per frontmatter entry,
+   numbered consecutively from 1.
+9. **Cross-reference resolution — objection IDs.** Any `O\d+` in any
+   story's `Refs` field must correspond to an entry in
+   `docs/superpowers/objections/<spec-slug>.md` if that file exists. If
+   the objection record does not exist yet, `O\d+` references in `Refs`
+   are a validation error.
+10. **Cross-reference resolution — story IDs.** Any `#N` in any story's
+    `Refs` field must satisfy `N < current_story_id` (no forward
+    references, no self-references).
 
-Deviations are fixed in place — no agent re-dispatch.
+Deviations are fixed in place — no agent re-dispatch. The selectivity cap
+is enforced inside the agent (see "Selectivity guardrail"), so the
+validator never refuses to write.
 
 ## Acceptance scenarios
 
 1. **Manual spec-mode invocation.** `/henney docs/superpowers/specs/foo.md`
    produces `docs/superpowers/stories/foo.md` with 5–8 stories, all
-   `disposition: pending`. Validation checkpoint passes. User can tick boxes
-   and write rationales.
+   `disposition: pending` in the frontmatter. Validation checkpoint passes.
+   User edits the frontmatter to set each story's `disposition` to one of
+   `accepted | revisit | promoted` and writes a `disposition_rationale`.
 
 2. **Orchestrator integration.** Orchestrator dispatches henney after
    spec-mode diaboli dispositions are resolved. Surfaces the record at plan
-   approval. Allows progression with `pending` dispositions but flags them
-   in the summary.
+   approval with structured field `henney_pending_count: N` and a
+   user-facing prose line. Allows progression with `pending` dispositions.
+   The same count appears in `/superpowers-status` and harness-health
+   snapshot output.
 
-3. **Cross-reference.** A story cites objection O3 and earlier story #2.
-   Validation accepts both forms in the Refs field.
+3. **Cross-reference resolution.** A story cites objection O3 and earlier
+   story #2. The validation checkpoint resolves both — O3 must exist in
+   the matching objections record, and #2 must satisfy `N < current_id`.
+   A story citing O17 in a 5-objection record is a validation error.
 
-4. **Selectivity guardrail.** Spec with 30 implicit decisions produces no
-   more than 15 stories; command output warns user and recommends rewriting
-   the spec before annotation.
+4. **Selectivity guardrail.** Spec with 30 implicit decisions produces at
+   most 15 stories — the agent's reasoning protocol selects the 15
+   highest-signal candidates and drops the rest. The validator never
+   refuses to write.
 
-5. **Mode contract stability.** `--mode code` is accepted by `/henney` and
-   the agent but produces an "out of scope in this release — tracked under
-   issue #209" message and exits non-error. (Reserves the slot without
-   implementing.)
+5. **Merge-time HARNESS gate.** PR with one or more stories whose
+   `disposition: pending` cannot merge. The harness-enforcer agent reports
+   the constraint failure with the unresolved story IDs. After the human
+   resolves all dispositions, a fresh enforcer run passes and the merge
+   gate clears.
 
 ## Plugin impact
 
 - **Adds:** `agents/henney.agent.md`, `skills/henney/SKILL.md`,
   `commands/henney.md`, `.github/prompts/henney.prompt.md`,
   `docs/how-to/run-henney.md`, `docs/explanation/decision-archaeology.md`.
-- **Modifies:** `agents/orchestrator.agent.md` (step 1b), `README.md`
-  (Commands count badge, agents list), `plugin.json` (version bump,
-  keywords), `marketplace.json` (`plugin_version`).
+- **Modifies:** `agents/orchestrator.agent.md` (step 1b),
+  `agents/harness-enforcer.agent.md` (read the new constraint),
+  `commands/superpowers-status.md` and harness-health output (surface
+  `henney_pending_count`), `templates/HARNESS.md` (add the new constraint
+  to the upstream template), `HARNESS.md` (this project adopts the
+  constraint), `README.md` (Commands count badge, agents list),
+  `plugin.json` (version bump, keywords), `marketplace.json`
+  (`plugin_version`).
 - **Version bump:** minor (e.g. 0.28.0 → 0.29.0).
 - **CHANGELOG entry** under the new version heading.
-- **HARNESS.md:** no new constraint in this release (deferred per scope).
-- **Follow-up issue:** code-mode tracked at #209 from PR open time.
+- **HARNESS.md:** new constraint **"PRs have adjudicated stories"** —
+  agent-enforced via harness-enforcer, scope `pr`. Symmetric with the
+  existing "PRs have adjudicated objections" constraint, with the same
+  exemption rules (bug/fix/chore/maintenance).
+- **Follow-up issues:** code-mode at #209, story-promotion mechanism at
+  #211, both referenced from the PR description at open time.
 
 ## Open questions
 
 None at spec time. The four design dispositions (per-spec records, soft
-gate, single agent with `--mode`, strict serial) were resolved before this
-spec was written and are recorded above. Code mode and HARNESS constraint
-are explicitly deferred and tracked under "Out of scope."
+gate at plan approval + hard gate at merge, single agent without `--mode`
+flag yet, strict serial sequencing) were resolved during diaboli
+adjudication and are recorded above. Adjudicated objection record at
+`docs/superpowers/objections/henney-agent.md` (12 objections; 9 accepted,
+3 rejected, 0 pending).
