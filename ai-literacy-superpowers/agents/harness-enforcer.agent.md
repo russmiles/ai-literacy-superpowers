@@ -64,6 +64,36 @@ When reviewing a PR for the "Spec captures intent" constraint:
    three areas and aligns with the implementation passes. A spec that
    is missing any area or diverges significantly from the code fails.
 
+**Choice Story Adjudication Review (for "PRs have adjudicated choice stories" constraint):**
+
+When reviewing a PR for the "PRs have adjudicated choice stories"
+constraint:
+
+1. Apply the same exemption rules as `PRs have adjudicated objections`:
+   - Bug fixes, dependency updates, and maintenance PRs labelled
+     `bug`, `fix`, `chore`, or `maintenance`, or branch-prefixed
+     `fix/` or `chore/`, are exempt
+   - Cross-repo PRs labelled `cross-repo` are exempt
+2. Find the spec file(s) in the PR (in `docs/superpowers/specs/`).
+   Derive each slug by stripping the date prefix and `.md` extension.
+3. For each slug, look for a corresponding choice-story record at
+   `docs/superpowers/stories/<slug>.md`:
+   - **If the file exists**: parse the YAML frontmatter `stories`
+     array and verify that every entry has `disposition` set to one
+     of `accepted`, `revisit`, or `promoted` (no `pending`). Report
+     each unresolved story with its `id` and `title`.
+   - **If the file does not exist**: this is a finding — every
+     non-exempt PR with a spec should have a choice-story record.
+     Recommend the user run `/choice-cartograph <spec-path>`.
+4. Report findings per the standard format. A PR with all stories
+   resolved (or where the constraint is exempt) passes. A PR with any
+   `disposition: pending` fails with a list of unresolved story IDs.
+
+This is symmetric with `PRs have adjudicated objections` — same shape,
+different file path and disposition value set. The cognitive-engagement
+gate is identical: agents propose stories, humans set dispositions,
+the constraint enforces that they did.
+
 **Verification Process:**
 
 1. **Read HARNESS.md**: Parse the Constraints section. Filter to

@@ -1,5 +1,73 @@
 # Changelog
 
+## 0.29.0 — 2026-04-27
+
+### Feature — Choice Cartographer (decision-archaeology agent)
+
+- Add `agents/choice-cartographer.agent.md` — second chartered read-only
+  agent in the spec-first pipeline (Read/Glob/Grep boundary). Runs after
+  spec-mode `/diaboli` dispositions are resolved and before plan approval;
+  surfaces decisions a spec has made implicitly and emits each as a
+  *choice story* (Henney pattern story) for human disposition.
+- Add `skills/choice-cartographer/SKILL.md` — six lenses (forces,
+  alternatives, defaults, patterns, consequences, coherence), the
+  Routing Rule (failure-vs-decision test that partitions findings
+  between Cartographer and diaboli), self-imposed selectivity cap (15)
+  inside the reasoning protocol, output format, cross-reference
+  protocol with deterministic resolution.
+- Add `commands/choice-cartograph.md` — `/choice-cartograph <spec-path>`
+  with single positional argument (no `--mode` flag this release;
+  code-mode tracked at issue #209). Validation checkpoint includes
+  cross-reference resolution for `O\d+` and `#\d+` tokens in `Refs`
+  fields. Selectivity cap is enforced in the agent's reasoning, so the
+  validator never refuses to write — fix-in-place pattern preserved.
+- Add `.github/prompts/choice-cartograph.prompt.md` — prompt mirror
+  for `/prompts` discovery in Copilot CLI.
+- Add `docs/how-to/run-choice-cartograph.md` — task-oriented guide
+  covering invocation, output, the Routing Rule, and the disposition
+  workflow.
+- Add `docs/explanation/decision-archaeology.md` — conceptual page on
+  intent debt, cognitive debt, the cartography role frame, the
+  Routing Rule, soft-vs-hard gating, and the relationship to ADRs.
+- Modify `agents/orchestrator.agent.md` — insert step 1b after
+  spec-mode diaboli adjudication and before plan approval; surface
+  `cartograph_pending_count: N` as a structured field in the
+  plan-approval summary; allow progression with pending dispositions.
+- Modify `agents/harness-enforcer.agent.md` — add Choice Story
+  Adjudication Review section that mirrors the diaboli adjudication
+  check for the new `PRs have adjudicated choice stories` constraint.
+- Modify `templates/HARNESS.md` — add `PRs have adjudicated choice
+  stories` constraint (agent-enforced via harness-enforcer, scope
+  `pr`); bump template-version marker to 0.29.0.
+- Modify `HARNESS.md` (this project) — adopt the new constraint
+  locally; bump template-version marker to 0.29.0.
+- Modify `commands/superpowers-status.md` — add Section 8 (Cartographer
+  activity) with `cartograph_pending_count`, fully-resolved rate,
+  disposition distribution, and lens distribution; add Cartographer
+  line to the dashboard summary.
+- Modify `commands/harness-health.md` — add Cartographer to the
+  snapshot section list (now 14 sections instead of 13).
+- Modify `skills/harness-observability/references/snapshot-format.md`
+  — add Cartographer section spec parallel to the Diaboli section,
+  with `cartograph_pending_count` documented as the load-bearing
+  field tracked by the merge-time HARNESS constraint.
+- The Cartographer's plan-approval gate is **soft** by design — it
+  surfaces `cartograph_pending_count` and allows progression, while
+  the merge-time HARNESS constraint blocks PR merge until every story
+  has `disposition != pending`. The asymmetry against the diaboli's
+  hard plan-approval gate is deliberate: a `pending` objection is a
+  risk that has not been triaged; a `pending` choice story is a
+  captured decision waiting for human curation.
+- Format vocabulary preserves the Henney pattern-stories lineage —
+  each entry is a *choice story* and the format follows POSA Vol. 5;
+  the Cartographer name reflects the agent's role (mapping the
+  implicit decision terrain) rather than the format's source.
+- Spec at `docs/superpowers/specs/2026-04-27-choice-cartographer.md`.
+  Adjudicated diaboli objection record at
+  `docs/superpowers/objections/choice-cartographer.md` — 12 objections,
+  9 accepted, 3 rejected. Follow-up issues: code-mode at #209,
+  story-promotion mechanism at #211.
+
 ## 0.28.0 — 2026-04-27
 
 ### Chore — harness marker bump

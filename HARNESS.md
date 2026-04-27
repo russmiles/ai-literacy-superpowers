@@ -10,7 +10,7 @@
 
      Inspired by Birgitta Boeckeler's "Harness Engineering":
      https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html -->
-<!-- template-version: 0.28.0 -->
+<!-- template-version: 0.29.0 -->
 
 ## Context
 
@@ -217,6 +217,22 @@
   created before 2026-04-19 are exempt — add `diaboli: exempt-pre-existing`
   to their frontmatter or rely on the dated cutoff. "Resolved" is a judgment
   call on rationale quality, not a schema check.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer
+- **Scope**: pr
+
+### PRs have adjudicated choice stories
+
+- **Rule**: Every feature or behaviour-change PR with a spec must have a
+  choice-story record at `docs/superpowers/stories/<spec-slug>.md` with every
+  story's `disposition` set to one of `accepted`, `revisit`, or `promoted`
+  (no `pending` values). Bug fixes, dependency updates, and maintenance PRs
+  (labelled `bug`, `fix`, `chore`, `maintenance` or branch-prefixed `fix/`,
+  `chore/`) are exempt on the same terms as `PRs have adjudicated objections`.
+  Specs created before 2026-04-27 are exempt — add
+  `cartographer: exempt-pre-existing` to their frontmatter or rely on the
+  dated cutoff. "Resolved" is a judgment call on rationale quality, not a
+  schema check.
 - **Enforcement**: agent
 - **Tool**: harness-enforcer
 - **Scope**: pr

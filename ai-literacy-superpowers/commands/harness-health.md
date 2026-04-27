@@ -93,8 +93,9 @@ using the format defined in `references/snapshot-format.md`.
 
 Include all sections: Enforcement, Enforcement Loop History, Garbage
 Collection, Mutation Testing, Compound Learning, Session Quality,
-Diaboli, Operational Cadence, Cost Indicators, Regression Indicators,
-Meta, Changes Since Last Snapshot, and Trends (if previous snapshot exists).
+Diaboli, Cartographer, Operational Cadence, Cost Indicators,
+Regression Indicators, Meta, Changes Since Last Snapshot, and Trends
+(if previous snapshot exists).
 
 ### 7. Validate Snapshot Structure
 
@@ -104,10 +105,10 @@ structure against `references/snapshot-format.md`.
 
 **Structural checks:**
 
-1. All 13 section headings present in order: Enforcement,
+1. All 14 section headings present in order: Enforcement,
    Enforcement Loop History, Garbage Collection, Mutation Testing,
-   Compound Learning, Session Quality, Diaboli, Operational Cadence,
-   Cost Indicators, Regression Indicators, Meta,
+   Compound Learning, Session Quality, Diaboli, Cartographer,
+   Operational Cadence, Cost Indicators, Regression Indicators, Meta,
    Changes Since Last Snapshot, Trends
 2. Trends section is conditional — required only when a previous
    snapshot exists (step 3 found one)

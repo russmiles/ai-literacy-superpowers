@@ -46,8 +46,21 @@ message with multiple Agent tool calls.
            dispositions (`accepted`/`deferred`/`rejected`) and rationales inline
            in docs/superpowers/objections/<spec-slug>.md. Do NOT let any agent
            write dispositions — this is the cognitive-engagement mechanism.
-     GATE: Plan Approval — once all dispositions are resolved, present the plan
-           summary alongside the adjudicated objection record; wait for approval.
+  1b. SEQUENTIAL — choice-cartographer  After 1a dispositions are resolved;
+           reads the spec and the matching adjudicated objection record;
+           produces the choice-story record at
+           docs/superpowers/stories/<spec-slug>.md.
+     SOFT GATE: Choice-Story Surface — surface the choice-story record to the
+           user. ALLOW progression even if any `disposition: pending` remains.
+           Emit a structured `cartograph_pending_count: N` field in the
+           plan-approval summary. The merge-time HARNESS constraint
+           "PRs have adjudicated choice stories" is the forcing function;
+           the soft gate is an invitation to engage now while context is
+           fresh, not a block. Do NOT let any agent write dispositions.
+     GATE: Plan Approval — once 1a dispositions are resolved (hard) and the
+           choice-story record is surfaced (soft), present the plan summary
+           alongside both adjudicated records and `cartograph_pending_count`;
+           wait for approval.
   2. SEQUENTIAL  — tdd-agent          Write failing tests from the new scenarios.
   3. PARALLEL    — (implementers)     Make tests green — dispatch one agent per
                                        language or implementation domain as needed.
@@ -82,7 +95,7 @@ message with multiple Agent tool calls.
    `gh issue create --title "TITLE" --body "DESCRIPTION"`
    Record the issue number — pass it to integration-agent at the end.
 
-## After spec-writer completes — Diaboli (spec mode) and Plan Approval Gate
+## After spec-writer completes — Diaboli (spec mode), Choice Cartographer, and Plan Approval Gate
 
 ### Step 1: Dispatch advocatus-diaboli in spec mode
 
@@ -122,21 +135,81 @@ objection in `docs/superpowers/objections/<slug>.md` before proceeding."
 
 Do NOT proceed while any `disposition` is `pending`.
 
-### Step 4: Plan Approval Gate
+### Step 4: Dispatch choice-cartographer (after diaboli dispositions resolved)
 
-Once the user confirms all dispositions are resolved, PAUSE and present the
-plan alongside the adjudicated objection record. Show:
+Once the user has confirmed every `disposition` in the diaboli record is
+non-pending, dispatch the choice-cartographer agent with the spec file path.
+The agent reads the spec, reads the adjudicated diaboli record at
+`docs/superpowers/objections/<spec-slug>.md`, and returns the full
+choice-story record content. Write that content to
+`docs/superpowers/stories/<spec-slug>.md`.
+
+The cartographer is read-only by tool boundary (Read, Glob, Grep). It cannot
+write the file itself. The orchestrator writes the file using the agent's
+returned content.
+
+### Step 5: Validate the choice-story record
+
+Read back the written file and verify:
+
+1. YAML frontmatter present with `spec`, `date`, `mode: spec`,
+   `cartographer_model`, `stories` fields
+2. Each story has `id`, `lens`, `title`, `disposition: pending`,
+   `disposition_rationale: null`
+3. Lens values are drawn from the six-lens set: `forces`, `alternatives`,
+   `defaults`, `patterns`, `consequences`, `coherence`
+4. Story count is between 1 and 15 inclusive (warning at ≥ 13)
+5. Prose body has one `## Story #N` section per frontmatter entry,
+   numbered consecutively from 1
+6. Cross-reference resolution: every `O\d+` token in any `Refs` field
+   corresponds to an entry in `docs/superpowers/objections/<slug>.md`;
+   every `#\d+` token satisfies `N < current_story_id`
+
+Fix any deviations in place. Do not re-dispatch the agent. The selectivity
+cap (15) is enforced inside the agent's reasoning protocol so the validator
+never refuses to write.
+
+### Step 6: Surface the choice-story record (soft gate)
+
+PAUSE and present the choice-story record to the user. Show:
+
+- Output path
+- Story count and lens distribution
+- Cross-reference summary (count of `O\d+` and `#\d+` references resolved)
+- Each story's title and one-line context
+
+Tell the user: "Edit `docs/superpowers/stories/<slug>.md` to set each
+story's `disposition` to one of `accepted | revisit | promoted` and write
+a `disposition_rationale`. The plan-approval gate is soft and will allow
+you to proceed with `pending` dispositions; the merge-time HARNESS
+constraint **PRs have adjudicated choice stories** is the forcing
+function. Resolving now is cheaper for compound learning."
+
+Do NOT block on `pending` dispositions here. This is the soft gate.
+
+### Step 7: Plan Approval Gate
+
+Once steps 1–6 are complete (diaboli dispositions hard-gated, choice-story
+record surfaced and soft-gated), PAUSE and present the plan alongside both
+adjudicated records. Show:
 
 - What spec changes were made (new/modified user stories, scenarios, requirements)
 - What the implementation plan proposes (modules, files, approach)
 - Estimated scope (number of files, languages affected)
 - Summary of objection dispositions (how many accepted, deferred, rejected)
+- **`cartograph_pending_count: N`** — the count of choice-story dispositions
+  still `pending`. Surface this as a structured field, not just prose, so
+  observability tooling (`/superpowers-status`, harness-health) can read it
+- Lens distribution of the choice-story record
 
 Then ask the user to choose:
 
-- **Approve** — proceed to tdd-agent
+- **Approve** — proceed to tdd-agent. Note: if `cartograph_pending_count > 0`,
+  the user is opting to defer choice-story dispositions to merge time. The
+  merge-time constraint will block the PR until they are resolved.
 - **Request changes** — re-dispatch spec-writer with the user's feedback
-  (if major objections were accepted, re-run advocatus-diaboli on the revised spec)
+  (if major objections were accepted, re-run advocatus-diaboli on the revised
+  spec; the choice-cartographer will need to re-run too)
 - **Take over** — exit the pipeline; the user will work manually
 
 Do NOT dispatch tdd-agent without user approval. This gate exists because it is
