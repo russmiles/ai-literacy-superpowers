@@ -6,12 +6,12 @@
 [![Skills](https://img.shields.io/badge/Skills-30-2E8B57?style=flat-square)](#skills-30)
 [![Agents](https://img.shields.io/badge/Agents-13-2E8B57?style=flat-square)](#agents-13)
 [![Commands](https://img.shields.io/badge/Commands-24-2E8B57?style=flat-square)](#commands-24)
-[![Harness](https://img.shields.io/badge/Harness-14%2F15_enforced-4682B4?style=flat-square)](HARNESS.md)
+[![Harness](https://img.shields.io/badge/Harness-18%2F19_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 [![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-Plugin-000000?style=flat-square&logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
 [![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
-[![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_5-DAA520?style=flat-square)](assessments/2026-04-11-assessment.md)
+[![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_5-DAA520?style=flat-square)](assessments/2026-04-28-assessment.md)
 
 A plugin for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CLI](https://github.com/features/copilot) that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
 
@@ -367,13 +367,15 @@ ADVISORY LOOP (edit time — warn, do not block)
 │   │                                    rotating by day-of-year
 │   ├── Stop curation nudge            Detects unpromoted reflections, nudges
 │   │                                    curation into AGENTS.md
-│   └── Stop governance drift check    Detects governance file changes, nudges
-│                                        /governance-audit
+│   ├── Stop governance drift check    Detects governance file changes, nudges
+│   │                                    /governance-audit
+│   └── SessionStart template currency Detects HARNESS.md template-version drift,
+│                                        nudges /harness-upgrade
 ├── Context (read by agents at session start)
 │   ├── CLAUDE.md                       Workflow rules, conventions, disciplines
 │   ├── AGENTS.md                       Compound learning memory (human-curated)
 │   ├── MODEL_ROUTING.md                Model-tier guidance + token budgets
-│   └── Skills (29)                     Domain knowledge for agents
+│   └── Skills (30)                     Domain knowledge for agents
 │
 └── Commands
     ├── /reflect                        Capture post-task learnings

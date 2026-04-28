@@ -85,6 +85,17 @@
   command-prompt sync and plugin manifest currency GC rules are
   critical here to catch drift. (Source: REFLECTION_LOG 2026-04-06)
 
+- Long uninterrupted sessions degrade judgment in ways that are
+  invisible from inside the session — output keeps flowing, but
+  pattern-matching narrows and surprise-detection drops. Take a
+  time-based break (90-minute self-check, end-of-day stop) rather
+  than a task-based one. Specifically: if the next decision involves
+  judgment about *whether* to do something (vs how to do it), and
+  you've been working continuously for 90+ minutes, defer the
+  decision to a fresh session. Task-based stops ("when this is done")
+  routinely paper over depletion because the task always extends.
+  (Source: 2026-04-28 assessment Q4 — depletion-management gap.)
+
 ## ARCH_DECISIONS
 
 <!-- Key architectural decisions and the reasoning behind them.
