@@ -16,6 +16,13 @@
 - Cross-links added in `harness-engineering.md`, `self-improving-harness.md`,
   and the explanation `index.md` "Deep dives" section so the new page
   is discoverable from related entry points.
+- Restructured "How HARNESS.md is operated" section to add a Signal
+  capture flow that explicitly documents reflections as the primary
+  signal source feeding HARNESS.md amendments (alongside audit
+  findings and direct human authoring). The original three-flow
+  shape elided where amendments come from; the four-flow shape makes
+  the reflection-driven ratchet (every preventable mistake becomes a
+  rule) load-bearing in the prose.
 
 ### Docs — Choice Cartographer integration into docs site
 

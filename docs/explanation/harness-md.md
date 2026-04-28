@@ -110,40 +110,97 @@ audited.
 
 ## How HARNESS.md is operated
 
-`HARNESS.md` is operated through three flows, each of which is
-documented in the harness commands:
+`HARNESS.md` is operated through four flows, each of which is
+documented in the harness commands.
 
-1. **Authoring and amendment.** Constraints and garbage-collection
-   rules enter `HARNESS.md` via `/harness-init`,
-   `/harness-constrain`, `/governance-constrain`, and
-   `/harness-upgrade`. Each flow surfaces the implications and writes
-   the constraint with a declared enforcement state (`unverified`,
-   `agent`, or `deterministic`). See
-   [Constraints and Enforcement]({% link explanation/constraints-and-enforcement.md %}).
+### 1. Signal capture
 
-2. **Verification and propagation.** When a constraint reaches
-   `agent` or `deterministic` status, the corresponding artefact is
-   created or updated — a CI workflow, a hook script, a sub-agent
-   prompt, an entry in a convention file. The harness-enforcer agent
-   is the unified verification engine; it reads `HARNESS.md`,
-   identifies which constraints apply at the requested scope (commit,
-   pr, weekly, manual), and either executes the deterministic tool or
-   performs the agent-based review. Convention propagation to other
-   AI tools happens via `/convention-sync`.
+Amendments enter the document from three pathways. The framework
+treats reflections as the primary one.
 
-3. **Audit and self-correction.** `/harness-audit` runs the
-   meta-verification — it checks that `HARNESS.md`'s declared state
-   matches reality. The Status block in `HARNESS.md` is auto-updated
-   based on what the audit finds. Garbage-collection rules run
-   periodically via `/harness-gc` and detect entropy that neither
-   real-time hooks nor PR gates catch. The
-   [Self-Improving Harness]({% link explanation/self-improving-harness.md %})
-   page describes the feedback loop in detail.
+- **Reflections.** Every coding session ends with `/reflect`, which
+  captures what was surprising, what failed, what should change, and
+  classifies the signal type (`context`, `instruction`, `workflow`,
+  `failure`, or `none`). A `failure` classification triggers an
+  **auto-constraint proposal**: `/reflect` offers to draft a new
+  HARNESS constraint covering the failure mode, and if the human
+  accepts, it invokes `/harness-constrain` directly. This is the
+  ratchet — every preventable mistake becomes a rule. Workflow
+  signals route to `AGENTS.md` (compound learning memory) rather
+  than to `HARNESS.md`, but they are still proposed and adjudicated
+  through the same reflection flow. `REFLECTION_LOG.md` is the
+  durable trail.
+- **Audit and GC findings.** `/harness-audit` and the garbage-collection
+  sweeps surface drift between the declared state and the runtime
+  reality. A constraint listed as `deterministic` whose tool no
+  longer runs becomes a candidate for re-promotion or retirement. A
+  GC rule reporting recurring violations becomes a candidate for
+  hardening into a constraint. The harness-auditor and harness-gc
+  agents emit reports; the human routes findings into amendments.
+- **Direct human authoring.** External requirements — a new
+  governance obligation, a stack change, a team decision — can land
+  in `HARNESS.md` at any time via `/harness-constrain`,
+  `/governance-constrain`, or `/harness-init` re-runs. Direct
+  authoring is the smallest pathway in volume but the necessary
+  escape hatch when a constraint is required before the team has
+  experienced its absence as a failure.
 
-The pattern is: **declarative document → runtime artefacts → audit →
-amendment → declarative document**. The document is the only stable
-node in the loop. Every other node is generated, audited, or
-regenerated against it.
+The reflection pathway is what makes Osmani's "every line in a good
+AGENTS.md should be traceable back to a specific thing that went
+wrong" actually work. Without reflections, the framework would
+depend on memory and discipline to surface failures; with
+reflections, the surfacing is part of the workflow. See
+[Compound Learning]({% link explanation/compound-learning.md %}) for
+the broader treatment of how reflections become shared infrastructure.
+
+### 2. Authoring and amendment
+
+Once a signal has produced a candidate amendment, the constraint
+or GC rule is written into `HARNESS.md` via `/harness-init`,
+`/harness-constrain`, `/governance-constrain`, or
+`/harness-upgrade`. Each flow surfaces the implications and writes
+the constraint with a declared enforcement state (`unverified`,
+`agent`, or `deterministic`). See
+[Constraints and Enforcement]({% link explanation/constraints-and-enforcement.md %})
+for the field-level shape.
+
+### 3. Verification and propagation
+
+When a constraint reaches `agent` or `deterministic` status, the
+corresponding runtime artefact is created or updated — a CI
+workflow, a hook script, a sub-agent prompt, an entry in a
+convention file. The harness-enforcer agent is the unified
+verification engine; it reads `HARNESS.md`, identifies which
+constraints apply at the requested scope (commit, pr, weekly,
+manual), and either executes the deterministic tool or performs
+the agent-based review. Convention propagation to other AI tools
+happens via `/convention-sync`.
+
+### 4. Audit and self-correction
+
+`/harness-audit` runs the meta-verification — it checks that
+`HARNESS.md`'s declared state matches reality. The Status block in
+`HARNESS.md` is auto-updated based on what the audit finds.
+Garbage-collection rules run periodically via `/harness-gc` and
+detect entropy that neither real-time hooks nor PR gates catch.
+Audit findings feed back into flow 1 as fresh signals — the loop
+closes. The
+[Self-Improving Harness]({% link explanation/self-improving-harness.md %})
+page describes the feedback loop in detail.
+
+### The shape of the loop
+
+The pattern is:
+
+> **reflection / audit → signal → amendment → declarative document
+> → runtime artefacts → reality → reflection / audit → …**
+
+The document is the only stable node in the loop. Every runtime
+artefact is generated, audited, or regenerated against it; every
+amendment originates in observed signal rather than aspiration.
+Reflections are what keep the loop turning between audits — they
+catch failure modes the audit has not yet been built to detect, and
+they propose the constraint that the next audit will check for.
 
 ---
 
