@@ -2,9 +2,32 @@
 
 **Date**: 2026-04-28
 **Author**: Russ Miles + assistant (via brainstorming skill)
-**Driving signal**: 2026-04-28 AI literacy assessment, Q3 — half-closed
-compound-learning loop
-**Status**: design — awaiting spec-mode `/diaboli` and `/choice-cartograph`
+**Driving signal**: 2026-04-28 AI literacy assessment, Q3 — *originally framed
+as* half-closed compound-learning loop
+**Status**: **ABANDONED 2026-04-28 — premise refuted by spec-mode `/diaboli`
+adjudication of O1**
+
+## Why this spec was abandoned
+
+The spec's premise was that AGENTS.md content does not reach agents at session
+start unless an explicit injection mechanism is added. The spec-mode diaboli
+pass surfaced O1 (high severity, premise category): Claude Code already loads
+`AGENTS.md` as project memory at session start — it is a named project-memory
+file alongside CLAUDE.md.
+
+The Q3 finding from the 2026-04-28 assessment that motivated this spec was
+about the absence of an *uptake signal* (we cannot tell whether agents used
+the AGENTS.md content) rather than absence of *exposure* (the content is in
+context). The spec doubled down on the wrong interpretation. The hook would
+have been redundant for the exposure problem and would not have addressed
+the signal problem.
+
+See `docs/superpowers/objections/agents-md-readback-hook-design.md` for the
+full adjudication. O2 was the more accurate framing all along.
+
+The spec content below is preserved as historical record. Do not implement.
+
+---
 
 ## Problem
 
