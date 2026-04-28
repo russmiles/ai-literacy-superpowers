@@ -2,6 +2,27 @@
 
 ## 0.29.0 — 2026-04-27
 
+### Docs — Determinacy Calibration explanation and how-to
+
+- Add `docs/explanation/determinacy-calibration.md` — explanation page
+  on calibration as a periodic review practice, covering bidirectional
+  movement (promotion, demotion, splitting, seam repair, leaving
+  unchanged), the four signal classes (change records, temporal
+  patterns, reflection-log patterns, seam integrity), recording
+  refusals as a first-class output, and the relationship to
+  `/harness-audit`, `/harness-gc`, and `/reflect`. Builds on Russ
+  Miles' [The Djinn's Determinacy Drift](https://www.softwareenchiridion.com/p/the-djinns-determinacy-drift)
+  for the bidirectional-drift framing and the harness-as-habitat
+  metaphor.
+- Add `docs/how-to/run-a-calibration-review.md` — practical guide
+  for running a periodic calibration review: cadence selection,
+  signal gathering, candidate movements, decision recording with
+  refusals, applying decisions through existing commands, and a
+  follow-up audit.
+- Cross-links added in `progressive-hardening.md` (the unidirectional
+  promotion framing's bidirectional companion) and the explanation
+  `index.md` "Deep dives" section.
+
 ### Docs — HARNESS.md overview page
 
 - Add `docs/explanation/harness-md.md` — explanation page covering what

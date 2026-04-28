@@ -331,6 +331,7 @@ The rule text stays the same across all three promotions. The enforcement type a
 ## Further Reading
 
 - [Constraints and Enforcement]({% link explanation/constraints-and-enforcement.md %}) -- introductory concepts of constraint maturity and the promotion ladder
+- [Determinacy Calibration]({% link explanation/determinacy-calibration.md %}) -- the bidirectional companion to this page; calibration as a periodic review activity covering promotion, demotion, splitting, seam repair, and refusal as legitimate outputs
 - [Harness Engineering]({% link explanation/harness-engineering.md %}) -- the three components (context, constraints, garbage collection) and how they interact
 - [The Three Enforcement Loops]({% link explanation/three-enforcement-loops.md %}) -- inner, middle, and outer loop timing
 - [Context Engineering]({% link explanation/context-engineering.md %}) -- what context declares before constraints enforce
