@@ -14,7 +14,19 @@ timestamped assessment document and a README badge.
 ### Phase 1: Observable Evidence
 
 Scan the repository for signals that indicate which framework level the
-team is operating at. Each signal maps to a specific level:
+team is operating at.
+
+**Habitat document discovery comes first.** Before scanning for any of
+the level indicators below, apply the methodology in
+`references/habitat-discovery.md` to find `HARNESS.md`, `AGENTS.md`,
+and `CLAUDE.md` — including their alternative paths and embedded
+forms. A habitat document found at a non-conventional path counts as
+*present* for the Level 3 indicators that reference it; "not at the
+default path" is not the same as "doesn't exist". Every absence claim
+must come from a fully-completed search across known alternatives,
+with the discovery report citing what was matched and where.
+
+Each signal below maps to a specific level:
 
 **Level 0-1 indicators (awareness + prompting)**:
 

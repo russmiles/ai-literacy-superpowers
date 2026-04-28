@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.30.0 — 2026-04-28
+
+### Feature — Discovery layer for assessor and harness-discoverer (Unit A)
+
+Implements Unit A of the workflow signal captured in REFLECTION_LOG.md
+(2026-04-28 entry): the `/assess` discovery is no longer rigid about
+default paths and filenames. Items 1, 2, and 5 of the user-supplied
+feedback decomposed to a single structural fix; this release ships
+that fix.
+
+- Add `skills/ai-literacy-assessment/references/habitat-discovery.md`
+  — single source of truth for habitat document discovery covering
+  `HARNESS.md`, `AGENTS.md`, and `CLAUDE.md`. Documents alternative
+  paths to scan, content markers per document type, the discovery
+  report format with citations, and the two failure modes
+  (ambiguous discovery surfaces both candidates; genuine absence
+  lists every path checked).
+- Modify `agents/assessor.agent.md` Phase 1: split into 1a (habitat
+  document discovery using the new reference) and 1b (broader
+  signal scan). Discovery completes — with auditable absence claims
+  — before any maturity calculation.
+- Modify `agents/harness-discoverer.agent.md` step 5: convention
+  documentation discovery now applies the new reference rather than
+  defaulting to `CLAUDE.md` and `CONTRIBUTING.md` only.
+- Modify `commands/assess.md`: step 1 split into 1a (discovery
+  report as the first output) and 1b (broader scan). Ambiguous
+  discovery results halt the flow until the user resolves; silent
+  picks are forbidden.
+- Modify `skills/ai-literacy-assessment/SKILL.md`: Phase 1
+  (Observable Evidence) prefaced with the discovery methodology
+  note — habitat documents found at non-conventional paths count
+  as *present* for Level 3 indicators.
+
+The principle the discovery layer encodes: **every absence claim
+must come from a fully-completed search across known alternatives,
+not from "not at the default path"**. Discovery output is auditable
+— each finding cites the path matched and the marker confirmed.
+
+Unit B (evidence-base expansion — multi-tool config reading,
+content-shape analysis, literacy-improvements gap-to-amendment
+mapping update) is a separate follow-up. Issue #222 closes when
+Unit A merges; a new issue tracks Unit B.
+
 ## 0.29.0 — 2026-04-27
 
 ### Docs — Determinacy Calibration explanation and how-to

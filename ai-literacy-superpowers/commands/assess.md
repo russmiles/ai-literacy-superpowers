@@ -15,13 +15,44 @@ immediate adjustment and workflow recommendation phases.
 
 ### 1. Scan
 
-Scan the repository for observable evidence of each framework level.
-Check for CI workflows, test coverage, vulnerability scanning, mutation
-testing, CLAUDE.md, HARNESS.md, AGENTS.md, MODEL_ROUTING.md, custom
-skills, agents, commands, hooks, specifications, implementation plans,
-orchestrator safety gates, and platform-level tooling.
+The scan has two sub-phases — habitat document discovery first, then
+broader signal scanning.
 
-Record every signal found (with file path) and every signal not found.
+#### 1a. Habitat document discovery
+
+Apply the discovery methodology defined in
+`ai-literacy-superpowers/skills/ai-literacy-assessment/references/habitat-discovery.md`.
+That reference lists the alternative paths to scan and the content
+markers that confirm a match for `HARNESS.md`, `AGENTS.md`, and
+`CLAUDE.md` — including the case where a project's habitat
+documents live at non-conventional paths or are embedded inside
+other files.
+
+Produce the discovery report described in the reference as the
+**first output of `/assess`**, before any maturity claim. Each
+finding cites the path matched and the content markers confirmed,
+so the user can verify the discovery rather than trust it.
+
+If discovery returns ambiguities (two or more candidate files for
+the same habitat document type), STOP and ask the user to confirm
+which file is the canonical record before continuing. The
+discovery layer never silently picks one — silent picks produce
+confidently-wrong assessments.
+
+#### 1b. Broader signal scan
+
+Once the habitat documents are identified, scan the repository for
+the rest of the framework evidence: CI workflows, test coverage,
+vulnerability scanning, mutation testing, custom skills, agents,
+commands, hooks, specifications, implementation plans, orchestrator
+safety gates, and platform-level tooling. The detailed search list
+lives in the `assessor` agent's Phase 1b instructions.
+
+Record every signal found (with file path) and every signal not
+found. For habitat documents specifically, follow the Phase 1a
+discovery report — a document found at an alternative path is
+*present* and should be treated as such by the maturity
+calculation.
 
 ### 2. Present and Question
 
