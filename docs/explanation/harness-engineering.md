@@ -119,6 +119,8 @@ Harness-init also supports incremental adoption. Teams choose which features to 
 
 ## Further Reading
 
-The conceptual foundation for this plugin rests on Birgitta Boeckeler's article on martinfowler.com. That article is the primary reference for the three-component model and the verification slot framing. The Diataxis framework (diataxis.fr) informs the documentation structure. The three-enforcement-loops model, progressive hardening ladder, and self-improving dimension described here are extensions developed in the context of this plugin.
+The conceptual foundation for this plugin rests on Birgitta Boeckeler's article on martinfowler.com. That article is the primary reference for the three-component model and the verification slot framing. The Diataxis framing also draws on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/), which sharpens the model-plus-harness distinction and the "every line earned" discipline. The Diataxis framework (diataxis.fr) informs the documentation structure. The three-enforcement-loops model, progressive hardening ladder, and self-improving dimension described here are extensions developed in the context of this plugin.
+
+For the document itself — what `HARNESS.md` is, how it is operated, and how it compares to `AGENTS.md` / CI / hooks — see [HARNESS.md, the Document]({% link explanation/harness-md.md %}).
 
 See the other pages in this section for deeper treatment of each component.
