@@ -21,6 +21,27 @@
   Output uses JSON `systemMessage` format so Claude Code surfaces
   the message without interrupting the session flow.
 
+- Reflection-driven amendments may go through `chore`-labelled PRs
+  even when behavioural, provided four preconditions hold: (a) the
+  reflection has been captured in `REFLECTION_LOG.md` and merged via
+  PR; (b) the work is scoped in a tracked GitHub issue with
+  explicit "in scope" and "out of scope" sections; (c) the
+  implementation is additive (new sub-phase, new reference file)
+  or conservatively bounded (new behaviour applies incrementally
+  with a CHANGELOG note governing how aggressively); (d) the
+  version bump and CHANGELOG entry are honest about the
+  behavioural change. The `chore` label exempts spec-first ordering
+  and adjudication constraints; the version-consistency check still
+  applies. Reserve full feature-flow ceremony (spec → diaboli →
+  adjudicate → implement → diaboli code-mode → adjudicate) for
+  *net-new capability* (the Choice Cartographer was the canonical
+  feature PR); use chore for *refining existing capability driven
+  by captured signal* (Units A and B for the assessor). The
+  distinction is calibrated rather than codified — judgement, not a
+  rule. (Source: REFLECTION_LOG 2026-04-28 entry on Units A and B,
+  building on the marker-bump and Cartographer flows from earlier
+  in the same conversation.)
+
 ## GOTCHAS
 
 <!-- Traps, surprises, and non-obvious constraints. Entries
@@ -146,6 +167,36 @@
   on the observed patterns (disposition distribution, mean objections, median
   days) and decide whether a threshold or GC rule is warranted. The revisit
   output is a reflection entry, not an automatic constraint.
+
+- Decision: cross-cutting methodology lives in
+  `skills/<skill-name>/references/<contract>.md` files, consumed by
+  multiple agents/commands/skills via reference rather than inlined
+  at each consumer. The pattern has four instances in production:
+  `skills/choice-cartographer/references/validation-checks.md` (the
+  cartographer's validation checkpoint, consumed by the
+  `/choice-cartograph` command and the orchestrator's step 5);
+  `skills/ai-literacy-assessment/references/habitat-discovery.md`,
+  `tool-config-evidence.md`, and `sophistication-markers.md` (the
+  assessor's discovery, parallel-tool, and sophistication
+  methodologies, each consumed by `assessor.agent.md`,
+  `harness-discoverer.agent.md`, the `assess` command, and the
+  `ai-literacy-assessment` SKILL). Edits to a contract land in one
+  place and propagate; consumers reference the file by path rather
+  than duplicating its content. Alternatives considered and
+  rejected: (1) inline the methodology in each consumer — rejected:
+  silently drifts as one consumer is edited and the others are not,
+  which is the exact failure mode the references-file idiom
+  prevents (caught explicitly in code-mode diaboli on PR #210, see
+  O8 of `docs/superpowers/objections/choice-cartographer-code.md`);
+  (2) put the methodology in the SKILL.md itself — rejected: SKILL
+  files are loaded as context for the agent's reasoning, but the
+  methodology is also consumed deterministically by validation
+  checkpoints and command processes, which need a stable file
+  reference. Conditions under which the idiom should be revisited:
+  if a reference file accumulates more than ~250 lines or three
+  obviously distinct contracts, split it; the value is one contract
+  per file. (Source: REFLECTION_LOG 2026-04-28 entry on Units A and
+  B for the assessor.)
 
 ## TEST_STRATEGY
 
