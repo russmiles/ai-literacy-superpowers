@@ -59,27 +59,35 @@ create anything — you only describe what exists.
    configuration files, coverage tool configs. Identify the test runner
    command.
 
-5. **Convention documentation**: Apply the habitat document
-   discovery methodology defined in:
+5. **Convention documentation**: Apply two discovery methodologies
+   in sequence:
 
    ```text
    ai-literacy-superpowers/skills/ai-literacy-assessment/references/habitat-discovery.md
+   ai-literacy-superpowers/skills/ai-literacy-assessment/references/tool-config-evidence.md
    ```
 
-   That reference is the single source of truth for which paths to
-   scan and which content markers confirm a match for `HARNESS.md`,
-   `AGENTS.md`, and `CLAUDE.md` — including the case where a
-   project's habitat documents live at non-conventional paths or
-   are embedded inside other files. Produce the discovery report
-   section described there as part of your output, then continue
-   reading other convention sources (`CONTRIBUTING.md`,
-   `.editorconfig`, any `docs/` directory) for context that could
-   inform `HARNESS.md` once the canonical record is identified.
+   The first reference covers `HARNESS.md`, `AGENTS.md`, and
+   `CLAUDE.md` discovery — including alternative paths and embedded
+   forms. The second covers parallel-tool config surfaces
+   (`.cursor/rules/`, `.github/copilot-instructions.md`,
+   `.windsurf/rules/`, custom AI tooling locations) that express
+   harness control through whichever AI tool the team uses.
+
+   Produce both discovery report sections as part of your output,
+   then continue reading other convention sources
+   (`CONTRIBUTING.md`, `.editorconfig`, any `docs/` directory) for
+   context that could inform `HARNESS.md` once the canonical record
+   is identified.
 
    Do not infer "habitat document absent" from a missing default
-   path. Follow the discovery report — a document found at an
-   alternative path is *present* and should be reported with its
-   actual path.
+   path. Follow the discovery reports — a document found at an
+   alternative path or expressed through a parallel-tool config is
+   *present* and should be reported with its actual path. The
+   tool-config reference clarifies what tool-config evidence does
+   and does not signal (it is L3 context-engineering evidence, but
+   not architectural-constraints or compound-learning evidence by
+   itself).
 
 6. **Pre-commit hooks**: Check .husky/, .pre-commit-config.yaml,
    .git/hooks/. Identify what runs before commits.

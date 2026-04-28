@@ -108,6 +108,25 @@ ls MODEL_ROUTING.md REFLECTION_LOG.md 2>/dev/null  # Other habitat artefacts
 cat harness-engineering/hooks/hooks.json 2>/dev/null  # Hooks
 ```
 
+**L3 signals via parallel-tool configs** (habitat expressed elsewhere):
+
+Apply the methodology defined in:
+
+```text
+ai-literacy-superpowers/skills/ai-literacy-assessment/references/tool-config-evidence.md
+```
+
+That reference lists the parallel-tool surfaces (`.cursor/rules/`,
+`.github/copilot-instructions.md`, `.windsurf/rules/`, custom-tooling
+locations) and the content markers that confirm a match. A project
+expressing harness control through Cursor, Copilot, or Windsurf is at
+**Level 3 context engineering**, not at "no habitat" — the assessor
+treats parallel-tool evidence as load-bearing for the habitat
+discipline. Cite which tool config files were scanned, which markers
+matched, and which paths were checked but didn't match. The reference
+also clarifies what tool-config evidence does NOT signal (it is not
+evidence for architectural constraints or compound learning).
+
 **L4 signals** (specification):
 
 ```bash
@@ -153,6 +172,29 @@ Apply the scoring heuristic from the skill:
 - The weakest discipline is the ceiling
 - Map each piece of evidence to context engineering, architectural
   constraints, or guardrail design
+
+Apply **content-shape sophistication analysis** before assigning the
+level. Surface counts mislead — a project with one sophisticated
+state-based orchestration script is not at the same maturity as one
+with ten simple bash hooks. The methodology lives in:
+
+```text
+ai-literacy-superpowers/skills/ai-literacy-assessment/references/sophistication-markers.md
+```
+
+That reference defines simple-vs-sophisticated markers per artefact
+type (hooks, scripts, agents, commands), the evidence pattern for
+each, and how sophistication markers feed the level-determination
+adjustments. Cite every marker found — and where it was found — in
+the assessment document so the level determination is auditable. No
+silent level shifts; every adjustment must be explainable from the
+cited markers.
+
+Conservative stance: apply the adjustments incrementally as the
+reference describes. Pre-existing level computations on previously
+assessed projects should still produce roughly the same level on
+re-assessment unless the cited sophistication evidence genuinely
+changes the picture.
 
 ### Phase 4: Generate the assessment document
 

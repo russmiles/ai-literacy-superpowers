@@ -1,5 +1,64 @@
 # Changelog
 
+## 0.31.0 — 2026-04-28
+
+### Feature — Evidence-base expansion for assessor (Unit B)
+
+Implements Unit B of the workflow signal captured in REFLECTION_LOG.md
+(2026-04-28 entry, PR #221). Items 3 and 4 of the user-supplied
+feedback decomposed to two complementary additions: parallel-tool
+config evidence reading (item 3) and content-shape sophistication
+analysis (item 4). This release ships both as a single, conservative
+expansion.
+
+- Add
+  `skills/ai-literacy-assessment/references/tool-config-evidence.md`
+  — single source of truth for reading parallel-tool config surfaces
+  as habitat-maturity evidence. Covers `.cursor/rules/`,
+  `.github/copilot-instructions.md`, `.windsurf/rules/`, AGENTS.md
+  as multi-tool standard, and custom AI tooling locations. Documents
+  the path patterns, content markers per surface, what each surface
+  signals (L3 context engineering), and what it does NOT signal
+  (architectural constraints, compound learning).
+- Add
+  `skills/ai-literacy-assessment/references/sophistication-markers.md`
+  — single source of truth for content-shape analysis. Defines
+  simple-vs-sophisticated markers for hooks, scripts, agents, and
+  commands; documents how sophistication markers feed level
+  determination; requires every applied marker to be cited in the
+  assessment document so level shifts are auditable.
+- Modify `agents/assessor.agent.md`: Phase 1b adds parallel-tool
+  config evidence as a new L3 source class; Phase 3 (Assess the
+  level) applies content-shape sophistication analysis before
+  assigning the level.
+- Modify `skills/ai-literacy-assessment/SKILL.md`: Level 3 indicators
+  recognise parallel-tool config evidence as load-bearing for the
+  context-engineering discipline (with explicit caveats on what it
+  does not signal); Scoring Heuristic gains a Content-shape
+  sophistication adjustments subsection that references
+  `sophistication-markers.md`.
+- Modify `agents/harness-discoverer.agent.md` step 5: applies both
+  the habitat-discovery and tool-config-evidence references; the
+  discovery report now includes parallel-tool surfaces alongside
+  the habitat documents.
+
+The two encoded principles:
+
+1. A project expressing harness control through Cursor, Copilot, or
+   Windsurf is at L3 context engineering, not at "no habitat".
+   Tool-config evidence is parallel evidence, not weaker evidence.
+2. Surface counts (script count, hook count, agent count, command
+   count) mislead. A project with one sophisticated state-based
+   orchestration script is not at the same maturity as one with ten
+   simple bash hooks. Content-shape analysis is the corrective.
+
+Conservative stance on level shifts: sophistication markers are
+applied incrementally so previously-assigned levels remain stable
+across the v0.30.0 → v0.31.0 boundary unless the cited evidence
+genuinely changes the picture. A reflection capturing observed
+shifts after the first few re-assessments is the right next step
+for tuning.
+
 ## 0.30.0 — 2026-04-28
 
 ### Feature — Discovery layer for assessor and harness-discoverer (Unit A)
