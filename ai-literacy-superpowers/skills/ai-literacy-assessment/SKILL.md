@@ -45,9 +45,20 @@ Each signal below maps to a specific level:
 
 **Level 3 indicators (habitat engineering)**:
 
-- `CLAUDE.md` or equivalent context engineering file
-- `HARNESS.md` with declared constraints
-- `AGENTS.md` compound learning memory
+- `CLAUDE.md` or equivalent context engineering file (apply
+  `references/habitat-discovery.md` — alternative paths and embedded
+  forms count as present)
+- `HARNESS.md` with declared constraints (same — alternative paths
+  count)
+- `AGENTS.md` compound learning memory (same)
+- **Parallel-tool config evidence**: `.cursor/rules/`,
+  `.github/copilot-instructions.md`, `.windsurf/rules/`, or custom
+  AI tooling locations expressing harness control through whichever
+  AI surface the team uses. Apply `references/tool-config-evidence.md`
+  for the methodology. A project with rich parallel-tool configs is
+  at L3 context engineering even without `HARNESS.md`/`CLAUDE.md`,
+  but tool-config evidence does NOT signal architectural constraints
+  or compound learning by itself.
 - `MODEL_ROUTING.md` model-tier guidance
 - `.claude/skills/` project-local skills
 - `.claude/agents/` custom agent definitions
@@ -230,3 +241,29 @@ weakest discipline is the ceiling.
 | L3 | CLAUDE.md + at least 3 harness constraints enforced + custom agents or skills |
 | L4 | Specifications before code + agent pipeline with safety gates |
 | L5 | Platform-level governance + cross-team standards + observability |
+
+### Content-shape sophistication adjustments
+
+Surface counts (script count, hook count, agent count, command count)
+are insufficient on their own. Apply the content-shape methodology in
+`references/sophistication-markers.md` before assigning a level. That
+reference defines simple-vs-sophisticated markers per artefact type
+and the level adjustments they justify.
+
+The principle: a project with one sophisticated state-based
+orchestration script is not at the same maturity as one with ten
+simple bash hooks. Sophistication markers raise the floor on the
+discipline they evidence (orchestration sophistication → guardrail
+design; state-based hook sophistication → architectural constraints).
+The weakest-discipline-is-the-ceiling rule still applies — a single
+sophisticated artefact does not raise the overall level unless the
+other disciplines also have evidence at that level.
+
+Every sophistication marker the assessor applies must be cited
+explicitly in the assessment document — what was found and where —
+so the level determination is auditable. No silent shifts.
+
+The adjustments are introduced conservatively at this release —
+prefer surfacing markers without changing previously-assigned levels
+unless the evidence is unambiguous. As the framework accumulates
+assessments using the markers, the adjustments will tune.
