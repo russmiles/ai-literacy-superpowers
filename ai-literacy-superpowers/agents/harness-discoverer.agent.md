@@ -59,9 +59,27 @@ create anything — you only describe what exists.
    configuration files, coverage tool configs. Identify the test runner
    command.
 
-5. **Convention documentation**: Read CLAUDE.md, CONTRIBUTING.md,
-   .editorconfig, any docs/ directory. Note existing conventions that
-   could be migrated to HARNESS.md.
+5. **Convention documentation**: Apply the habitat document
+   discovery methodology defined in:
+
+   ```text
+   ai-literacy-superpowers/skills/ai-literacy-assessment/references/habitat-discovery.md
+   ```
+
+   That reference is the single source of truth for which paths to
+   scan and which content markers confirm a match for `HARNESS.md`,
+   `AGENTS.md`, and `CLAUDE.md` — including the case where a
+   project's habitat documents live at non-conventional paths or
+   are embedded inside other files. Produce the discovery report
+   section described there as part of your output, then continue
+   reading other convention sources (`CONTRIBUTING.md`,
+   `.editorconfig`, any `docs/` directory) for context that could
+   inform `HARNESS.md` once the canonical record is identified.
+
+   Do not infer "habitat document absent" from a missing default
+   path. Follow the discovery report — a document found at an
+   alternative path is *present* and should be reported with its
+   actual path.
 
 6. **Pre-commit hooks**: Check .husky/, .pre-commit-config.yaml,
    .git/hooks/. Identify what runs before commits.

@@ -39,7 +39,55 @@ Read the assessment template from `.claude/skills/ai-literacy-assessment/referen
 
 ### Phase 1: Scan the repository
 
-Search for observable evidence of each framework level. Check for:
+Phase 1 has two sub-phases. Run them in order — habitat document
+discovery must produce a complete, auditable report before any
+default-path-based scanning happens, because the habitat documents
+themselves are the foundation everything else is interpreted
+against.
+
+#### Phase 1a: Habitat document discovery
+
+Apply the discovery methodology defined in:
+
+```text
+ai-literacy-superpowers/skills/ai-literacy-assessment/references/habitat-discovery.md
+```
+
+That reference is the single source of truth for which paths to
+scan, which content markers confirm a match, and how to format the
+discovery report. Apply each rule and produce the discovery report
+section described there. Do not inline alternative paths or content
+markers here — edits to the discovery contract live in the
+reference file.
+
+The discovery report distinguishes:
+
+- `found at conventional path` — habitat document is at the
+  expected location with markers confirmed
+- `found at alternative path` — habitat document exists but lives
+  somewhere other than the conventional location; cite the path
+  and matched markers
+- `not found` — no path matched any markers across the full
+  alternatives list; cite every path checked
+
+Every absence claim made downstream (in Phase 1b, in the maturity
+calculation, in the assessment document) must come from
+`Phase 1a → not found` rather than from "the conventional path is
+empty". A document found at an alternative path is *present* and
+should be treated as such by the maturity calculation.
+
+If discovery returns `Ambiguities` (two or more candidates for the
+same habitat document type), STOP. Surface the ambiguities to the
+user, ask which file is the canonical record, and only continue
+once the user resolves. Silent picks produce confidently-wrong
+assessments.
+
+#### Phase 1b: Other observable signals
+
+After Phase 1a is complete, scan for the rest of the framework
+evidence. The habitat-document scan that used to live here has
+moved to Phase 1a — the searches below are for surrounding
+artefacts that don't need the same alternative-path discipline yet.
 
 **L2 signals** (verification):
 
@@ -50,13 +98,13 @@ grep -r "govulncheck\|owasp\|scout" .github/workflows/ 2>/dev/null  # Security s
 ls **/mutation* .github/workflows/mutation* 2>/dev/null  # Mutation testing
 ```
 
-**L3 signals** (habitat):
+**L3 signals beyond the habitat documents** (habitat support):
 
 ```bash
-ls CLAUDE.md HARNESS.md AGENTS.md MODEL_ROUTING.md REFLECTION_LOG.md 2>/dev/null
 ls .claude/skills/*/SKILL.md 2>/dev/null       # Custom skills
 ls .claude/agents/*.md 2>/dev/null             # Custom agents
 ls .claude/commands/*.md 2>/dev/null           # Custom commands
+ls MODEL_ROUTING.md REFLECTION_LOG.md 2>/dev/null  # Other habitat artefacts
 cat harness-engineering/hooks/hooks.json 2>/dev/null  # Hooks
 ```
 
@@ -75,7 +123,13 @@ ls harness-engineering/.claude-plugin/plugin.json 2>/dev/null  # Plugin
 grep -r "OTEL\|otel\|telemetry" . --include="*.yml" --include="*.json" 2>/dev/null
 ```
 
-Record every signal found with its file path. Also record signals NOT found.
+Record every signal found with its file path. Record signals NOT
+found *only after* a complete check — for the habitat documents
+covered in Phase 1a, follow the discovery report rather than
+inferring absence from the default-path scan above. The wider
+alternative-path methodology will extend to the other artefacts
+listed above in a follow-up iteration; until then, prefer reporting
+"not found at the conventional path" rather than claiming absence.
 
 ### Phase 2: Present findings and ask clarifying questions
 
