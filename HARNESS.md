@@ -575,6 +575,6 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 <!-- Auto-updated by /harness-audit — do not edit manually -->
 
 Last audit: 2026-04-15
-Constraints enforced: 13/15
+Constraints enforced: 18/19
 Garbage collection active: 15/15
-Drift detected: yes
+Drift detected: no (drift items found on 2026-04-15 resolved same day)

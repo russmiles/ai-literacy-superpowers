@@ -153,6 +153,25 @@ are current.
 
 Include docs changes in the same PR as the implementation, not as a follow-up.
 
+## Quarterly Operations
+
+Aligned cadence (every 90 days, anchored to `/governance-audit`):
+
+1. `/governance-audit` — full governance review
+2. `/cost-capture` — capture spend snapshot from provider dashboards
+3. `/assess` — AI literacy re-assessment
+
+Run as a single sitting; one quarterly working block, not three scattered
+tasks.
+
+## Monthly Operations
+
+Light-touch health check (every 30 days, between quarterly anchor weeks):
+
+1. `/governance-health` — governance constraint health snapshot
+2. Reflection review — scan `REFLECTION_LOG.md` for new entries worth
+   promoting to `AGENTS.md`
+
 ## Sync from Source
 
 This plugin's reusable components originate from the
