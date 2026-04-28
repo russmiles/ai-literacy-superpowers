@@ -23,6 +23,16 @@
   shape elided where amendments come from; the four-flow shape makes
   the reflection-driven ratchet (every preventable mistake becomes a
   rule) load-bearing in the prose.
+- Expanded the Signal capture flow from three pathways to seven to
+  cover the full set of plugin features that route into
+  `HARNESS.md` amendments: reflections, audit/GC findings,
+  convention extraction (`/extract-conventions`), assessment-driven
+  improvements (`/assess` + `literacy-improvements`), affordance
+  discovery and sibling-artefact promotion (`/harness-affordance
+  discover` and choice-story `disposition: promoted`), template
+  upgrades (`/harness-upgrade`), and direct human authoring. The
+  ordering goes from continuous observation through structured
+  elicitation to escape hatch.
 
 ### Docs — Choice Cartographer integration into docs site
 

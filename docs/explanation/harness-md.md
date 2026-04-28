@@ -115,8 +115,10 @@ documented in the harness commands.
 
 ### 1. Signal capture
 
-Amendments enter the document from three pathways. The framework
-treats reflections as the primary one.
+Amendments enter the document from several pathways. The framework
+treats reflections as the primary one and arranges the others around
+it. The pathways below are ordered roughly from continuous
+observation to event-triggered elicitation to escape hatch.
 
 - **Reflections.** Every coding session ends with `/reflect`, which
   captures what was surprising, what failed, what should change, and
@@ -130,13 +132,53 @@ treats reflections as the primary one.
   than to `HARNESS.md`, but they are still proposed and adjudicated
   through the same reflection flow. `REFLECTION_LOG.md` is the
   durable trail.
-- **Audit and GC findings.** `/harness-audit` and the garbage-collection
-  sweeps surface drift between the declared state and the runtime
-  reality. A constraint listed as `deterministic` whose tool no
-  longer runs becomes a candidate for re-promotion or retirement. A
-  GC rule reporting recurring violations becomes a candidate for
-  hardening into a constraint. The harness-auditor and harness-gc
-  agents emit reports; the human routes findings into amendments.
+- **Audit and GC findings.** `/harness-audit`, `/governance-audit`,
+  and the garbage-collection sweeps surface drift between the
+  declared state and the runtime reality. A constraint listed as
+  `deterministic` whose tool no longer runs becomes a candidate for
+  re-promotion or retirement. A GC rule reporting recurring
+  violations becomes a candidate for hardening into a constraint.
+  The harness-auditor, governance-auditor, and harness-gc agents
+  emit reports; the human routes findings into amendments.
+- **Convention extraction.** `/extract-conventions` runs a guided
+  session that surfaces tacit team knowledge through structured
+  questions (naming, file structure, error handling, documentation
+  style, and similar) and proposes additions to the Context section
+  of `HARNESS.md` (and to `CLAUDE.md`). The pathway exists because
+  some conventions are real but never get written down — the team
+  follows them without articulating them, and the AI cannot follow
+  what it cannot read. Extraction is the framework asking the team
+  to articulate.
+- **Assessment-driven improvements.** `/assess` runs an AI literacy
+  assessment that scans the repo for evidence, asks clarifying
+  questions, produces a timestamped assessment document, and routes
+  identified gaps to specific plugin commands and skills via the
+  `literacy-improvements` skill. Several of those gaps map to
+  `HARNESS.md` amendments (e.g. a missing constraint that the
+  assessment level requires). The improvement plan is grouped by
+  target level; the human accepts or defers each item, and accepted
+  items invoke the relevant authoring command.
+- **Affordance discovery and sibling-artefact promotion.** Two
+  related pathways for promoting structured artefacts into `HARNESS.md`.
+  `/harness-affordance discover` scans `.claude/settings*.json` and
+  `.mcp.json` to produce a draft affordance inventory at
+  `.claude/affordance-discovery-<date>.md`; the how-to guide
+  describes the promote-to-`HARNESS.md` flow for affordances the
+  team wants to govern. Choice stories with `disposition: promoted`
+  (the third disposition value emitted by the choice-cartographer)
+  are an emerging pathway: the routing mechanism is tracked under
+  issue #211, but the disposition value is captured today so the
+  signal is preserved while the routing is built.
+- **Template upgrades.** `/harness-upgrade` discovers new
+  constraints, GC rules, sections, and optional blocks that have
+  been added to the plugin's `templates/HARNESS.md` since the user's
+  harness was last upgraded. Each new item is presented for review
+  and selectively adopted. The pathway exists because the plugin
+  evolves; new template content reflects framework-level signal
+  (failures, patterns, regulations) accumulated by the plugin's
+  community of users, and `/harness-upgrade` is how that signal
+  reaches an individual project. It is the only signal pathway
+  that originates outside the project's own running observation.
 - **Direct human authoring.** External requirements — a new
   governance obligation, a stack change, a team decision — can land
   in `HARNESS.md` at any time via `/harness-constrain`,
@@ -149,9 +191,13 @@ The reflection pathway is what makes Osmani's "every line in a good
 AGENTS.md should be traceable back to a specific thing that went
 wrong" actually work. Without reflections, the framework would
 depend on memory and discipline to surface failures; with
-reflections, the surfacing is part of the workflow. See
+reflections, the surfacing is part of the workflow. The other
+pathways extend the same logic: extraction surfaces what was tacit;
+assessment surfaces what was missing; affordance discovery surfaces
+what was implicit in configuration; template upgrades surface what
+the wider community has learned. See
 [Compound Learning]({% link explanation/compound-learning.md %}) for
-the broader treatment of how reflections become shared infrastructure.
+the broader treatment of how these signals become shared infrastructure.
 
 ### 2. Authoring and amendment
 
