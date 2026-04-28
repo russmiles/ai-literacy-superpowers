@@ -290,3 +290,32 @@ What future assessments should pay attention to:
 Suggested re-assessment date: 2026-07-28 (quarterly).
 
 Previous assessment: 2026-04-11 (Level 5).
+
+---
+
+## Postscript — 2026-04-28 (later same day)
+
+After this assessment was filed, the highest-leverage gap (Q3, AGENTS.md
+read-back) was scoped for implementation as a SessionStart hook. The
+spec-mode `/diaboli` adjudication of that spec refuted the foundational
+premise: Claude Code already loads AGENTS.md as project memory at session
+start. The Q3 answer ("by convention only") was correct in the literal
+sense — there is no enforcement rule — but the implication ("agents do not
+see AGENTS.md") was wrong. AGENTS.md content does reach agents; we just
+have no signal of *uptake*.
+
+The corrected diagnosis: Q3 surfaces a **signal/instrumentation** gap, not
+an exposure gap. Future literacy improvements addressing this should aim
+at instrumentation (logging when curated patterns shape agent decisions,
+or telemetry on AGENTS.md reference frequency), not at exposure
+(injecting content the agent already has).
+
+This correction does not change the assessed level (L5 still holds — the
+gap is real, just differently shaped), but it does retire the "build a
+SessionStart hook for AGENTS.md read-back" recommendation. The remaining
+three Phase-7 changes (cost-capture cadence, governance pulse, depletion
+check) stand.
+
+See `docs/superpowers/objections/agents-md-readback-hook-design.md` for
+the full diaboli adjudication and `REFLECTION_LOG.md` 2026-04-28 entry
+for the methodological lesson.
