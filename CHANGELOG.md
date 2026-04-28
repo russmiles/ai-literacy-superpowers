@@ -2,6 +2,21 @@
 
 ## 0.29.0 — 2026-04-27
 
+### Docs — HARNESS.md overview page
+
+- Add `docs/explanation/harness-md.md` — explanation page covering what
+  `HARNESS.md` is, how it is operated, and how it compares to
+  `AGENTS.md`, CI config, and hooks. Builds on Addy Osmani's
+  [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/)
+  for the model-plus-harness framing alongside the project's
+  Boeckeler-derived foundation. Includes the AGENTS.md vs HARNESS.md
+  differences-at-a-glance table and addresses the source-code-vs-binary
+  metaphor for "do we keep this around" with the single-source-of-truth
+  tension.
+- Cross-links added in `harness-engineering.md`, `self-improving-harness.md`,
+  and the explanation `index.md` "Deep dives" section so the new page
+  is discoverable from related entry points.
+
 ### Docs — Choice Cartographer integration into docs site
 
 - `docs/reference/agents.md`: add `choice-cartographer` entry alongside

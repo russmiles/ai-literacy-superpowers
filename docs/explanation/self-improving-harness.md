@@ -250,6 +250,7 @@ The incremental adoption model also means the feedback loop starts turning soone
 
 - [Compound Learning]({% link explanation/compound-learning.md %}) -- the introductory treatment: the Groundhog Day problem, raw reflections, curation, and the flywheel
 - [Harness Engineering]({% link explanation/harness-engineering.md %}) -- the full harness framework: context, constraints, garbage collection, and the three enforcement loops
+- [HARNESS.md, the Document]({% link explanation/harness-md.md %}) -- the central document the audit runs against; how it compares to `AGENTS.md`, CI config, and hooks
 - [Progressive Hardening]({% link explanation/progressive-hardening.md %}) -- the promotion ladder from unverified to agent to deterministic
 - [The Three Enforcement Loops]({% link explanation/three-enforcement-loops.md %}) -- inner, middle, and outer loops operating at different timescales
 - [Garbage Collection]({% link explanation/garbage-collection.md %}) -- fighting entropy with periodic checks and scheduled agents
