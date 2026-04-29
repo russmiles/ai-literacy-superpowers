@@ -2,7 +2,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.31.0-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Plugin Version](https://img.shields.io/badge/Plugin-v0.31.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
 [![Skills](https://img.shields.io/badge/Skills-30-2E8B57?style=flat-square)](#skills-30)
 [![Agents](https://img.shields.io/badge/Agents-13-2E8B57?style=flat-square)](#agents-13)
 [![Commands](https://img.shields.io/badge/Commands-24-2E8B57?style=flat-square)](#commands-24)
@@ -549,12 +549,16 @@ The GC rule "Stale AGENTS.md" flags reflections older than 30 days that haven't 
 
 ## Intellectual Foundations
 
-This plugin packages the practical workflow from the AI Literacy for Software Engineers framework. The design draws on three lineages — architecture, craft, and engineering practice — that converge on a single idea: the environment matters as much as the code.
+This plugin packages the practical workflow from the AI Literacy for Software Engineers framework. The design draws on several lineages — architecture, theory, craft, and engineering practice — that converge on a single idea: the environment matters as much as the code.
 
 ### Architecture and Habitability
 
 - **Christopher Alexander** — *A Pattern Language* (1977); *The Timeless Way of Building* (1979). The "quality without a name" — design for inhabitants, not spectators. Alexander's insight that environments shape the behaviour of their occupants is the conceptual root of habitat engineering.
 - **Richard P. Gabriel** — *Patterns of Software* (1996). Habitability: code as a place to live in. Gabriel extended Alexander's architectural philosophy to software, arguing that code should be welcoming to the people who maintain it.
+
+### Code as Theory
+
+- **Peter Naur** — "Programming as Theory Building" (1985); *Computing: A Human Activity* (1992). The essential product of programming is not the code but the theory the programmers hold about how the system works. Loss of theory is loss of system: code can be preserved while the understanding that made it changeable is not. Naur is what habitability protects — the substance of shared understanding that the plugin's compound-learning components (REFLECTION_LOG.md, AGENTS.md, the convention-extraction and harness-audit skills) exist to externalise and sustain.
 
 ### Code as Literature
 

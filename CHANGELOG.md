@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.31.1 — 2026-04-29
+
+### Docs — Sync Naur as a strand of the Intellectual Foundations
+
+Synced from the upstream framework
+(`russmiles/ai-literacy-for-software-engineers` PR #306, which added
+Peter Naur (1985) as a sixth, independent strand of the genealogy in
+Appendix K alongside Knuth, Gabriel, Beck, Terhorst-North, and the
+neuroscience foundation).
+
+- **README — new "Code as Theory" subsection under Intellectual
+  Foundations.** Names Naur and his "Programming as Theory Building"
+  (1985) and *Computing: A Human Activity* (1992). Frames Naur as
+  what habitability protects — the substance of shared understanding
+  that the plugin's compound-learning components (REFLECTION_LOG.md,
+  AGENTS.md, the convention-extraction and harness-audit skills)
+  exist to externalise and sustain.
+- **Fixed stale lineage count.** The Intellectual Foundations
+  introduction said "three lineages" but already listed six grouped
+  subsections (Architecture and Habitability, Code as Literature,
+  Harness Engineering, Convention Discovery, Agent Orchestration,
+  Specification-Driven Development). Replaced "three lineages" with
+  "several lineages" to remove the count statement that had silently
+  drifted as the section grew.
+
+The upstream framework also added Determinacy Debt as a fifth debt
+type to Theme 16. The plugin's `/governance-audit` and
+`/harness-audit` commands already address constraint re-grounding,
+which is the discipline that pays down determinacy debt; documenting
+the debt typology in this README is deferred until a future change
+introduces the full Triple Debt vocabulary into the plugin's
+Intellectual Foundations.
+
 ## 0.31.0 — 2026-04-28
 
 ### Feature — Evidence-base expansion for assessor (Unit B)
