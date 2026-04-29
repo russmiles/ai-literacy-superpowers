@@ -73,9 +73,31 @@ Future subcommands tracked as issues:
      section in the draft, then re-prompt
    - `abort` — discard the draft, no file written
 
-8. **On accept**
+8. **Validation checkpoint**
+
+   Before writing, validate the draft against the template format (per
+   the project's CLAUDE.md "Output Validation Checkpoints" convention,
+   joined by `/diaboli`, `/choice-cartograph`, `/harness-health`,
+   `/assess`, etc.):
+
+   1. YAML frontmatter parseable; required keys present (`model_name`,
+      `provider`, `model_version`, `last_researched`, `card_version`,
+      `researcher`, `sources`)
+   2. All 10 numbered section headings present in canonical order
+      (`## 1. Model Details` through `## 10. Operational Details`)
+   3. Every per-claim citation matches `\[T[1-4]\.\d+\]` and resolves
+      via the frontmatter `sources` block
+   4. Section 10 fields use field-level "Not publicly available" rather
+      than silent omission (the schema-discovery contract from spec O10
+      disposition)
+
+   Fix any deviations in place — do not re-dispatch the agent. If a
+   citation references a missing source index, surface the gap to the
+   user before write.
+
+9. **On accept (post-validation)**
    - `mkdir -p $(dirname target_path)`
-   - Write the card content to `target_path`
+   - Write the validated card content to `target_path`
    - Print: `Card written: <full_path>`
 
 ### Specification picks (from spec O9 disposition)

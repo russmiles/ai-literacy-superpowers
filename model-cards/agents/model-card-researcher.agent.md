@@ -1,7 +1,7 @@
 ---
 name: model-card-researcher
 description: Use to research a model and produce a Mitchell-extended model card. Given a model name (and optional provider hint), the agent applies a tiered source strategy and returns the full card content. Refuses to produce a card when tier-1 + tier-2 are both silent on model existence — never fabricates a card for an unconfirmed model. Output is a markdown string returned to the dispatching command; the command writes the file.
-tools: WebFetch, WebSearch, Read, Write, Glob, Grep
+tools: WebFetch, WebSearch, Read, Glob, Grep
 model: inherit
 ---
 
@@ -29,9 +29,12 @@ after a human-in-the-loop review step.
 
 ## Tools
 
-`WebFetch`, `WebSearch`, `Read`, `Write`, `Glob`, `Grep`. No `Edit`, no
-`Bash`. The trust boundary is "research and emit content"; persistence is
-the dispatcher's job.
+`WebFetch`, `WebSearch`, `Read`, `Glob`, `Grep`. No `Write`, no `Edit`,
+no `Bash`. The trust boundary is "research and emit content"; persistence
+is the dispatcher's job. This matches the read-only-emitter pattern of
+`advocatus-diaboli` and `choice-cartographer` (per AGENTS.md
+ARCH_DECISIONS, the project's trust architecture for content-emitting
+agents).
 
 ## Tiered source strategy
 
@@ -128,10 +131,9 @@ Populate frontmatter:
 - Fabricating a citation. If you didn't fetch a URL, don't cite it.
 - Producing a card after the model-existence check fails. Return the REFUSED
   string instead.
-- Writing files. Your tools include Write but the dispatcher writes; the
-  Write capability is reserved for one specific use only: writing your
-  output to a temp path the dispatcher will read. **Default behaviour is to
-  return content as your final message** — only use Write if the dispatcher
-  has explicitly asked for a temp-file output.
+- Trying to write files. You have no `Write` tool. Return content as
+  your final message; the dispatcher writes the file after a human
+  review checkpoint. This separation is load-bearing — the human gate
+  catches hallucinations before they land in the library.
 - Dropping a section because it came up sparse. Every section appears in
   every card; sparse sections are filled with "Not publicly available."

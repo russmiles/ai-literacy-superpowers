@@ -12,7 +12,8 @@ the same marketplace. Aimed at evaluators researching new models.
   arXiv → web), produces a draft card, presents a review summary, and (on
   accept) writes the card to your library.
 - `/model-card seed` — populates the library with cards for a shipped list of
-  14 frontier LLMs from major providers.
+  14 frontier LLMs from major providers. Use `--force` to overwrite existing
+  cards in the library.
 
 ## Install
 
