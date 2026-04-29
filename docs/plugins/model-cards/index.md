@@ -32,7 +32,7 @@ copilot plugin install model-cards@ai-literacy-superpowers
 ```
 
 The marketplace `ai-literacy-superpowers` must be added first; see the
-top-level [Get Started]({% link tutorials/getting-started.md %}) tutorial
+top-level [Get Started]({% link plugins/ai-literacy-superpowers/getting-started.md %}) tutorial
 for the install flow.
 
 ---

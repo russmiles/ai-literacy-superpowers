@@ -166,7 +166,7 @@ disk, downstream tooling treats it as data; the human review window
 has closed. The pattern matches the trust architecture used by
 `advocatus-diaboli` and `choice-cartographer` in the sister
 `ai-literacy-superpowers` plugin (see
-[the adversarial-review explanation]({% link explanation/adversarial-review.md %})
+[the adversarial-review explanation]({% link plugins/ai-literacy-superpowers/adversarial-review.md %})
 for the broader argument).
 
 ---
@@ -203,5 +203,5 @@ because its source was the most authoritative for that claim type.
   how the rules are enforced in code.
 - [Card template]({% link plugins/model-cards/card-template.md %}) —
   the canonical structure.
-- [Adversarial review]({% link explanation/adversarial-review.md %}) —
+- [Adversarial review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %}) —
   the broader read-only-emitter pattern this plugin's agent follows.

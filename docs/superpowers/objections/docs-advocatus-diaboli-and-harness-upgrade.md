@@ -49,7 +49,7 @@ objections:
     category: design
     severity: minor
     claim: "The spec instructs adding a further-reading link to agent-orchestration.md without noting that the file already has a duplicate 'Agents Reference' link in that section, leaving the implementer to reproduce the duplication."
-    evidence: "Spec line 130: 'Update the Further Reading section to link to adversarial-review.md.' agent-orchestration.md lines 199 and 203 both read '- [Agents Reference]({% link reference/agents.md %}) — detailed catalogue of all agents in this plugin' — an existing duplication the spec does not acknowledge."
+    evidence: "Spec line 130: 'Update the Further Reading section to link to adversarial-review.md.' agent-orchestration.md lines 199 and 203 both read '- [Agents Reference]({% link plugins/ai-literacy-superpowers/agents.md %}) — detailed catalogue of all agents in this plugin' — an existing duplication the spec does not acknowledge."
     disposition: fix
     disposition_rationale: remove the duplication
   - id: O8
@@ -136,7 +136,7 @@ The pipeline diagram in agent-orchestration.md is the most concrete visual repre
 
 The spec instructs adding a link to agent-orchestration.md's further-reading section without acknowledging the duplicate "Agents Reference" entry that already exists there, leaving the implementer to reproduce the duplication.
 
-Spec line 130: "Update the 'Further Reading' section to link to adversarial-review.md." agent-orchestration.md lines 199 and 203 are identical: both read `- [Agents Reference]({% link reference/agents.md %}) — detailed catalogue of all agents in this plugin`. The spec asks the implementer to add a third link to an already-duplicated section.
+Spec line 130: "Update the 'Further Reading' section to link to adversarial-review.md." agent-orchestration.md lines 199 and 203 are identical: both read `- [Agents Reference]({% link plugins/ai-literacy-superpowers/agents.md %}) — detailed catalogue of all agents in this plugin`. The spec asks the implementer to add a third link to an already-duplicated section.
 
 Adding a link to a further-reading section that already has a broken duplicate is a missed cleanup opportunity that an implementer with the file open will notice but may not feel authorised to fix without spec coverage. The net result is a section with one duplicated entry and one new entry, leaving the section's quality worse than when it started.
 
