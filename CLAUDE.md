@@ -133,14 +133,23 @@ rather than inlining field definitions.
 
 ## Docs Site Review
 
-The `docs/` directory is the project's documentation site. When presenting a
-plan or opening a PR, always check whether any docs pages need to be created
-or updated:
+The `docs/` directory is the project's documentation site, organised
+**per plugin** under `docs/plugins/<plugin-name>/`. When presenting a
+plan or opening a PR, always check whether any docs pages need to be
+created or updated.
 
-- `docs/how-to/` — task-oriented guides (one guide per command or workflow)
-- `docs/explanation/` — conceptual background (why things work the way they do)
-- `docs/reference/` — API/schema reference material
-- `docs/tutorials/` — end-to-end walkthroughs
+For each plugin, content is grouped using the Diataxis framework as
+sections within the plugin's `index.md` (page locations are flat
+within the plugin directory):
+
+- **How-to guides** — task-oriented (one guide per command or workflow)
+- **Explanation** — conceptual background (why things work the way they do)
+- **Reference** — API/schema reference material
+- **Tutorials** — end-to-end walkthroughs
+
+For changes to the `ai-literacy-superpowers` plugin, pages live at
+`docs/plugins/ai-literacy-superpowers/<slug>.md`. For sister plugins,
+under `docs/plugins/<plugin-name>/<slug>.md`.
 
 **When a feature adds a new command, skill, or agent**: check for an existing
 how-to guide and create one if missing.

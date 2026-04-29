@@ -2,6 +2,29 @@
 
 ## 0.31.1 — 2026-04-29
 
+### Docs — Marketplace homepage reframe + cross-reference sweep (PR 3 of 3)
+
+Third and final PR in the docs restructure. Closes the loop by
+reframing the docs homepage as a marketplace landing and sweeping
+remaining old-URL references in repo-root files.
+
+- **`docs/index.md` reframed** as a plugin-marketplace landing rather
+  than an `ai-literacy-superpowers`-specific page. The hero tagline
+  now positions the repo as a Claude Code / Copilot CLI plugin
+  marketplace; both plugins are surfaced equally near the top with
+  install instructions and tutorial links; per-plugin "what each
+  plugin ships" sections explain the flagship and sister plugins
+  side-by-side; a closing "why a marketplace, not a monolith" section
+  explains the architectural rationale for incremental adoption.
+- **`README.md`** — fixed one stale reference to
+  `docs/how-to/update-the-plugin.md` → `docs/plugins/ai-literacy-superpowers/update-the-plugin.md`.
+- **`CLAUDE.md`** — rewrote the "Docs Site Review" section to reflect
+  the per-plugin Diataxis structure (the four old `docs/<section>/`
+  directory references are gone). Plugin docs now land at
+  `docs/plugins/<plugin-name>/<slug>.md`.
+- **Plugin source files** — confirmed clean (zero references to the
+  old `docs/<section>/` paths).
+
 ### Docs — Migrate ai-literacy-superpowers docs under per-plugin structure (PR 2 of 3)
 
 Second of three PRs restructuring the docs site to plugin-first
