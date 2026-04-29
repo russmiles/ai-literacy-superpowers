@@ -51,8 +51,10 @@ jobs:
           fi
           echo "All per-plugin versions in sync"
 
-          # README badge version
-          README_VERSION=$(grep -o 'Plugin-v[0-9.]*' README.md | head -1 | sed 's/Plugin-v//')
+          # README badge version (the per-plugin ai-literacy-superpowers
+          # badge — shields.io renders single hyphens in the label as
+          # double hyphens in the URL).
+          README_VERSION=$(grep -o 'ai--literacy--superpowers-v[0-9.]*' README.md | head -1 | sed 's/ai--literacy--superpowers-v//')
           echo "readme=$README_VERSION" >> "$GITHUB_OUTPUT"
 
           # Latest CHANGELOG version
