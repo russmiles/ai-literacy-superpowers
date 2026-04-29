@@ -6,52 +6,78 @@ nav_order: 1
 
 # ai-literacy-superpowers
 
-A Claude Code plugin that brings harness engineering to your development
-workflow — deterministic constraints, agent-based review, garbage
-collection, and a self-improving learning loop that gets better every
-session.
+A plugin marketplace for [Claude Code](https://claude.ai/claude-code)
+and [GitHub Copilot CLI](https://github.com/features/copilot) shipping
+opinionated tools for the AI Literacy framework — **harness
+engineering**, **agent orchestration**, **decision archaeology**,
+**governance**, and **model evaluation**.
 
 {: .fs-6 .fw-300 }
 
 [Get Started](plugins/ai-literacy-superpowers/getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Install Now](#quick-install){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Browse Plugins]({% link plugins/index.md %}){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Quick Install](#add-the-marketplace){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
-## Quick Install
+## Plugins in this marketplace
+
+| Plugin | What it does | Get started |
+| ------ | ------------ | ----------- |
+| **[ai-literacy-superpowers]({% link plugins/ai-literacy-superpowers/index.md %})** | The flagship. Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. 30 skills, 13 agents, 24 commands. | [Tutorial]({% link plugins/ai-literacy-superpowers/getting-started.md %}) |
+| **[model-cards]({% link plugins/model-cards/index.md %})** | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy with refusal-on-unconfirmed-existence honesty rule. | [Tutorial]({% link plugins/model-cards/seed-your-library.md %}) |
+
+The marketplace is on track to ship more sister plugins as the
+framework grows. New plugins land under
+[`/plugins/`]({% link plugins/index.md %}) with their own tutorials,
+how-to guides, reference, and explanation pages.
+
+---
+
+## Add the marketplace
+
+The marketplace ships multiple plugins. Add the marketplace once, then
+install whichever plugins you need.
 
 **Claude Code:**
 
 ```bash
 claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
-claude plugin install ai-literacy-superpowers
 ```
 
 **GitHub Copilot CLI:**
 
 ```bash
 copilot plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
-copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers
 ```
 
-Then in any project:
+## Install a plugin
+
+After adding the marketplace, install one or both plugins:
 
 ```bash
-/harness-init    # Set up a living harness (choose which features to configure)
-/harness-status  # Check enforcement health
+# Claude Code
+claude plugin install ai-literacy-superpowers     # the flagship
+claude plugin install model-cards                  # the sister
+
+# Copilot CLI
+copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers
+copilot plugin install model-cards@ai-literacy-superpowers
 ```
 
-`/harness-init` lets you select which features to configure — context
-engineering, constraints, garbage collection, CI, and observability. All
-are selected by default. Re-run at any time to add more; existing
-configuration is preserved.
+Each plugin's commands, agents, and skills become available immediately
+in any project session.
 
-## What This Plugin Does
+---
 
-The plugin implements **harness engineering** — the practice of
-surrounding AI code generation with deterministic tooling, agent-based
-review, and periodic entropy checks so that AI-assisted development
-stays trustworthy at scale.
+## What each plugin ships
+
+### ai-literacy-superpowers — the flagship
+
+The flagship plugin implements **harness engineering**: surrounding AI
+code generation with deterministic tooling, agent-based review, and
+periodic entropy checks so AI-assisted development stays trustworthy
+at scale.
 
 It gives you:
 
@@ -67,24 +93,75 @@ It gives you:
 - **3 enforcement loops** — advisory at edit time, strict at merge
   time, investigative on schedule
 
-## Documentation Structure
+In a fresh project, run `/superpowers-init` for the full habitat or
+`/harness-init` for just the constraint machinery.
 
-Documentation is organised **per plugin**. Each plugin in the
-marketplace has its own landing page with tutorials, how-to guides,
-reference material, and explanation pages, organised using the
-[Diataxis framework](https://diataxis.fr/).
+[Browse the ai-literacy-superpowers docs →]({% link plugins/ai-literacy-superpowers/index.md %})
 
-| Plugin | What it does |
-| ------ | ------------ |
-| [ai-literacy-superpowers]({% link plugins/ai-literacy-superpowers/index.md %}) | Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning. The flagship plugin. |
-| [model-cards]({% link plugins/model-cards/index.md %}) | Researches and authors Mitchell-extended model cards from a model name. |
+### model-cards — Mitchell-extended model card research
 
-See the [Plugins index]({% link plugins/index.md %}) for the full
-listing.
+Aimed at evaluators researching new models. Produces 10-section cards
+(Mitchell et al.'s 9 canonical sections plus an "Operational Details"
+section for consumer-evaluator audiences), with per-claim citations
+and tiered source provenance.
+
+It gives you:
+
+- **`/model-card create <name>`** — researches a single model with a
+  human-in-the-loop review checkpoint before the file is written
+- **`/model-card seed`** — bulk-populates the library with cards for
+  14 frontier LLMs from major providers
+- A **read-only research agent** with no `Write` access — the trust
+  boundary that prevents hallucinated claims from landing on disk
+  unreviewed
+- An **existence-check refusal rule** — the agent refuses to produce a
+  card when it cannot confirm the model exists via tier-1 (provider
+  docs) or tier-2 (HuggingFace), preventing authoritative-looking
+  cards for hallucinated models
+
+[Browse the model-cards docs →]({% link plugins/model-cards/index.md %})
+
+---
+
+## Documentation structure
+
+Each plugin in the marketplace has its own landing page with tutorials,
+how-to guides, reference material, and explanation pages organised
+using the [Diataxis framework](https://diataxis.fr/).
+
+| Plugin | Documentation |
+| ------ | ------------- |
+| ai-literacy-superpowers | [Landing]({% link plugins/ai-literacy-superpowers/index.md %}) · [Tutorials]({% link plugins/ai-literacy-superpowers/index.md %}#tutorials--learning-oriented) · [How-to]({% link plugins/ai-literacy-superpowers/index.md %}#how-to-guides--task-oriented) · [Reference]({% link plugins/ai-literacy-superpowers/index.md %}#reference--exact-details) · [Explanation]({% link plugins/ai-literacy-superpowers/index.md %}#explanation--concepts) |
+| model-cards | [Landing]({% link plugins/model-cards/index.md %}) · [Tutorial]({% link plugins/model-cards/seed-your-library.md %}) · [How-to]({% link plugins/model-cards/research-a-model-card.md %}) · [Reference]({% link plugins/model-cards/commands.md %}) · [Explanation]({% link plugins/model-cards/mitchell-extended-cards.md %}) |
+
+See the [Plugins index]({% link plugins/index.md %}) for the canonical
+list.
 
 ### Old URLs
 
 The previous flat layout (`/tutorials/`, `/how-to/`, `/reference/`,
 `/explanation/`) was reorganised on 2026-04-29 to support multiple
 plugins in the same marketplace. Old URLs redirect to the new
-plugin-scoped paths automatically.
+plugin-scoped paths automatically via `jekyll-redirect-from`.
+
+---
+
+## Why a marketplace, not a monolith
+
+Every plugin in this marketplace addresses a distinct discipline that
+benefits from AI Literacy practice — harness engineering, model
+evaluation, future plugins covering further domains. Shipping each as
+its own plugin lets teams adopt incrementally:
+
+- A team focused on AI-assisted code quality can install
+  `ai-literacy-superpowers` and skip `model-cards` until they need to
+  catalogue models.
+- A team building an evaluation pipeline can install `model-cards`
+  without needing the full harness machinery.
+- Future plugins for adjacent disciplines (cost governance, prompt
+  evaluation, agent observability) can land in the same marketplace
+  without inflating the flagship plugin.
+
+Shared infrastructure — the marketplace listing, the docs site, the
+CI conventions, the trust-boundary patterns — lives at the repository
+level. The plugins themselves stay focused.

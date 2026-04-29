@@ -95,7 +95,7 @@ This pulls the latest `plugin.json` metadata (version, description,
 keywords) into the marketplace index. Users who have already installed
 the plugin still need to run `claude plugin update` separately.
 
-See [How to Update the Plugin](docs/how-to/update-the-plugin.md) for
+See [How to Update the Plugin](docs/plugins/ai-literacy-superpowers/update-the-plugin.md) for
 the full guide.
 
 ### Quick start
