@@ -17,7 +17,7 @@
 ## File Structure
 
 | File | Action | Responsibility |
-|---|---|---|
+| --- | --- | --- |
 | `model-cards/.claude-plugin/plugin.json` | Create | Plugin manifest, v0.1.0 |
 | `model-cards/README.md` | Create | Plugin landing page; what it does, install, two subcommands |
 | `model-cards/CHANGELOG.md` | Create | Starts with v0.1.0 entry |
@@ -460,7 +460,7 @@ URLs for each citation resolve via the per-card frontmatter `sources` block.
 ## Tiered source strategy
 
 | Tier | Source | Used for |
-|---|---|---|
+| --- | --- | --- |
 | 1 | Provider docs | Model Details, Intended Use, Operational Details |
 | 2 | HuggingFace | Open-source / fine-tuned models; fallback for tier-1 gaps |
 | 3 | arXiv release paper | Factors, Metrics, Evaluation Data, Training Data, Quantitative Analyses, Ethical Considerations |
@@ -539,7 +539,7 @@ the dispatcher's job.
 ## Tiered source strategy
 
 | Tier | Source | Discovery |
-|---|---|---|
+| --- | --- | --- |
 | 1 | Provider docs | URL inferred from this provider→docs-root mapping |
 | 2 | HuggingFace | `https://huggingface.co/<owner>/<model>` if model is on HF |
 | 3 | arXiv release paper | `WebSearch` for `"<model-name>" arxiv` |
@@ -561,7 +561,7 @@ the dispatcher's job.
 ### Per-section primary source
 
 | Section | Primary | Fallback |
-|---|---|---|
+| --- | --- | --- |
 | Model Details | Tier 1 | Tier 2 → 4 |
 | Intended Use | Tier 1 | Tier 2 → 4 |
 | Factors | Tier 3 | Tier 1 → 2 |

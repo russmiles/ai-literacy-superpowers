@@ -63,7 +63,7 @@ The design space was explored through six clarifying questions during
 brainstorming. The decisions:
 
 | # | Decision axis | Choice | Rationale |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Q1 | Model scope | **Any named model**, with shipped default = frontier LLMs from major providers (concrete seed list) | Matches stated use case (curiosity-driven evaluation); seed list gives instant library on first install |
 | Q2 | Research sources | **Tiered: provider docs → HuggingFace → arXiv → web search** | Cheap sources before expensive ones; per-section primary-source mapping; explicit provenance |
 | Q3 | Card format | **Mitchell-extended**: 9 canonical sections + 10th "Operational Details" section | Industry-recognised + fills the consumer-evaluator gap; one template, "Not publicly available" for proprietary opacity |
@@ -104,7 +104,7 @@ be added when there's load-bearing need.
 ### Component responsibilities
 
 | Component | Responsibility | Reads | Writes |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `plugin.json` | Plugin manifest | — | — |
 | `model-card-researcher.agent.md` | Charter for research agent: tiered sources, per-section research, citation discipline, honest "Not publicly available" for opacity | input from dispatcher | output content (markdown string) returned to dispatcher |
 | `model-card.md` (command) | Subcommand dispatcher: parses args, routes to create/seed flow, runs hybrid review, writes file | agent output, seed JSON | card files in library, stdout |
@@ -217,7 +217,7 @@ No `Edit`, no `Bash` — research and authoring only.
 **Tiered source strategy**:
 
 | Tier | Source | Discovery |
-|---|---|---|
+| --- | --- | --- |
 | 1 | Provider docs | URL inferred from a provider→docs-root mapping shipped in agent context |
 | 2 | HuggingFace card | `huggingface.co/<owner>/<model>` if model is on HF |
 | 3 | arXiv release paper | Discovered via `WebSearch` for `"<model-name>" arxiv` |
@@ -226,7 +226,7 @@ No `Edit`, no `Bash` — research and authoring only.
 **Per-section primary source mapping**:
 
 | Section | Primary source | Fallback |
-|---|---|---|
+| --- | --- | --- |
 | Model Details | Tier 1 | Tier 2 → 4 |
 | Intended Use | Tier 1 | Tier 2 → 4 |
 | Factors | Tier 3 (paper) | Tier 1, then 2 |
@@ -461,7 +461,7 @@ spec changes.
 ## Tracking issues to create after spec commit
 
 | Issue | Type | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `/model-card list` subcommand | feature | Browse / list cards in the library; designed and implemented after v0.1.0 ships and we have real cards |
 | `/model-card compare <a> <b>` subcommand | feature | Side-by-side comparison of two model cards; designed after v0.1.0 |
 | `/model-card refresh <name>` subcommand | feature | Re-research a specific card; designed after v0.1.0 (informed by observed staleness in real use) |
