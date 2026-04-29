@@ -2,6 +2,17 @@
 
 ## 0.31.1 — 2026-04-29
 
+### Chore — Bump HARNESS.md template-version marker to 0.31.1
+
+Ran `/harness-upgrade` against the 0.31.1 template. No new constraints,
+GC rules, or sections to adopt — the live `HARNESS.md` is already a
+superset of the template, with all template items present (a few
+customised with project-specific dates and file references). Only the
+`<!-- template-version: -->` marker needed updating, from `0.29.0` to
+`0.31.1`, to silence the SessionStart upgrade nudge. The
+`.claude/.harness-upgrade-dismissed` marker was also bumped (gitignored,
+local-only).
+
 ### Docs — Sync Naur as a strand of the Intellectual Foundations
 
 Synced from the upstream framework
