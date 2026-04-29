@@ -2,7 +2,9 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
-[![Plugin Version](https://img.shields.io/badge/Plugin-v0.31.1-4682B4?style=flat-square)](https://github.com/Habitat-Thinking/ai-literacy-superpowers)
+[![Marketplace](https://img.shields.io/badge/Marketplace-v0.3.0-4682B4?style=flat-square)](.claude-plugin/marketplace.json)
+[![ai-literacy-superpowers](https://img.shields.io/badge/ai--literacy--superpowers-v0.31.1-4682B4?style=flat-square)](ai-literacy-superpowers/)
+[![model-cards](https://img.shields.io/badge/model--cards-v0.1.0-4682B4?style=flat-square)](model-cards/)
 [![Skills](https://img.shields.io/badge/Skills-30-2E8B57?style=flat-square)](#skills-30)
 [![Agents](https://img.shields.io/badge/Agents-13-2E8B57?style=flat-square)](#agents-13)
 [![Commands](https://img.shields.io/badge/Commands-24-2E8B57?style=flat-square)](#commands-24)
@@ -13,37 +15,50 @@
 [![Agent Harness Enabled](https://img.shields.io/badge/Agent_Harness-Enabled-000000?style=flat-square)](HARNESS.md)
 [![AI Literacy](https://img.shields.io/badge/AI_Literacy-Level_5-DAA520?style=flat-square)](assessments/2026-04-28-assessment.md)
 
-A plugin for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CLI](https://github.com/features/copilot) that gives you the AI Literacy framework's complete development workflow — harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops.
+A plugin marketplace for [Claude Code](https://claude.ai/claude-code) and [GitHub Copilot CLI](https://github.com/features/copilot) shipping opinionated tools for the AI Literacy framework — harness engineering, agent orchestration, decision archaeology, governance, and model evaluation.
 
-Install the plugin, run `/superpowers-init`, and get a fully operational habitat for AI-assisted development.
+Add the marketplace, install the plugin(s) you want, and you have a fully operational habitat for AI-assisted development.
 
-New to the project? Start with [ONBOARDING.md](ONBOARDING.md).
+New to the project? Start with [ONBOARDING.md](ONBOARDING.md) or browse the [docs site](https://habitat-thinking.github.io/ai-literacy-superpowers/).
+
+---
+
+## Plugins in this marketplace
+
+| Plugin | Version | What it does | Docs |
+| ------ | ------- | ------------ | ---- |
+| **`ai-literacy-superpowers`** | v0.31.1 | The flagship. Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. **30 skills, 13 agents, 24 commands.** | [docs](docs/plugins/ai-literacy-superpowers/index.md) |
+| **`model-cards`** | v0.1.0 | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy (provider docs → HuggingFace → arXiv → web), refusal-on-unconfirmed-existence honesty rule. | [docs](docs/plugins/model-cards/index.md) |
+
+The bulk of this README documents the **`ai-literacy-superpowers`** plugin specifically — its skills, agents, commands, hooks, templates, enforcement loops, and pipelines. For `model-cards`, see [its README](model-cards/README.md) and [its docs](docs/plugins/model-cards/index.md). Future sister plugins will land in this marketplace under `<plugin-name>/` with their own docs at `docs/plugins/<plugin-name>/`.
 
 ---
 
 ## Installation
 
-### Claude Code
+### 1. Add the marketplace (once)
 
 ```bash
-# Add the marketplace
+# Claude Code
 claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
 
-# Install the plugin
-claude plugin install ai-literacy-superpowers
+# GitHub Copilot CLI
+copilot plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
 ```
 
-### GitHub Copilot CLI
+### 2. Install the plugin(s) you want
 
 ```bash
-# Add the marketplace
-copilot plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
+# Claude Code
+claude plugin install ai-literacy-superpowers     # the flagship
+claude plugin install model-cards                  # the sister
 
-# Install the plugin
+# GitHub Copilot CLI
 copilot plugin install ai-literacy-superpowers@ai-literacy-superpowers
+copilot plugin install model-cards@ai-literacy-superpowers
 ```
 
-Once installed, the plugin's skills, agents, hooks, and commands (or prompts) are available in any session within your project.
+You can install one, the other, or both. Once installed, each plugin's skills, agents, hooks, and commands (or prompts) are available in any session within your project.
 
 > Commands are available as `/command-name` in Claude Code and as `/prompt-name` in Copilot CLI.
 
@@ -137,7 +152,9 @@ This plugin works with both Claude Code and GitHub Copilot CLI from the same rep
 
 ---
 
-## What You Get
+## `ai-literacy-superpowers` — what it ships
+
+The remaining sections of this README document the **`ai-literacy-superpowers`** plugin in detail. For `model-cards`, see [its README](model-cards/README.md) and [its docs](docs/plugins/model-cards/index.md).
 
 ### Skills (30)
 
@@ -264,8 +281,10 @@ All hooks are registered in `hooks/hooks.json` and active in every Claude Code s
 
 ### Install
 
+See the [Installation](#installation) section above for the full marketplace + plugin install. In short:
+
 ```bash
-# Install the plugin (method depends on your Claude Code setup)
+claude plugin marketplace add Habitat-Thinking/ai-literacy-superpowers
 claude plugin install ai-literacy-superpowers
 ```
 

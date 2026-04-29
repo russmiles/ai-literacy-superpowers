@@ -2,6 +2,34 @@
 
 ## 0.31.1 — 2026-04-29
 
+### Docs — README reframed for the marketplace
+
+Updates `README.md` to acknowledge that this repository ships a plugin
+**marketplace**, not a single plugin.
+
+- **Top of file**: tagline reframed as a marketplace shipping multiple
+  plugins; onboarding pointer also surfaces the docs site URL.
+- **Badges**: replaced the single `Plugin v0.31.1` badge with three
+  badges — `Marketplace v0.3.0`, `ai-literacy-superpowers v0.31.1`,
+  `model-cards v0.1.0` — so plugin versions are visible at a glance.
+- **New "Plugins in this marketplace" section** near the top: table
+  listing both plugins with version, description, and docs link.
+- **Installation reorganised** as "1. Add the marketplace (once)" +
+  "2. Install the plugin(s) you want", showing install commands for
+  both plugins under both Claude Code and Copilot CLI.
+- **Scope note** added before the body of the README: the remaining
+  sections document `ai-literacy-superpowers` specifically; for
+  `model-cards`, see its README and docs.
+- **Quick Start install** updated to show the marketplace add step
+  alongside the plugin install (was previously just the install).
+
+The bulk of the README continues to document `ai-literacy-superpowers`
+as the flagship in detail (skills, agents, commands, hooks, templates,
+enforcement loops, agent pipeline, compound learning, intellectual
+foundations). Replicating model-cards content would have created
+drift; the table + scope note + per-plugin docs links do the work
+without duplication.
+
 ### Docs — Marketplace homepage reframe + cross-reference sweep (PR 3 of 3)
 
 Third and final PR in the docs restructure. Closes the loop by
