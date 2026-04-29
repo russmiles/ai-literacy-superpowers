@@ -77,3 +77,10 @@ This documentation follows the [Diataxis framework](https://diataxis.fr/):
 | [How-to Guides](how-to/) | Task-oriented instructions | You need to do something specific |
 | [Reference](reference/) | Technical descriptions | You need exact details |
 | [Explanation](explanation/) | Understanding-oriented discussion | You want to understand the concepts |
+| [Plugins](plugins/) | Per-plugin documentation | You're working with a specific plugin in this marketplace |
+
+The top-level Tutorials, How-to Guides, Reference, and Explanation
+sections currently document `ai-literacy-superpowers` only and will
+be migrated under the per-plugin structure in a follow-up. New sister
+plugins (such as [model-cards]({% link plugins/model-cards/index.md %}))
+go straight into the Plugins section.
