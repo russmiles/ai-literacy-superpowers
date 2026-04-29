@@ -2,6 +2,45 @@
 
 ## 0.31.1 — 2026-04-29
 
+### Docs — Migrate ai-literacy-superpowers docs under per-plugin structure (PR 2 of 3)
+
+Second of three PRs restructuring the docs site to plugin-first
+organisation. Moves all 77 ai-literacy-superpowers content pages from
+the top-level Diataxis directories into the per-plugin sub-tree
+introduced in PR 1, with `redirect_from:` frontmatter on every moved
+page so existing bookmarks continue to work.
+
+- **Added `jekyll-redirect-from` plugin.** `Gemfile`, `Gemfile.lock`,
+  and `docs/_config.yml` updated to enable `redirect_from:` frontmatter.
+- **Moved 77 pages** from `docs/{tutorials,how-to,reference,explanation}/`
+  flat into `docs/plugins/ai-literacy-superpowers/`. Each moved page
+  has its `parent` rewritten to `ai-literacy-superpowers`,
+  `grand_parent: Plugins` added, and a `redirect_from:` block listing
+  the old URL (both with and without `.html`) so existing bookmarks
+  redirect via meta-refresh.
+- **Consolidated four section index pages** (`tutorials/index.md`,
+  `how-to/index.md`, `reference/index.md`, `explanation/index.md`)
+  into a single `docs/plugins/ai-literacy-superpowers/index.md` with
+  Diataxis-organised navigation. The new plugin index also redirects
+  the four old section URLs (`/tutorials/`, `/how-to/`, etc.).
+- **Rewrote 148 internal `{% link %}` references** across 30 files to
+  point at the new paths.
+- **Converted 28 broken relative `(../section/...)` markdown links**
+  to Jekyll `{% link %}` references (sibling refs after the flat move).
+- **Fixed 7 `(../../CHANGELOG.md)` and `(../superpowers/specs/...)` paths**
+  that needed an additional `..` segment after the move.
+- **Updated `docs/index.md`** — replaced the Diataxis-section table
+  with a per-plugin table, and updated the "Get Started" hero button
+  to point at the new path.
+- **Updated `docs/plugins/index.md`** — added the
+  `ai-literacy-superpowers` row and removed the migration-pending
+  note from PR 1.
+- **Removed empty `docs/{tutorials,how-to,reference,explanation}/`
+  directories** after the moves.
+
+PR 3 (optional polish): sweep `README.md` and any deep links in
+skills/agents/commands that reference the old docs URLs.
+
 ### Docs — Per-plugin docs section + full model-cards documentation (PR 1 of 3)
 
 First of three PRs restructuring the docs site to plugin-first

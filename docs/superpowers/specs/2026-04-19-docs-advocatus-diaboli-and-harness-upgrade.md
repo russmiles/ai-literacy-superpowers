@@ -280,7 +280,7 @@ cognitive-engagement gate.
 **c. Further Reading section** — remove the duplicate "Agents Reference" link (both line 199 and 203 are identical). Add:
 
 ```
-- [Adversarial Review]({% link explanation/adversarial-review.md %}) — the concepts behind the advocatus-diaboli and the human-cognition gate
+- [Adversarial Review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %}) — the concepts behind the advocatus-diaboli and the human-cognition gate
 ```
 
 Also update the "Key Takeaways" bullet that says "Five focused jobs, no overlap" to reflect the six-agent pipeline.

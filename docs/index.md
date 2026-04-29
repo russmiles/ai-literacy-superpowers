@@ -13,7 +13,7 @@ session.
 
 {: .fs-6 .fw-300 }
 
-[Get Started](tutorials/getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Get Started](plugins/ai-literacy-superpowers/getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [Install Now](#quick-install){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
@@ -69,18 +69,22 @@ It gives you:
 
 ## Documentation Structure
 
-This documentation follows the [Diataxis framework](https://diataxis.fr/):
+Documentation is organised **per plugin**. Each plugin in the
+marketplace has its own landing page with tutorials, how-to guides,
+reference material, and explanation pages, organised using the
+[Diataxis framework](https://diataxis.fr/).
 
-| Section | Purpose | Start here if... |
-| ------- | ------- | ----------------- |
-| [Tutorials](tutorials/) | Learning-oriented walkthroughs | You're new to the plugin |
-| [How-to Guides](how-to/) | Task-oriented instructions | You need to do something specific |
-| [Reference](reference/) | Technical descriptions | You need exact details |
-| [Explanation](explanation/) | Understanding-oriented discussion | You want to understand the concepts |
-| [Plugins](plugins/) | Per-plugin documentation | You're working with a specific plugin in this marketplace |
+| Plugin | What it does |
+| ------ | ------------ |
+| [ai-literacy-superpowers]({% link plugins/ai-literacy-superpowers/index.md %}) | Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning. The flagship plugin. |
+| [model-cards]({% link plugins/model-cards/index.md %}) | Researches and authors Mitchell-extended model cards from a model name. |
 
-The top-level Tutorials, How-to Guides, Reference, and Explanation
-sections currently document `ai-literacy-superpowers` only and will
-be migrated under the per-plugin structure in a follow-up. New sister
-plugins (such as [model-cards]({% link plugins/model-cards/index.md %}))
-go straight into the Plugins section.
+See the [Plugins index]({% link plugins/index.md %}) for the full
+listing.
+
+### Old URLs
+
+The previous flat layout (`/tutorials/`, `/how-to/`, `/reference/`,
+`/explanation/`) was reorganised on 2026-04-29 to support multiple
+plugins in the same marketplace. Old URLs redirect to the new
+plugin-scoped paths automatically.

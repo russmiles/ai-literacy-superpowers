@@ -10,6 +10,9 @@ url: https://Habitat-Thinking.github.io/ai-literacy-superpowers
 color_scheme: light
 search_enabled: true
 
+plugins:
+  - jekyll-redirect-from
+
 aux_links:
   GitHub:
     - https://github.com/Habitat-Thinking/ai-literacy-superpowers

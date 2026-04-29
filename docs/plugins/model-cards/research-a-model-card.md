@@ -151,7 +151,7 @@ frontmatter) are surfaced to you before write.
 
 This validation is the same pattern enforced by the project-wide
 "Output Validation Checkpoints" convention — see
-[the harness conventions]({% link how-to/run-a-harness-audit.md %})
+[the harness conventions]({% link plugins/ai-literacy-superpowers/run-a-harness-audit.md %})
 for the broader context.
 
 ---
