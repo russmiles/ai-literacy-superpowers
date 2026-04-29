@@ -1,0 +1,16 @@
+[
+  {"name": "claude-opus-4-7", "provider": "anthropic"},
+  {"name": "claude-sonnet-4-6", "provider": "anthropic"},
+  {"name": "claude-haiku-4-5", "provider": "anthropic"},
+  {"name": "gpt-5", "provider": "openai"},
+  {"name": "gpt-5-mini", "provider": "openai"},
+  {"name": "o4", "provider": "openai"},
+  {"name": "o4-mini", "provider": "openai"},
+  {"name": "gemini-2.5-pro", "provider": "google"},
+  {"name": "gemini-2.5-flash", "provider": "google"},
+  {"name": "llama-4", "provider": "meta"},
+  {"name": "mistral-large-3", "provider": "mistral"},
+  {"name": "grok-4", "provider": "xai"},
+  {"name": "command-r-plus", "provider": "cohere"},
+  {"name": "qwen3-coder", "provider": "alibaba"}
+]

@@ -1,0 +1,7 @@
+{
+  "name": "model-cards",
+  "version": "0.1.0",
+  "description": "Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy (provider docs → HuggingFace → arXiv → web). Hybrid review-before-commit flow.",
+  "author": {"name": "Russ Miles"},
+  "keywords": ["model-cards", "model-research", "ai-evaluation", "mitchell-2019", "ai-literacy"]
+}

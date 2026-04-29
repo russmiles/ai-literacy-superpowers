@@ -101,6 +101,23 @@
 <!-- Key architectural decisions and the reasoning behind them.
      Each entry: what was decided, why, and what the alternatives were. -->
 
+- Decision: content-emitting agents in this codebase use a three-part trust
+  architecture — **agent-emit + dispatcher-persist + human-disposes**. The
+  agent's tool boundary is research-and-author only (no Edit, no Bash); the
+  agent returns content as a string; the dispatching command writes the file
+  after a structured human review (accept / edit / re-run / abort). This
+  pattern is in production across three agents: `advocatus-diaboli`,
+  `choice-cartographer`, and `model-card-researcher`. Three repetitions
+  promote it from convention to named architecture (Hunt/Thomas's Rule of
+  Three). Future research-and-author agents in this codebase should default
+  to this shape unless an explicit reason argues otherwise. The two halves
+  are: (1) tool-boundary — minimum-trust-surface, no shell, no edit; (2)
+  human-gate — structured review summary, named dispositions, command
+  refuses to persist when the agent emits a refusal string (e.g.
+  model-card-researcher's REFUSED: line for unconfirmed model existence).
+  Source: `docs/superpowers/stories/model-cards-plugin-design.md` stories
+  #7 and #8 (promoted disposition).
+
 - Decision: hook scripts never block, only warn. Reason: this is a
   plugin used across diverse projects — blocking hooks could break
   workflows the plugin authors cannot predict. Advisory messages let
