@@ -2,6 +2,35 @@
 
 ## 0.31.1 — 2026-04-29
 
+### Docs — Per-plugin docs section + full model-cards documentation (PR 1 of 3)
+
+First of three PRs restructuring the docs site to plugin-first
+organisation, motivated by the new sister plugin `model-cards`
+shipping in the same marketplace.
+
+- **New top-level docs section: `docs/plugins/`.** Landing page at
+  `docs/plugins/index.md` introduces the per-plugin structure and
+  lists available plugins.
+- **Full model-cards documentation under `docs/plugins/model-cards/`:**
+  - `index.md` — landing page with install, quick start, and Diataxis-
+    organised navigation.
+  - `seed-your-library.md` — tutorial for `/model-card seed`.
+  - `research-a-model-card.md` — how-to for `/model-card create`.
+  - `commands.md`, `agents.md`, `skills.md`, `card-template.md` —
+    reference pages for the command, agent, skill, and template.
+  - `mitchell-extended-cards.md` — explanation page covering why the
+    cards have ten sections, the citation-tier discipline, the
+    existence-check refusal rule, and the read-only-emitter trust
+    boundary the agent inherits from `advocatus-diaboli` /
+    `choice-cartographer`.
+- **`docs/index.md` updated** to surface the new Plugins section in
+  the top-level navigation table.
+- **No file moves yet.** Existing `ai-literacy-superpowers` docs stay
+  at their current paths and URLs continue to work. PR 2 will migrate
+  them under `docs/plugins/ai-literacy-superpowers/` with
+  `redirect_from:` frontmatter to preserve bookmarks; PR 3 will sweep
+  cross-references in `README.md` and skill/agent/command files.
+
 ### Chore — Bump HARNESS.md template-version marker to 0.31.1
 
 Ran `/harness-upgrade` against the 0.31.1 template. No new constraints,
