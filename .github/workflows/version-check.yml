@@ -26,9 +26,30 @@ jobs:
       - name: Extract versions from all locations
         id: versions
         run: |
-          # plugin.json version
+          # ai-literacy-superpowers plugin.json version (canonical plugin)
           PLUGIN_VERSION=$(grep '"version"' ai-literacy-superpowers/.claude-plugin/plugin.json | sed 's/.*"version": "\(.*\)".*/\1/')
           echo "plugin=$PLUGIN_VERSION" >> "$GITHUB_OUTPUT"
+
+          # All plugins enumerated from marketplace.json plugins[]
+          # Each entry's source path + .claude-plugin/plugin.json version is verified
+          # against its marketplace.json plugins[] entry's version (per-plugin sync).
+          PLUGIN_NAMES=$(jq -r '.plugins[].name' .claude-plugin/marketplace.json)
+          PLUGIN_MISMATCHES=""
+          for name in $PLUGIN_NAMES; do
+            source=$(jq -r --arg n "$name" '.plugins[] | select(.name == $n) | .source' .claude-plugin/marketplace.json)
+            mp_version=$(jq -r --arg n "$name" '.plugins[] | select(.name == $n) | .version' .claude-plugin/marketplace.json)
+            pj_version=$(jq -r '.version' "${source}/.claude-plugin/plugin.json" 2>/dev/null || echo "MISSING")
+            echo "  $name: marketplace=$mp_version, plugin.json=$pj_version"
+            if [ "$mp_version" != "$pj_version" ]; then
+              PLUGIN_MISMATCHES="$PLUGIN_MISMATCHES $name(mp=$mp_version,pj=$pj_version)"
+            fi
+          done
+          if [ -n "$PLUGIN_MISMATCHES" ]; then
+            echo "::error::Plugin version mismatches:$PLUGIN_MISMATCHES"
+            echo "Each plugin's plugin.json version must match its marketplace.json plugins[] entry's version."
+            exit 1
+          fi
+          echo "All per-plugin versions in sync"
 
           # README badge version
           README_VERSION=$(grep -o 'Plugin-v[0-9.]*' README.md | head -1 | sed 's/Plugin-v//')
