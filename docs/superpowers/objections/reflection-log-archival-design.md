@@ -9,85 +9,85 @@ objections:
     severity: high
     claim: "The spec proposes archival machinery for a 457-line / 29-entry log that has not yet demonstrated the failure modes it describes; the premise rests on projected, not observed, harm."
     evidence: "\"At the time of writing the log is 457 lines / ~29 entries. Annualised growth at current cadence is roughly 100–200 entries / year.\" and \"Driving signal: User concern that REFLECTION_LOG.md will grow over time...\""
-    disposition: pending
-    disposition_rationale: null
+    disposition: rejected
+    disposition_rationale: "User-experienced signal is the trigger for this work, not a future projection. The plugin's adopter base creates a present-tense reason to design proactively rather than reactively. Building now while the failure mode is starting to surface is the right shape; waiting for an entry-count threshold would mean rebuilding under load. Empirical token instrumentation can follow as a confirmatory signal but is not a precondition."
   - id: O2
     category: premise
     severity: high
     claim: "The 'signal-to-noise degradation' framing is asserted as the primary failure mode without evidence that current readers actually struggle to find signal — the alternative diagnosis (readers should read less, or filter at read time) is not considered."
     evidence: "\"Signal-to-noise degradation (primary). When an agent or command reads the log to look for recent learnings or recurring patterns, stale entries ... drown out fresh signal. The reader's attention is the bottleneck, not the tokens themselves.\" — no cited instance of a reader missing signal because of staleness is given."
-    disposition: pending
-    disposition_rationale: null
+    disposition: rejected
+    disposition_rationale: "Same substantiation as O1: user-driven signal stands on its own. The objection's alternative diagnosis (read-side filtering) is partially correct but the conclusion that archival is therefore unnecessary does not follow — see O3 disposition where read-side filtering is accepted as a complementary mechanism, not a replacement."
   - id: O3
     category: alternatives
     severity: high
     claim: "A materially simpler alternative — readers consume only the last N entries or the last M months by date filter — is not acknowledged, and would solve the signal-to-noise and per-read-cost goals without any new file, schema, GC rule, or migration."
     evidence: "The 'Reader updates' table modifies six agents and several commands to read both active and archive, but never considers teaching those readers to bound their own intake. The Approach overview goes directly to a two-path archival model with no comparison to read-side filtering."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised to add 'Read-side filtering — the immediate cost cap' as a peer mechanism alongside Path 1 and Path 2. Read-side filtering and archival are complementary: the former addresses immediate per-read cost, the latter addresses durable signal-to-noise + curation discipline. Bounded-read defaults (last 50 entries OR last 90 days) added with per-reader policy table; explicit opt-in for full-history reads when historical patterns are needed."
   - id: O4
     category: specification quality
     severity: high
     claim: "The 6-month Path 2 threshold is admitted to be a midpoint with no analysis, yet it is specified as a concrete value in the algorithm and the curation-debt metric — implementers will encode 6 months without knowing whether it is load-bearing or arbitrary."
     evidence: "Open question 1: \"Is 6 months the right Path 2 threshold, or should it be 3 / 12 months? (The design picks 6 as the middle.)\" combined with the Path 2 algorithm step 2: \"Filter to entries older than 6 months\"."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: threshold hoisted to the GC-rule declaration in HARNESS.md as a tunable field. Default 6 months stated and rationalised in the new Configuration section. Path 2 Algorithm step 2 now references 'the configured age threshold (default 6 months, HARNESS.md-tunable)' rather than hardcoding 6 months. The internal contradiction with open-questions is resolved — 6 months is the picked default, not an open value."
   - id: O5
     category: implementation
     severity: high
     claim: "The Path 2 recommendation logic is built on cross-reference techniques the spec itself flags as brittle (text overlap, semantic match against AGENTS.md), yet the design relies on those recommendations to drive curator attention monthly — a brittle signal driving a recurring action is a known training-into-acceptance failure mode."
     evidence: "Risk 4: \"Cross-reference logic in Path 2 is approximate. Pattern recurrence detection by text overlap is brittle; semantic match against AGENTS.md is even more so. Recommendations may be wrong.\" combined with Risk 2 acknowledging the same training-into-acceptance shape."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: Path 2 agent now emits evidence (recurrence counts, AGENTS.md/HARNESS.md text-overlap matches with quoted excerpts, single-instance signal), NOT pre-classified labels. Curator interprets the evidence and chooses a disposition. The friction step is structural (curator must read evidence) rather than discretionary (curator could click-accept a label). Defuses the training-into-acceptance dynamic by removing the label that would be accepted."
   - id: O6
     category: risk
     severity: high
     claim: "The migration is described as 'an hour or two' but requires the curator to reconstruct, by inspection, which of 29 entries were promoted in the past — a task whose actual duration is unknown and whose deferral leaves the system stuck in a half-state where Path 2 keeps surfacing the same large report every month."
     evidence: "Migration step 2: \"Tags promoted entries with Promoted: <today's date> → AGENTS.md ... based on actual prior promotions (cross-referenced against current AGENTS.md).\" and Risk 1: \"Risk that curators defer it indefinitely.\""
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: migration helper script (`scripts/migrate-reflection-log.sh`) added that pre-cross-references existing reflections against AGENTS.md and HARNESS.md, surfacing likely-promoted entries with provisional Promoted lines for curator confirmation. Reduces migration from 'scan and reconstruct' to 'review proposals'. Estimated curator time drops from hours to 30-60 minutes. Proposals file (`reflections/migration-proposals.md`) commits alongside as a permanent record of decisions."
   - id: O7
     category: risk
     severity: medium
     claim: "The design's safety asymmetry between Path 1 (auto) and Path 2 (human-gated) is presented as load-bearing, but Path 1's safety rests entirely on the curator never adding a Promoted line erroneously — and the spec gives no guard against an accidental or premature Promoted line being auto-archived on the next weekly run."
     evidence: "\"Path 1 — explicit promotion signal → auto-archive ... Auto-fix is safe because the signal is explicit.\" and Path 1 failure-mode list covers concurrent edits and malformed lines but does not cover a syntactically-valid Promoted line added in error."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: Path 1 algorithm now includes a pre-archive verification step. For AGENTS_FORM/HARNESS_FORM, the script greps AGENTS.md/HARNESS.md for the referenced content; if no match, skips with warning. Closure and supersede forms are accepted as-is (no external content to verify). Failure mode added: 'Promoted line is grammar-valid but unverified' resolves on next weekly run once curator reconciles. Worse failure mode (Promoted-typo causes wrong entry to be archived) is now prevented by structural verification."
   - id: O8
     category: scope
     severity: medium
     claim: "The implementation scope touches at least eleven plugin files plus templates and a new script, for a feature whose driving artefact is 457 lines today — the scope/cost ratio is high enough that the change itself becomes a long-lived liability if adoption is silent."
     evidence: "The 'Implementation scope' section enumerates 14 distinct file changes including six agent definitions, three commands, two templates, a skill, a script, and a workflow — for a system whose current state is described as \"457 lines / ~29 entries\"."
-    disposition: pending
-    disposition_rationale: null
+    disposition: rejected
+    disposition_rationale: "The 14-file scope is the real shape of any schema-extending change in this plugin — agents, templates, commands, and skills all need to know about the new convention or they degrade to inconsistency. Reducing scope would ship an incomplete feature with worse failure modes (e.g., agents reading the active log unaware of the archive). The cost is acknowledged but defended; this is consistent with the plugin's scope-honest design philosophy. Implementation scope section restructured into category subsections to make the breakdown clearer to reviewers."
   - id: O9
     category: specification quality
     severity: medium
     claim: "The Promoted field's semantics are over-loaded: the same field encodes promotion (→ AGENTS.md), non-promotion (→ no promotion), aged-out closure, and supersedence — readers and the GC script must distinguish these by string parsing, but the spec does not give a grammar or a parser contract."
     evidence: "Schema change section lists five distinct right-hand sides for the Promoted field with no formal grammar; Path 1 Algorithm step 3 simply says \"For each entry that contains a Promoted field\" without specifying which right-hand sides trigger archival vs. which (if any) might not."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: formal grammar added to Schema change section as BNF-style production rules. Statement added: 'all parseable Promoted lines trigger archival regardless of right-hand side; the right-hand side is preserved verbatim in the archive entry as part of the entry's permanent record'. The grammar exists for parser determinism, not to gate archival behaviour. Implementers now have a contract."
   - id: O10
     category: alternatives
     severity: medium
     claim: "Encoding promotion state as 'one line of metadata appended at curation time' inside a markdown bullet is a fragile shape; YAML frontmatter per entry, a sidecar file, or a git-trailer convention would all be more parseable and less ambiguous, and none of these alternatives is acknowledged."
     evidence: "Schema change section: \"Each reflection entry gains an optional Promoted field, added by the curator at promotion time\" — example shown is a markdown list item. No comparison to frontmatter, sidecar, or trailer-based alternatives."
-    disposition: pending
-    disposition_rationale: null
+    disposition: rejected
+    disposition_rationale: "Spec revised to acknowledge alternatives but defend the markdown-bullet shape. Per-entry frontmatter forces a structural break with the existing 29 entries (each would need a frontmatter block added). Sidecar files couple two files for every promotion (consistency burden, drift risk). Git trailers surface only at log time, not file-read time. The bullet shape co-locates disposition with the entry it disposes, remains grep-friendly, and adds one line per promotion rather than restructuring. Trade-off acknowledged: free-text right-hand sides allow more variation, mitigated by the formal grammar (O9)."
   - id: O11
     category: specification quality
     severity: medium
     claim: "The spec says the active log 'is not loaded at session start' yet justifies the design partly on per-read cost compounding across thousands of installs — these two claims sit in tension because on-demand reads scale with adopter activity, not adopter count, and the spec does not quantify either."
     evidence: "Problem section: \"The log itself is not loaded at session start (no SessionStart hook reads it...)\" alongside failure mode 2: \"Per-read cost compounds across many adopters (secondary). The plugin is recommended to many users. Each adopter's project pays the same growing per-read cost. Aggregate token spend across thousands of installs is meaningful even when any single read is cheap.\""
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: failure mode 2 reframed as 'Per-read cost grows linearly per project (secondary).' The 'thousands of installs' rhetorical scaling is dropped. New framing: per-project, reader-activity-driven cost that compounds with use. This is sufficient justification given the failure-mode emphasis on signal-to-noise; the adopter-count amplification was rhetorical and is no longer load-bearing."
   - id: O12
     category: risk
     severity: medium
     claim: "If adopters do not follow the curation discipline (don't add Promoted lines), Path 1 archives nothing, Path 2 surfaces an ever-growing report, and the system degrades to worse-than-status-quo (same long log plus monthly noise from the report) — graceful degradation is not specified."
     evidence: "The design assumes curator engagement: Path 1 fires only on Promoted entries; Path 2 produces reports the curator must act on. Failure mode \"Curator does not act on the report: entries remain in the active log. The same entries will be re-surfaced next month\" treats this as a feature, but at scale it is a worse signal-to-noise problem than the one being solved."
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Spec revised: Path 2 made opt-in via the GC-rule declaration in HARNESS.md. New section 'Graceful degradation for the disengaged-curator case' explicitly tabulates each mechanism's behaviour for engaged vs disengaged curators. Net effect: an adopter who never adds a Promoted line and never declares the Path 2 GC rule sees no monthly report and no active-log churn — they get only read-side filtering as the immediate cost cap. The system is identical to today's behaviour plus read-side filtering, never worse."
 ---
 
 ## O1 — premise — high

@@ -35,11 +35,14 @@ Three failure modes follow, ranked by user emphasis:
    way already — drown out fresh signal. The reader's attention is
    the bottleneck, not the tokens themselves.
 
-2. **Per-read cost compounds across many adopters (secondary).** The
-   plugin is recommended to many users. Each adopter's project pays
-   the same growing per-read cost. Aggregate token spend across
-   thousands of installs is meaningful even when any single read is
-   cheap.
+2. **Per-read cost grows linearly per project (secondary).** Inside
+   any single project, every on-demand read pays a cost proportional
+   to log size. As the log grows, every reader call (governance
+   audits, harness audits, assessor evidence-extraction, regression
+   detection) gets more expensive. The cost is per-project and
+   reader-activity-driven, not adopter-count-amplified — but it is
+   still a cost that compounds with use, and it is paid by every
+   adopter who exercises the relevant readers.
 
 3. **Per-project growth is unbounded over years (tertiary).** Inside
    any one long-lived project, the log grows linearly forever absent
@@ -68,30 +71,51 @@ Three failure modes follow, ranked by user emphasis:
 
 ## Approach overview
 
-A two-path archival model that matches the **safety profile** of the
-signal driving the archival:
+A **three-mechanism design** that matches the safety profile of each
+signal:
+
+- **Read-side filtering (immediate cost cap).** Agents and commands
+  that read `REFLECTION_LOG.md` bound their default intake to recent
+  entries (last 50 entries OR last 90 days, whichever is more
+  inclusive), with explicit opt-in for full-history reads when
+  historical patterns are needed (e.g., `Reflection-driven regression
+  detection` GC rule, governance pattern analysis). This addresses
+  the per-read cost trajectory immediately, with no schema change,
+  no migration, and reversible at any time. It is **complementary to
+  archival, not a replacement** — archival serves durable
+  signal-to-noise reduction; read-side filtering serves immediate
+  cost containment.
 
 - **Path 1 — explicit promotion signal → auto-archive.** When a
   curator promotes a reflection to `AGENTS.md` or `HARNESS.md`, they
   add a one-line `Promoted` field to the source entry. A weekly,
   deterministic GC rule moves any entry with that field into the
-  appropriate annual archive file. Auto-fix is safe because the
-  signal is explicit.
+  appropriate annual archive file. Before archiving, a
+  pre-verification step checks that the Promoted line's right-hand
+  side resolves to actual content in `AGENTS.md` / `HARNESS.md` (or
+  matches a closure variant), so accidentally-applied Promoted lines
+  are caught before silent archival. Auto-fix is safe because the
+  signal is explicit AND verified.
 
 - **Path 2 — absence of promotion signal → agent-augmented review.**
-  Entries older than 6 months without a `Promoted` field are surfaced
-  monthly by the `harness-gc` agent, which cross-references against
-  newer entries and against `AGENTS.md` / `HARNESS.md` to recommend
-  one of three dispositions (PROMOTE / SUPERSEDE / AGED-OUT). The
-  curator decides. Auto-fix is **not** safe here because the absence
-  of a promotion line is ambiguous — the entry might still be
-  relevant, or it might warrant promotion that the curator has not
-  yet got around to. Human judgement gates the move.
+  Entries older than the configured age threshold (default 6 months,
+  HARNESS.md-tunable) without a `Promoted` field are surfaced
+  monthly by the `harness-gc` agent. The agent emits **evidence**
+  (recurrence counts, AGENTS.md/HARNESS.md text-overlap matches,
+  single-instance signal) per candidate — **not** pre-classified
+  labels. The curator interprets the evidence and decides on a
+  disposition. Auto-fix is not safe here because the absence of a
+  promotion line is ambiguous; human judgement gates the move.
+  Path 2 is **opt-in via the HARNESS.md GC-rule declaration** —
+  if an adopter does not declare it, no monthly report is generated
+  and the system reverts to today's behaviour for them.
 
-The asymmetry between Path 1 (auto-archive) and Path 2
-(human-decided) is deliberate: it preserves the curation-nudge
-forcing function that exists today (the active log keeps prompting
-review) while still making the active log small in steady state.
+The three mechanisms are deliberately ordered: read-side filtering
+takes the immediate cost off the table; Path 1 absorbs the explicit
+curation signal cleanly; Path 2 augments human judgement on the
+ambiguous middle ground. Adopters who engage with curation get the
+full benefit of all three; adopters who don't engage still benefit
+from read-side filtering (with no change to the active log).
 
 ## Schema change
 
@@ -122,6 +146,48 @@ edit, so the two changes are atomic.
 The schema change is **backwards-compatible**: existing 29 entries
 without a `Promoted` field continue to be valid; they're simply
 ineligible for Path 1 auto-archive until tagged.
+
+### Formal grammar for the Promoted field
+
+```text
+PROMOTED_LINE := "- **Promoted**: " DATE " " "→" " " RHS
+DATE          := YYYY "-" MM "-" DD
+RHS           := AGENTS_FORM | HARNESS_FORM | CLOSURE_FORM | SUPERSEDE_FORM
+AGENTS_FORM   := "AGENTS.md " SECTION ": " QUOTED_STRING
+HARNESS_FORM  := "HARNESS.md: " CONSTRAINT_NAME
+CLOSURE_FORM  := "no promotion (" RATIONALE ")"
+                | "aged-out, no promotion warranted"
+SUPERSEDE_FORM := "superseded by " DATE
+SECTION       := "STYLE" | "GOTCHA" | "ARCH_DECISION"
+```
+
+Implementation contract: **all parseable Promoted lines trigger
+archival regardless of right-hand side**. The right-hand side is
+preserved verbatim in the archive entry as part of the entry's
+permanent record. The grammar exists so a deterministic parser can
+distinguish well-formed from malformed lines (and reject the latter
+per Path 1's failure-mode handling), not so different right-hand
+sides take different paths.
+
+### Why this shape, not frontmatter or sidecar
+
+A markdown bullet line was chosen over alternatives:
+
+- **Per-entry YAML frontmatter** would force a structural break with
+  the existing 29 entries (each would need a frontmatter block
+  added) and would couple the schema more tightly to a parser. The
+  current shape adds a single line per promotion and remains
+  grep-friendly.
+- **Sidecar `reflections/promotions.yaml`** would couple two files
+  for every promotion (consistency burden, drift risk). The current
+  shape co-locates the disposition with the entry it disposes.
+- **Git-trailer-style annotation in commit messages** would only
+  surface the disposition at git-log time, not at file-read time —
+  agents would need to mine git history rather than read a file.
+
+The trade-off accepted: free-text right-hand sides allow more
+variation than a structured form would, mitigated by the formal
+grammar above.
 
 ## Archive location and format
 
@@ -162,6 +228,67 @@ they're archived, NOT re-sorted by original date. Chronological
 order by archive timestamp is sufficient for query and avoids
 re-write conflicts.
 
+## Read-side filtering — the immediate cost cap
+
+Independent of archival, every reader of `REFLECTION_LOG.md` should
+bound its default intake. This is the cheapest, most immediate
+mitigation against the per-read cost trajectory and addresses the
+concern that any one project read (governance audit, harness audit,
+reflection-driven regression detection, assessor evidence-extraction)
+shouldn't have to load the entire log just to do recent-pattern
+analysis.
+
+### Default bounded read
+
+Readers default to **the more inclusive of**:
+
+- The last **50 entries**
+- Entries dated within the last **90 days**
+
+A reader that wants more (or all) entries declares so explicitly.
+Wanting all entries is a deliberate signal that historical patterns
+matter — the reader pays the larger cost knowingly.
+
+### Per-reader policy
+
+| Reader | Default | Rationale |
+|---|---|---|
+| `/reflect` (append) | n/a | Append-only; doesn't read entries to write. |
+| `curation-nudge.sh` Stop hook | bounded | Counts unpromoted recent entries; doesn't need history. |
+| `reflection-prompt.sh` Stop hook | n/a | Operates on the current commit, not the log. |
+| `harness-gc` Path 1 (auto-archive) | full active | Must scan every entry for `Promoted` field. |
+| `harness-gc` Path 2 (aged-out review) | full active + archive | Cross-reference and pattern detection across history. |
+| `harness-gc` Reflection-driven regression detection | full active + archive | Looks for recurring patterns over time. |
+| `harness-auditor` agent | bounded by default; full-with-archive on explicit "audit historical claims" | Most auditing is on recent state; historical claims are explicitly scoped. |
+| `governance-auditor` agent | full active + archive when looking for governance patterns over time | Pattern analysis is the explicit goal. |
+| `assessor` agent | full active + archive when extracting compound-learning evidence | Coverage matters more than recency. |
+| `choice-cartographer` agent | bounded by default; full-with-archive when assessing decision continuity across long arcs | Most cartograph work is recent-spec-scoped. |
+| `orchestrator` agent | n/a | Doesn't read the log directly. |
+| `integration-agent` | n/a | Append-only; doesn't read for content. |
+| `/superpowers-status`, `/harness-health` | bounded | Health snapshots are recent-state-focused. |
+| `/harness-audit` | bounded by default; full when asked to audit historical claims | Most audits are recent-state. |
+| `/assess`, `/governance-audit` | full active + archive | Cross-time pattern analysis. |
+
+The bounded default + explicit-opt-in pattern means the common case
+is cheap and the historical case is still possible — the trade-off
+is conscious rather than implicit.
+
+### Implementation
+
+Each reader that uses bounded reads gets a small helper utility
+(shell or agent prompt language) that reads the active log,
+splits on `---`, sorts entries by `Date` field descending, and
+returns the first N entries OR entries within M days, whichever is
+more inclusive. Defaults are configurable via HARNESS.md (see
+Configuration).
+
+Readers that need full active + archive use `cat REFLECTION_LOG.md
+reflections/archive/*.md`-style aggregation, then split and process
+as one stream. Annual archive granularity keeps the file count low
+enough that this is cheap.
+
+---
+
 ## Path 1 — Auto-archive of promoted entries
 
 ### Specification
@@ -180,10 +307,21 @@ re-write conflicts.
 1. Read `REFLECTION_LOG.md`.
 2. Split into entries on `---` separators.
 3. For each entry that contains a `Promoted` field:
-   a. Determine the entry's original year from the `Date` field.
-   b. Append the entry (with an added `Archived` line) to
+   a. **Parse the Promoted line** against the formal grammar
+      (Schema change → Formal grammar). If the line does not match,
+      skip the entry and emit a warning. Do not block the run.
+   b. **Pre-archive verification** — verify that the right-hand side
+      resolves to actual content in the current tree:
+      - `AGENTS_FORM`: grep for the quoted-string content in
+        `AGENTS.md`. Skip with warning if no match.
+      - `HARNESS_FORM`: grep for the constraint name as a `### `
+        heading in `HARNESS.md`. Skip with warning if no match.
+      - `CLOSURE_FORM` and `SUPERSEDE_FORM`: accept (no external
+        content to verify, but the form is grammar-valid).
+   c. Determine the entry's original year from the `Date` field.
+   d. Append the entry (with an added `Archived` line) to
       `reflections/archive/<YYYY>.md`, creating the file if missing.
-   c. Remove the entry from `REFLECTION_LOG.md`.
+   e. Remove the entry from `REFLECTION_LOG.md`.
 4. Write back the trimmed `REFLECTION_LOG.md`.
 5. Commit both files in a single commit titled
    `chore: auto-archive N promoted reflections`.
@@ -191,7 +329,8 @@ re-write conflicts.
 The script runs via the existing weekly GC workflow
 (`gc.yml`) on the schedule already established for deterministic GC
 rules. It operates only on entries with the explicit `Promoted`
-signal — never on entries lacking it.
+signal AND passing pre-archive verification — never on entries
+lacking either.
 
 ### Failure modes
 
@@ -201,6 +340,12 @@ signal — never on entries lacking it.
   branch-and-PR pattern.
 - **Malformed `Promoted` line**: skip the entry, log a warning, do
   not block the run.
+- **Promoted line is grammar-valid but unverified** (right-hand side
+  doesn't resolve to content in `AGENTS.md` / `HARNESS.md`): skip
+  with warning. The most likely cause is a curator typo or a
+  Promoted line added before the AGENTS.md edit was committed; both
+  resolve naturally on the next weekly run once the curator
+  reconciles.
 - **Archive file write failure**: abort the run before modifying
   the active log. Atomicity matters.
 
@@ -216,37 +361,44 @@ signal — never on entries lacking it.
 | Tool | `harness-gc` agent |
 | Auto-fix | false |
 | Scope | `REFLECTION_LOG.md` |
+| Default age threshold | 6 months (configurable per project) |
+| Opt-in | yes — adopters declare this GC rule in HARNESS.md to enable it |
 
 ### Algorithm
 
 1. Read `REFLECTION_LOG.md`.
-2. Filter to entries older than **6 months** (calculated from the
-   `Date` field) that lack a `Promoted` field.
-3. For each candidate, the `harness-gc` agent:
+2. Filter to entries older than the **configured age threshold**
+   (default 6 months, read from the GC-rule declaration in
+   `HARNESS.md` — see Configuration below) that lack a `Promoted`
+   field.
+3. For each candidate, the `harness-gc` agent emits **evidence**,
+   not a pre-classified label:
    a. Reads the entry's `Surprise`, `Proposal`, and `Improvement`
       fields.
-   b. Cross-references against newer reflection entries: does the
-      same pattern recur? Count occurrences.
+   b. Cross-references against newer reflection entries:
+      - Counts pattern recurrences (same Signal classification AND
+        keyword overlap with the entry's Surprise/Proposal).
+      - Cites specific newer entry dates as evidence.
    c. Cross-references against current `AGENTS.md` and `HARNESS.md`:
-      is this learning already implicitly captured (text overlap or
-      semantic match)?
-   d. Emits a per-entry recommendation:
-      - **PROMOTE** if the pattern recurs in newer entries (≥1
-        recurrence) and is not already in `AGENTS.md` / `HARNESS.md`.
-      - **SUPERSEDE** if the learning is already captured in
-        `AGENTS.md` / `HARNESS.md`.
-      - **AGED-OUT** otherwise (single-instance, not captured, no
-        recurrence).
-   e. Writes a one-sentence rationale per recommendation.
-4. Outputs a structured report at
+      - Reports text-overlap matches with specific quoted excerpts.
+      - Reports any explicit constraint or section that appears to
+        capture the entry's learning.
+   d. Reports the single-instance signal: "no newer entry shares
+      this pattern" if applicable.
+4. The agent **does not assign a label**. The curator interprets
+   the evidence (recurrence count, overlap matches, single-instance
+   signal) and chooses a disposition.
+5. Outputs a structured report at
    `observability/reflection-aged-out-<YYYY-MM-DD>.md` containing all
-   candidates with recommendations and rationales.
-5. Surfaces the report to the curator via the monthly cadence (same
+   candidates and their evidence blocks, with the curator's
+   interpretation explicitly required per entry.
+6. Surfaces the report to the curator via the monthly cadence (same
    surfacing mechanism as other monthly GC outputs).
 
 ### Curator workflow (per entry)
 
-For each entry in the report:
+For each entry in the report, the curator reads the evidence and
+chooses one of:
 
 1. **Promote** — manually edit `AGENTS.md` or `HARNESS.md` (per the
    plugin's existing curation discipline), then add a `Promoted`
@@ -258,28 +410,74 @@ For each entry in the report:
 3. **Mark superseded** — add a `Promoted: → superseded by <newer
    reflection date>` line. Path 1 archives.
 4. **Keep** — leave the entry untouched. The next monthly Path 2
-   run will surface it again, with potentially different
-   recommendations as the surrounding context evolves.
+   run will surface it again, with potentially different evidence
+   as the surrounding context evolves.
+
+### Why evidence, not pre-classified labels
+
+The original design emitted PROMOTE / SUPERSEDE / AGED-OUT labels.
+Spec-mode `/diaboli` (O5) flagged this as a training-into-acceptance
+risk: a monthly recurring report of pre-classified recommendations
+becomes a path of least resistance to reflexive acceptance, even
+when the curator is supposed to be the gate. By having the agent
+emit evidence rather than labels, the curator must **read and
+interpret** before acting — the friction step is structural, not
+discretionary.
 
 ### Why agent enforcement, not deterministic
 
-Path 2 needs cross-reference and recommendation logic that resists a
-clean shell-script expression. The `harness-gc` agent already does
-similar pattern-detection work (see the existing
-`Reflection-driven regression detection` GC rule, which is also
-agent-enforced). Adding this capability there is the natural fit.
+Path 2 needs cross-reference work that resists a clean shell-script
+expression (text overlap, recurrence pattern detection). The
+`harness-gc` agent already does similar pattern-detection work (see
+the existing `Reflection-driven regression detection` GC rule,
+which is also agent-enforced). Adding this capability there is the
+natural fit.
 
 ### Failure modes
 
-- **Agent recommendation is wrong**: curator overrides. The agent's
-  recommendation is a starting point, not a decision.
-- **Cross-reference produces false positives** (e.g., text overlap
-  flags an entry as superseded when it's actually a different
-  learning): curator catches at review time.
+- **Cross-reference evidence is brittle** (e.g., text overlap flags
+  superficially-similar entries that aren't actually the same
+  learning): curator catches at review time. Evidence is presented
+  with the underlying matches quoted, so the curator can sanity-check
+  rather than trusting a label.
 - **Curator does not act on the report**: entries remain in the
-  active log. The same entries will be re-surfaced next month,
-  giving the system a recurring forcing function rather than a
-  one-shot.
+  active log. Path 2 is opt-in, so an adopter who finds the report
+  unhelpful can simply remove the GC-rule declaration from their
+  HARNESS.md.
+- **Agent emits no evidence for an entry** (no recurrence, no
+  overlap): this is a valid signal — the entry is single-instance
+  and has not been captured elsewhere. Curator decides whether
+  single-instance is enough to keep, close, or promote.
+
+## Configuration
+
+The design exposes three tunable values, all configurable via the
+HARNESS.md GC-rule declarations. Defaults are stated; adopters can
+override per project.
+
+| Value | Default | Where declared | Effect |
+|---|---|---|---|
+| Path 2 age threshold | 6 months | `Reflection log aged-out review` GC rule's `threshold` field in HARNESS.md | Entries older than this without a `Promoted` field surface in the monthly Path 2 report |
+| Read-side filtering: entry count | 50 | `Read-side filtering` policy in HARNESS.md (or CLAUDE.md if more appropriate) | Default upper bound on number of recent entries readers ingest |
+| Read-side filtering: day window | 90 days | Same as above | Default upper bound on age of entries readers ingest |
+| Path 2 opt-in | declared | Whether the GC rule is present in HARNESS.md `## Garbage Collection` | If absent, no monthly report is generated; only Path 1 (and read-side filtering) operate |
+
+**Configurability rationale**: the spec deliberately picks defaults
+that serve the median project, but adopters' curation cadences vary
+(some review weekly, some quarterly). Hardcoding the threshold or
+the read window would make the design less reusable. Adopters tune
+the values in HARNESS.md and the GC rule + readers honour the
+declared values.
+
+**Default selection rationale**: 6 months for Path 2 is the midpoint
+of the 3-12 month range that came up in spec-mode `/diaboli` open
+questions. 50 entries / 90 days for read-side filtering is generous
+enough that for projects with the typical ~15-25 entries/year
+cadence, the bounded read covers everything; for higher-cadence
+projects, the bound clips to recent state where the active signal
+lives.
+
+---
 
 ## Reader updates
 
@@ -301,26 +499,60 @@ agent-enforced). Adding this capability there is the natural fit.
 ## Migration
 
 The existing 29 entries in `REFLECTION_LOG.md` do not have `Promoted`
-fields. A one-off migration is required:
+fields. To reduce the migration burden flagged by spec-mode
+`/diaboli` (O6) — manually reconstructing each entry's promotion
+status by inspection is high cognitive load — the implementation
+ships a **migration helper script** that pre-cross-references and
+proposes tags for the curator to confirm.
 
-1. Curator runs `/harness-gc reflection-aged-out-review` (or its
-   equivalent first-run flag) which produces a Path 2 report
-   covering ALL existing entries (since none have `Promoted`).
-2. Curator works through the report once:
-   - Tags promoted entries with `Promoted: <today's date> →
-     AGENTS.md ...` based on actual prior promotions (cross-referenced
-     against current `AGENTS.md`).
-   - Tags single-instance aged-out entries with `Promoted: → aged-out,
-     no promotion warranted`.
-   - Leaves still-relevant unpromoted recent entries (≤6 months old)
-     alone.
-3. Path 1 GC then runs on its next weekly schedule and migrates
+### Migration helper script
+
+`scripts/migrate-reflection-log.sh`
+
+For each entry in `REFLECTION_LOG.md`:
+
+1. Reads the entry's `Surprise`, `Proposal`, `Improvement` fields.
+2. Greps `AGENTS.md` for keyword overlap with the entry's
+   `Proposal` or `Surprise` text.
+3. Greps `HARNESS.md` for any constraint name mentioned in the
+   entry's `Constraint` field.
+4. Emits a per-entry recommendation in a working file
+   (`reflections/migration-proposals.md`):
+   - **Likely-promoted to AGENTS.md**: if AGENTS.md grep hits — proposes
+     `Promoted: <today's date> → AGENTS.md <section>: "<quoted match>"`
+   - **Likely-promoted to HARNESS.md**: if HARNESS.md grep hits — proposes
+     `Promoted: <today's date> → HARNESS.md: <constraint>`
+   - **Single-instance, aged-out**: if no overlap and entry is older
+     than the configured threshold — proposes
+     `Promoted: <today's date> → aged-out, no promotion warranted`
+   - **Recent, no overlap**: if entry is recent — proposes leaving
+     untouched
+
+The script makes **proposals**, not final decisions. The curator
+reviews the working file, confirms or edits each proposed tag, then
+applies the confirmed tags to `REFLECTION_LOG.md`. After the curator
+applies the tags, Path 1 GC archives them on the next weekly run.
+
+Reduces the migration from "scan each of 29 entries and reconstruct
+status by inspection" to "review 29 proposals and confirm or edit".
+Estimated curator time: 30-60 minutes, vs. multiple hours for
+unaided reconstruction.
+
+### Migration steps
+
+1. Curator runs `scripts/migrate-reflection-log.sh` once.
+2. Curator reviews `reflections/migration-proposals.md` and applies
+   confirmed tags to `REFLECTION_LOG.md` (one PR, the proposals file
+   is committed alongside as a record of the migration decisions).
+3. Path 1 GC runs on its next weekly schedule and migrates
    everything tagged into `reflections/archive/<YYYY>.md`.
+4. The proposals file remains in `reflections/migration-proposals.md`
+   as a permanent record of the migration's decisions, then is
+   ignored by future runs (the script self-detects and skips if the
+   file already exists).
 
-The migration naturally fits as part of the next monthly review and
-should take an hour or two of curator time. After the migration, the
-two paths run continuously without further manual intervention beyond
-the monthly aged-out review.
+After the migration, Path 1 and Path 2 run continuously without
+further manual intervention beyond the monthly aged-out review.
 
 ## Steady-state expectation
 
@@ -336,6 +568,41 @@ After one full quarterly cycle following migration:
 
 The active log becomes a **working file** rather than a permanent
 record. The permanent record lives in the archive.
+
+## Graceful degradation for the disengaged-curator case
+
+Spec-mode `/diaboli` (O12) flagged that the design implicitly
+assumes adopters follow the curation discipline (Promoted lines
+added at promotion time; monthly aged-out report acted on). For
+adopters who don't engage, the system must degrade to no-worse-than-
+status-quo — never to actively-worse.
+
+### How each mechanism degrades
+
+| Mechanism | Engaged-curator state | Disengaged-curator state |
+|---|---|---|
+| **Read-side filtering** | Active for all bounded readers; readers see recent state by default | Active by default. Readers see recent state. Identical to engaged case. |
+| **Path 1 (auto-archive)** | Weekly run archives Promoted entries | No `Promoted` lines exist → script finds nothing to archive → no-op every week. No noise. |
+| **Path 2 (aged-out review)** | Monthly report surfaces aged-out candidates | **Opt-in via HARNESS.md GC-rule declaration**. If absent, no monthly report is generated. |
+| **Schema change** | Curator adds `Promoted` lines as part of curation | Schema change is backwards-compatible. Existing entries remain valid without `Promoted` fields. |
+| **Migration helper** | Curator runs it once, reviews proposals, applies | Never run. No effect. |
+
+### Net effect
+
+For an adopter who never adds a `Promoted` line and never declares
+the Path 2 GC rule:
+
+- Read-side filtering still bounds reader cost (immediate benefit).
+- No archival happens. The active log keeps growing as before.
+- No monthly report is generated.
+- The system is **identical to today's behaviour, plus read-side
+  filtering** — strictly an improvement, never a regression.
+
+This is the load-bearing property the design needs: archival is
+opt-in via curator engagement, and absence of engagement leaves the
+adopter no worse off than if archival didn't exist.
+
+---
 
 ## What this design does NOT do
 
@@ -356,101 +623,172 @@ record. The permanent record lives in the archive.
 
 The implementation will touch:
 
+### Agent updates
+
 - `ai-literacy-superpowers/agents/harness-gc.agent.md` — add Path 1
-  and Path 2 GC rule implementations; update existing
+  (deterministic archive) and Path 2 (agent-augmented evidence-emit)
+  rule implementations; update existing
   `Reflection-driven regression detection` to read archive too.
-- `ai-literacy-superpowers/agents/harness-auditor.agent.md` — read
-  archive for historical claims.
-- `ai-literacy-superpowers/agents/assessor.agent.md` — count across
-  active + archive.
-- `ai-literacy-superpowers/agents/governance-auditor.agent.md` (in
-  the governance plugin or via skill) — read archive for governance
-  patterns.
+- `ai-literacy-superpowers/agents/harness-auditor.agent.md` — adopt
+  bounded-read default; declare full-with-archive opt-in for
+  historical-claim audits.
+- `ai-literacy-superpowers/agents/assessor.agent.md` — read full
+  active + archive for compound-learning evidence.
 - `ai-literacy-superpowers/agents/choice-cartographer.agent.md` —
-  read archive for decision continuity.
+  bounded-read default; full-with-archive for long-arc decision
+  continuity.
 - `ai-literacy-superpowers/agents/integration-agent.agent.md` —
   document `Promoted` convention in post-task workflow.
+
+### Template updates
+
 - `ai-literacy-superpowers/templates/HARNESS.md` — add the two new GC
-  rules to the template under `## Garbage Collection`.
-- `ai-literacy-superpowers/templates/REFLECTION_LOG.md` (if it
-  exists) or templates/CLAUDE.md — document the `Promoted` field
-  schema.
+  rules (Path 1 deterministic auto-archive, Path 2 agent-augmented
+  aged-out review) to the template under `## Garbage Collection`,
+  with configurable threshold field.
 - `ai-literacy-superpowers/templates/CLAUDE.md` — document the
-  archival convention and the curator workflow.
+  archival convention, the `Promoted` field schema (with formal
+  grammar reference), the read-side filtering policy, and the
+  curator workflow.
+- `ai-literacy-superpowers/templates/REFLECTION_LOG.md` (if it
+  exists) — document the `Promoted` field schema.
+
+### Command updates
+
 - `ai-literacy-superpowers/commands/reflect.md` — mention that
   promotion adds a `Promoted` line.
-- `ai-literacy-superpowers/commands/superpowers-status.md`,
-  `harness-health.md`, `harness-audit.md` — report archive counts.
+- `ai-literacy-superpowers/commands/superpowers-status.md` — report
+  active-log count, archive-entry count, and unpromoted-aged-out
+  count separately.
+- `ai-literacy-superpowers/commands/harness-health.md`,
+  `harness-audit.md` — report archive counts and aged-out curation
+  debt.
+
+### Skill updates
+
 - `ai-literacy-superpowers/skills/garbage-collection/SKILL.md` —
   document the two new GC rules and the safety asymmetry between
-  them.
-- New script: `ai-literacy-superpowers/scripts/archive-promoted-reflections.sh`
-  for Path 1's deterministic execution.
+  them, plus the read-side filtering policy.
+
+### New scripts and workflows
+
+- `ai-literacy-superpowers/scripts/archive-promoted-reflections.sh`
+  — Path 1's deterministic auto-archive script with grammar parsing
+  and pre-archive verification.
+- `ai-literacy-superpowers/scripts/migrate-reflection-log.sh` — the
+  migration helper that pre-cross-references existing reflections
+  and proposes tags.
 - `ai-literacy-superpowers/.github/workflows/gc.yml` — wire the new
   Path 1 script into the weekly GC workflow.
-- This repo's `REFLECTION_LOG.md` — perform the one-off migration.
+
+### Live-repo migration
+
+- This repo's `REFLECTION_LOG.md` — perform the one-off migration
+  using `scripts/migrate-reflection-log.sh` and the curator's review.
 - This repo's `HARNESS.md` — add the two new GC rules to the live
-  harness.
+  harness with default thresholds.
 - This repo creates: `reflections/archive/2026.md` (initially empty,
-  populated by Path 1 after migration tagging).
+  populated by Path 1 after migration tagging) and
+  `reflections/migration-proposals.md` (permanent record of migration
+  decisions).
 - Plugin version bump: minor (this changes plugin behaviour and adds
   GC rules) — `0.31.1 → 0.32.0`.
 
 ## Risks
 
-1. **Migration burden falls on existing curators.** The one-off
-   tagging of 29 entries is an hour or two of work that has to
-   happen before the system steady-states. Risk that curators
-   defer it indefinitely. Mitigation: the Path 2 monthly run will
-   keep producing the same report until tagged, providing a
-   recurring forcing function.
+1. **Migration burden falls on existing curators.** Even with the
+   migration helper script reducing the work from "scan and
+   reconstruct" to "review proposals", the migration is still a
+   one-time curator session. Risk that curators defer it
+   indefinitely. Mitigation: the helper script reduces the time
+   from hours to ~30-60 minutes; the proposals file is committed
+   alongside the migration, so even partial completion preserves
+   value.
 
-2. **Path 2 agent recommendations may train the curator into
-   acceptance.** If the agent's PROMOTE / SUPERSEDE / AGED-OUT calls
-   are accepted reflexively rather than scrutinised, the agent
-   becomes a single point of failure for what enters AGENTS.md.
-   Mitigation: the recommendation is a starting point, not a
-   decision; the curator must take an explicit action (edit
-   AGENTS.md, then add Promoted line) — there is no
-   one-click-accept.
-
-3. **Archive grows unbounded.** Even if the active log is small,
+2. **Archive grows unbounded.** Even if the active log is small,
    the archive grows ~100–200 entries / year, eventually reaching
    thousands. Acceptable per the design (archive is queryable, not
    loaded by default) but worth noting.
 
-4. **Cross-reference logic in Path 2 is approximate.** Pattern
-   recurrence detection by text overlap is brittle; semantic match
-   against AGENTS.md is even more so. Recommendations may be
-   wrong. Mitigation: curator override; recommendation includes
-   rationale so curator can sanity-check.
+3. **Cross-reference evidence in Path 2 is approximate.** Pattern
+   recurrence detection by text overlap is brittle; the helper
+   script's keyword-overlap heuristic for migration proposals is
+   similarly approximate. Mitigation: the design emits **evidence**
+   not **labels**, so curator interpretation is the gate. Brittle
+   evidence is presented with the underlying matches quoted, so
+   the curator can sanity-check rather than trusting a
+   classification.
 
-5. **Git history bloat from frequent archival commits.** Path 1
+4. **Git history bloat from frequent archival commits.** Path 1
    runs weekly; each run commits if there's anything to archive. At
    steady state this is ~1 commit/week of archival churn.
    Acceptable.
 
-## Open questions for diaboli
+5. **Pre-archive verification false negatives.** Path 1's
+   right-hand-side resolution check could fail to find content
+   that exists (e.g., the curator paraphrased the AGENTS.md
+   addition rather than copying verbatim). Mitigation: skip with
+   warning rather than block; entry remains in active log; curator
+   reconciles next week. Worse failure mode is "Promoted line
+   added but archival never happens", which is recoverable; better
+   than the alternative ("Promoted line typo causes wrong entry to
+   be archived").
 
-The following are deliberately left for adversarial review rather
-than resolved here:
+## Open questions resolved by spec-mode `/diaboli`
 
-1. Is 6 months the right Path 2 threshold, or should it be 3 / 12
-   months? (The design picks 6 as the middle.)
-2. Should Path 1 run weekly or monthly? (Weekly is more responsive;
-   monthly batches more.)
-3. Should the `Archived` field be added to entries when archived, or
-   should the archive file's existence implicitly carry that
-   information? (The design picks explicit field for self-documenting
-   entries.)
-4. Should aged-out entries be auto-archived after a longer threshold
-   (e.g., 12 months) even without a `Promoted` field, as a final
-   fallback? (The design says no — preserves human judgement; risk
-   is the active log can still grow.)
-5. Should the migration tagging be performed by the curator manually,
-   or should an `/archive-bootstrap` command be provided to scaffold
-   the work? (The design picks manual; if the migration burden
-   proves prohibitive, scaffolding can be added later.)
+Spec-mode `/diaboli` raised 12 objections; the dispositions
+revised this spec on the following points:
+
+1. **Read-side filtering as a complementary mechanism** (O3
+   accepted) — added as a peer to Path 1 and Path 2; addresses
+   per-read cost immediately without requiring archival engagement.
+2. **6-month threshold made configurable** (O4 accepted) — hoisted
+   to a HARNESS.md GC-rule field; default 6 months; documented in
+   the new Configuration section.
+3. **Path 2 emits evidence, not labels** (O5 accepted) — defuses
+   the training-into-acceptance risk by requiring curator
+   interpretation rather than offering pre-classified labels.
+4. **Migration helper script** (O6 accepted) — pre-cross-references
+   existing entries and proposes tags for curator review; reduces
+   migration time from hours to 30-60 minutes.
+5. **Pre-archive verification step** (O7 accepted) — Path 1
+   verifies the Promoted line's right-hand side resolves to actual
+   content before archiving, catching curator typos.
+6. **Formal grammar for Promoted field** (O9 accepted) — added to
+   Schema change section; states explicitly that all parseable
+   forms trigger archival.
+7. **Cost framing scoped to per-project** (O11 accepted) — dropped
+   the "thousands of installs" rhetorical scaling; cost is now
+   framed as per-project reader-activity-driven.
+8. **Path 2 made opt-in for graceful degradation** (O12 accepted)
+   — adopters who don't engage with curation see no monthly report
+   and no active-log churn; system reverts to today's behaviour
+   plus read-side filtering.
+
+Objections rejected (with rationale captured in the objection
+record): O1, O2 (premise — user-driven signal substantiates the
+present-tense decision), O8 (scope — 14-file touch is the real
+shape of a schema-extending change in this plugin), O10 (alternative
+shapes — markdown bullet defended; sidecars / frontmatter / git
+trailers each have worse trade-offs).
+
+## Remaining open questions
+
+Not raised by `/diaboli`; left for choice-cartograph or future
+iteration:
+
+1. **Should Path 1 run weekly or monthly?** Weekly is more
+   responsive; monthly batches more. The design picks weekly.
+2. **Should the `Archived` field be added to entries when archived,
+   or should the archive file's existence implicitly carry that
+   information?** The design picks explicit field for self-documenting
+   entries.
+3. **Should aged-out entries be auto-archived after a longer
+   threshold (e.g., 12 months) even without a `Promoted` field, as
+   a final fallback?** The design says no — preserves human
+   judgement; the opt-in degradation property removes the risk
+   that the active log grows without bound, since adopters who
+   don't engage already get read-side filtering as the cost cap.
 
 ## Success criteria
 
