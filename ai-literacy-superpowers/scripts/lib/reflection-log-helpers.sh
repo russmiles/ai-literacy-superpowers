@@ -31,3 +31,23 @@ split_entries() {
     }
   ' "$log_path"
 }
+
+# parse_promoted: extract the right-hand side of a Promoted line.
+# Returns empty string if the line is absent or malformed (per grammar).
+#
+# Grammar (from spec):
+#   PROMOTED_LINE := "- **Promoted**: " DATE " → " RHS
+#   DATE          := YYYY-MM-DD
+#   RHS           := AGENTS_FORM | HARNESS_FORM | CLOSURE_FORM | SUPERSEDE_FORM
+parse_promoted() {
+  local entry="$1"
+  # Match: - **Promoted**: YYYY-MM-DD → <rhs>
+  local re='^- \*\*Promoted\*\*: ([0-9]{4}-[0-9]{2}-[0-9]{2}) → (.+)$'
+  while IFS= read -r line; do
+    if [[ "$line" =~ $re ]]; then
+      echo "${BASH_REMATCH[2]}"
+      return 0
+    fi
+  done <<< "$entry"
+  echo ""
+}
