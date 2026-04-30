@@ -7,48 +7,48 @@ stories:
   - id: S1
     lens: [forces, alternatives]
     title: Bounded read uses union, not intersection
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Union (recall-favouring) is the right default given the cost asymmetry — under-recall (missed signal) is materially worse than over-cost (a few extra entries in context). Static bounds are acceptable for v1; if downstream cadence variance produces friction, the explicit-opt-in mechanism already in the design provides the escape hatch."
   - id: S2
     lens: [defaults, coherence]
     title: Per-reader policy decided in one table
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Central table is consistent with the plugin's broader configuration-as-data philosophy (HARNESS constraints, GC rules, MODEL_ROUTING). The drift hazard is real but small at this scale; the table can be revisited if a new reader's policy becomes ambiguous to assign by inspection."
   - id: S3
     lens: [coherence, forces]
     title: Curator is one person, not a team
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Single-curator assumption matches the plugin's existing convention (existing docs already assume one human reviewer). Multi-curator support would be a meaningful new feature, not a fix to this design. Local invention is the right escape hatch for teams that need it; the plugin doesn't pretend to solve all team-shape problems."
   - id: S4
     lens: [alternatives, consequences]
     title: Path 1 runs weekly, not monthly
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Weekly cadence picks responsiveness over batching, consistent with the existing plugin GC pattern (most rules run weekly). ~52 commits/year of archival churn is acceptable at the project scale this design is optimising for. If batching becomes the bottleneck, the cadence is in the GC rule definition and is a small follow-up edit."
   - id: S5
     lens: [patterns]
     title: Evidence triple as the friction shape
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "The three evidence types (recurrence count, text-overlap with quoted excerpts, single-instance signal) cover the distinct curation actions (promote, supersede, close-out) without pre-classifying them. The 'with quoted excerpts' piece is doing the load-bearing friction work; if implementation can't produce informative excerpts, the design needs revision then — but at spec time the shape stands."
   - id: S6
     lens: [patterns, consequences]
     title: Migration proposals file as durable record
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Permanent audit trail is the right shape for a one-off migration that involves judgement calls; future curators and outside reviewers can reconstruct why each entry was tagged the way it was. Directory accretion is acceptable; if other migrations follow the same pattern (per Success criteria), the convention is established and consistent."
   - id: S7
     lens: [coherence]
     title: Two clocks inside the archive
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "The bi-temporal split (file-by-original-year, ordered-by-archive-time) is correct: file-by-original-year keeps temporal queries tractable; ordering-by-archive-time avoids re-write conflicts on every append. The asymmetry is implicit in the spec but doesn't cause confusion at the read level (within-file order is rarely meaningful for a year of archived entries)."
   - id: S8
     lens: [defaults, patterns]
     title: HARNESS.md is the only config surface
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Inherited from plugin convention; consistent with the broader 'durable project-shape decisions live in HARNESS.md' pattern. One-off use cases that want different bounds can use the explicit full-history opt-in. If a use case demands per-invocation tuning, that's a new feature request, not a fix here."
   - id: S9
     lens: [coherence, forces]
     title: Active log demoted to a working file
-    disposition: pending
-    disposition_rationale: null
+    disposition: accepted
+    disposition_rationale: "Reframing is necessary for the design's coherence (read-side filtering, bounded steady state, archive-as-permanent-record all depend on it). The implementation scope already includes updating CLAUDE.md and ONBOARDING templates to reflect the new mental model; that's where the reframing gets surfaced clearly to adopters."
 ---
 
 ## S1 — Bounded read uses union, not intersection
