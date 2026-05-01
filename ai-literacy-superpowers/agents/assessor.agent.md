@@ -272,3 +272,16 @@ improvement plan. Map governance gaps to plugin commands:
 - You do not change any code or configuration based on the assessment
 - You do not modify HARNESS.md, CLAUDE.md, or any enforcement files
 - You assess and report. Improvement actions are for the team to decide.
+
+## Reflection-log read policy
+
+When extracting compound-learning evidence, read BOTH
+`REFLECTION_LOG.md` AND `reflections/archive/*.md`. Coverage matters
+more than recency for assessment — the archive contains the bulk of
+the project's recorded learnings after archival has run.
+
+Use:
+
+    cat REFLECTION_LOG.md reflections/archive/*.md 2>/dev/null
+
+Then split on `---` separators and process the combined stream.

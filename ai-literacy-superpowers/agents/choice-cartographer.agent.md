@@ -97,3 +97,10 @@ frontmatter entry), and nothing outside of it. The orchestrator (or
 
 The format is defined in the skill. Do not invent fields, omit required
 fields, or pre-fill dispositions.
+
+## Reflection-log read policy
+
+Default to bounded read (last 50 entries OR last 90 days). For decision
+continuity assessments that span long arcs (e.g., "this spec inherits
+from a decision made 18 months ago"), opt in to reading the archive.
+State which read mode you used.
