@@ -77,3 +77,47 @@ resolve_year() {
   local date; date=$(extract_field "$entry" "Date")
   echo "${date%%-*}"
 }
+
+# bounded_entries: return entries within the more inclusive of:
+#   - the last N entries (by Date field, descending)
+#   - entries within the last M days
+# Output uses the same `---ENTRY---` separator as split_entries.
+bounded_entries() {
+  local log_path="$1"
+  local max_count="$2"
+  local max_days="$3"
+  local cutoff_epoch
+  cutoff_epoch=$(date -j -v-"${max_days}"d '+%s' 2>/dev/null || date -d "-${max_days} days" '+%s')
+
+  local entries; entries=$(split_entries "$log_path")
+  local entry=""
+
+  # Collect candidate entries with their dates; sort descending; clip by max_count
+  # but include any entry whose date is newer than cutoff regardless.
+  local tmpfile; tmpfile=$(mktemp)
+  while IFS= read -r line; do
+    if [ "$line" = "---ENTRY---" ]; then
+      local entry_date entry_epoch
+      entry_date=$(extract_field "$entry" "Date")
+      entry_epoch=$(date -j -f '%Y-%m-%d' "$entry_date" '+%s' 2>/dev/null \
+                    || date -d "$entry_date" '+%s')
+      printf '%s\t%s\n' "$entry_epoch" "$entry" >> "$tmpfile"
+      entry=""
+    else
+      entry+="${line}"$'\n'
+    fi
+  done <<< "$entries"
+
+  # Sort descending by epoch, then output more inclusive of count or day window.
+  sort -t $'\t' -k1,1nr "$tmpfile" | awk -F '\t' \
+    -v max_count="$max_count" -v cutoff="$cutoff_epoch" '
+    {
+      epoch = $1
+      gsub(/\\n/, "\n", $2)
+      if (NR <= max_count || epoch >= cutoff) {
+        print $2
+        print "---ENTRY---"
+      }
+    }'
+  rm -f "$tmpfile"
+}

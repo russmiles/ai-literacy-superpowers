@@ -79,6 +79,22 @@ test_resolve_year() {
   assert_eq "$year" "2026"
 }
 
+test_bounded_entries_count_is_inclusive_of_max() {
+  # 60 synthetic entries; ask for last 50 OR last 1000 days. Day window dominates → 60.
+  local count
+  count=$(bounded_entries "$FIXTURES_DIR/reflection-log-many-entries.md" 50 1000 \
+          | grep -c "^---ENTRY---$" || true)
+  assert_eq "$count" "60"
+}
+test_bounded_entries_day_window_clips() {
+  # 60 entries Feb-Apr; ask for last 50 entries OR 7 days from "today" (script run date).
+  # Most recent entry is 2026-04-01, all 60 are >7 days old, but count window says 50.
+  local count
+  count=$(bounded_entries "$FIXTURES_DIR/reflection-log-many-entries.md" 50 7 \
+          | grep -c "^---ENTRY---$" || true)
+  assert_eq "$count" "50"
+}
+
 test_split_entries_on_empty_log
 test_split_entries_on_single_entry
 test_parse_promoted_agents_form
@@ -91,4 +107,6 @@ test_parse_promoted_trims_trailing_whitespace
 test_extract_field_date
 test_extract_field_signal
 test_resolve_year
+test_bounded_entries_count_is_inclusive_of_max
+test_bounded_entries_day_window_clips
 echo "All tests passed."
