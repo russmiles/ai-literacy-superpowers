@@ -144,3 +144,75 @@ verify_rhs() {
       ;;
   esac
 }
+
+# propose_for_entry: emit a markdown block proposing a Promoted tag for one entry.
+# Used by migrate-reflection-log.sh.
+# Caller must set TODAY in the calling shell.
+propose_for_entry() {
+  local entry="$1"
+  local cutoff="$2"
+  local date_field surprise proposal entry_epoch
+  date_field=$(extract_field "$entry" "Date")
+  surprise=$(extract_field "$entry" "Surprise")
+  proposal=$(extract_field "$entry" "Proposal")
+  entry_epoch=$(date -j -f '%Y-%m-%d' "$date_field" '+%s' 2>/dev/null \
+                || date -d "$date_field" '+%s')
+
+  echo "---"
+  echo ""
+  echo "## Entry dated $date_field"
+  echo ""
+
+  # Already has a Promoted line — skip.
+  if [ -n "$(parse_promoted "$entry")" ]; then
+    echo "Already promoted; nothing to propose."
+    return 0
+  fi
+
+  # Cross-reference surprise/proposal text against AGENTS.md
+  local agents_match=""
+  if [ -f AGENTS.md ] && [ -n "$surprise$proposal" ]; then
+    local kw; kw=$(echo "$surprise" | awk '{print $1, $2, $3}')
+    if [ -n "$kw" ] && grep -qF "$kw" AGENTS.md; then
+      agents_match="$kw"
+    fi
+  fi
+  if [ -n "$agents_match" ]; then
+    echo "**Likely-promoted to AGENTS.md** (keyword \"$agents_match\" matches)."
+    echo ""
+    echo "Proposed line for the entry:"
+    echo ""
+    echo "    - **Promoted**: $TODAY → AGENTS.md STYLE: \"$agents_match\""
+    echo ""
+    return 0
+  fi
+
+  # Cross-reference Constraint field against HARNESS.md
+  local constraint; constraint=$(extract_field "$entry" "Constraint")
+  if [ -f HARNESS.md ] && [ -n "$constraint" ] && [ "$constraint" != "none" ]; then
+    if grep -qF "$constraint" HARNESS.md; then
+      echo "**Likely-promoted to HARNESS.md** (constraint \"$constraint\" matches)."
+      echo ""
+      echo "Proposed line:"
+      echo ""
+      echo "    - **Promoted**: $TODAY → HARNESS.md: $constraint"
+      echo ""
+      return 0
+    fi
+  fi
+
+  # Aged-out check
+  if [ "$entry_epoch" -lt "$cutoff" ]; then
+    echo "**Single-instance, aged-out** (older than threshold; no overlap found)."
+    echo ""
+    echo "Proposed line:"
+    echo ""
+    echo "    - **Promoted**: $TODAY → aged-out, no promotion warranted"
+    echo ""
+    return 0
+  fi
+
+  # Recent, no overlap → leave alone
+  echo "Recent (within threshold), no overlap. Recommend leaving untouched."
+  echo ""
+}
