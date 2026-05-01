@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.32.0 — 2026-05-01
+
+### Feature — Reflection log archival (Path 1 + Path 2 + read-side filtering)
+
+Implements the design at
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md`.
+Three complementary mechanisms keep `REFLECTION_LOG.md` signal-dense
+as the project accumulates compound learning over time.
+
+- **Read-side filtering** — agents and commands that read the
+  reflection log bound their default intake (last 50 entries OR last
+  90 days, whichever is more inclusive). New `bounded_entries` helper
+  in `ai-literacy-superpowers/scripts/lib/reflection-log-helpers.sh`;
+  HARNESS template gets a new `## Read-side filtering` section.
+- **Path 1 — auto-archive of promoted entries (deterministic, weekly)**.
+  When a curator promotes a reflection to `AGENTS.md` or `HARNESS.md`,
+  they add a single `Promoted` line to the source entry. The new
+  weekly GC rule (`Reflection log archival of promoted entries`) runs
+  `scripts/archive-promoted-reflections.sh`, which verifies the
+  Promoted line's right-hand side resolves to actual AGENTS.md /
+  HARNESS.md content (pre-archive verification) and moves verified
+  entries to `reflections/archive/<YYYY>.md` (annual files,
+  file-by-original-year, ordered by archive timestamp). Wired into
+  the existing `gc.yml` workflow.
+- **Path 2 — agent-augmented aged-out review (monthly, opt-in)**. The
+  `harness-gc` agent surfaces entries older than the configured age
+  threshold (default 180 days) that lack a `Promoted` line and emits
+  per-entry **evidence** (recurrence counts, AGENTS.md/HARNESS.md
+  text-overlap matches with quoted excerpts, single-instance signal)
+  rather than pre-classified labels. Curator interprets the evidence
+  and chooses a disposition. Opt-in via the GC-rule declaration in
+  HARNESS.md.
+- **Migration helper** — `scripts/migrate-reflection-log.sh`
+  pre-cross-references existing entries against AGENTS.md and
+  HARNESS.md and produces a proposals file for the curator to confirm.
+- **Schema** — one new optional `Promoted: <date> → <rhs>` line per
+  entry, formal-grammar parseable, append-only.
+- **Graceful degradation** — for adopters who don't engage, the system
+  reverts to today's behaviour plus read-side filtering. No archival
+  happens, no monthly report is generated, and the active log
+  continues as before.
+
+Touched files: 5 agent definitions
+(`harness-gc`, `harness-auditor`, `assessor`, `choice-cartographer`,
+`integration-agent`); 4 commands
+(`reflect`, `superpowers-status`, `harness-health`, `harness-audit`);
+templates (`HARNESS.md`, `CLAUDE.md`); skill (`garbage-collection`);
+CI workflow (`gc.yml`); plus this repo's live HARNESS.md declaration
+of the two new GC rules and the read-side filtering policy.
+
+Adjudication trail:
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md`
+(spec), `objections/reflection-log-archival-design.md` (12 objections,
+8 accepted, 4 rejected), `stories/reflection-log-archival-design.md`
+(9 stories, all accepted),
+`plans/2026-04-30-reflection-log-archival.md` (32-task plan).
+
 ## 0.31.1 — 2026-04-29
 
 ### Docs — README reframed for the marketplace
