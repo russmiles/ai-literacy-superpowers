@@ -45,7 +45,11 @@ parse_promoted() {
   local re='^- \*\*Promoted\*\*: ([0-9]{4}-[0-9]{2}-[0-9]{2}) → (.+)$'
   while IFS= read -r line; do
     if [[ "$line" =~ $re ]]; then
-      echo "${BASH_REMATCH[2]}"
+      local rhs="${BASH_REMATCH[2]}"
+      # Trim trailing whitespace — protects downstream grep verification
+      # against curator typos that add invisible trailing spaces.
+      rhs="${rhs%"${rhs##*[![:space:]]}"}"
+      echo "$rhs"
       return 0
     fi
   done <<< "$entry"

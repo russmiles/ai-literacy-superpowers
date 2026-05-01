@@ -51,6 +51,18 @@ test_parse_promoted_malformed_returns_empty() {
   assert_eq "$rhs" ""
 }
 
+test_parse_promoted_supersede_form() {
+  local entry; entry=$(cat "$FIXTURES_DIR/reflection-log-promoted-supersede.md")
+  local rhs; rhs=$(parse_promoted "$entry")
+  assert_eq "$rhs" "superseded by 2026-04-15"
+}
+
+test_parse_promoted_trims_trailing_whitespace() {
+  local entry; entry=$(cat "$FIXTURES_DIR/reflection-log-promoted-trailing-space.md")
+  local rhs; rhs=$(parse_promoted "$entry")
+  assert_eq "$rhs" "AGENTS.md STYLE: \"Multi-repo scheduled agents\""
+}
+
 test_split_entries_on_empty_log
 test_split_entries_on_single_entry
 test_parse_promoted_agents_form
@@ -58,4 +70,6 @@ test_parse_promoted_harness_form
 test_parse_promoted_aged_out_form
 test_parse_promoted_absent
 test_parse_promoted_malformed_returns_empty
+test_parse_promoted_supersede_form
+test_parse_promoted_trims_trailing_whitespace
 echo "All tests passed."
