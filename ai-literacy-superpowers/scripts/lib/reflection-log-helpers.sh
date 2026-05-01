@@ -55,3 +55,25 @@ parse_promoted() {
   done <<< "$entry"
   echo ""
 }
+
+# extract_field: emit the value of "- **<name>**: <value>" line.
+# Returns empty if absent.
+extract_field() {
+  local entry="$1"
+  local name="$2"
+  local re="^- \*\*${name}\*\*: (.+)$"
+  while IFS= read -r line; do
+    if [[ "$line" =~ $re ]]; then
+      echo "${BASH_REMATCH[1]}"
+      return 0
+    fi
+  done <<< "$entry"
+  echo ""
+}
+
+# resolve_year: extract YYYY from the entry's Date field.
+resolve_year() {
+  local entry="$1"
+  local date; date=$(extract_field "$entry" "Date")
+  echo "${date%%-*}"
+}

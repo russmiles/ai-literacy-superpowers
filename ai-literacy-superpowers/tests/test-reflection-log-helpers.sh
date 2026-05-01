@@ -63,6 +63,22 @@ test_parse_promoted_trims_trailing_whitespace() {
   assert_eq "$rhs" "AGENTS.md STYLE: \"Multi-repo scheduled agents\""
 }
 
+test_extract_field_date() {
+  local entry; entry=$(cat "$FIXTURES_DIR/reflection-log-single-entry.md")
+  local val; val=$(extract_field "$entry" "Date")
+  assert_eq "$val" "2026-01-15"
+}
+test_extract_field_signal() {
+  local entry; entry=$(cat "$FIXTURES_DIR/reflection-log-promoted-agents.md")
+  local val; val=$(extract_field "$entry" "Signal")
+  assert_eq "$val" "workflow"
+}
+test_resolve_year() {
+  local entry; entry=$(cat "$FIXTURES_DIR/reflection-log-single-entry.md")
+  local year; year=$(resolve_year "$entry")
+  assert_eq "$year" "2026"
+}
+
 test_split_entries_on_empty_log
 test_split_entries_on_single_entry
 test_parse_promoted_agents_form
@@ -72,4 +88,7 @@ test_parse_promoted_absent
 test_parse_promoted_malformed_returns_empty
 test_parse_promoted_supersede_form
 test_parse_promoted_trims_trailing_whitespace
+test_extract_field_date
+test_extract_field_signal
+test_resolve_year
 echo "All tests passed."
