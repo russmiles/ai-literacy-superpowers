@@ -216,3 +216,27 @@ Cartographer     [OK / WARNING / MISSING]
 
 If all sections are OK and Diaboli has at least one record, end with:
 "Habitat is healthy. All checks passed."
+
+## Reflection log + archive reporting
+
+Include a `Reflection log` section that reports counts separately for
+the active log, the archive, and the curation-debt metric (unpromoted
+entries older than 180 days):
+
+```bash
+active=$(grep -c '^---$' REFLECTION_LOG.md 2>/dev/null || echo 0)
+archive=$(grep -c '^---$' reflections/archive/*.md 2>/dev/null \
+          | awk -F: '{s+=$2} END {print s+0}')
+debt=$(awk '/^- \*\*Date\*\*: / {date=$3} /^- \*\*Promoted\*\*: / {p=1} /^---$/ {if (date && !p) {
+              # entry boundary; check age vs 180d cutoff
+            } date=""; p=0}' REFLECTION_LOG.md | wc -l)
+```
+
+Report these as a section in the status output:
+
+```text
+Reflection log:
+  Active entries: <active>
+  Archived entries: <archive>
+  Curation debt (unpromoted >180d): <debt>
+```

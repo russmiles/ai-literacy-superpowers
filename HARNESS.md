@@ -443,6 +443,29 @@ Use /governance-constrain for guided authoring of governance constraints.
 - **Tool**: harness-gc agent
 - **Auto-fix**: false
 
+### Reflection log archival of promoted entries
+
+- **What it checks**: Whether `REFLECTION_LOG.md` contains entries with a
+  `Promoted` line that pass pre-archive verification (RHS resolves to
+  AGENTS.md or HARNESS.md content, or matches a closure form).
+- **Frequency**: weekly
+- **Enforcement**: deterministic
+- **Tool**: `ai-literacy-superpowers/scripts/archive-promoted-reflections.sh`
+- **Auto-fix**: true (moves entries to `reflections/archive/<YYYY>.md`)
+
+### Reflection log aged-out review
+
+- **What it checks**: Entries older than 180 days that lack a `Promoted`
+  line; emits per-entry evidence (recurrence count, AGENTS.md/HARNESS.md
+  text-overlap matches, single-instance signal) for the curator to
+  interpret. Does NOT pre-classify with PROMOTE/SUPERSEDE/AGED-OUT
+  labels — curator interprets the evidence.
+- **Frequency**: monthly
+- **Enforcement**: agent
+- **Tool**: harness-gc agent
+- **Auto-fix**: false
+- **Threshold**: 180 days
+
 ### Objection record freshness
 
 - **What it checks**: (a) Whether any spec file in `docs/superpowers/specs/`
@@ -567,6 +590,23 @@ Run /governance-audit quarterly to keep governance constraints fresh.
 
 - Cadence non-compliance threshold: 2 or more activities overdue
 - Reflection drought threshold: 4 consecutive weeks with zero reflections
+
+---
+
+## Read-side filtering
+
+Readers of `REFLECTION_LOG.md` bound their default intake to keep
+per-read cost flat as the log grows. Defaults:
+
+- **Bounded entry count**: 50
+- **Bounded day window**: 90 days
+- **Default policy**: read the more inclusive of the two
+
+Readers that need historical patterns (regression detection, governance
+audits, assessor evidence-extraction) opt in explicitly to read the full
+active log plus archive. See the spec
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md` for
+the per-reader policy table.
 
 ---
 

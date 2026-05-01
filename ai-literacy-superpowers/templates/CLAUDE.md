@@ -120,6 +120,39 @@ REFLECTION_LOG.md contains past session learnings — surprises,
 failures, and improvement proposals. Agents should read recent
 entries before starting work to avoid repeating past mistakes.
 
+## Reflection Log Curation
+
+Reflections are appended to `REFLECTION_LOG.md` via `/reflect`. The
+log is **a working file**, not the permanent record. The permanent
+record lives in `reflections/archive/<YYYY>.md`, populated by the
+weekly Path 1 GC rule from entries the curator has tagged with a
+`Promoted` line.
+
+### Promoted-line schema
+
+When promoting an entry's content to `AGENTS.md` or `HARNESS.md`, add
+a single line to the source reflection entry **in the same commit**
+as the AGENTS.md / HARNESS.md edit:
+
+    - **Promoted**: YYYY-MM-DD → <RHS>
+
+`<RHS>` must match one of the documented forms (see
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md`,
+Schema change → Formal grammar). Path 1's weekly GC rule auto-archives
+entries with verified Promoted lines.
+
+### Aged-out review
+
+Optionally enable the Path 2 GC rule (`Reflection log aged-out review`)
+in HARNESS.md to receive a monthly report of unpromoted entries older
+than the threshold, with evidence (recurrence, overlap matches) for
+the curator to interpret.
+
+If neither rule is engaged, the system reverts to today's behaviour
+plus read-side filtering: agents and commands still bound their
+intake by default, but the log itself accumulates entries until the
+curator manually intervenes.
+
 ## Project Constraints
 
 <!-- Example:

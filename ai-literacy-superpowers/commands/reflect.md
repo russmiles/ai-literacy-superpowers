@@ -151,3 +151,20 @@ Capture a post-task reflection and append it to REFLECTION_LOG.md.
    git add REFLECTION_LOG.md
    git commit -m "Add reflection: <one-line summary of the task>"
    ```
+
+## Promoting an entry (curator action, post-reflection)
+
+When you later promote this reflection's content to `AGENTS.md` or
+`HARNESS.md`, add a `Promoted` line to this entry **in the same commit**
+as the AGENTS.md/HARNESS.md edit. The line follows the grammar in
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md`
+(Schema change → Formal grammar). Examples:
+
+```text
+- **Promoted**: 2026-05-15 → AGENTS.md STYLE: "Multi-repo scheduled agents"
+- **Promoted**: 2026-05-15 → HARNESS.md: Reflections via PR workflow
+- **Promoted**: 2026-05-15 → aged-out, no promotion warranted
+```
+
+The Path 1 weekly GC rule auto-archives entries with verified Promoted
+lines; you do not need to move the entry yourself.

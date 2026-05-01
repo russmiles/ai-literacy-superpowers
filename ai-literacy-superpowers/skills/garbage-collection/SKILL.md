@@ -149,3 +149,44 @@ A memory entropy GC rule in HARNESS.md:
   skill with framework, tool catalogue, and GC rule mapping guidance
 - **`../fitness-functions/references/fitness-catalogue.md`** — Concrete
   HARNESS.md GC rule entries for each fitness function type
+
+## Reflection log archival — two GC rules with safety asymmetry
+
+The plugin ships two related GC rules that share a schema (the
+`Promoted` line per reflection entry) but differ in safety profile:
+
+### Path 1: `Reflection log archival of promoted entries`
+
+- **Deterministic**, **auto-fix true**.
+- Fires weekly via `gc.yml`.
+- Operates on entries with an explicit `Promoted` line.
+- Pre-archive verification: the script verifies the Promoted line's
+  right-hand side resolves to actual AGENTS.md or HARNESS.md content
+  before archiving. Skips with a warning otherwise — recovers on the
+  next run after the curator reconciles.
+- Auto-fix is safe because the signal (a `Promoted` line) is explicit
+  AND verified against current tree state.
+
+### Path 2: `Reflection log aged-out review`
+
+- **Agent-enforced**, **auto-fix false**.
+- Fires monthly. **Opt-in** via the GC-rule declaration in HARNESS.md.
+- Operates on entries older than the configured threshold (default
+  180 days) that lack a `Promoted` line.
+- Emits **evidence** (recurrence count, AGENTS.md/HARNESS.md
+  text-overlap matches with quoted excerpts, single-instance signal),
+  **NOT pre-classified labels**. Curator interprets the evidence.
+- Auto-fix is not safe because the absence of a `Promoted` line is
+  ambiguous — the entry might still be relevant or might warrant
+  promotion the curator hasn't got around to.
+
+The asymmetry is deliberate: explicit signal + verification → safe to
+auto-act; absence of signal → human judgement gates the move. See
+`docs/superpowers/specs/2026-04-30-reflection-log-archival-design.md`
+for the full design rationale.
+
+## Read-side filtering policy
+
+Independent of archival, every reader of `REFLECTION_LOG.md` should
+bound its default intake. See the HARNESS.md `## Read-side filtering`
+section for the configured defaults and the per-reader policy.

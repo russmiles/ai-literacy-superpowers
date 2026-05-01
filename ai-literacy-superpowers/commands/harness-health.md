@@ -159,3 +159,16 @@ Overdue actions:
   - /harness-audit last ran N days ago (cadence: quarterly)
   - /reflect last ran N days ago (cadence: monthly)
 ```
+
+## Reflection log + archive in compound-learning section
+
+The `Compound learning` section of the snapshot now includes:
+
+- Active log entry count: `grep -c '^---$' REFLECTION_LOG.md`
+- Archive entry count: `grep -c '^---$' reflections/archive/*.md` summed
+- Curation debt (unpromoted entries older than 180 days): scan active
+  log for entries dated >180 days ago without a `Promoted` line; report
+  count
+
+These three counts appear in the snapshot's `Compound learning` section
+alongside reflection cadence and AGENTS.md promotion velocity.

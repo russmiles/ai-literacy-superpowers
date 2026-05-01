@@ -145,3 +145,49 @@ flagging, not full analysis.
   as failed with "tool not found"
 - Include file:line references in all findings
 - Reference the specific GC rule name from HARNESS.md in all reports
+
+## Reflection log archival rules
+
+### Path 1 — Auto-archive of promoted entries (weekly, deterministic)
+
+When this rule fires, run:
+
+```bash
+bash ai-literacy-superpowers/scripts/archive-promoted-reflections.sh
+```
+
+The script identifies entries with a `Promoted` line, verifies the
+right-hand side resolves to actual AGENTS.md / HARNESS.md content (or is
+a closure form), and moves verified entries to
+`reflections/archive/<YYYY>.md`. Report the script's stdout to the user
+verbatim. Do not modify the active log directly — the script handles
+that.
+
+### Path 2 — Aged-out review (monthly, agent-driven, opt-in)
+
+When this rule fires (only if declared in HARNESS.md):
+
+1. Read `REFLECTION_LOG.md` and find entries older than the configured
+   threshold (default 180 days from today) that lack a `Promoted` line.
+2. For each candidate entry, gather **evidence** — do NOT emit a label:
+   - **Recurrence count**: grep newer entries (active + archive) for the
+     candidate's keywords (Surprise field's first 3 significant words);
+     report the count and the dates of the matches.
+   - **AGENTS.md/HARNESS.md text overlap**: grep both files for the same
+     keywords; quote any matching excerpts verbatim.
+   - **Single-instance signal**: if neither newer-entry recurrence nor
+     AGENTS/HARNESS overlap found, report explicitly: "No newer entry
+     shares this pattern; not currently captured in AGENTS.md or
+     HARNESS.md."
+3. Write the report to
+   `observability/reflection-aged-out-<YYYY-MM-DD>.md`.
+4. Surface the report path to the curator. The curator interprets the
+   evidence and decides on a disposition; the agent does NOT recommend
+   PROMOTE / SUPERSEDE / AGED-OUT.
+
+### Reflection-driven regression detection (extended)
+
+This existing rule now reads BOTH `REFLECTION_LOG.md` and
+`reflections/archive/*.md` when scanning for recurring failure patterns.
+Aggregate via `cat REFLECTION_LOG.md reflections/archive/*.md` then split
+on `---` separators and analyse the combined stream.

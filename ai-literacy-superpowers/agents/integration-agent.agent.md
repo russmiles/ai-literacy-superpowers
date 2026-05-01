@@ -129,3 +129,25 @@ Do NOT modify AGENTS.md. Only propose — humans curate.
 - You do not amend commits.
 - You do not force-push.
 - You do not merge if any CI check is red.
+
+## Promoted-field convention (post-task workflow)
+
+When a curator promotes a reflection entry's content to `AGENTS.md` or
+`HARNESS.md`, they add a `Promoted` line to the source entry **in the
+same commit** as the AGENTS.md/HARNESS.md edit. The line follows the
+grammar:
+
+```text
+- **Promoted**: YYYY-MM-DD → <RHS>
+```
+
+Where `<RHS>` is one of:
+
+- `AGENTS.md <SECTION>: "<quoted excerpt>"`
+- `HARNESS.md: <constraint name>`
+- `aged-out, no promotion warranted`
+- `superseded by <YYYY-MM-DD>`
+
+The integration agent does not add Promoted lines automatically — this
+is a curator action. The agent should preserve any existing Promoted
+lines on entries it processes.

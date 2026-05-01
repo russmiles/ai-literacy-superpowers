@@ -52,3 +52,18 @@ Based on audit findings, suggest next steps:
 - Drift that needs resolution
 - Undeclared enforcement that should be added to HARNESS.md
 - Tools that could be installed for deterministic enforcement
+
+## Reflection log + archive coverage
+
+The audit report now includes a `Reflection-log archival` subsection
+covering:
+
+- Active-log entry count vs archive entry count
+- Curation debt: count of entries dated >180 days that lack a `Promoted` line
+- Whether `Reflection log archival of promoted entries` (Path 1) GC rule
+  is declared in HARNESS.md and operating
+- Whether `Reflection log aged-out review` (Path 2) GC rule is declared
+  (opt-in)
+
+If Path 1 is undeclared but `Promoted` lines exist in the active log,
+flag as drift — promotions are happening but archival isn't.
