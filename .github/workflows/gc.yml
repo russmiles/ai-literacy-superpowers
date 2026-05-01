@@ -102,7 +102,7 @@ jobs:
           done < <(find . -name "*.sh" -not -path "./.git/*")
           exit $failed
 
-      - name: "GC: Release tag completeness"
+      - name: "GC: Release tag completeness (ai-literacy-superpowers — bare vX.Y.Z)"
         run: |
           missing=0
           while IFS= read -r version; do
@@ -122,7 +122,38 @@ jobs:
           done < <(grep -oP '(?<=^## )\d+\.\d+\.\d+' CHANGELOG.md)
 
           if [ "$missing" -eq 0 ]; then
-            echo "All release tags present"
+            echo "All ai-literacy-superpowers release tags present"
+          else
+            exit 1
+          fi
+
+      - name: "GC: Release tag completeness (model-cards — model-cards-vX.Y.Z)"
+        run: |
+          if [ ! -f model-cards/CHANGELOG.md ]; then
+            echo "No model-cards/CHANGELOG.md — skipping"
+            exit 0
+          fi
+
+          missing=0
+          while IFS= read -r version; do
+            tag="model-cards-v$version"
+            if ! git tag -l "$tag" | grep -q "$tag"; then
+              echo "::warning::Missing tag: $tag"
+              # Auto-fix: find the merge commit that introduced this version
+              commit=$(git log --all --format="%H" --grep="$version" -- model-cards/CHANGELOG.md | head -1)
+              if [ -n "$commit" ]; then
+                echo "Creating tag $tag at $commit"
+                git tag "$tag" "$commit"
+                git push origin "$tag"
+              else
+                echo "::error::Cannot find commit for $tag — manual tag needed"
+                missing=1
+              fi
+            fi
+          done < <(grep -oP '(?<=^## )\d+\.\d+\.\d+' model-cards/CHANGELOG.md)
+
+          if [ "$missing" -eq 0 ]; then
+            echo "All model-cards release tags present"
           else
             exit 1
           fi

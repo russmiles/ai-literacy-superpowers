@@ -160,22 +160,37 @@
 
 ### Release traceability
 
-- **Rule**: Every version in `plugin.json` must have a matching
-  `## X.Y.Z — YYYY-MM-DD` heading in `CHANGELOG.md` and a `vX.Y.Z`
-  git tag. The changelog heading must match at PR time. The git tag
-  is created automatically on merge by the auto-tag workflow.
+- **Rule**: Every version of every plugin in this marketplace must
+  have a matching `## X.Y.Z — YYYY-MM-DD` heading in that plugin's
+  CHANGELOG and a corresponding git tag. The changelog heading must
+  match at PR time. The git tag is created automatically on merge by
+  the per-plugin auto-tag workflow.
+- **Per-plugin tag conventions** (multi-plugin marketplace):
+  - **`ai-literacy-superpowers`** (primary plugin): bare `vX.Y.Z`
+    tags. CHANGELOG at `CHANGELOG.md` (root). 51 historical tags
+    follow this convention; new tags continue to.
+  - **`model-cards`** (sister plugin): `model-cards-vX.Y.Z` tags.
+    CHANGELOG at `model-cards/CHANGELOG.md`.
+  - Future sister plugins follow the same shape: `<plugin-name>-vX.Y.Z`,
+    with their own per-plugin CHANGELOG.
 - **Enforcement**: deterministic
-- **Tool**: .github/workflows/version-check.yml (changelog match),
-  .github/workflows/auto-tag.yml (tag creation)
+- **Tool**:
+  - `.github/workflows/version-check.yml` (changelog match — PR gate)
+  - `.github/workflows/auto-tag.yml` (ai-literacy-superpowers post-merge)
+  - `.github/workflows/auto-tag-model-cards.yml` (model-cards post-merge)
+  - `.github/workflows/gc.yml` (release-tag-completeness GC, both plugins)
 - **Scope**: pr + post-merge
 - **Governance requirement**: All published plugin versions must have
   a corresponding changelog entry and a tag on GitHub
-- **Operational meaning**: PR is blocked if `CHANGELOG.md` top heading
-  does not match `plugin.json` version. On merge to main, CI creates a
-  `vX.Y.Z` git tag if one does not already exist. A GC rule verifies
-  completeness and auto-creates any missing tags.
+- **Operational meaning**: PR is blocked if a plugin's `plugin.json`
+  version doesn't match its CHANGELOG top heading. On merge to main,
+  the appropriate auto-tag workflow creates the tag (using the
+  per-plugin convention) if one does not already exist. A GC rule
+  verifies completeness for both plugins and auto-creates any missing
+  tags.
 - **Verification method**: deterministic — version-check CI (PR gate),
-  auto-tag CI (post-merge), release-tag-completeness GC (periodic)
+  auto-tag CI per plugin (post-merge), release-tag-completeness GC
+  (periodic, both plugins)
 - **Evidence**: CI check output, git tag list, GC run logs
 - **Failure action**: block merge (changelog mismatch); auto-create
   tag (GC finding)

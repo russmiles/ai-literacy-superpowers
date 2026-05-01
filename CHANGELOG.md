@@ -2,6 +2,41 @@
 
 ## 0.32.0 — 2026-05-01
 
+### Chore — Multi-plugin tag conventions
+
+Documents and operationalises the per-plugin tag-naming convention now
+that the marketplace ships multiple plugins. The two-plugin convention:
+
+- **`ai-literacy-superpowers`** (primary): continues to use bare
+  `vX.Y.Z` tags. 51 historical tags through `v0.32.0` are unchanged;
+  new tags follow the same form. CHANGELOG at `CHANGELOG.md` (root).
+- **`model-cards`** (sister): uses `model-cards-vX.Y.Z` tags.
+  CHANGELOG at `model-cards/CHANGELOG.md`. Backfilled
+  `model-cards-v0.1.0` at commit `0053b36` (initial release).
+
+The asymmetry is deliberate — the primary plugin keeps its existing
+51-tag history (no migration risk to external links / Releases UI /
+subscribers), and sister plugins occupy a clearly-namespaced tier.
+Future sister plugins follow the same shape: `<plugin-name>-vX.Y.Z`.
+
+Touched files:
+
+- `.github/workflows/auto-tag-model-cards.yml` — new workflow that
+  fires on changes to `model-cards/.claude-plugin/plugin.json` and
+  creates `model-cards-vX.Y.Z` tags. Mirrors the existing
+  `auto-tag.yml` for ai-literacy-superpowers.
+- `.github/workflows/gc.yml` — release-tag-completeness GC rule
+  extended into two steps: one scans `CHANGELOG.md` for
+  ai-literacy-superpowers `vX.Y.Z`, the other scans
+  `model-cards/CHANGELOG.md` for `model-cards-vX.Y.Z`. Both
+  auto-create missing tags.
+- `HARNESS.md` — `Release traceability` constraint wording updated
+  to document the per-plugin convention and the four
+  workflows/rules involved.
+
+No plugin version bump (changes are root-level: `.github/`,
+`HARNESS.md`, `CHANGELOG.md` only).
+
 ### Feature — Reflection log archival (Path 1 + Path 2 + read-side filtering)
 
 Implements the design at

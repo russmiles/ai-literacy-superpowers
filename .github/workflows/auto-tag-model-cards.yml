@@ -1,0 +1,52 @@
+# Auto-tag on model-cards version bump.
+#
+# When model-cards/.claude-plugin/plugin.json version changes on push
+# to main, creates a git tag `model-cards-vX.Y.Z` pointing at the
+# merge commit. Per-plugin tag convention: sister plugins use a
+# plugin-name prefix to disambiguate from the marketplace's primary
+# plugin (ai-literacy-superpowers), which uses bare `vX.Y.Z`.
+# See HARNESS.md "Release traceability" for the full rule.
+
+name: Auto Tag (model-cards)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'model-cards/.claude-plugin/plugin.json'
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    name: Create model-cards version tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Check if tag needed
+        id: check
+        run: |
+          VERSION=$(grep '"version"' model-cards/.claude-plugin/plugin.json | sed 's/.*"version": "\(.*\)".*/\1/')
+          TAG="model-cards-v${VERSION}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+          if git tag -l "$TAG" | grep -q "$TAG"; then
+            echo "Tag $TAG already exists — skipping"
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag $TAG does not exist — will create"
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create tag
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          git tag "${{ steps.check.outputs.tag }}"
+          git push origin "${{ steps.check.outputs.tag }}"
+          echo "Created and pushed tag ${{ steps.check.outputs.tag }}"
