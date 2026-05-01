@@ -152,7 +152,9 @@ flagging, not full analysis.
 
 When this rule fires, run:
 
-    bash ai-literacy-superpowers/scripts/archive-promoted-reflections.sh
+```bash
+bash ai-literacy-superpowers/scripts/archive-promoted-reflections.sh
+```
 
 The script identifies entries with a `Promoted` line, verifies the
 right-hand side resolves to actual AGENTS.md / HARNESS.md content (or is

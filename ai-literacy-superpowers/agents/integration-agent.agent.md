@@ -137,7 +137,9 @@ When a curator promotes a reflection entry's content to `AGENTS.md` or
 same commit** as the AGENTS.md/HARNESS.md edit. The line follows the
 grammar:
 
-    - **Promoted**: YYYY-MM-DD → <RHS>
+```text
+- **Promoted**: YYYY-MM-DD → <RHS>
+```
 
 Where `<RHS>` is one of:
 

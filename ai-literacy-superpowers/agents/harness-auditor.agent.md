@@ -162,8 +162,10 @@ When reading `REFLECTION_LOG.md` for routine audits, default to the
 bounded read: the more inclusive of the last 50 entries OR entries
 within the last 90 days. Use:
 
-    bash ai-literacy-superpowers/scripts/lib/reflection-log-helpers.sh
-    # then call: bounded_entries REFLECTION_LOG.md 50 90
+```bash
+bash ai-literacy-superpowers/scripts/lib/reflection-log-helpers.sh
+# then call: bounded_entries REFLECTION_LOG.md 50 90
+```
 
 For audits that require historical claims (e.g., "verify the harness
 status reflects the full reflection history"), explicitly opt in to

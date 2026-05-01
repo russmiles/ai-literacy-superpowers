@@ -282,6 +282,8 @@ the project's recorded learnings after archival has run.
 
 Use:
 
-    cat REFLECTION_LOG.md reflections/archive/*.md 2>/dev/null
+```bash
+cat REFLECTION_LOG.md reflections/archive/*.md 2>/dev/null
+```
 
 Then split on `---` separators and process the combined stream.
