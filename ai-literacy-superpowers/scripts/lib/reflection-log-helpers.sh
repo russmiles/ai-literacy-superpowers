@@ -121,3 +121,26 @@ bounded_entries() {
     }'
   rm -f "$tmpfile"
 }
+
+# verify_rhs: return 0 if the Promoted line's right-hand side resolves to
+# actual content in the current tree (AGENTS.md / HARNESS.md) or is a
+# closure form. Return 1 otherwise.
+verify_rhs() {
+  local rhs="$1"
+  case "$rhs" in
+    AGENTS.md*\"*\")
+      local quoted; quoted=$(echo "$rhs" | sed -E 's/^.*"(.*)".*$/\1/')
+      [ -f AGENTS.md ] && grep -qF "$quoted" AGENTS.md
+      ;;
+    HARNESS.md:*)
+      local cname; cname=$(echo "$rhs" | sed -E 's/^HARNESS.md:[[:space:]]*//')
+      [ -f HARNESS.md ] && grep -qF "### $cname" HARNESS.md
+      ;;
+    aged-out*|"no promotion"*|superseded\ by\ *)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
