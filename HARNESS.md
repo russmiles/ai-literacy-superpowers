@@ -286,6 +286,28 @@
 - **Tool**: harness-enforcer
 - **Scope**: manual
 
+### Docs propagation when shipping new commands
+
+- **Rule**: When a PR adds a new command, skill, or agent in
+  `ai-literacy-superpowers/` that consolidates or replaces existing
+  functionality, the same PR must update every reference in
+  `docs/plugins/<plugin>/` to the commands or skills the new one
+  composes or replaces. A `See also` callout pattern is insufficient
+  when the new artefact is meant to be the canonical entry point — the
+  older pages must explicitly frame the existing artefacts as primitives
+  or alternatives, not as first-class equivalents. Surfaced from the
+  PR #257 → #258 cycle (2026-05-07): `/harness-sync` shipped in #257,
+  but #258 had to clean up consistency gaps across 10 docs pages
+  immediately afterwards. Effective from 2026-05-07.
+- **Enforcement**: agent
+- **Tool**: harness-enforcer (when the PR's diff touches
+  `ai-literacy-superpowers/commands/`, `ai-literacy-superpowers/skills/`,
+  or `ai-literacy-superpowers/agents/` with a new file, grep
+  `docs/plugins/<plugin>/` for references to the same domain that the
+  new artefact composes or replaces, and verify the PR also touches
+  those references)
+- **Scope**: pr
+
 <!-- Uncomment if using spec-first development:
 
 ### Spec conformance
