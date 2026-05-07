@@ -116,6 +116,46 @@ section.
 
 No plugin version bump (docs change outside `ai-literacy-superpowers/`).
 
+### Docs — Harness lifecycle explainer
+
+Adds a second integrative Explanation page,
+`docs/plugins/ai-literacy-superpowers/the-harness-lifecycle.md`,
+that traces one harness through six stages over months and years:
+Day Zero (Initialisation), First Month (Bootstrapping), Quarter One
+(First Steady State), Year One (Maturity), Renewal Years (Upgrades
+and Refresh), and When the Harness Has to Change (Adaptation).
+
+Pairs with the harness-tuning-loop page on the orthogonal axis. The
+tuning-loop page is the *vertical* cut (one surprise, every surface);
+this is the *horizontal* cut (one harness, many months). Together
+they answer "how does a harness work?" along both axes.
+
+Each stage has a uniform internal structure: a framing paragraph, a
+worked-example beat (a fictional six-engineer team running Python +
+TypeScript + Terraform), an "In this plugin's case" sidebar pointing
+to a verifiable real event in the plugin's own 5-week-old harness,
+the substantive content, and two summary tables — Tools at work
+(commands / skills / agents / hooks / CI) and Artefacts evolving here
+(`HARNESS.md`, `AGENTS.md`, `REFLECTION_LOG.md`, hook configuration).
+The closing reading map organises the rest of the docs site by
+lifecycle position so a reader at any stage knows exactly which
+deep-dive, tutorial, or how-to to open next.
+
+`REFLECTION_LOG.md` evolution is covered explicitly: append at session,
+curation, promotion via the `Promoted` line, Path 1 deterministic
+auto-archival (weekly), Path 2 monthly aged-out review, and read-side
+filtering (50 entries / 90 days). All cross-linked to the v0.32.0
+release notes.
+
+Sister-page issue (#252) opened for "The Portfolio Lifecycle" — the
+multi-harness arc, deferred to keep this page focused on the single
+harness.
+
+`index.md` updated with the new page immediately after the harness
+tuning loop entry.
+
+No plugin version bump (docs change outside `ai-literacy-superpowers/`).
+
 ## 0.31.1 — 2026-04-29
 
 ### Docs — README reframed for the marketplace
