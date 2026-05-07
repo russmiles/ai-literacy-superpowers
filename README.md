@@ -3,11 +3,11 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Lint Markdown](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml/badge.svg)](https://github.com/Habitat-Thinking/ai-literacy-superpowers/actions/workflows/lint-markdown.yml)
 [![Marketplace](https://img.shields.io/badge/Marketplace-v0.3.0-4682B4?style=flat-square)](.claude-plugin/marketplace.json)
-[![ai-literacy-superpowers](https://img.shields.io/badge/ai--literacy--superpowers-v0.32.0-4682B4?style=flat-square)](ai-literacy-superpowers/)
+[![ai-literacy-superpowers](https://img.shields.io/badge/ai--literacy--superpowers-v0.33.0-4682B4?style=flat-square)](ai-literacy-superpowers/)
 [![model-cards](https://img.shields.io/badge/model--cards-v0.1.0-4682B4?style=flat-square)](model-cards/)
 [![Skills](https://img.shields.io/badge/Skills-30-2E8B57?style=flat-square)](#skills-30)
 [![Agents](https://img.shields.io/badge/Agents-13-2E8B57?style=flat-square)](#agents-13)
-[![Commands](https://img.shields.io/badge/Commands-24-2E8B57?style=flat-square)](#commands-24)
+[![Commands](https://img.shields.io/badge/Commands-25-2E8B57?style=flat-square)](#commands-25)
 [![Harness](https://img.shields.io/badge/Harness-18%2F19_enforced-4682B4?style=flat-square)](HARNESS.md)
 [![Harness Health](https://img.shields.io/badge/Harness_Health-Healthy-2E8B57?style=flat-square)](observability/snapshots/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
@@ -212,7 +212,7 @@ A coordinated team that handles the full development lifecycle.
 | advocatus-diaboli | Adversarial reviewer — spec-time (premise/design focus, before plan approval) and code-time (risk/implementation focus, before integration); six-category objection record, read-only trust boundary, human-cognition gate on dispositions at both gates | Read only |
 | choice-cartographer | Decision-archaeology mapper — runs after spec-mode diaboli dispositions are resolved; emits choice stories (Henney pattern stories) for each material implicit decision; soft gate at plan approval, merge-time HARNESS constraint enforces resolution | Read only |
 
-### Commands (24)
+### Commands (25)
 
 | Command | What it does |
 | ------- | ------------ |
@@ -228,6 +228,7 @@ A coordinated team that handles the full development lifecycle.
 | `/assess` | AI literacy assessment with immediate fixes, workflow recommendations, and prioritised improvement plans |
 | `/harness-health` | Harness health snapshot — enforcement ratio, trends, meta-observability checks |
 | `/extract-conventions` | Guided session — surfaces tacit team conventions and maps them to CLAUDE.md and HARNESS.md |
+| `/harness-sync` | Multi-surface entry point — detects drift across convention files and ONBOARDING.md, applies fixes via the underlying primitives in one interactive pass |
 | `/convention-sync` | Sync HARNESS.md conventions to Cursor, Copilot, and Windsurf convention files |
 | `/portfolio-assess` | Multi-repo AI literacy assessment — aggregate across local repos, GitHub orgs, or topic tags |
 | `/cost-capture` | Capture AI tool cost data — record spend, compare to previous snapshot, update model routing |
