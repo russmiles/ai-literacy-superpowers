@@ -14,6 +14,12 @@ redirect_from:
 Propagate HARNESS.md conventions to Cursor, Copilot, and Windsurf so all AI coding
 tools work from the same rules.
 
+> **See also:** [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+> is the multi-surface entry point that runs this command alongside any other drifted
+> surfaces (`ONBOARDING.md`) in one interactive pass. Use that when you want to apply
+> propagation across all surfaces; use this page when you want to focus on the
+> convention files alone.
+
 ---
 
 ## 1. Run the sync command
