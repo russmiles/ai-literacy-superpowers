@@ -116,6 +116,31 @@ section.
 
 No plugin version bump (docs change outside `ai-literacy-superpowers/`).
 
+### Docs — CLAUDE.md spec-first exemptions section
+
+Renames CLAUDE.md's `Cross-Repo Spec-First Discipline` section to
+`Spec-First Exemptions` and expands it to list all five exemption
+labels (`bug`, `fix`, `chore`, `maintenance`, `cross-repo`) and their
+branch-prefix alternatives (`fix/`, `chore/`, `cross-repo/`), each
+with one-sentence guidance on the kind of change it applies to.
+
+The previous section only documented the `cross-repo` exemption
+explicitly, even though the `Spec-First Check` workflow at
+`.github/workflows/spec-first-check.yml` accepts all five labels and
+three branch prefixes. The narrow framing made the answer harder to
+find than it needed to be — discovered while shipping the docs PRs
+for the harness-tuning-loop and harness-lifecycle pages, where the
+correct exemption was `chore` but had to be inferred from the
+workflow file. See REFLECTION_LOG entry 2026-05-07.
+
+The cross-repo case retains its two sub-options (copy spec into
+`docs/superpowers/specs/`, or use the exemption alone) and the
+guidance to link to the upstream spec in the PR description.
+
+Closes #250.
+
+No plugin version bump (docs change to root file).
+
 ### Docs — Harness lifecycle explainer
 
 Adds a second integrative Explanation page,
