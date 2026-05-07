@@ -223,8 +223,11 @@ convention file. The harness-enforcer agent is the unified
 verification engine; it reads `HARNESS.md`, identifies which
 constraints apply at the requested scope (commit, pr, weekly,
 manual), and either executes the deterministic tool or performs
-the agent-based review. Convention propagation to other AI tools
-happens via `/convention-sync`.
+the agent-based review. Propagation to the push-direction surfaces
+(convention files for Cursor / Copilot / Windsurf, plus
+`ONBOARDING.md`) happens via `/harness-sync`, the unified
+multi-surface entry point that composes `/convention-sync` and
+`/harness-onboarding` as its underlying primitives.
 
 ### 4. Audit and self-correction
 
@@ -310,8 +313,9 @@ Two responses, both partial.
 
 **The "compilation step" already exists, just not as a single
 build.** The framework's loops — `/harness-audit`, `/harness-gc`,
-`/reflect`, `/convention-sync`, the harness-enforcer agent — are the
-continuous compilation. Drift between `HARNESS.md` and the runtime
+`/reflect`, `/harness-sync` (which composes `/convention-sync` and
+`/harness-onboarding` as its underlying primitives), the
+harness-enforcer agent — are the continuous compilation. Drift between `HARNESS.md` and the runtime
 artefacts is detected by the audit and surfaced by the Status block.
 This is closer to a watch-mode build than to a checked-in binary.
 Drift is minimal in practice because the loops run constantly.

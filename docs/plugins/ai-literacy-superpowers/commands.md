@@ -101,6 +101,7 @@ filename.
 
 - **Skills read**: harness-onboarding
 - **Agents dispatched**: none
+- **Primitive of**: `/harness-sync` (the multi-surface entry point composes this command alongside `/convention-sync`)
 
 Generate `ONBOARDING.md` — a human-readable onboarding guide for new
 team members. Reads three sources (HARNESS.md, AGENTS.md,
@@ -297,10 +298,36 @@ concrete `CLAUDE.md` conventions and `HARNESS.md` constraints. Use
 this when onboarding AI to an existing codebase or after team
 composition changes.
 
+### /harness-sync
+
+- **Skills read**: none (composes underlying commands directly)
+- **Agents dispatched**: none
+- **Composes**: `/convention-sync` and `/harness-onboarding` as underlying primitives
+
+The unified, human-instigated entry point for keeping every push-direction
+control surface in sync with `HARNESS.md`. Detects drift across the convention
+files (`.cursor/rules/`, `.github/copilot-instructions.md`, `.windsurf/rules/`)
+and `ONBOARDING.md`, presents the full picture as a multi-select prompt, and
+applies the user's selected fixes via the underlying primitives in one
+interactive pass — followed by a verification scan that confirms the surfaces
+are in sync before committing.
+
+Branch enforcement at start-of-run refuses to apply changes on `main` and
+offers to create a `chore/sync-surfaces-YYYY-MM-DD` branch (the `chore/`
+prefix satisfies the spec-first-check exemption deterministically). A
+pre-commit guard enforces the trust boundary mechanically: the command never
+writes to `HARNESS.md`, `AGENTS.md`, or `REFLECTION_LOG.md`. Idempotent — a
+second consecutive run with no `HARNESS.md` changes between is a no-op.
+
+Use `/harness-sync` as the typical entry point. The single-surface commands
+(`/convention-sync`, `/harness-onboarding`) remain available for focused work
+when you only want to touch one surface.
+
 ### /convention-sync
 
 - **Skills read**: convention-sync
 - **Agents dispatched**: none
+- **Primitive of**: `/harness-sync` (the multi-surface entry point composes this command alongside `/harness-onboarding`)
 
 Sync `HARNESS.md` conventions to other AI coding tools. Reads the
 Context and Constraints sections of `HARNESS.md` and generates

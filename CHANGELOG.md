@@ -34,6 +34,46 @@ Deferred follow-up #256: HARNESS.md template update so existing
 harnesses pick up the new command via `/harness-upgrade` after they
 upgrade to v0.33.0+.
 
+### Docs — /harness-sync consistency pass across the docs site
+
+Follow-up to the v0.33.0 ship. The initial PR added `/harness-sync` to
+the new how-to page, the explanation pages' propagation stages, the
+README, and "See also" callouts on the two primitive how-tos — but
+older docs pages still referenced `/convention-sync` and
+`/harness-onboarding` as canonical propagation commands without
+acknowledging `/harness-sync`, and the primitive how-to pages framed
+themselves as first-class commands rather than as primitives the
+multiplexer composes.
+
+This pass closes both gaps:
+
+- **Lifecycle page internal consistency** — `the-harness-lifecycle.md`
+  Stage 5 framing, Stage 5 "How they work together", Stage 6
+  enumeration, Stage 6 "Tools at work" table, and Stage 6 "How they
+  work together" all updated so `/harness-sync` is the canonical entry
+  point and the primitives are named explicitly as its underlying
+  components.
+- **Subservience framing on the primitive pages** — `sync-conventions.md`
+  and `generate-onboarding.md` opening paragraphs rewritten to lead
+  with "this command is one of the underlying primitives that
+  `/harness-sync` composes" before describing the focused single-surface
+  use case.
+- **Reference page** — `commands.md` gains a `/harness-sync` entry
+  marked as composing the primitives; `/convention-sync` and
+  `/harness-onboarding` entries gain a "Primitive of: `/harness-sync`"
+  metadata line.
+- **Older tutorials and explanation pages** — `first-time-tour.md`
+  (both `/convention-sync` and `/harness-onboarding` introductions),
+  `harness-md.md` (two passages),
+  `run-a-calibration-review.md`, `surfacing-tacit-knowledge.md`, and
+  `templates.md` updated to surface `/harness-sync` as the typical
+  entry point alongside the primitives.
+
+Closes a consistency gap that would otherwise have surfaced via the
+GC `documentation freshness` rule the next time it ran.
+
+No plugin version bump (docs change outside `ai-literacy-superpowers/`).
+
 ### Docs — sync-harness how-to + cross-references
 
 New how-to page `docs/plugins/ai-literacy-superpowers/sync-harness.md`
