@@ -82,7 +82,7 @@ Exit without making any changes.
 
 ### 3. Phase 1 — Drift Scan
 
-**If invoked with `--check`, run only this phase and then exit.**
+**If invoked with `--check`, the command stops after this phase — see exit semantics at the end of this section.**
 
 Read `HARNESS.md` from the project root. If it does not exist, stop and tell
 the user:
@@ -188,6 +188,10 @@ never appears as a selectable option.
 }
 ```
 
+The options above are illustrative. Construct the actual options list from the
+Phase 1 scan results — include one option per surface that is `drifted` or
+`missing`, plus the always-present "Apply nothing" option.
+
 Only include options for surfaces that are `drifted` or `missing`. Omit
 options for `in sync` surfaces. Always include the "Apply nothing" option.
 
@@ -261,6 +265,8 @@ If any path falls _outside_ the allow-list (including `HARNESS.md`,
 
 Do _not_ silently un-stage and continue. Exit non-zero.
 
+If the guard passes, proceed to step 8 to commit and ship.
+
 ### 8. Commit and Ship
 
 #### Path A — Fresh `chore/` branch (created in step 1)
@@ -271,7 +277,8 @@ Stage the surface files only:
 git add .cursor/rules/ .github/copilot-instructions.md .windsurf/rules/ ONBOARDING.md
 ```
 
-(Only add paths that were actually modified.)
+Git will only stage files with actual changes; paths that were not touched are
+safe to include in the `git add` list.
 
 Parameterise the commit message based on which surfaces were applied:
 
@@ -311,8 +318,16 @@ Stage and commit only — do _not_ push and do _not_ open a PR:
 
 ```bash
 git add .cursor/rules/ .github/copilot-instructions.md .windsurf/rules/ ONBOARDING.md
-git commit -m "chore: sync convention files and ONBOARDING.md to HARNESS.md"
+git commit -m "chore: <parameterised message — use the same parameterisation as Path A>"
 ```
+
+Use the same parameterised commit message as Path A — derived from which
+surfaces were applied:
+
+- Both convention files and `ONBOARDING.md`:
+  `"chore: sync convention files and ONBOARDING.md to HARNESS.md"`
+- Convention files only: `"chore: sync convention files to HARNESS.md"`
+- `ONBOARDING.md` only: `"chore: sync ONBOARDING.md to HARNESS.md"`
 
 Report the commit hash and tell the user:
 
