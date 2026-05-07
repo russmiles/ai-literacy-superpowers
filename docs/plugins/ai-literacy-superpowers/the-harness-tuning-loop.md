@@ -105,7 +105,7 @@ The auditor is the **only** agent permitted to update the Status section of `HAR
 
 ### 5a — AGENTS.md / CLAUDE.md (turn-time context)
 
-This is what the AI sees at session start. The relevant commands are `/extract-conventions` (when a new tacit convention surfaces through the cycle, supported by the convention-extraction skill), `/convention-sync` (which generates Cursor / Copilot / Windsurf rule files from `HARNESS.md`), and `/harness-onboarding` (which regenerates `ONBOARDING.md` from `HARNESS.md` + `AGENTS.md` + `REFLECTION_LOG.md`).
+This is what the AI sees at session start. The relevant commands are `/extract-conventions` (when a new tacit convention surfaces through the cycle, supported by the convention-extraction skill), `/convention-sync` (which generates Cursor / Copilot / Windsurf rule files from `HARNESS.md`), and `/harness-onboarding` (which regenerates `ONBOARDING.md` from `HARNESS.md` + `AGENTS.md` + `REFLECTION_LOG.md`). The unified entry point that runs `/convention-sync` and `/harness-onboarding` together in one interactive pass — detecting drift across all push-direction surfaces, presenting the full picture, applying the user's selected fixes — is `/harness-sync`. See [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %}). The single-surface commands remain available for focused work.
 
 The GC rules that catch lag on this surface are `convention file sync` (weekly, agent-enforced), `command-prompt sync` (weekly, agent-enforced), and the monthly `ONBOARDING.md` staleness check. Together they ensure that when `HARNESS.md` changes, the convention files every AI assistant reads do not silently fall behind.
 
