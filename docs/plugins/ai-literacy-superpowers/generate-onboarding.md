@@ -14,6 +14,12 @@ redirect_from:
 Run `/harness-onboarding` to produce a human-readable onboarding
 guide from your project's harness state.
 
+> **See also:** [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+> is the multi-surface entry point that runs this command alongside any other
+> drifted surfaces (Cursor / Copilot / Windsurf rule files) in one interactive pass.
+> Use that when you want to apply propagation across all surfaces; use this page
+> when you want to focus on `ONBOARDING.md` alone.
+
 ## Prerequisites
 
 - HARNESS.md exists (created by `/harness-init`).
