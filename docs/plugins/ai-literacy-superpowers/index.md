@@ -114,6 +114,7 @@ Practical guides for specific tasks.
 - [Set Up Model Routing]({% link plugins/ai-literacy-superpowers/set-up-model-routing.md %})
 - [Configure Observability]({% link plugins/ai-literacy-superpowers/configure-observability.md %})
 - [Verify Observatory Signals]({% link plugins/ai-literacy-superpowers/verify-observatory-signals.md %})
+- [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
 - [Sync Conventions]({% link plugins/ai-literacy-superpowers/sync-conventions.md %})
 - [Extract Conventions]({% link plugins/ai-literacy-superpowers/extract-conventions.md %})
 - [Generate Onboarding]({% link plugins/ai-literacy-superpowers/generate-onboarding.md %})
