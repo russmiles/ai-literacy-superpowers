@@ -169,9 +169,9 @@ the `pull_request:` triggers of:
 Without the explicit `types` list, GitHub Actions defaults to
 `opened, synchronize, reopened`, which means adding or removing an
 exemption label after a check has run does not re-evaluate the check.
-That race condition forced a manual empty-commit re-trigger on PR
-#248 when the `chore` label was applied after the spec-first check
-had already failed (see REFLECTION_LOG entry 2026-05-07). With the
+That race condition forced a manual empty-commit re-trigger on
+PR #248, when the `chore` label was applied after the spec-first
+check had already failed (see REFLECTION_LOG entry 2026-05-07). With the
 explicit list, label changes now fire the workflow and the check
 re-evaluates against the new label set automatically.
 
