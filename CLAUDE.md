@@ -113,8 +113,8 @@ making:
 | `maintenance` label | Refactors, dependency bumps, infrastructure tweaks that do not change behaviour | _(none — use the `chore` form)_ |
 | `cross-repo` label or `cross-repo/` branch prefix | The spec lives in another repository (typically `ai-literacy-for-software-engineers`) | `cross-repo/<short-name>` |
 
-Apply the label at PR creation time, per the *Label PRs at creation
-time* constraint in `HARNESS.md`. Adding the label at creation avoids
+Apply the label at PR creation time, per the _Label PRs at creation
+time_ constraint in `HARNESS.md`. Adding the label at creation avoids
 the friction of having to re-trigger the check after the fact and
 keeps the PR's check history clean.
 
