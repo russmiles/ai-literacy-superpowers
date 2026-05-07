@@ -156,6 +156,32 @@ tuning loop entry.
 
 No plugin version bump (docs change outside `ai-literacy-superpowers/`).
 
+### Chore — pull_request workflows re-evaluate on label changes
+
+Adds `types: [opened, synchronize, reopened, labeled, unlabeled]` to
+the `pull_request:` triggers of:
+
+- `.github/workflows/spec-first-check.yml` — branches on the
+  `bug | fix | chore | maintenance | cross-repo` exemption labels.
+- `.github/workflows/version-check.yml` — branches on the `no-bump`
+  exemption label for formatting-only fixes.
+
+Without the explicit `types` list, GitHub Actions defaults to
+`opened, synchronize, reopened`, which means adding or removing an
+exemption label after a check has run does not re-evaluate the check.
+That race condition forced a manual empty-commit re-trigger on PR
+#248 when the `chore` label was applied after the spec-first check
+had already failed (see REFLECTION_LOG entry 2026-05-07). With the
+explicit list, label changes now fire the workflow and the check
+re-evaluates against the new label set automatically.
+
+`harness.yml` and `lint-markdown.yml` are unaffected — neither
+branches on PR labels, so the trigger change would not add value.
+
+Closes #251.
+
+No plugin version bump (CI config change outside `ai-literacy-superpowers/`).
+
 ## 0.31.1 — 2026-04-29
 
 ### Docs — README reframed for the marketplace
