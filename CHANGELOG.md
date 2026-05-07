@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.33.0 — 2026-05-07
+
+### Feature — Unified surface sync via /harness-sync
+
+Adds `/harness-sync`, a new command that consolidates push-direction
+propagation from `HARNESS.md` to all control surfaces (Cursor / Copilot /
+Windsurf rule files, `ONBOARDING.md`) under a single human-instigated
+entry point.
+
+The command is a multiplexer over the existing primitives
+(`/convention-sync`, `/harness-onboarding`) — no new skill, no new
+agent. It runs three phases interactively: drift scan with the full
+picture (drifted, missing, in sync, managed), multi-select of surfaces
+to apply, and apply-with-verification. A pre-commit guard enforces the
+trust boundary mechanically: the command never writes to `HARNESS.md`,
+`AGENTS.md`, or `REFLECTION_LOG.md`.
+
+Branch enforcement at start-of-run: refuses to apply on `main` and
+offers to create a `chore/sync-surfaces-YYYY-MM-DD` branch (the
+`chore/` prefix satisfies the spec-first exemption deterministically).
+On a feature branch, the command commits in place without opening a
+new PR.
+
+`/harness-upgrade` is explicitly out of scope — it is a different
+direction (pull from upstream) and stays separate.
+`/extract-conventions` is also separate (pulls tacit knowledge from
+team into HARNESS.md).
+
+Spec: `docs/superpowers/specs/2026-05-07-harness-sync-design.md`.
+Plan: `docs/superpowers/plans/2026-05-07-harness-sync.md`.
+Deferred follow-up #256: HARNESS.md template update so existing
+harnesses pick up the new command via `/harness-upgrade` after they
+upgrade to v0.33.0+.
+
+### Docs — sync-harness how-to + cross-references
+
+New how-to page `docs/plugins/ai-literacy-superpowers/sync-harness.md`
+covers the three phases, the on-main vs on-branch distinction, the
+refusal cases, and the example output. Existing how-to pages
+`sync-conventions.md` and `generate-onboarding.md` updated with
+"See also" pointers to the new multi-surface entry. The
+`the-harness-tuning-loop.md` and `the-harness-lifecycle.md` Explanation
+pages updated to reference `/harness-sync` at their respective
+propagation stages. README's Commands count bumped from 24 to 25 and
+the new command added to the Commands table.
+
 ## 0.32.0 — 2026-05-01
 
 ### Chore — Multi-plugin tag conventions
