@@ -11,14 +11,17 @@ redirect_from:
 
 # Generate an Onboarding Guide
 
-Run `/harness-onboarding` to produce a human-readable onboarding
-guide from your project's harness state.
+`/harness-onboarding` is one of the underlying primitives that
+[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+composes. **For multi-surface propagation in one interactive pass — across
+`ONBOARDING.md` _and_ the Cursor / Copilot / Windsurf rule files — use
+`/harness-sync`.** This page covers the focused single-surface command for when
+you want to regenerate `ONBOARDING.md` alone (for example, when a new team
+member joins and you want to refresh the onboarding document without touching
+the rule files).
 
-> **See also:** [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
-> is the multi-surface entry point that runs this command alongside any other
-> drifted surfaces (Cursor / Copilot / Windsurf rule files) in one interactive pass.
-> Use that when you want to apply propagation across all surfaces; use this page
-> when you want to focus on `ONBOARDING.md` alone.
+The command itself: produce a human-readable onboarding guide from your
+project's harness state.
 
 ## Prerequisites
 

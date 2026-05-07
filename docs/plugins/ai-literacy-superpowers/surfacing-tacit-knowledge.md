@@ -501,7 +501,16 @@ written and drifts from the source within weeks. The plugin
 avoids this by generating the onboarding document *from* the
 habitat, so it stays current by construction.
 
-### `/harness-onboarding`
+### `/harness-onboarding` (or `/harness-sync` for the multi-surface entry)
+
+`/harness-onboarding` is one of the underlying primitives that
+[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+composes. When the team-composition change you are absorbing also
+warrants refreshing the convention files (Cursor, Copilot, Windsurf),
+use `/harness-sync` — it runs `/harness-onboarding` and
+`/convention-sync` together in one interactive pass, with a verification
+scan at the end. Use `/harness-onboarding` directly only when you want
+to refresh `ONBOARDING.md` alone.
 
 The command reads three authoritative sources — `HARNESS.md`,
 `AGENTS.md`, `REFLECTION_LOG.md` — and produces `ONBOARDING.md`

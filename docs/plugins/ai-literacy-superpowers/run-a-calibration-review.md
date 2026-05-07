@@ -180,8 +180,12 @@ them. Use:
 - Direct edits to skill files, hook scripts, sub-agent prompts,
   and CI workflows for capabilities that aren't expressed in
   `HARNESS.md`.
-- `/convention-sync` after the underlying `HARNESS.md` is settled,
-  to propagate convention changes to other AI tools.
+- `/harness-sync` after the underlying `HARNESS.md` is settled, to
+  propagate the changes to the push-direction surfaces (convention
+  files and `ONBOARDING.md`) in one interactive pass. `/harness-sync`
+  composes `/convention-sync` and `/harness-onboarding` as its
+  underlying primitives; use either of those single-surface commands
+  directly only when the focus is genuinely narrow.
 
 Refusals are *not* applied through any command — they live in the
 calibration record and that's where they belong. Recording them in

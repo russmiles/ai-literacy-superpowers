@@ -225,25 +225,36 @@ Run this once per constraint you want to add. A reasonable first
 target list: no secrets in source (deterministic), tests must pass
 (deterministic), architecture layer boundaries (agent).
 
-### `/convention-sync`
+### `/convention-sync` (or `/harness-sync` for the multi-surface entry)
 
 **Why last in this phase.** Once the conventions and constraints
 exist in `HARNESS.md`, other tools the team uses — Cursor, Copilot,
 Windsurf — need the same rules. Running this after the harness is
 stable avoids re-syncing every time you add a constraint.
 
-**What it does.** Reads the Context and Constraints sections of
-`HARNESS.md` and generates `.cursor/rules`, `.github/copilot-instructions.md`,
-and `.windsurf/rules` files with the equivalent content.
+**What `/convention-sync` does.** Reads the Context and Constraints
+sections of `HARNESS.md` and generates `.cursor/rules`,
+`.github/copilot-instructions.md`, and `.windsurf/rules` files with
+the equivalent content.
+
+**The unified entry point.** `/convention-sync` is one of the
+underlying primitives that
+[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+composes. For multi-surface propagation in one interactive pass —
+across the convention files *and* `ONBOARDING.md` together — use
+`/harness-sync`. Use `/convention-sync` directly only when you want
+to focus on the convention files alone.
 
 **How to run it.**
 
 ```text
-/convention-sync
+/harness-sync         # multi-surface entry (recommended)
+/convention-sync      # focused single-surface alternative
 ```
 
-Skip this if the team only uses Claude Code. Run it if anyone
-works in a different AI coding environment against this repo.
+Skip the convention-sync step if the team only uses Claude Code.
+Run it if anyone works in a different AI coding environment against
+this repo.
 
 ---
 
@@ -449,23 +460,34 @@ The harness now reflects your practice and is being kept honest on
 a cadence. The final phase is about letting other people — and
 other repositories — benefit from that practice.
 
-### `/harness-onboarding`
+### `/harness-onboarding` (or `/harness-sync` for the multi-surface entry)
 
 **Why here.** Once the habitat is real, new team members need a way
 in. `ONBOARDING.md` is the friendly face of the harness — the same
 information, but synthesised into prose organised around what a new
 contributor actually needs to know.
 
-**What it does.** Reads `HARNESS.md`, `AGENTS.md`, and
-`REFLECTION_LOG.md` and produces a ten-section `ONBOARDING.md`: tech
-stack, conventions, enforcement, pitfalls, architecture, testing,
+**What `/harness-onboarding` does.** Reads `HARNESS.md`, `AGENTS.md`,
+and `REFLECTION_LOG.md` and produces a ten-section `ONBOARDING.md`:
+tech stack, conventions, enforcement, pitfalls, architecture, testing,
 how the harness works, and a first-PR checklist. A GC rule checks
 monthly whether it has become stale against its sources.
+
+**The unified entry point.** `/harness-onboarding` is one of the
+underlying primitives that
+[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+composes. For multi-surface propagation in one interactive pass —
+when you want to refresh both `ONBOARDING.md` *and* the convention
+files together — use `/harness-sync`. Use `/harness-onboarding`
+directly only when you want to refresh `ONBOARDING.md` alone (for
+example, just before a new engineer joins, while leaving the
+convention files untouched).
 
 **How to run it.**
 
 ```text
-/harness-onboarding
+/harness-sync         # multi-surface entry (recommended)
+/harness-onboarding   # focused single-surface alternative
 ```
 
 ### `/portfolio-assess`

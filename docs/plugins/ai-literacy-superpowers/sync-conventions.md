@@ -11,14 +11,17 @@ redirect_from:
 
 # Sync Conventions
 
-Propagate HARNESS.md conventions to Cursor, Copilot, and Windsurf so all AI coding
-tools work from the same rules.
+`/convention-sync` is one of the underlying primitives that
+[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+composes. **For multi-surface propagation in one interactive pass — across
+convention files _and_ `ONBOARDING.md` — use `/harness-sync`.** This page covers
+the focused single-surface command for when you want to propagate the convention
+files alone (for example, as part of a tighter loop immediately after
+`/harness-constrain` adds a new constraint and you do not yet need to regenerate
+the onboarding document).
 
-> **See also:** [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
-> is the multi-surface entry point that runs this command alongside any other drifted
-> surfaces (`ONBOARDING.md`) in one interactive pass. Use that when you want to apply
-> propagation across all surfaces; use this page when you want to focus on the
-> convention files alone.
+The command itself: propagate HARNESS.md conventions to Cursor, Copilot, and
+Windsurf so all AI coding tools work from the same rules.
 
 ---
 
