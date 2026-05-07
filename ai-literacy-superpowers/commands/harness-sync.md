@@ -240,7 +240,7 @@ Before staging or committing, verify that no out-of-bounds file was touched.
 Run:
 
 ```bash
-git diff --name-only
+git diff --name-only --cached
 ```
 
 Verify every modified path matches the allow-list:
