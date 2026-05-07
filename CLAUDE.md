@@ -95,23 +95,43 @@ Bump when the listing contract itself changes:
 The listing version follows the same semver rules as the plugin while
 pre-1.0. A listing-only change does not require a plugin version bump.
 
-## Cross-Repo Spec-First Discipline
+## Spec-First Exemptions
 
-When work in this plugin is driven by a spec in another repo (typically
-`ai-literacy-for-software-engineers`), the spec-first CI check cannot
-see the spec. Two options:
+Feature and behaviour-change PRs require a spec committed as the first
+commit on the branch under
+`docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`. The
+`Spec-First Check` CI workflow at `.github/workflows/spec-first-check.yml`
+enforces this. PRs that do not need a spec are exempt via labels or
+branch prefixes — pick the one that matches the kind of change you are
+making:
+
+| Exemption | Use for | Branch prefix alternative |
+| --- | --- | --- |
+| `bug` label | An identified bug that does not need a fresh design | _(none — use the `fix` form)_ |
+| `fix` label or `fix/` branch prefix | A targeted bug fix or correction where no design work is needed | `fix/<short-name>` |
+| `chore` label or `chore/` branch prefix | Maintenance, housekeeping, docs additions outside the plugin directory, formatting and metadata fixes | `chore/<short-name>` |
+| `maintenance` label | Refactors, dependency bumps, infrastructure tweaks that do not change behaviour | _(none — use the `chore` form)_ |
+| `cross-repo` label or `cross-repo/` branch prefix | The spec lives in another repository (typically `ai-literacy-for-software-engineers`) | `cross-repo/<short-name>` |
+
+Apply the label at PR creation time, per the *Label PRs at creation
+time* constraint in `HARNESS.md`. Adding the label at creation avoids
+the friction of having to re-trigger the check after the fact and
+keeps the PR's check history clean.
+
+For cross-repo work, two further options apply on top of the
+`cross-repo` exemption:
 
 1. **Copy the spec** into `docs/superpowers/specs/` as the first commit
    on the branch. This satisfies the spec-first gate and keeps a local
    record of what drove the change. Preferred for large feature work.
 
-2. **Use the cross-repo exemption** — name the branch `cross-repo/...`
-   or add the `cross-repo` label to the PR. The spec-first check will
-   skip. Use this for sync-driven changes where the spec already exists
-   upstream and copying it would be redundant.
+2. **Use the `cross-repo` exemption alone** — name the branch
+   `cross-repo/...` or add the `cross-repo` label to the PR. Use this
+   for sync-driven changes where the spec already exists upstream and
+   copying it would be redundant.
 
-In the PR description, always link to the upstream spec regardless of
-which option you choose.
+In the PR description for cross-repo work, always link to the upstream
+spec regardless of which option you choose.
 
 ## Output Validation Checkpoints
 
