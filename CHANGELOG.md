@@ -92,6 +92,30 @@ Adjudication trail:
 (9 stories, all accepted),
 `plans/2026-04-30-reflection-log-archival.md` (32-task plan).
 
+### Docs — Harness tuning loop explainer
+
+Adds a new Explanation page,
+`docs/plugins/ai-literacy-superpowers/the-harness-tuning-loop.md`,
+that traces a single operational surprise end to end through the six
+stages of the tuning loop: capture in `REFLECTION_LOG.md`, detection
+by the GC agent's reflection-driven regression rule, promotion via
+`/harness-constrain`, verification via `/harness-audit`, propagation
+to AGENTS.md / hooks / CI, and the wider quarterly tuning frame.
+
+The page is integrative — it links out to the deep-dive owners of
+each slice (`self-improving-harness.md`, `garbage-collection.md`,
+`the-loops-that-learn.md`, `three-enforcement-loops.md`) rather than
+re-explaining them, and threads a worked example (a CVE-bearing
+dependency surprise) through every stage. The pivot insight that
+the page makes load-bearing: GC produces reports, not blocks — only
+constraints, hooks, and CI block work, which is what makes the loop
+safe to run continuously without becoming a punishment surface.
+
+`index.md` updated with the new page in the Explanation deep-dives
+section.
+
+No plugin version bump (docs change outside `ai-literacy-superpowers/`).
+
 ## 0.31.1 — 2026-04-29
 
 ### Docs — README reframed for the marketplace

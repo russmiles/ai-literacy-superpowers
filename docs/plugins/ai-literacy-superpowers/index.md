@@ -170,4 +170,5 @@ from first principles to the complete system:
 - [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) — fighting entropy with periodic checks and scheduled agents
 - [Fitness Functions]({% link plugins/ai-literacy-superpowers/fitness-functions.md %}) — testing architectural properties continuously
 - [Regression Detection]({% link plugins/ai-literacy-superpowers/regression-detection.md %}) — patterns that surface from the reflection log
+- [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}) — one surprise traced end to end through reflection, GC, HARNESS.md, AGENTS.md, hooks, and CI
 - [Governance as Meaning Alignment]({% link plugins/ai-literacy-superpowers/governance-as-meaning-alignment.md %}) — the three-frame check
