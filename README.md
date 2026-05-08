@@ -576,9 +576,13 @@ This plugin packages the practical workflow from the AI Literacy for Software En
 - **Christopher Alexander** — *A Pattern Language* (1977); *The Timeless Way of Building* (1979). The "quality without a name" — design for inhabitants, not spectators. Alexander's insight that environments shape the behaviour of their occupants is the conceptual root of habitat engineering.
 - **Richard P. Gabriel** — *Patterns of Software* (1996). Habitability: code as a place to live in. Gabriel extended Alexander's architectural philosophy to software, arguing that code should be welcoming to the people who maintain it.
 
+### Code as Tacit Practice
+
+- **Michael Polanyi** — *Personal Knowledge* (1958); *The Tacit Dimension* (1966). *We can know more than we can tell.* Tacit knowing — the practical understanding built up through engaged work, much of which resists articulation — is the ground on which all explicit knowledge stands. Polanyi gives the cognitive-science epistemology that Naur's theory-building applies to software: the substance of "theory" is Polanyi's tacit knowing. Polanyi grounds why the plugin's pedagogical commitments matter — the framework's cognitive gym (Theme #7), no-vibe coding (Theme #2), and the creator-to-verifier shift (Theme #15) are all defences against the tacit-knowledge attrition that AI generation tends to produce. Frank Ginac's "Cognitive Atrophy and Systemic Collapse in AI-Dependent Software Engineering" (2026, arxiv:2604.26855) gives the contemporary application.
+
 ### Code as Theory
 
-- **Peter Naur** — "Programming as Theory Building" (1985); *Computing: A Human Activity* (1992). The essential product of programming is not the code but the theory the programmers hold about how the system works. Loss of theory is loss of system: code can be preserved while the understanding that made it changeable is not. Naur is what habitability protects — the substance of shared understanding that the plugin's compound-learning components (REFLECTION_LOG.md, AGENTS.md, the convention-extraction and harness-audit skills) exist to externalise and sustain.
+- **Peter Naur** — "Programming as Theory Building" (1985); *Computing: A Human Activity* (1992). The essential product of programming is not the code but the theory the programmers hold about how the system works — Polanyi's tacit knowing applied to software. Loss of theory is loss of system: code can be preserved while the understanding that made it changeable is not. Naur is what habitability protects — the substance of shared understanding that the plugin's compound-learning components (REFLECTION_LOG.md, AGENTS.md, the convention-extraction and harness-audit skills) exist to externalise and sustain.
 
 ### Code as Literature
 
