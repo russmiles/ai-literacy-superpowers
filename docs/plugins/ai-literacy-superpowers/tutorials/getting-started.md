@@ -371,7 +371,7 @@ Last audit: 2026-04-06 (0 days ago)
 
 ### Next Steps
 - Run /harness-constrain to add or promote constraints
-- Run /harness-audit for a full verification
+- Run /harness-sync to keep all surfaces in alignment, or /harness-audit for a read-only diagnostic
 - Run /harness-gc to run garbage collection checks
 ```
 

@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.35.0 — 2026-05-08
+
+### Feature — Audit-driven `/harness-sync`
+
+Restructures `/harness-sync` so it runs `/harness-audit`'s detection
+logic internally via a new shared `harness-audit-engine` skill. The
+unified drift table now includes every audit finding tagged `[auto]`
+or `[manual]`. Mechanical fixes (convention files, ONBOARDING.md,
+snapshot regen via `/harness-health`, HARNESS.md Status section regen
+via `/harness-audit`) auto-apply when selected. Judgement-required
+fixes (`/harness-upgrade`, `/harness-constrain`) print the suggested
+command without writing — preserving the trust boundary.
+
+`/harness-audit` keeps its standalone diagnostic role unchanged. Both
+commands now share the same engine; surface coverage evolves in one
+place.
+
+### Docs — Lifecycle simplification
+
+Three explanation pages are rewritten to converge on a single
+canonical narrative:
+
+- `the-harness-lifecycle` is now the everyday three-state model
+  (in sync, drifted, behind upstream) with `/harness-sync`,
+  `/harness-upgrade`, and `/harness-constrain` as the everyday entry
+  points.
+- `the-harness-tuning-loop` refocuses on the signal-capture →
+  constraint-promotion sub-flow specifically.
+- `self-improving-harness` trims to the conceptual core (why
+  iteration matters, the compound-learning principle).
+
+How-to pages for sync-harness and run-a-harness-audit are updated
+to reflect the audit-driven flow and the diagnostic-vs-everyday split.
+Touch-ups across tutorials, plugin landing, CLAUDE.md (root +
+template), and README align command descriptions.
+
+### Internal
+
+- New skill: `harness-audit-engine` documents the shared
+  drift-detection contract.
+
 ## 0.34.1 — 2026-05-08
 
 ### Docs — Migrate site infrastructure from Jekyll/just-the-docs to MkDocs Material

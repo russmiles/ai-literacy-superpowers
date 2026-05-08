@@ -9,169 +9,139 @@ redirect_from:
   - /how-to/sync-harness.html
 ---
 
-# Sync Harness Surfaces
+# Sync the harness
 
-Run `/harness-sync` to detect drift across all push-direction control surfaces
-and bring them back in line with `HARNESS.md` in a single pass. For
-single-surface deep dives, see
-[Sync Conventions](sync-conventions.md)
-(convention and constraint files) and
-[Generate an Onboarding Guide](generate-onboarding.md)
-(`ONBOARDING.md`).
+> Run `/harness-sync` to bring every surface into alignment with
+> `HARNESS.md`. Same engine as `/harness-audit` (the read-only
+> diagnostic), but with a multi-select prompt that lets you apply
+> the fixes.
 
----
+## When to run it
 
-## Prerequisites
+- After modifying `HARNESS.md` (new constraint, edited convention,
+  promoted enforcement level).
+- After merging a PR that touched `HARNESS.md` or any of the derived
+  surfaces.
+- When you suspect drift but want to see the full picture before
+  acting.
+- As a periodic check — once a sprint or whenever the SessionStart
+  hook nudges you.
 
-- `HARNESS.md` exists in the project root (created by `/harness-init`).
-- The working tree is clean — `/harness-sync` refuses to run on a dirty tree.
-  Stash or commit your work-in-progress first.
-- `gh` CLI is authenticated (needed for PR creation on a fresh `chore/` branch).
+## What you'll see
 
----
-
-## 1. Phase 1 — Drift scan
-
-```text
-/harness-sync
-```
-
-The command checks the current branch and working-tree state, then scans every
-push-direction surface and prints a status table:
+`/harness-sync` runs in three phases. Phase 1 is the drift scan via
+the shared audit-engine; it prints a unified drift table:
 
 ```text
-Surface                                              Status      Action on apply
-───────────────────────────────────────────────────  ──────────  ─────────────────────────
-.cursor/rules/                                       drifted     /convention-sync
-.github/copilot-instructions.md                      in sync     —
-.windsurf/rules/                                     missing     /convention-sync (create)
-ONBOARDING.md                                        drifted     /harness-onboarding
-CI / CD (constraint scope)                           managed     handled at runtime
-─────────────────────────────────────────────────────────────────────────────────────────
-5 surfaces tracked · 2 drifted · 1 missing · 1 in sync · 1 managed at runtime
+Surface / Finding                              Status      Action on apply
+─────────────────────────────────────────────  ──────────  ────────────────────────
+.cursor/rules/                                 drifted     /convention-sync       [auto]
+.github/copilot-instructions.md                in sync     —
+.windsurf/rules/                               missing     /convention-sync       [auto]
+ONBOARDING.md                                  drifted     /harness-onboarding    [auto]
+Snapshot staleness (last: 2026-04-15)          drifted     /harness-health        [auto]
+HARNESS.md Status section accuracy             drifted     /harness-audit         [auto]
+Template version (HARNESS: 0.31, plugin: 0.34) drifted     /harness-upgrade       [manual]
+Reflection pattern: Output validation x3       candidate   /harness-constrain     [manual]
+CI / CD (constraint scope)                     managed     handled at runtime
 ```
 
-State vocabulary:
+The `Action on apply` column has two flavours:
 
-| State | Meaning |
-| ----- | ------- |
-| `drifted` | File exists but diverges from `HARNESS.md` |
-| `missing` | File is absent; would be created on apply |
-| `in sync` | File matches `HARNESS.md` |
-| `managed` | Runtime-managed by `harness-enforcer`; surfaced for completeness only |
+- **`[auto]`** — the fix is mechanical. `/harness-sync` will run it
+  for you when you select the row.
+- **`[manual]`** — the fix needs a judgement call (which constraint
+  to add, whether to take a template upgrade). `/harness-sync` will
+  print the suggested command but won't run it.
 
-If all surfaces are `in sync` or `managed`, the command exits cleanly — nothing
-to do.
+## What you'll do
 
-Pass `--check` to run the scan without applying anything (useful from CI or as
-the deep-scan step inside `/harness-health --deep`). The flag exits after
-printing the table, non-zero if any surface is `drifted` or `missing`.
+After Phase 1 prints the drift table, Phase 2 prompts you with a
+multi-select. Every drifted, missing, or candidate finding appears
+as a checkbox. `[auto]` items default to checked; `[manual]` items
+default to unchecked.
 
----
+Pick which to address. Hit "Apply nothing — exit without changes" if
+you just wanted the diagnostic.
 
-## 2. Phase 2 — Selection
+Phase 3 applies the fixes. For each `[auto]` selection, `/harness-sync`
+invokes the underlying primitive (`/convention-sync`,
+`/harness-onboarding`, `/harness-health`, `/harness-audit`). For each
+`[manual]` selection, it prints a "next step" line:
 
-After the scan, `/harness-sync` presents a multi-select prompt listing each
-`drifted` or `missing` surface. All drifted/missing surfaces are selected by
-default. Deselect anything you want to handle separately.
+```text
+Manual remediation suggested for: Template version drift
+Run: /harness-upgrade
+```
 
-The `managed` row (CI / CD) never appears as a selectable option — it is status,
-not an action.
+You run those separately.
 
-An "Apply nothing — exit without changes" option is always present to make the
-no-op path an explicit choice.
+## Verification
 
----
-
-## 3. Phase 3 — Apply with verification
-
-For each selected surface, the command invokes the corresponding primitive in
-series:
-
-- `.cursor/rules/` _and_ `.windsurf/rules/` → `/convention-sync`
-- `ONBOARDING.md` → `/harness-onboarding`
-
-After applying, it re-runs the drift scan as a verification pass and prints a
+`/harness-sync` re-runs the audit-engine after applying and prints a
 delta table:
 
 ```text
 Apply complete — verification scan:
 
-Surface                                              Before      After
-───────────────────────────────────────────────────  ──────────  ──────────
-.cursor/rules/                                       drifted     in sync ✓
-.windsurf/rules/                                     missing     in sync ✓
-ONBOARDING.md                                        drifted     in sync ✓
+Surface / Finding                              Before      After
+─────────────────────────────────────────────  ──────────  ─────────────
+.cursor/rules/                                 drifted     in sync ✓
+.windsurf/rules/                               missing     in sync ✓
+ONBOARDING.md                                  drifted     in sync ✓
+Snapshot staleness                             drifted     in sync ✓
+HARNESS.md Status accuracy                     drifted     in sync ✓
+Template drift                                 drifted     drifted (manual — see suggestion above)
 ```
 
-If a surface fails to come into sync it is marked `still drifted (error)`, the
-command exits non-zero, and nothing is committed. Fix the underlying primitive
-and re-run.
+If any selected `[auto]` finding didn't reach `in sync`, the run exits
+non-zero and prints what failed. `[manual]` findings keep their
+"drifted" status with the suggestion note — they were never going to
+be auto-applied.
 
----
+## Branch and trust-boundary
 
-## 4. Branch and PR discipline
+`/harness-sync` refuses to run on `main`. If you're on `main` it
+offers to create `chore/sync-surfaces-YYYY-MM-DD` for you. The
+trust-boundary pre-commit guard restricts what gets staged: only
+`.cursor/rules/**`, `.github/copilot-instructions.md`,
+`.windsurf/rules/**`, and `ONBOARDING.md` may be committed.
+`HARNESS.md`, `AGENTS.md`, and `REFLECTION_LOG.md` are off-limits to
+this command.
 
-### Running on `main`
+If a `[auto]` action mutates HARNESS.md (the Status section update
+from `/harness-audit`, for example), that mutation lands as part of
+the action's own flow and is committed separately by the action's
+own logic. `/harness-sync`'s commit covers only the four push-direction
+surfaces.
 
-`/harness-sync` refuses to apply changes directly to `main`. It offers to
-create a `chore/sync-surfaces-YYYY-MM-DD` branch (you can supply a custom name
-instead). Once you confirm, it switches to the new branch and proceeds. After
-the verification pass it:
+## `--check` mode
 
-1. Stages only the surface files (`.cursor/rules/`, `.github/copilot-instructions.md`,
-   `.windsurf/rules/`, `ONBOARDING.md`).
-2. Commits with a parameterised message: `chore: sync convention files and ONBOARDING.md to HARNESS.md`.
-3. Pushes the branch and opens a PR with `--label chore`.
-4. Reports the PR URL and the verification delta.
+`/harness-sync --check` runs Phase 1 only. Prints the drift table and
+exits. Useful from CI or scripts when you just want to know if drift
+exists. Exits non-zero if any finding is drifted, missing, or candidate;
+zero otherwise.
 
-The `chore/` prefix satisfies the spec-first-check branch-prefix exemption —
-no spec document is required for this type of maintenance PR.
+## When `/harness-sync` isn't enough
 
-### Running on a feature branch
+Some drift can't be `[auto]`-fixed:
 
-If you are already on a feature branch, `/harness-sync` takes a lighter path:
-apply, verify, stage, commit. _No push, no PR._ The commit joins your existing
-branch and you push when ready.
+- **Template drift** — run `/harness-upgrade` and adjudicate the new
+  items.
+- **Constraint regression** — run `/harness-constrain` to either fix
+  the constraint or downgrade its enforcement level.
+- **Recurring reflection pattern** — run `/harness-constrain` to
+  promote the pattern into a constraint.
 
----
+`/harness-sync` will tell you which to run. You decide when.
 
-## 5. Refusal cases
+## Related
 
-| Situation | What happens |
-| --------- | ------------ |
-| Uncommitted changes on the working tree | Refuses to run; lists dirty paths; suggests `git stash` or commit-first |
-| Underlying primitive errors for one surface | Continues with remaining surfaces; marks the errored surface `still drifted (error)`; exits non-zero |
-| Verification scan still shows drift after apply | Exits non-zero; reports failed surfaces; does not commit |
-| User declines all surfaces in Phase 2 | Exits cleanly with no changes |
-| Pre-commit guard finds a path outside the allow-list | Refuses to commit; reports the unexpected path as a bug in the underlying primitive |
-
----
-
-## 6. Trust boundary
-
-`/harness-sync` _never_ writes to `HARNESS.md`, `AGENTS.md`, or
-`REFLECTION_LOG.md`. These are the harness source of truth; the command only
-writes to the generated surfaces derived from them (`.cursor/rules/`,
-`.github/copilot-instructions.md`, `.windsurf/rules/`, `ONBOARDING.md`).
-
-A pre-commit guard verifies every staged path against that allow-list before
-committing. Any path outside it is treated as a bug in the underlying
-primitive — the command refuses to commit and reports the offending path.
-
-This boundary mirrors the trust model used by `harness-gc` and
-`governance-auditor`: read the harness, write to the surfaces, never write to
-the harness itself.
-
----
-
-## See also
-
-- [Sync Conventions](sync-conventions.md)
-  — single-surface deep dive for convention and constraint files
-- [Generate an Onboarding Guide](generate-onboarding.md)
-  — single-surface deep dive for `ONBOARDING.md`
-- [The Harness Tuning Loop](../explanation/the-harness-tuning-loop.md)
-  — the Propagate stage (Stage 5) that `/harness-sync` serves
-- [The Harness Lifecycle](../explanation/the-harness-lifecycle.md)
-  — the Renewal stage where surface synchronisation fits
+- [How to: run a harness audit](run-a-harness-audit.md) — the
+  read-only diagnostic, same engine as sync.
+- [The Harness Lifecycle](../explanation/the-harness-lifecycle.md) —
+  the broader detect-heal-pull frame.
+- [How to: add a constraint](add-a-constraint.md) — the
+  `/harness-constrain` workflow.
+- [How to: upgrade your harness](upgrade-your-harness.md) — the
+  `/harness-upgrade` workflow.

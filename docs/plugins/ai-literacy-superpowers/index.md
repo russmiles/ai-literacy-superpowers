@@ -17,6 +17,11 @@ The flagship plugin in this marketplace — harness engineering, agent
 orchestration, literate programming, CUPID code review, compound
 learning, and the three enforcement loops.
 
+The everyday lifecycle entry is `/harness-sync` — it detects drift
+across every surface and applies the fixes you select. See
+[The Harness Lifecycle](explanation/the-harness-lifecycle.md) for the
+broader frame.
+
 The plugin's source lives at [`ai-literacy-superpowers/`](https://github.com/Habitat-Thinking/ai-literacy-superpowers/tree/main/ai-literacy-superpowers)
 in the repository.
 
