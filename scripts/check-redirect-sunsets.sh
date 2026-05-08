@@ -9,6 +9,9 @@
 # Reports each finding on stdout. Exits 0 if no findings, 1 if findings
 # exist, 2 on usage or environment error.
 #
+# All markers in a file are evaluated; the file is flagged if ANY marker
+# date is in the past.
+#
 # Usage: check-redirect-sunsets.sh [directory]
 # Defaults to docs/plugins when called from the repo root.
 
@@ -25,25 +28,22 @@ today="$(date +%Y-%m-%d)"
 findings=0
 
 while IFS= read -r -d '' file; do
-  # Extract the date from the marker line. The marker format may be either:
+  # Extract all dates from redirect-sunset markers. The marker format may be:
   #   # redirect-sunset: YYYY-MM-DD          (YAML frontmatter comment)
   #   <!-- redirect-sunset: YYYY-MM-DD -->   (HTML comment)
-  marker_date="$(grep -oE 'redirect-sunset: [0-9]{4}-[0-9]{2}-[0-9]{2}' "$file" \
-    | head -1 \
-    | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' || true)"
-
-  if [[ -z "$marker_date" ]]; then
-    continue
-  fi
-
-  if [[ "$marker_date" < "$today" ]]; then
-    echo "$file: redirect sunset $marker_date has passed (today: $today)"
-    findings=$((findings + 1))
-  fi
+  while IFS= read -r marker_date; do
+    [[ -z "$marker_date" ]] && continue
+    if [[ "$marker_date" < "$today" ]]; then
+      echo "$file: redirect sunset $marker_date has passed (today: $today)"
+      findings=$((findings + 1))
+      break  # one report per file is enough
+    fi
+  done < <(grep -oE 'redirect-sunset: [0-9]{4}-[0-9]{2}-[0-9]{2}' "$file" \
+    | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' || true)
 done < <(find "$target" -type f -name "*.md" -print0)
 
 if [[ "$findings" -gt 0 ]]; then
-  echo "Total findings: $findings"
+  echo "Total findings: $findings" >&2
   exit 1
 fi
 
