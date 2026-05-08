@@ -43,7 +43,7 @@ model's existence cannot be confirmed.
 
 A single markdown string containing the full card content — frontmatter
 plus all 10 sections per the
-[card template]({% link plugins/model-cards/reference/card-template.md %}).
+[card template](card-template.md).
 
 The agent does **not** write the file. The dispatching command
 persists the output after a human-in-the-loop review checkpoint.
@@ -180,11 +180,11 @@ produces. The agent aggregates sources at the top of the card.
 
 ## Related
 
-- [`/model-card` command]({% link plugins/model-cards/reference/commands.md %}) —
+- [`/model-card` command](commands.md) —
   the dispatcher that uses this agent.
-- [`model-cards` skill]({% link plugins/model-cards/reference/skills.md %}) —
+- [`model-cards` skill](skills.md) —
   authoring reference for the 10-section card structure.
-- [Card template]({% link plugins/model-cards/reference/card-template.md %}) —
+- [Card template](card-template.md) —
   the canonical structure the agent populates.
-- [Mitchell-extended model cards]({% link plugins/model-cards/explanation/mitchell-extended-cards.md %}) —
+- [Mitchell-extended model cards](../explanation/mitchell-extended-cards.md) —
   why the agent works the way it does.

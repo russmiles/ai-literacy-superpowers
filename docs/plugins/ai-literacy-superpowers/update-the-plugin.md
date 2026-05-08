@@ -47,7 +47,7 @@ claude plugin list
 
 Look for `ai-literacy-superpowers` in the output and compare the version
 shown against the [releases page](https://github.com/Habitat-Thinking/ai-literacy-superpowers/releases)
-or the [CHANGELOG](../../../CHANGELOG.md).
+or the [CHANGELOG](https://github.com/Habitat-Thinking/ai-literacy-superpowers/blob/main/CHANGELOG.md).
 
 ---
 
@@ -80,7 +80,7 @@ Check the changelog for anything that affects your workflow:
 cat ~/.claude/plugins/cache/ai-literacy-superpowers/ai-literacy-superpowers/<version>/CHANGELOG.md
 ```
 
-Or browse the [CHANGELOG](../../../CHANGELOG.md) on GitHub. Pay attention
+Or browse the [CHANGELOG](https://github.com/Habitat-Thinking/ai-literacy-superpowers/blob/main/CHANGELOG.md) on GitHub. Pay attention
 to:
 
 - **New skills or agents** you may want to use
@@ -167,6 +167,6 @@ commands reflect the newest release.
 
 - [Run a harness audit](run-a-harness-audit.md) after major version
   updates to verify nothing has drifted
-- [Review the CHANGELOG](../../../CHANGELOG.md) for migration notes
+- [Review the CHANGELOG](https://github.com/Habitat-Thinking/ai-literacy-superpowers/blob/main/CHANGELOG.md) for migration notes
 - [Run an assessment](run-an-assessment.md) to see if new skills
   unlock higher literacy levels

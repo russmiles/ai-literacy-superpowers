@@ -113,7 +113,7 @@ Documentation is one input. But documentation that is not enforced is a suggesti
 
 ## Further reading
 
-- [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) -- the intellectual lineage behind designing development environments for human-AI collaboration
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- the mechanical components that make up a well-designed environment
-- [Context Engineering]({% link plugins/ai-literacy-superpowers/context-engineering.md %}) -- what goes into the environment and how to make tacit knowledge explicit
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- how constraints are enforced at different levels
+- [Habitat Engineering](habitat-engineering.md) -- the intellectual lineage behind designing development environments for human-AI collaboration
+- [Harness Engineering](harness-engineering.md) -- the mechanical components that make up a well-designed environment
+- [Context Engineering](context-engineering.md) -- what goes into the environment and how to make tacit knowledge explicit
+- [The Three Enforcement Loops](three-enforcement-loops.md) -- how constraints are enforced at different levels

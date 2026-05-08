@@ -71,7 +71,7 @@ The regression signal is different from a constraint failure or a garbage collec
 
 ## Further reading
 
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- the three-component model (context, constraints, observation) that regression detection is part of
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) -- how scheduled checks detect codebase entropy over time
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) -- how reflections drive the learning loop and why their absence signals regression
-- [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- how regression detection fits into the outer (scheduled) enforcement loop
+- [Harness Engineering](harness-engineering.md) -- the three-component model (context, constraints, observation) that regression detection is part of
+- [Garbage Collection](garbage-collection.md) -- how scheduled checks detect codebase entropy over time
+- [Compound Learning](compound-learning.md) -- how reflections drive the learning loop and why their absence signals regression
+- [Three Enforcement Loops](three-enforcement-loops.md) -- how regression detection fits into the outer (scheduled) enforcement loop

@@ -200,7 +200,7 @@ pathways extend the same logic: extraction surfaces what was tacit;
 assessment surfaces what was missing; affordance discovery surfaces
 what was implicit in configuration; template upgrades surface what
 the wider community has learned. See
-[Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) for
+[Compound Learning](compound-learning.md) for
 the broader treatment of how these signals become shared infrastructure.
 
 ### 2. Authoring and amendment
@@ -211,7 +211,7 @@ or GC rule is written into `HARNESS.md` via `/harness-init`,
 `/harness-upgrade`. Each flow surfaces the implications and writes
 the constraint with a declared enforcement state (`unverified`,
 `agent`, or `deterministic`). See
-[Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %})
+[Constraints and Enforcement](constraints-and-enforcement.md)
 for the field-level shape.
 
 ### 3. Verification and propagation
@@ -238,7 +238,7 @@ Garbage-collection rules run periodically via `/harness-gc` and
 detect entropy that neither real-time hooks nor PR gates catch.
 Audit findings feed back into flow 1 as fresh signals — the loop
 closes. The
-[Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %})
+[Self-Improving Harness](self-improving-harness.md)
 page describes the feedback loop in detail.
 
 ### The shape of the loop
@@ -278,7 +278,7 @@ is:
 1. **The ability to evolve the harness as a whole.** Constraints get
    tightened, retired, or migrated from agent to deterministic
    enforcement over time
-   ([Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %})).
+   ([Progressive Hardening](progressive-hardening.md)).
    That evolution happens through edits to `HARNESS.md` first, then
    propagation outward. Without the document, evolution becomes a
    distributed editing problem: change three CI files, two hook
@@ -373,23 +373,23 @@ no path to enforcement is a candidate for removal.
 
 ## See also
 
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) —
+- [Harness Engineering](harness-engineering.md) —
   the broader framing of the practice; where the term comes from and
   how the three components (context engineering, architectural
   constraints, garbage collection) compose
-- [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) —
+- [The Self-Improving Harness](self-improving-harness.md) —
   the audit-and-amendment feedback loop that keeps `HARNESS.md`
   honest
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) —
+- [Constraints and Enforcement](constraints-and-enforcement.md) —
   how constraints land in `HARNESS.md` and migrate from `unverified`
   to `agent` to `deterministic`
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) —
+- [Progressive Hardening](progressive-hardening.md) —
   the promotion ladder for constraints
-- [Agent Orchestration]({% link plugins/ai-literacy-superpowers/agent-orchestration.md %}) —
+- [Agent Orchestration](agent-orchestration.md) —
   how `AGENTS.md` and `HARNESS.md` interact in the spec-first pipeline
-- [HARNESS.md format reference]({% link plugins/ai-literacy-superpowers/harness-md-format.md %}) —
+- [HARNESS.md format reference](harness-md-format.md) —
   the field-by-field reference for the document itself
-- [How to: Add a Constraint]({% link plugins/ai-literacy-superpowers/add-a-constraint.md %}) —
+- [How to: Add a Constraint](add-a-constraint.md) —
   practical guide for amending `HARNESS.md`
 
 External: Addy Osmani's

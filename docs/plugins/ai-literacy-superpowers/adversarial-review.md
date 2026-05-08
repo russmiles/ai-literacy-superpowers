@@ -175,9 +175,9 @@ Objection records accumulate in `docs/superpowers/objections/` and feed the othe
 
 ## Further reading
 
-- [How to: Review a Spec Adversarially]({% link plugins/ai-literacy-superpowers/review-a-spec-adversarially.md %}) — the practical steps for running `/diaboli` and adjudicating the record
-- [Decision Archaeology]({% link plugins/ai-literacy-superpowers/decision-archaeology.md %}) — the paired Choice Cartographer agent that runs after diaboli adjudication; the Routing Rule that partitions findings between the two
-- [How to: Run the Choice Cartographer]({% link plugins/ai-literacy-superpowers/run-choice-cartograph.md %}) — practical steps for `/choice-cartograph`
-- [Agent Orchestration]({% link plugins/ai-literacy-superpowers/agent-orchestration.md %}) — the full pipeline in which adversarial review sits
-- [Agents Reference]({% link plugins/ai-literacy-superpowers/agents.md %}) — the advocatus-diaboli agent's tools and trust boundary
-- [Commands Reference: /diaboli]({% link plugins/ai-literacy-superpowers/commands.md %}) — command invocation and output format
+- [How to: Review a Spec Adversarially](review-a-spec-adversarially.md) — the practical steps for running `/diaboli` and adjudicating the record
+- [Decision Archaeology](decision-archaeology.md) — the paired Choice Cartographer agent that runs after diaboli adjudication; the Routing Rule that partitions findings between the two
+- [How to: Run the Choice Cartographer](run-choice-cartograph.md) — practical steps for `/choice-cartograph`
+- [Agent Orchestration](agent-orchestration.md) — the full pipeline in which adversarial review sits
+- [Agents Reference](agents.md) — the advocatus-diaboli agent's tools and trust boundary
+- [Commands Reference: /diaboli](commands.md) — command invocation and output format

@@ -80,5 +80,5 @@ governance-auditor agent writes the report (step 5). If the heading
 is wrong, fields are missing, or values use the wrong format, the
 command fixes the output in place.
 
-See [Output Validation]({% link plugins/ai-literacy-superpowers/output-validation.md %})
+See [Output Validation](output-validation.md)
 for the general checkpoint pattern.

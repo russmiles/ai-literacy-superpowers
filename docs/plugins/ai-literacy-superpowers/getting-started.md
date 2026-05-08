@@ -412,7 +412,7 @@ run reflections, and discover patterns worth encoding.
 - [Harness for an Existing Codebase](harness-from-scratch) — strategies for
   retrofitting a harness into a project that already has conventions but no
   enforcement
-- [How-to Guides]({% link plugins/ai-literacy-superpowers/index.md %}) — specific tasks: adding a constraint, setting
+- [How-to Guides](index.md) — specific tasks: adding a constraint, setting
   up secret detection, running a harness audit
-- [Reference: Commands]({% link plugins/ai-literacy-superpowers/commands.md %}) — full specification for every
+- [Reference: Commands](commands.md) — full specification for every
   slash command

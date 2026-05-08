@@ -143,7 +143,7 @@ Requirements
 
 Three things matter here.
 
-**The human gates.** There are now three. First, the advocatus-diaboli reviews the spec and produces an objection record — you adjudicate each objection, writing your disposition and rationale inline. The agent cannot do this for you: its trust boundary is read-only. The diaboli's gate is **hard** — the pipeline refuses to advance while any disposition is `pending`. Second, the choice-cartographer maps the implicit decisions the spec has made and produces a choice-story record — you write dispositions for each story (the same trust-boundary mechanism applies). The cartographer's gate is **soft** — `cartograph_pending_count` is surfaced as observability and the pipeline continues; the merge-time HARNESS constraint blocks the PR until dispositions are written. Third, you review and approve the *spec* itself. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you. See [Decision Archaeology]({% link plugins/ai-literacy-superpowers/decision-archaeology.md %}) for why the cartographer's gate is soft and the diaboli's is hard.
+**The human gates.** There are now three. First, the advocatus-diaboli reviews the spec and produces an objection record — you adjudicate each objection, writing your disposition and rationale inline. The agent cannot do this for you: its trust boundary is read-only. The diaboli's gate is **hard** — the pipeline refuses to advance while any disposition is `pending`. Second, the choice-cartographer maps the implicit decisions the spec has made and produces a choice-story record — you write dispositions for each story (the same trust-boundary mechanism applies). The cartographer's gate is **soft** — `cartograph_pending_count` is surfaced as observability and the pipeline continues; the merge-time HARNESS constraint blocks the PR until dispositions are written. Third, you review and approve the *spec* itself. Not line 47 of a 200-line diff — the plan. "Is this what I actually want? Does this approach make sense? Are we building the right thing?" That is the highest-leverage decision in the process. Once you approve the spec, the pipeline can run without you. See [Decision Archaeology](decision-archaeology.md) for why the cartographer's gate is soft and the diaboli's is hard.
 
 **The cycle limit.** When the reviewer rejects and the implementer fixes, there is a maximum of three cycles. Without a limit, you get agent ping-pong: the reviewer keeps finding issues, the implementer keeps introducing new ones, and the token cost keeps climbing. Three cycles is enough for genuine iteration. If it is not resolved in three, a human needs to look — and the problem is usually in the spec, not the code.
 
@@ -178,7 +178,7 @@ The pipeline assumes clean handoffs. In practice, specs are ambiguous. The test 
 
 **Agents that agree too easily.** A reviewer that approves everything is worse than no reviewer, because it gives you false confidence. You need to tune your reviewer's instructions to be genuinely adversarial — not hostile, but sceptical. "What is wrong with this?" is a better reviewer prompt than "Is this OK?"
 
-The structural solution to sycophantic reviewers is not better instructions — it is a separate agent whose entire charter is disagreement, dispatched before any implementation artefacts exist. This is the advocatus-diaboli: a read-only agent that reviews the spec, raises evidence-grounded objections, and cannot write its own dispositions. The last constraint is structural: a human must open the objection record and adjudicate before the pipeline proceeds. This is not a quality filter — it is a cognitive-engagement gate. See [Adversarial Review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %}) for the full conceptual background.
+The structural solution to sycophantic reviewers is not better instructions — it is a separate agent whose entire charter is disagreement, dispatched before any implementation artefacts exist. This is the advocatus-diaboli: a read-only agent that reviews the spec, raises evidence-grounded objections, and cannot write its own dispositions. The last constraint is structural: a human must open the objection record and adjudicate before the pipeline proceeds. This is not a quality filter — it is a cognitive-engagement gate. See [Adversarial Review](adversarial-review.md) for the full conceptual background.
 
 **Context loss between agents.** Each agent starts fresh. That is the point — fresh eyes. But it also means the implementer's reasoning about *why* it made a particular trade-off does not reach the reviewer. The reviewer sees a choice and flags it as wrong without knowing the constraint that forced it. Good pipeline design mitigates this with structured handoff documents, but it does not eliminate it.
 
@@ -214,9 +214,9 @@ That is the review process working. The reviewer can reject, and the implementer
 
 ## Further reading
 
-- [Agents Reference]({% link plugins/ai-literacy-superpowers/agents.md %}) — detailed catalogue of all agents in this plugin
-- [Adversarial Review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %}) — the concepts behind the advocatus-diaboli and the human-cognition gate
-- [Decision Archaeology]({% link plugins/ai-literacy-superpowers/decision-archaeology.md %}) — the choice-cartographer's role; intent debt and cognitive debt; the soft gate / hard gate asymmetry
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) — how agent output feeds the learning loop
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) — the constraints agents enforce
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) — the broader framework that agent orchestration fits within
+- [Agents Reference](agents.md) — detailed catalogue of all agents in this plugin
+- [Adversarial Review](adversarial-review.md) — the concepts behind the advocatus-diaboli and the human-cognition gate
+- [Decision Archaeology](decision-archaeology.md) — the choice-cartographer's role; intent debt and cognitive debt; the soft gate / hard gate asymmetry
+- [Compound Learning](compound-learning.md) — how agent output feeds the learning loop
+- [Constraints and Enforcement](constraints-and-enforcement.md) — the constraints agents enforce
+- [Harness Engineering](harness-engineering.md) — the broader framework that agent orchestration fits within

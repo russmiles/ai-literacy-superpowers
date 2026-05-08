@@ -337,7 +337,7 @@ and what gaps you have closed.
   assessment revealed gaps in your harness, start here
 - [Creating Your First Skill](your-first-skill) — encode domain knowledge
   the assessor found was missing
-- [How-to: Set Up Secret Detection]({% link plugins/ai-literacy-superpowers/set-up-secret-detection.md %}) —
+- [How-to: Set Up Secret Detection](set-up-secret-detection.md) —
   a common Level 2 → Level 3 gap
-- [Reference: Commands]({% link plugins/ai-literacy-superpowers/commands.md %}) — full specification for
+- [Reference: Commands](commands.md) — full specification for
   `/assess`, `/reflect`, and `/harness-audit`

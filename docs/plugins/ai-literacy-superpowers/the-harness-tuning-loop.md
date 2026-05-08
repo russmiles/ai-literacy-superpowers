@@ -13,7 +13,7 @@ redirect_from:
 
 A harness that cannot be tuned is a harness that calcifies. The loop on this page is what keeps it alive: a single recurring path that takes one operational surprise and converts it -- through six stages -- into a tightened policy and the enforcement surfaces that carry that policy. The simple version is that `REFLECTION_LOG.md` is the input, the GC agent is the watcher, `HARNESS.md` is the policy, and `AGENTS.md` / hooks / CI are the downstream surfaces that get re-tuned when the policy changes.
 
-Every other Explanation page in this section cuts the harness on a different axis: [The Loops That Learn]({% link plugins/ai-literacy-superpowers/the-loops-that-learn.md %}) cuts it as **four cadences**, [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) cuts it as **three timescales**, [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) cuts it as **the reflection mechanism**, [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) cuts it as **entropy detection**. This page is the integrative cut: one surprise, walked end to end through every surface it touches, with the concrete plumbing -- commands, skills, agents, hooks, workflows -- named at each stage.
+Every other Explanation page in this section cuts the harness on a different axis: [The Loops That Learn](the-loops-that-learn.md) cuts it as **four cadences**, [Three Enforcement Loops](three-enforcement-loops.md) cuts it as **three timescales**, [The Self-Improving Harness](self-improving-harness.md) cuts it as **the reflection mechanism**, [Garbage Collection](garbage-collection.md) cuts it as **entropy detection**. This page is the integrative cut: one surprise, walked end to end through every surface it touches, with the concrete plumbing -- commands, skills, agents, hooks, workflows -- named at each stage.
 
 ---
 
@@ -53,7 +53,7 @@ The only entry point to the steady-state loop is the `/reflect` command. There a
 
 The questions are deliberately blunt: *what were you working on, what was surprising, what should future agents know?* The answers land in `REFLECTION_LOG.md` as a structured entry with seven fields (date, agent, task, surprise, proposal, improvement, signal, constraint). The append-only structure matters: entries are never modified, never deleted. The file becomes the operational record of every surprise the team has registered.
 
-The signal classification (`context | instruction | workflow | failure | none`) is the routing hint: failures route to constraints, context signals route to `HARNESS.md`, workflow signals route to `AGENTS.md`, instruction signals route to skills or commands. See [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}#the-reflection-mechanism) for the full taxonomy.
+The signal classification (`context | instruction | workflow | failure | none`) is the routing hint: failures route to constraints, context signals route to `HARNESS.md`, workflow signals route to `AGENTS.md`, instruction signals route to skills or commands. See [The Self-Improving Harness](self-improving-harness.md#the-reflection-mechanism) for the full taxonomy.
 
 Sometimes the surprise is clearly a preventable failure -- a check that should have run, a tool that should have caught it -- and `/reflect` proposes a constraint immediately, offering it to the user for acceptance. Often the surprise looks one-off and just gets logged. Both outcomes are correct. A reflection that does not propose a constraint is not a wasted reflection; it is a data point that may matter only when a second one joins it.
 
@@ -65,7 +65,7 @@ Sometimes the surprise is clearly a preventable failure -- a check that should h
 
 The garbage collector watches reflections accumulate. The specific GC rule that closes this loop is **reflection-driven regression detection**: it reads `REFLECTION_LOG.md`, looks for the same kind of surprise appearing across two or more entries without a corresponding constraint in `HARNESS.md`, and when it spots one it files a GitHub issue with evidence (reflection dates and quotes), a suggested enforcement type, and a suggested scope.
 
-The rule runs weekly under `/harness-gc`, executed either on schedule (the `gc.yml` workflow) or on demand. The agent that runs it is `harness-gc`, supported by the [garbage-collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) skill. The agent is also reflection-aware in general: by design it reads recent `REFLECTION_LOG` entries before running any of its other rules, so reflections shape what it looks for beyond the declared rules. See [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}#the-gc-agent) for the full mechanics.
+The rule runs weekly under `/harness-gc`, executed either on schedule (the `gc.yml` workflow) or on demand. The agent that runs it is `harness-gc`, supported by the [garbage-collection](garbage-collection.md) skill. The agent is also reflection-aware in general: by design it reads recent `REFLECTION_LOG` entries before running any of its other rules, so reflections shape what it looks for beyond the declared rules. See [Garbage Collection](garbage-collection.md#the-gc-agent) for the full mechanics.
 
 Crucially, the GC agent **cannot write to `HARNESS.md`**. That is the trust boundary. It produces reports -- GitHub issues, summary outputs -- and nothing more. Humans decide what gets promoted.
 
@@ -77,7 +77,7 @@ Adjacent GC rules touch the loop's other surfaces during the same agent run: `do
 
 ## Stage 3 — Promote a proposal into HARNESS.md
 
-This is the only stage that writes new constraints into `HARNESS.md`, and it is deliberately interactive. No agent can bypass the human here. The command is `/harness-constrain`, supported by the [constraint-design]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) and [verification-slots]({% link plugins/ai-literacy-superpowers/set-up-verification-slots.md %}) skills. No agents are dispatched.
+This is the only stage that writes new constraints into `HARNESS.md`, and it is deliberately interactive. No agent can bypass the human here. The command is `/harness-constrain`, supported by the [constraint-design](constraints-and-enforcement.md) and [verification-slots](set-up-verification-slots.md) skills. No agents are dispatched.
 
 The interaction has two responsibilities. The first is to write the constraint into `HARNESS.md` in the canonical five-field format (rule, frequency, enforcement, tool, auto-fix). The second, when deterministic enforcement is selected, is to **configure the verification slot** -- the integration point that wires the named tool to the harness's enforcement engine. A constraint without a wired slot is a claim, not a check.
 
@@ -105,13 +105,13 @@ The auditor is the **only** agent permitted to update the Status section of `HAR
 
 ### 5a — AGENTS.md / CLAUDE.md (turn-time context)
 
-This is what the AI sees at session start. The relevant commands are `/extract-conventions` (when a new tacit convention surfaces through the cycle, supported by the convention-extraction skill), `/convention-sync` (which generates Cursor / Copilot / Windsurf rule files from `HARNESS.md`), and `/harness-onboarding` (which regenerates `ONBOARDING.md` from `HARNESS.md` + `AGENTS.md` + `REFLECTION_LOG.md`). The unified entry point that runs `/convention-sync` and `/harness-onboarding` together in one interactive pass — detecting drift across all push-direction surfaces, presenting the full picture, applying the user's selected fixes — is `/harness-sync`. See [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %}). The single-surface commands remain available for focused work.
+This is what the AI sees at session start. The relevant commands are `/extract-conventions` (when a new tacit convention surfaces through the cycle, supported by the convention-extraction skill), `/convention-sync` (which generates Cursor / Copilot / Windsurf rule files from `HARNESS.md`), and `/harness-onboarding` (which regenerates `ONBOARDING.md` from `HARNESS.md` + `AGENTS.md` + `REFLECTION_LOG.md`). The unified entry point that runs `/convention-sync` and `/harness-onboarding` together in one interactive pass — detecting drift across all push-direction surfaces, presenting the full picture, applying the user's selected fixes — is `/harness-sync`. See [Sync Harness Surfaces](sync-harness.md). The single-surface commands remain available for focused work.
 
 The GC rules that catch lag on this surface are `convention file sync` (weekly, agent-enforced), `command-prompt sync` (weekly, agent-enforced), and the monthly `ONBOARDING.md` staleness check. Together they ensure that when `HARNESS.md` changes, the convention files every AI assistant reads do not silently fall behind.
 
 ### 5b — Hooks (edit-time and session-end)
 
-There is no dedicated slash command for hooks. They are configured at install time via the [harness-engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) skill and inventoried by `/harness-affordance discover`. The steady-state moving part is the **rotating Stop hook**: each session it picks one deterministic GC rule by day-of-year and runs it as a sub-five-second advisory check. Over a working week, every deterministic rule is checked at least once, even if scheduled CI does not run.
+There is no dedicated slash command for hooks. They are configured at install time via the [harness-engineering](harness-engineering.md) skill and inventoried by `/harness-affordance discover`. The steady-state moving part is the **rotating Stop hook**: each session it picks one deterministic GC rule by day-of-year and runs it as a sub-five-second advisory check. Over a working week, every deterministic rule is checked at least once, even if scheduled CI does not run.
 
 The `SessionStart` hook is what surfaces `/harness-upgrade` prompts when template versions move, which is how new template-shipped GC rules and constraints reach existing harnesses without anyone having to remember to look.
 
@@ -131,9 +131,9 @@ The combination of all three surfaces -- session-start context, edit-time hooks,
 
 Two commands sit one level out from the per-surprise loop and tune at quarterly cadence. They catch what the per-surprise path misses: gaps that no individual surprise has surfaced yet, or governance constraints that have drifted in meaning rather than in enforcement.
 
-`/assess` (supported by the [ai-literacy-assessment]({% link plugins/ai-literacy-superpowers/run-an-assessment.md %}) skill, dispatching the `assessor` agent) reassesses the literacy level, surfaces gaps, and produces an improvement plan that may itself add constraints, hooks, or CI workflows. It is the loop's check on its own progress: are we catching surprises faster, are recurring patterns getting promoted, are constraints getting tighter over time.
+`/assess` (supported by the [ai-literacy-assessment](run-an-assessment.md) skill, dispatching the `assessor` agent) reassesses the literacy level, surfaces gaps, and produces an improvement plan that may itself add constraints, hooks, or CI workflows. It is the loop's check on its own progress: are we catching surprises faster, are recurring patterns getting promoted, are constraints getting tighter over time.
 
-`/governance-audit` (supported by the [governance-audit-practice]({% link plugins/ai-literacy-superpowers/run-a-governance-audit.md %}) and [governance-observability]({% link plugins/ai-literacy-superpowers/build-a-governance-dashboard.md %}) skills, dispatching the `governance-auditor` agent) does the same job for governance constraints specifically, with semantic-drift detection. Its trust boundary mirrors `harness-gc`: it writes audit reports, never modifies `HARNESS.md` directly.
+`/governance-audit` (supported by the [governance-audit-practice](run-a-governance-audit.md) and [governance-observability](build-a-governance-dashboard.md) skills, dispatching the `governance-auditor` agent) does the same job for governance constraints specifically, with semantic-drift detection. Its trust boundary mirrors `harness-gc`: it writes audit reports, never modifies `HARNESS.md` directly.
 
 These commands sit outside the per-surprise loop because they answer different questions. The per-surprise loop asks "did anything surprising happen?" The quarterly frame asks "are we still working on the right things?"
 
@@ -167,10 +167,10 @@ The infrastructure is not the product. The loop is the product. Every component 
 
 ## Further reading
 
-- [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) -- the deeper read on the reflection mechanism, including agent reading windows and the auto-constraint pipeline
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) -- the mechanics of GC rules, the GC agent's trust boundary, and the rules that propagate to surfaces 5a/5b/5c
-- [The Loops That Learn]({% link plugins/ai-literacy-superpowers/the-loops-that-learn.md %}) -- the four-cadence cut: reflect, health, assess, cost
-- [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- the timescale cut: inner (edit time, advisory), middle (PR time, blocking), outer (scheduled, investigative)
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) -- the introductory framing of why captured learnings compound, and why uncaptured ones do not
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) -- the anatomy of a constraint and the enforcement types referenced in stage 3
-- [Regression Detection]({% link plugins/ai-literacy-superpowers/regression-detection.md %}) -- the related-but-distinct sense of regression: broken practices rather than recurring surprises
+- [The Self-Improving Harness](self-improving-harness.md) -- the deeper read on the reflection mechanism, including agent reading windows and the auto-constraint pipeline
+- [Garbage Collection](garbage-collection.md) -- the mechanics of GC rules, the GC agent's trust boundary, and the rules that propagate to surfaces 5a/5b/5c
+- [The Loops That Learn](the-loops-that-learn.md) -- the four-cadence cut: reflect, health, assess, cost
+- [Three Enforcement Loops](three-enforcement-loops.md) -- the timescale cut: inner (edit time, advisory), middle (PR time, blocking), outer (scheduled, investigative)
+- [Compound Learning](compound-learning.md) -- the introductory framing of why captured learnings compound, and why uncaptured ones do not
+- [Constraints and Enforcement](constraints-and-enforcement.md) -- the anatomy of a constraint and the enforcement types referenced in stage 3
+- [Regression Detection](regression-detection.md) -- the related-but-distinct sense of regression: broken practices rather than recurring surprises

@@ -277,9 +277,9 @@ calibrate, not to be measured.
 
 ## See also
 
-- [Run the Choice Cartographer]({% link plugins/ai-literacy-superpowers/run-choice-cartograph.md %})
+- [Run the Choice Cartographer](run-choice-cartograph.md)
   — the practical guide to invoking it
-- [Adversarial Review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %})
+- [Adversarial Review](adversarial-review.md)
   — the diaboli's role and why the two are paired
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %})
+- [Compound Learning](compound-learning.md)
   — the broader frame for cross-record pattern surfacing

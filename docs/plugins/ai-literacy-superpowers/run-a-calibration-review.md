@@ -22,7 +22,7 @@ describes the procedure for *interpreting* that signal and producing
 calibration decisions — including the decision to leave things alone.
 
 For the conceptual background, see
-[Determinacy Calibration]({% link plugins/ai-literacy-superpowers/determinacy-calibration.md %}).
+[Determinacy Calibration](determinacy-calibration.md).
 
 ---
 
@@ -253,12 +253,12 @@ re-litigate the same questions without new evidence.
 
 ## See also
 
-- [Determinacy Calibration]({% link plugins/ai-literacy-superpowers/determinacy-calibration.md %}) —
+- [Determinacy Calibration](determinacy-calibration.md) —
   the conceptual background: bidirectional movement, four signal
   classes, refusals as outputs, the harness-as-habitat framing
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) —
+- [Progressive Hardening](progressive-hardening.md) —
   the determinacy ladder calibration applies to
-- [Run a Harness Audit]({% link plugins/ai-literacy-superpowers/run-a-harness-audit.md %}) —
+- [Run a Harness Audit](run-a-harness-audit.md) —
   the audit command that surfaces drift signal
-- [Add a Constraint]({% link plugins/ai-literacy-superpowers/add-a-constraint.md %}) —
+- [Add a Constraint](add-a-constraint.md) —
   applying calibration's promote/demote decisions

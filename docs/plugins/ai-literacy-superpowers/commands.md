@@ -165,7 +165,7 @@ governance fields (`Identity`, `Audit trail`, `Last reviewed`) are
 left as `TODO` placeholders. The scanner is the **backfill path** for
 existing harness adopters: running it once produces a draft for every
 existing permission. See
-[Discover Affordances]({% link plugins/ai-literacy-superpowers/discover-affordances.md %}) for the
+[Discover Affordances](discover-affordances.md) for the
 full how-to.
 
 `/harness-affordance add <name>` (planned, sequencing step 3 of the

@@ -13,7 +13,7 @@ redirect_from:
 
 A static harness reflects the team's understanding at one point in time and requires manual effort to improve. This plugin adds a self-improving layer: reflections captured after each session accumulate in a learnings log, agents read past learnings when reviewing new code, and the harness-audit agent analyzes violation history to propose new or strengthened constraints. The harness treats its own operational record as input data, generating improvement proposals that humans accept or reject -- closing the loop between observation and enforcement.
 
-For the introductory treatment of compound learning and the curation process, see [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}). This page goes deeper into the mechanics: the data structures, the agent reading windows, the automated proposal pipeline, and the feedback loop that makes the harness self-referential.
+For the introductory treatment of compound learning and the curation process, see [Compound Learning](compound-learning.md). This page goes deeper into the mechanics: the data structures, the agent reading windows, the automated proposal pipeline, and the feedback loop that makes the harness self-referential.
 
 ---
 
@@ -185,7 +185,7 @@ The complete self-improvement cycle has five stages:
 
 **Curate.** Periodically, a developer reads recent reflections and promotes recurring patterns into `AGENTS.md` -- a new GOTCHA, a refined ARCH_DECISION, a TEST_STRATEGY update. Patterns that do not recur are left in the log without promotion.
 
-**Promote.** Constraints that have proven their value at one enforcement level move up the [progressive hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) ladder. An unverified constraint becomes agent-backed when a review prompt is written. An agent-backed constraint becomes deterministic when the pattern is understood well enough to encode as a script. The harness-audit agent identifies candidates for promotion by detecting recurring violations at a given level.
+**Promote.** Constraints that have proven their value at one enforcement level move up the [progressive hardening](progressive-hardening.md) ladder. An unverified constraint becomes agent-backed when a review prompt is written. An agent-backed constraint becomes deterministic when the pattern is understood well enough to encode as a script. The harness-audit agent identifies candidates for promotion by detecting recurring violations at a given level.
 
 **Environment improves.** The updated `AGENTS.md` entries inform the next session's agents. The promoted constraints catch violations that previously slipped through. The new GC rules detect entropy that previously accumulated silently. The baseline is higher.
 
@@ -252,11 +252,11 @@ The incremental adoption model also means the feedback loop starts turning soone
 
 ## Further reading
 
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) -- the introductory treatment: the Groundhog Day problem, raw reflections, curation, and the flywheel
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- the full harness framework: context, constraints, garbage collection, and the three enforcement loops
-- [HARNESS.md, the Document]({% link plugins/ai-literacy-superpowers/harness-md.md %}) -- the central document the audit runs against; how it compares to `AGENTS.md`, CI config, and hooks
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) -- the promotion ladder from unverified to agent to deterministic
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- inner, middle, and outer loops operating at different timescales
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) -- fighting entropy with periodic checks and scheduled agents
-- [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) -- the broader environment that contains and shapes the harness
+- [Compound Learning](compound-learning.md) -- the introductory treatment: the Groundhog Day problem, raw reflections, curation, and the flywheel
+- [Harness Engineering](harness-engineering.md) -- the full harness framework: context, constraints, garbage collection, and the three enforcement loops
+- [HARNESS.md, the Document](harness-md.md) -- the central document the audit runs against; how it compares to `AGENTS.md`, CI config, and hooks
+- [Progressive Hardening](progressive-hardening.md) -- the promotion ladder from unverified to agent to deterministic
+- [The Three Enforcement Loops](three-enforcement-loops.md) -- inner, middle, and outer loops operating at different timescales
+- [Garbage Collection](garbage-collection.md) -- fighting entropy with periodic checks and scheduled agents
+- [Habitat Engineering](habitat-engineering.md) -- the broader environment that contains and shapes the harness
 - [The Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html) -- Birgitta Boeckeler's framework for converting session-level learning into shared infrastructure through four signal types and four cadences

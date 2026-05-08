@@ -158,11 +158,11 @@ A Stop hook nudges `/governance-audit` when governance-related files
 change during a session and the last audit is stale.
 
 For a hands-on walkthrough, start with the
-[Governance for Your Harness]({% link plugins/ai-literacy-superpowers/governance-for-your-harness.md %})
+[Governance for Your Harness](governance-for-your-harness.md)
 tutorial. For specific tasks, see the how-to guides:
 
-- [Write a governance constraint]({% link plugins/ai-literacy-superpowers/write-a-governance-constraint.md %})
-- [Run a governance audit]({% link plugins/ai-literacy-superpowers/run-a-governance-audit.md %})
-- [Check governance health]({% link plugins/ai-literacy-superpowers/check-governance-health.md %})
-- [Detect semantic drift]({% link plugins/ai-literacy-superpowers/detect-semantic-drift.md %})
-- [Build a governance dashboard]({% link plugins/ai-literacy-superpowers/build-a-governance-dashboard.md %})
+- [Write a governance constraint](write-a-governance-constraint.md)
+- [Run a governance audit](run-a-governance-audit.md)
+- [Check governance health](check-governance-health.md)
+- [Detect semantic drift](detect-semantic-drift.md)
+- [Build a governance dashboard](build-a-governance-dashboard.md)

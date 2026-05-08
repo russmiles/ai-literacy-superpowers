@@ -11,7 +11,7 @@ redirect_from:
 
 # Codebase Entropy
 
-This page explains why codebases degrade and how AI accelerates the problem. For the mechanical details of fighting entropy, see [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}).
+This page explains why codebases degrade and how AI accelerates the problem. For the mechanical details of fighting entropy, see [Garbage Collection](garbage-collection.md).
 {: .note }
 
 ---
@@ -222,6 +222,6 @@ Your environment is not a thing you build once. It is a thing you maintain forev
 
 ## Further reading
 
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) -- detailed GC rule mechanics and implementation
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) -- the constraints that entropy erodes
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) -- how the learning loop fights entropy over time
+- [Garbage Collection](garbage-collection.md) -- detailed GC rule mechanics and implementation
+- [Constraints and Enforcement](constraints-and-enforcement.md) -- the constraints that entropy erodes
+- [Compound Learning](compound-learning.md) -- how the learning loop fights entropy over time

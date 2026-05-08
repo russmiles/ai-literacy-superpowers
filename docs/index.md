@@ -15,7 +15,7 @@ engineering**, **agent orchestration**, **decision archaeology**,
 {: .fs-6 .fw-300 }
 
 [Get Started](plugins/ai-literacy-superpowers/getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Browse Plugins]({% link plugins/index.md %}){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Browse Plugins](plugins/index.md){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [Quick Install](#add-the-marketplace){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
@@ -24,12 +24,12 @@ engineering**, **agent orchestration**, **decision archaeology**,
 
 | Plugin | What it does | Get started |
 | ------ | ------------ | ----------- |
-| **[ai-literacy-superpowers]({% link plugins/ai-literacy-superpowers/index.md %})** | The flagship. Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. 30 skills, 13 agents, 24 commands. | [Tutorial]({% link plugins/ai-literacy-superpowers/getting-started.md %}) |
-| **[model-cards]({% link plugins/model-cards/index.md %})** | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy with refusal-on-unconfirmed-existence honesty rule. | [Tutorial]({% link plugins/model-cards/how-to/seed-your-library.md %}) |
+| **[ai-literacy-superpowers](plugins/ai-literacy-superpowers/index.md)** | The flagship. Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. 30 skills, 13 agents, 24 commands. | [Tutorial](plugins/ai-literacy-superpowers/getting-started.md) |
+| **[model-cards](plugins/model-cards/index.md)** | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy with refusal-on-unconfirmed-existence honesty rule. | [Tutorial](plugins/model-cards/how-to/seed-your-library.md) |
 
 The marketplace is on track to ship more sister plugins as the
 framework grows. New plugins land under
-[`/plugins/`]({% link plugins/index.md %}) with their own tutorials,
+[`/plugins/`](plugins/index.md) with their own tutorials,
 how-to guides, reference, and explanation pages.
 
 ---
@@ -96,7 +96,7 @@ It gives you:
 In a fresh project, run `/superpowers-init` for the full habitat or
 `/harness-init` for just the constraint machinery.
 
-[Browse the ai-literacy-superpowers docs →]({% link plugins/ai-literacy-superpowers/index.md %})
+[Browse the ai-literacy-superpowers docs →](plugins/ai-literacy-superpowers/index.md)
 
 ### model-cards — Mitchell-extended model card research
 
@@ -119,7 +119,7 @@ It gives you:
   docs) or tier-2 (HuggingFace), preventing authoritative-looking
   cards for hallucinated models
 
-[Browse the model-cards docs →]({% link plugins/model-cards/index.md %})
+[Browse the model-cards docs →](plugins/model-cards/index.md)
 
 ---
 
@@ -131,10 +131,10 @@ using the [Diataxis framework](https://diataxis.fr/).
 
 | Plugin | Documentation |
 | ------ | ------------- |
-| ai-literacy-superpowers | [Landing]({% link plugins/ai-literacy-superpowers/index.md %}) · [Tutorials]({% link plugins/ai-literacy-superpowers/index.md %}#tutorials--learning-oriented) · [How-to]({% link plugins/ai-literacy-superpowers/index.md %}#how-to-guides--task-oriented) · [Reference]({% link plugins/ai-literacy-superpowers/index.md %}#reference--exact-details) · [Explanation]({% link plugins/ai-literacy-superpowers/index.md %}#explanation--concepts) |
-| model-cards | [Landing]({% link plugins/model-cards/index.md %}) · [Tutorial]({% link plugins/model-cards/how-to/seed-your-library.md %}) · [How-to]({% link plugins/model-cards/how-to/research-a-model-card.md %}) · [Reference]({% link plugins/model-cards/reference/commands.md %}) · [Explanation]({% link plugins/model-cards/explanation/mitchell-extended-cards.md %}) |
+| ai-literacy-superpowers | [Landing](plugins/ai-literacy-superpowers/index.md) · [Tutorials](plugins/ai-literacy-superpowers/index.md#tutorials--learning-oriented) · [How-to](plugins/ai-literacy-superpowers/index.md#how-to-guides--task-oriented) · [Reference](plugins/ai-literacy-superpowers/index.md#reference--exact-details) · [Explanation](plugins/ai-literacy-superpowers/index.md#explanation--concepts) |
+| model-cards | [Landing](plugins/model-cards/index.md) · [Tutorial](plugins/model-cards/how-to/seed-your-library.md) · [How-to](plugins/model-cards/how-to/research-a-model-card.md) · [Reference](plugins/model-cards/reference/commands.md) · [Explanation](plugins/model-cards/explanation/mitchell-extended-cards.md) |
 
-See the [Plugins index]({% link plugins/index.md %}) for the canonical
+See the [Plugins index](plugins/index.md) for the canonical
 list.
 
 ### Old URLs
