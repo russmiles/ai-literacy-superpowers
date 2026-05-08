@@ -10,9 +10,9 @@
 # Usage: rewrite-docs-links.sh <move-map.tsv>
 #
 # Skips: .git/, node_modules/, observability/archive/, reflections/archive/,
-# docs/superpowers/specs/ (specs may quote old paths in their "before"
-# examples), docs/superpowers/objections/ and stories/ (historical),
-# CHANGELOG.md (historical PR descriptions).
+# docs/superpowers/specs/, docs/superpowers/plans/ (may quote old paths in
+# their "before" examples), docs/superpowers/objections/ and stories/
+# (historical), CHANGELOG.md (historical PR descriptions).
 
 set -euo pipefail
 
@@ -41,7 +41,7 @@ while IFS=$'\t' read -r old new; do
     if grep -qF "$old" "$file"; then
       sed "s|$old|$new|g" "$file" >"$file.tmp" && mv "$file.tmp" "$file"
     fi
-  done < <(find . -type f -name "*.md" -print0 \
+  done < <(find . -type f -name "*.md" \
     -not -path "./.git/*" \
     -not -path "./node_modules/*" \
     -not -path "./observability/archive/*" \
@@ -51,5 +51,6 @@ while IFS=$'\t' read -r old new; do
     -not -path "./docs/superpowers/stories/*" \
     -not -path "./docs/superpowers/plans/*" \
     -not -path "./CHANGELOG.md" \
-    -not -path "./model-cards/CHANGELOG.md")
+    -not -path "./model-cards/CHANGELOG.md" \
+    -print0)
 done <"$map"

@@ -32,6 +32,12 @@ cat >"$fixture/no-matches.md" <<'EOF'
 Just a [README](README.md) link, nothing to rewrite.
 EOF
 
+# Fixture: an excluded path (.git/) containing a link that must NOT be rewritten
+mkdir -p "$fixture/.git"
+cat >"$fixture/.git/excluded.md" <<'EOF'
+See [Old Doc](docs/plugins/test-plugin/research-a-model-card.md) — should not be rewritten.
+EOF
+
 # Run the script against the fixture
 cd "$fixture"
 "$script" move-map.tsv
@@ -61,6 +67,12 @@ fi
 # Assert: no-matches.md is unchanged
 if ! grep -qF "[README](README.md) link" no-matches.md; then
   echo "FAIL: no-matches.md was modified unexpectedly"
+  exit 1
+fi
+
+# Assert: .git/excluded.md was NOT rewritten (exclusion must apply)
+if ! grep -qF "docs/plugins/test-plugin/research-a-model-card.md" .git/excluded.md; then
+  echo "FAIL: .git/excluded.md was modified despite being in an excluded path"
   exit 1
 fi
 
