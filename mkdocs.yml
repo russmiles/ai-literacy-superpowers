@@ -1,0 +1,99 @@
+site_name: ai-literacy-superpowers
+site_description: >-
+  The AI Literacy framework's complete development workflow — harness
+  engineering, agent orchestration, literate programming, CUPID code
+  review, compound learning, and the three enforcement loops.
+site_url: https://Habitat-Thinking.github.io/ai-literacy-superpowers/
+repo_url: https://github.com/Habitat-Thinking/ai-literacy-superpowers
+repo_name: Habitat-Thinking/ai-literacy-superpowers
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+
+# Files in docs/superpowers/ are workflow records (specs, plans, objections,
+# stories), not user-facing docs. Exclude them from the site build.
+exclude_docs: |
+  superpowers/
+  _template.md
+  README.md
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - awesome-pages
+  - redirects:
+      redirect_maps: {}
+
+markdown_extensions:
+  # Standard recommended set for technical docs
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  # Pymdown extensions
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Habitat-Thinking/ai-literacy-superpowers
+
+copyright: >-
+  ai-literacy-superpowers is licensed under Apache 2.0.
+  Inspired by Birgitta Boeckeler's
+  <a href="https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html">Harness Engineering</a>.
