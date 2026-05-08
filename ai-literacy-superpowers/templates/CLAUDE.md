@@ -170,12 +170,13 @@ For each plugin, content is organised into Diataxis quadrant folders:
 
 Pages live at `docs/plugins/<plugin-name>/<quadrant>/<slug>.md`. The
 plugin's root `index.md` is a landing page that links to each quadrant;
-each quadrant has its own `index.md` with `has_children: true` so
-just-the-docs renders the nested tree. Friendly nav labels are set via
-`nav_label` frontmatter. The `_template.md` file stays at the plugin
-root with header guidance for each quadrant. A quadrant folder is
-created only when the plugin has at least one page in that quadrant —
-empty quadrants are not scaffolded.
+each quadrant has its own `index.md` so MkDocs Material renders the
+section as a navigable group. The site uses the `mkdocs-awesome-pages`
+plugin to derive nav from the filesystem — folder structure is the
+source of truth, no manual `nav:` listing required. The `_template.md`
+file stays at the plugin root with header guidance for each quadrant.
+A quadrant folder is created only when the plugin has at least one
+page in that quadrant — empty quadrants are not scaffolded.
 
 For the `ai-literacy-superpowers` plugin, pages live at
 `docs/plugins/ai-literacy-superpowers/<quadrant>/<slug>.md`. For sister
