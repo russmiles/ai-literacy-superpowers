@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 #
 # check-redirect-sunsets.sh — implements the Redirect sunset GC rule.
 #
@@ -14,8 +15,6 @@
 #
 # Usage: check-redirect-sunsets.sh [directory]
 # Defaults to docs/plugins when called from the repo root.
-
-set -euo pipefail
 
 target="${1:-docs/plugins}"
 

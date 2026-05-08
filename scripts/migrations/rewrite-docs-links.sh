@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 #
 # rewrite-docs-links.sh — one-shot link rewriter for docs reorgs.
 #
@@ -13,8 +14,6 @@
 # docs/superpowers/specs/, docs/superpowers/plans/ (may quote old paths in
 # their "before" examples), docs/superpowers/objections/ and stories/
 # (historical), any file named CHANGELOG.md (historical PR descriptions).
-
-set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
   echo "Usage: $0 <move-map.tsv>" >&2
