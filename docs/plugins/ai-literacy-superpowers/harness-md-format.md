@@ -150,7 +150,7 @@ real-time hooks nor PR gates catch.
 
 The template includes starter rules. Projects can add, remove, or
 modify rules freely. See the
-[Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %})
+[Garbage Collection](garbage-collection.md)
 explanation page for the design rationale.
 
 ### Optional rule categories
@@ -170,7 +170,7 @@ Uncomment the categories relevant to your project.
 
 Controls how often observability activities run and what thresholds
 trigger health status changes. See
-[Configure Observability]({% link plugins/ai-literacy-superpowers/configure-observability.md %})
+[Configure Observability](configure-observability.md)
 for a guide to tuning these settings.
 
 ### Snapshot cadence
@@ -218,7 +218,7 @@ Regression Indicators section.
 | Cadence non-compliance | 2 or more activities overdue | One overdue is normal; two signals systemic slowdown |
 | Reflection drought | 4 consecutive weeks with zero reflections | The compound learning loop has stopped |
 
-See [Regression Detection]({% link plugins/ai-literacy-superpowers/regression-detection.md %})
+See [Regression Detection](regression-detection.md)
 for the conceptual explanation.
 
 ---

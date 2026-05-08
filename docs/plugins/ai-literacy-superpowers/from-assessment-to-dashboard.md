@@ -463,9 +463,9 @@ After completing this tutorial you have:
 
 - [The Improvement Cycle](the-improvement-cycle) — walk one repo from
   L2 to L3 using the assessment's improvement plan
-- [How-to: Run a Portfolio Assessment]({% link plugins/ai-literacy-superpowers/run-portfolio-assessment.md %})
+- [How-to: Run a Portfolio Assessment](run-portfolio-assessment.md)
   — flags, options, and edge cases for the `/portfolio-assess` command
-- [How-to: Build a Portfolio Dashboard]({% link plugins/ai-literacy-superpowers/build-portfolio-dashboard.md %})
+- [How-to: Build a Portfolio Dashboard](build-portfolio-dashboard.md)
   — prompt variations and customisation recipes for the dashboard
-- [Reference: Commands]({% link plugins/ai-literacy-superpowers/commands.md %}) — full specification for
+- [Reference: Commands](commands.md) — full specification for
   `/portfolio-assess` and related commands

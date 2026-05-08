@@ -12,7 +12,7 @@ redirect_from:
 # Generate an Onboarding Guide
 
 `/harness-onboarding` is one of the underlying primitives that
-[`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %})
+[`/harness-sync`](sync-harness.md)
 composes. **For multi-surface propagation in one interactive pass — across
 `ONBOARDING.md` _and_ the Cursor / Copilot / Windsurf rule files — use
 `/harness-sync`.** This page covers the focused single-surface command for when

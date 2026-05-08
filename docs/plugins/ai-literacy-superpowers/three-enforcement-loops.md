@@ -13,7 +13,7 @@ redirect_from:
 
 The plugin structures verification into three loops — inner, middle, and outer — that operate at different timescales and with different tolerances for friction. The inner loop runs at edit time and is advisory, surfacing issues as suggestions without blocking work. The middle loop runs at PR time and is strict, with the authority to block a merge until failures are addressed. The outer loop runs on a schedule and is investigative, producing reports that feed back into the harness rather than blocking any single piece of work.
 
-The [introductory page on constraints and enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) explains why enforcement timing matters as much as enforcement strictness. This page goes deeper into the mechanics: what each loop actually runs, how the loops interact, and how to decide which loop a new constraint belongs in.
+The [introductory page on constraints and enforcement](constraints-and-enforcement.md) explains why enforcement timing matters as much as enforcement strictness. This page goes deeper into the mechanics: what each loop actually runs, how the loops interact, and how to decide which loop a new constraint belongs in.
 
 ---
 
@@ -70,7 +70,7 @@ Deterministic checks — linters, formatters, type checkers, structural tests �
 Agent-based reviews produce findings that the orchestrator must resolve. The orchestrator dispatches fixes and re-runs the review. If three cycles do not resolve the findings, the orchestrator escalates to the human rather than forcing the merge or looping indefinitely. This bounded-trust design prevents agent disagreements from deadlocking the pipeline while keeping humans as the final authority.
 
 {: .warning }
-> A common mistake is putting a new, untested constraint directly into the middle loop. The first developer to hit it on a Friday afternoon will override it, and that override becomes the new convention. New constraints should start in the inner loop (advisory) and graduate to the middle loop only after they have proven their value and precision. This is the [progressive hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) principle.
+> A common mistake is putting a new, untested constraint directly into the middle loop. The first developer to hit it on a Friday afternoon will override it, and that override becomes the new convention. New constraints should start in the inner loop (advisory) and graduate to the middle loop only after they have proven their value and precision. This is the [progressive hardening](progressive-hardening.md) principle.
 
 ### The orchestrator's role
 
@@ -92,7 +92,7 @@ Three categories of check live in the outer loop:
 
 **Harness audits.** The `harness-auditor` agent performs a meta-verification: does `HARNESS.md` still match reality? For each deterministic constraint, it checks whether the backing tool is actually installed and configured. It scans for undeclared enforcement — linters or CI checks that exist in the project but are not listed in the harness. It calculates the enforcement ratio, updates the Status section of `HARNESS.md`, and reports drift in both directions (declared but missing, present but undeclared).
 
-**Fitness functions.** These are objective measurements of architectural health — dependency boundaries, test coverage thresholds, security posture, module coupling. Unlike constraint enforcement, fitness functions track trends over time. A single measurement is informative; a sequence of measurements reveals whether the codebase is improving, stable, or degrading. See [Fitness Functions]({% link plugins/ai-literacy-superpowers/fitness-functions.md %}) for details.
+**Fitness functions.** These are objective measurements of architectural health — dependency boundaries, test coverage thresholds, security posture, module coupling. Unlike constraint enforcement, fitness functions track trends over time. A single measurement is informative; a sequence of measurements reveals whether the codebase is improving, stable, or degrading. See [Fitness Functions](fitness-functions.md) for details.
 
 ### Why periodic beats continuous
 
@@ -175,10 +175,10 @@ Start in the inner loop. A constraint that nudges at edit time and does no harm 
 
 ## Further Reading
 
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) — the introductory concepts of constraint maturity and enforcement timing
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) — the promotion ladder from unverified to deterministic
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) — the three components (context, constraints, GC) and how this plugin implements them
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) — detailed mechanics of entropy-fighting rules
-- [Fitness Functions]({% link plugins/ai-literacy-superpowers/fitness-functions.md %}) — periodic architectural health measurements
-- [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) — how reflections and audit history close the learning loop
-- [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}) — the drift that enforcement loops exist to fight
+- [Constraints and Enforcement](constraints-and-enforcement.md) — the introductory concepts of constraint maturity and enforcement timing
+- [Progressive Hardening](progressive-hardening.md) — the promotion ladder from unverified to deterministic
+- [Harness Engineering](harness-engineering.md) — the three components (context, constraints, GC) and how this plugin implements them
+- [Garbage Collection](garbage-collection.md) — detailed mechanics of entropy-fighting rules
+- [Fitness Functions](fitness-functions.md) — periodic architectural health measurements
+- [The Self-Improving Harness](self-improving-harness.md) — how reflections and audit history close the learning loop
+- [Codebase Entropy](codebase-entropy.md) — the drift that enforcement loops exist to fight

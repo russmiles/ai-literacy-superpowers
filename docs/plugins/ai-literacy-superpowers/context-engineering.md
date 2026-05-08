@@ -11,7 +11,7 @@ redirect_from:
 
 # Context Engineering
 
-This page expands on the context engineering component introduced in [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}).
+This page expands on the context engineering component introduced in [Harness Engineering](harness-engineering.md).
 {: .fs-5 }
 
 Context engineering is the discipline of taking the tacit knowledge trapped in your team's heads and making it explicit, precise, and machine-readable. It is the difference between an AI that generates plausible code and an AI that generates *your team's* code.
@@ -178,6 +178,6 @@ Bad context is a tax you pay forever. Same corrections, every session, no compou
 
 ## Further reading
 
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- how context fits into the harness
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) -- enforcing what context declares
-- [The Environment Hypothesis]({% link plugins/ai-literacy-superpowers/the-environment-hypothesis.md %}) -- why environment determines output quality
+- [Harness Engineering](harness-engineering.md) -- how context fits into the harness
+- [Constraints and Enforcement](constraints-and-enforcement.md) -- enforcing what context declares
+- [The Environment Hypothesis](the-environment-hypothesis.md) -- why environment determines output quality

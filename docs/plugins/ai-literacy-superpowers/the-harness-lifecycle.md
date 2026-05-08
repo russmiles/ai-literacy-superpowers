@@ -13,7 +13,7 @@ redirect_from:
 
 A harness has a life. It is born when `/harness-init` runs for the first time and writes a skeletal `HARNESS.md` from a template. It takes its first steps as reflections accumulate, conventions are extracted, and the first hand-authored constraints get promoted. It reaches maturity when the tuning loop runs continuously and the four operational cadences (`/reflect`, `/harness-health`, `/assess`, `/cost-capture`) anchor the team's rhythm. It renews itself when template upgrades arrive through `/harness-upgrade`. It is forced to rebuild when the team, the codebase, or the platform underneath it changes. This page walks one harness through that arc.
 
-[The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}) cuts the harness on the *vertical* axis — one operational surprise, every enforcement surface, traced in a single turn of the loop. This page cuts the same harness on the *horizontal* axis — one harness, six stages, over months and years. Together the two pages answer the question "how does a harness work?" along both axes. The previous page is the propagation cut; this is the temporal cut.
+[The Harness Tuning Loop](the-harness-tuning-loop.md) cuts the harness on the *vertical* axis — one operational surprise, every enforcement surface, traced in a single turn of the loop. This page cuts the same harness on the *horizontal* axis — one harness, six stages, over months and years. Together the two pages answer the question "how does a harness work?" along both axes. The previous page is the propagation cut; this is the temporal cut.
 
 The page threads a fictional six-engineer team through their first twelve months. Their stack is deliberately polyglot — a Python backend service (`ruff`, `mypy`, `pytest`), a TypeScript frontend (`eslint`, `tsc`, `vitest`), and Terraform infrastructure-as-code (`tflint`, `terraform fmt`) — so the artefact tables show realistic multi-stack behaviour rather than a monoculture. No single team member is fluent in all three stacks. Each stage also carries one *In this plugin's case* sidebar that points to a verifiable real event in this plugin's own harness, so the temporal arc is rooted in something that actually happened, not invented to fit the narrative.
 
@@ -51,7 +51,7 @@ The output of Day Zero is not a finished harness. It is a *starting line that is
 | Surface | Name | Role |
 | --- | --- | --- |
 | Command | `/harness-init` | Cold-start setup; orchestrates discovery, generates `HARNESS.md`, scaffolds `AGENTS.md` and `REFLECTION_LOG.md`, configures hooks |
-| Skill | [`harness-engineering`]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) | Provides the conceptual framework that `/harness-init` operates within |
+| Skill | [`harness-engineering`](harness-engineering.md) | Provides the conceptual framework that `/harness-init` operates within |
 | Agent | `harness-discoverer` | Read-only scanner that infers stack, linters, CI checks, and existing convention documentation |
 | Hook | `SessionStart` + rotating `Stop` | Installed and declared in `.claude/settings.local.json`; ready to fire from the next session onward |
 
@@ -64,7 +64,7 @@ The output of Day Zero is not a finished harness. It is a *starting line that is
 | `REFLECTION_LOG.md` | Header comment block; no entries | Created from template |
 | Hook configuration | `SessionStart` + rotating `Stop` declared in `.claude/settings.local.json` | Configured at `/harness-init` time |
 
-**How they work together:** `/harness-init` is the single command that brings every other surface into existence. The `harness-discoverer` agent does the reading work that would otherwise require the team to recall every convention from memory; the [`harness-engineering`]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) skill provides the conceptual scaffolding the agent operates against. The four artefacts created in this stage are all in their starting state — the skeleton from which everything else accretes. The hooks are the only thing that becomes operationally active immediately; the rest of the artefacts will not start changing until the team works in this codebase again. For the deep mechanics of the bootstrap process, see [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}#bootstrapping) and the tutorial [Harness for an Existing Codebase]({% link plugins/ai-literacy-superpowers/harness-from-scratch.md %}).
+**How they work together:** `/harness-init` is the single command that brings every other surface into existence. The `harness-discoverer` agent does the reading work that would otherwise require the team to recall every convention from memory; the [`harness-engineering`](harness-engineering.md) skill provides the conceptual scaffolding the agent operates against. The four artefacts created in this stage are all in their starting state — the skeleton from which everything else accretes. The hooks are the only thing that becomes operationally active immediately; the rest of the artefacts will not start changing until the team works in this codebase again. For the deep mechanics of the bootstrap process, see [Harness Engineering](harness-engineering.md#bootstrapping) and the tutorial [Harness for an Existing Codebase](harness-from-scratch.md).
 
 ---
 
@@ -84,9 +84,9 @@ The work of First Month is mostly conversational — `/reflect` after sessions, 
 | --- | --- | --- |
 | Command | `/reflect` | Captures a reflection at session end; proposes a constraint when the surprise looks preventable |
 | Command | `/extract-conventions` | Structured discovery session that surfaces tacit team knowledge |
-| Skill | [`convention-extraction`]({% link plugins/ai-literacy-superpowers/extract-conventions.md %}) | Supports `/extract-conventions` with the question framework |
+| Skill | [`convention-extraction`](extract-conventions.md) | Supports `/extract-conventions` with the question framework |
 | Command | `/harness-constrain` | Interactive promotion of a proposal into `HARNESS.md`; configures the verification slot when deterministic |
-| Skill | [`constraint-design`]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) + [`verification-slots`]({% link plugins/ai-literacy-superpowers/set-up-verification-slots.md %}) | Support `/harness-constrain` |
+| Skill | [`constraint-design`](constraints-and-enforcement.md) + [`verification-slots`](set-up-verification-slots.md) | Support `/harness-constrain` |
 
 ### Artefacts evolving here
 
@@ -97,7 +97,7 @@ The work of First Month is mostly conversational — `/reflect` after sessions, 
 | `REFLECTION_LOG.md` | 5–10 entries, mostly `failure` and `workflow` signals | First entries appended from sessions; first auto-constraint proposals fired |
 | Hook configuration | Unchanged from Day Zero | None |
 
-**How they work together:** The flow at this stage is: a session happens, the developer or agent runs `/reflect`, the entry lands in `REFLECTION_LOG.md`, sometimes `/reflect` proposes a constraint inline and the developer accepts, `/harness-constrain` writes it into `HARNESS.md`. Separately, on a slower cadence (weekly or fortnightly), the developer reviews recent reflections and promotes recurring patterns into `AGENTS.md`. `/extract-conventions` runs as a one-shot bootstrap — the team only needs to do it once or twice early on to capture the conventions that already exist. The deep mechanics of how reflections become constraints and how `AGENTS.md` curation works are covered in [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) and [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}).
+**How they work together:** The flow at this stage is: a session happens, the developer or agent runs `/reflect`, the entry lands in `REFLECTION_LOG.md`, sometimes `/reflect` proposes a constraint inline and the developer accepts, `/harness-constrain` writes it into `HARNESS.md`. Separately, on a slower cadence (weekly or fortnightly), the developer reviews recent reflections and promotes recurring patterns into `AGENTS.md`. `/extract-conventions` runs as a one-shot bootstrap — the team only needs to do it once or twice early on to capture the conventions that already exist. The deep mechanics of how reflections become constraints and how `AGENTS.md` curation works are covered in [Compound Learning](compound-learning.md) and [The Self-Improving Harness](self-improving-harness.md).
 
 ---
 
@@ -132,7 +132,7 @@ By the end of Quarter One the team has roughly 15–25 reflection entries, the f
 | Hook configuration | Unchanged; rotation has now hit every declared deterministic GC rule | None |
 | `observability/snapshots/` | First snapshot file present | Created by first `/harness-health` run |
 
-**How they work together:** `/harness-audit` and `/harness-health` are the two observability commands that turn the harness from a silent infrastructure into something the team can reason about. The auditor writes the Status section; the health command writes snapshots. The rotating Stop hook and the `gc.yml` workflow form the [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %})' outer (scheduled, investigative) loop — they catch entropy that no single change introduces. By the end of Quarter One the harness has stopped being something the team built and has started being something the team operates. The lighter command `/harness-status` is what most teams reach for between full audits; deep mechanics are in [Run a Harness Audit]({% link plugins/ai-literacy-superpowers/run-a-harness-audit.md %}).
+**How they work together:** `/harness-audit` and `/harness-health` are the two observability commands that turn the harness from a silent infrastructure into something the team can reason about. The auditor writes the Status section; the health command writes snapshots. The rotating Stop hook and the `gc.yml` workflow form the [Three Enforcement Loops](three-enforcement-loops.md)' outer (scheduled, investigative) loop — they catch entropy that no single change introduces. By the end of Quarter One the harness has stopped being something the team built and has started being something the team operates. The lighter command `/harness-status` is what most teams reach for between full audits; deep mechanics are in [Run a Harness Audit](run-a-harness-audit.md).
 
 ---
 
@@ -151,7 +151,7 @@ Year One is when the asymmetry that makes the whole system work becomes visible:
 | Surface | Name | Role |
 | --- | --- | --- |
 | Command | `/harness-gc` | Weekly entropy detection; reads recent reflections; files issues for findings |
-| Skill | [`garbage-collection`]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) | Supports `/harness-gc` with the rule taxonomy |
+| Skill | [`garbage-collection`](garbage-collection.md) | Supports `/harness-gc` with the rule taxonomy |
 | Agent | `harness-gc` | Read-write within bounds; cannot modify `HARNESS.md` itself (trust boundary) |
 | Command | `/assess` | Quarterly literacy assessment; surfaces gaps and produces an improvement plan |
 | Skill | `ai-literacy-assessment` | Supports `/assess` |
@@ -171,7 +171,7 @@ Year One is when the asymmetry that makes the whole system work becomes visible:
 | `observability/snapshots/` | Multiple snapshots; trends visible; archive directory accumulating monthly snapshots older than 6 months | New snapshot per `/harness-health`; archival per the `Observability archive` GC rule |
 | Cost data | `MODEL_ROUTING.md` updated quarterly with observed routing patterns | New cost snapshots from `/cost-capture`; routing decisions adjusted on evidence |
 
-**How they work together:** The deep description of how all of this fits is in [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}) (one full turn of the per-surprise loop) and [The Loops That Learn]({% link plugins/ai-literacy-superpowers/the-loops-that-learn.md %}) (the four cadences interlocking). At the Year One scale, the most important thing happening is *the loops are interlocking*: reflections feed GC, GC produces issues, the team promotes proposals into constraints, audits confirm the constraints are real, snapshots prove they are working, assessments validate the team has moved up the literacy ladder, cost data informs the routing the team uses. Each loop's output is another loop's input; the whole system is cybernetic. The archival mechanism described in the v0.32.0 release notes ([CHANGELOG](https://github.com/Habitat-Thinking/ai-literacy-superpowers/blob/main/CHANGELOG.md#0320--2026-05-01)) is what keeps the working set bounded over multiple years.
+**How they work together:** The deep description of how all of this fits is in [The Harness Tuning Loop](the-harness-tuning-loop.md) (one full turn of the per-surprise loop) and [The Loops That Learn](the-loops-that-learn.md) (the four cadences interlocking). At the Year One scale, the most important thing happening is *the loops are interlocking*: reflections feed GC, GC produces issues, the team promotes proposals into constraints, audits confirm the constraints are real, snapshots prove they are working, assessments validate the team has moved up the literacy ladder, cost data informs the routing the team uses. Each loop's output is another loop's input; the whole system is cybernetic. The archival mechanism described in the v0.32.0 release notes ([CHANGELOG](https://github.com/Habitat-Thinking/ai-literacy-superpowers/blob/main/CHANGELOG.md#0320--2026-05-01)) is what keeps the working set bounded over multiple years.
 
 ---
 
@@ -191,11 +191,11 @@ Renewal is not a one-shot event; it is an ongoing rhythm punctuated by plugin re
 | --- | --- | --- |
 | Hook | `SessionStart` | Surfaces `/harness-upgrade` prompts when template versions move |
 | Command | `/harness-upgrade` | Diffs current `HARNESS.md` against the latest template; presents new items for accept/reject |
-| Command | [`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %}) | Multi-surface entry point: detects drift, multi-selects, applies via the underlying primitives in one pass |
+| Command | [`/harness-sync`](sync-harness.md) | Multi-surface entry point: detects drift, multi-selects, applies via the underlying primitives in one pass |
 | Command | `/convention-sync` | Re-generates `.cursor/rules/`, `.github/copilot-instructions.md`, `.windsurf/rules/` from `HARNESS.md` |
-| Skill | [`convention-sync`]({% link plugins/ai-literacy-superpowers/sync-conventions.md %}) | Supports `/convention-sync` |
+| Skill | [`convention-sync`](sync-conventions.md) | Supports `/convention-sync` |
 | Command | `/harness-onboarding` | Regenerates `ONBOARDING.md` from `HARNESS.md` + `AGENTS.md` + `REFLECTION_LOG.md` |
-| Skill | [`harness-onboarding`]({% link plugins/ai-literacy-superpowers/generate-onboarding.md %}) | Supports `/harness-onboarding` |
+| Skill | [`harness-onboarding`](generate-onboarding.md) | Supports `/harness-onboarding` |
 
 ### Artefacts evolving here
 
@@ -207,7 +207,7 @@ Renewal is not a one-shot event; it is an ongoing rhythm punctuated by plugin re
 | `ONBOARDING.md` | Regenerated when new members join | Regenerated by `/harness-onboarding` |
 | `REFLECTION_LOG.md` | Continues to accumulate; older entries move to archive | Path 1 archival continues; Path 2 aged-out review continues |
 
-**How they work together:** The upgrade pipeline is deliberately serial: `SessionStart` hook surfaces the prompt → `/harness-upgrade` shows the diff → human accepts or rejects each item → `HARNESS.md` is updated → `/harness-sync` re-evaluates drift across all push-direction surfaces and applies the underlying primitives (`/convention-sync` for the convention files; `/harness-onboarding` for the onboarding document) in one interactive pass. No agent in this pipeline has the authority to write to `HARNESS.md` without confirmation. The propagation step closes the loop the same way the propagation half of [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}#stage-5--propagate-the-change-to-the-enforcement-surfaces) closes it for newly-promoted constraints. For the deep mechanics of how `/harness-upgrade` parses templates and produces a diff, see [Upgrade Your Harness]({% link plugins/ai-literacy-superpowers/upgrade-your-harness.md %}); for `/harness-sync` itself, see [Sync Harness Surfaces]({% link plugins/ai-literacy-superpowers/sync-harness.md %}).
+**How they work together:** The upgrade pipeline is deliberately serial: `SessionStart` hook surfaces the prompt → `/harness-upgrade` shows the diff → human accepts or rejects each item → `HARNESS.md` is updated → `/harness-sync` re-evaluates drift across all push-direction surfaces and applies the underlying primitives (`/convention-sync` for the convention files; `/harness-onboarding` for the onboarding document) in one interactive pass. No agent in this pipeline has the authority to write to `HARNESS.md` without confirmation. The propagation step closes the loop the same way the propagation half of [The Harness Tuning Loop](the-harness-tuning-loop.md#stage-5--propagate-the-change-to-the-enforcement-surfaces) closes it for newly-promoted constraints. For the deep mechanics of how `/harness-upgrade` parses templates and produces a diff, see [Upgrade Your Harness](upgrade-your-harness.md); for `/harness-sync` itself, see [Sync Harness Surfaces](sync-harness.md).
 
 ---
 
@@ -235,8 +235,8 @@ The common thread across all three forces: the rebuild moves are not new mechani
 | Command | `/harness-init` | Re-run scoped to a new subsystem; the discoverer finds the new stack |
 | Command | `/cost-capture` | Detects platform-level cost shifts that suggest routing assumptions need updating |
 | Command | `/superpowers-init` | Re-runs broader habitat configuration when the platform shifts substantially |
-| Command | [`/harness-sync`]({% link plugins/ai-literacy-superpowers/sync-harness.md %}) | Multi-surface entry point: propagates the rebuilt artefacts to the convention files and onboarding document by composing `/convention-sync` and `/harness-onboarding` in one pass |
-| Skill | [`cross-repo-orchestration`]({% link plugins/ai-literacy-superpowers/orchestrate-across-repos.md %}) | Guides multi-repo coordination when the change spans repositories |
+| Command | [`/harness-sync`](sync-harness.md) | Multi-surface entry point: propagates the rebuilt artefacts to the convention files and onboarding document by composing `/convention-sync` and `/harness-onboarding` in one pass |
+| Skill | [`cross-repo-orchestration`](orchestrate-across-repos.md) | Guides multi-repo coordination when the change spans repositories |
 
 ### Artefacts evolving here
 
@@ -248,7 +248,7 @@ The common thread across all three forces: the rebuild moves are not new mechani
 | `ONBOARDING.md` | Regenerated to reflect new state | `/harness-onboarding` re-run |
 | `REFLECTION_LOG.md` | Continues to accumulate; pre-change reflections may be promoted before they are archived | Curators promote departing-member reflections to `AGENTS.md` deliberately |
 
-**How they work together:** The change-driven sequence is intentional but not heavyweight: notice the change → run the right extraction or init command → write what surfaces into the right artefact → propagate via `/harness-sync`, which composes `/convention-sync` and `/harness-onboarding` into one interactive pass against the rebuilt state. The trust boundary that protects `HARNESS.md` (only `/harness-constrain` writes constraints; only `harness-auditor` writes the Status section) holds across change events too — no agent gets to rewrite the harness because the team changed. The depth of how cross-repo coordination works during a change event is in [Orchestrate Across Repos]({% link plugins/ai-literacy-superpowers/orchestrate-across-repos.md %}). [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) is the broader frame for thinking about the harness's environment when forces underneath it shift.
+**How they work together:** The change-driven sequence is intentional but not heavyweight: notice the change → run the right extraction or init command → write what surfaces into the right artefact → propagate via `/harness-sync`, which composes `/convention-sync` and `/harness-onboarding` into one interactive pass against the rebuilt state. The trust boundary that protects `HARNESS.md` (only `/harness-constrain` writes constraints; only `harness-auditor` writes the Status section) holds across change events too — no agent gets to rewrite the harness because the team changed. The depth of how cross-repo coordination works during a change event is in [Orchestrate Across Repos](orchestrate-across-repos.md). [Habitat Engineering](habitat-engineering.md) is the broader frame for thinking about the harness's environment when forces underneath it shift.
 
 ---
 
@@ -268,12 +268,12 @@ The map below organises the rest of the docs site by lifecycle position. A reade
 
 | Stage | Where you are — observable signals | Read deeper | Try it |
 | --- | --- | --- | --- |
-| **Day Zero** | No `HARNESS.md` yet, or one only just created from template | [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) · [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) | [Getting Started]({% link plugins/ai-literacy-superpowers/getting-started.md %}) · [Harness From Scratch]({% link plugins/ai-literacy-superpowers/harness-from-scratch.md %}) (tutorial) |
-| **First Month** | `HARNESS.md` has fewer than 5 hand-authored constraints; `AGENTS.md` mostly template-default; first reflections appearing | [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) · [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) | [Surfacing Tacit Knowledge]({% link plugins/ai-literacy-superpowers/surfacing-tacit-knowledge.md %}) (tutorial) · [Add a Constraint]({% link plugins/ai-literacy-superpowers/add-a-constraint.md %}) · [Extract Conventions]({% link plugins/ai-literacy-superpowers/extract-conventions.md %}) |
-| **Quarter One** | First `/harness-audit` has run; first `/harness-health` snapshot exists; rotating Stop hook visible in session logs | [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) · [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}) · [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) | [Run a Harness Audit]({% link plugins/ai-literacy-superpowers/run-a-harness-audit.md %}) · [Run a Calibration Review]({% link plugins/ai-literacy-superpowers/run-a-calibration-review.md %}) |
-| **Year One** | 50+ reflections; tuning loop running on its own; quarterly assessments cycling; first archival sweep has happened | [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}) · [The Loops That Learn]({% link plugins/ai-literacy-superpowers/the-loops-that-learn.md %}) · [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) · [Regression Detection]({% link plugins/ai-literacy-superpowers/regression-detection.md %}) | [Run an Assessment]({% link plugins/ai-literacy-superpowers/run-an-assessment.md %}) · [Run a Governance Audit]({% link plugins/ai-literacy-superpowers/run-a-governance-audit.md %}) · [Track AI Costs]({% link plugins/ai-literacy-superpowers/track-ai-costs.md %}) |
-| **Renewal Years** | At least one `/harness-upgrade` accepted; convention files in sync with `HARNESS.md`; `ONBOARDING.md` regenerated at least once | [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) · [Governance as Meaning Alignment]({% link plugins/ai-literacy-superpowers/governance-as-meaning-alignment.md %}) · [Determinacy Calibration]({% link plugins/ai-literacy-superpowers/determinacy-calibration.md %}) | [Upgrade Your Harness]({% link plugins/ai-literacy-superpowers/upgrade-your-harness.md %}) · [Sync Conventions]({% link plugins/ai-literacy-superpowers/sync-conventions.md %}) · [Generate Onboarding]({% link plugins/ai-literacy-superpowers/generate-onboarding.md %}) |
-| **Change-driven** | Team composition just shifted, codebase just split, or platform just changed | [Decision Archaeology]({% link plugins/ai-literacy-superpowers/decision-archaeology.md %}) · [Adversarial Review]({% link plugins/ai-literacy-superpowers/adversarial-review.md %}) | [Extract Conventions]({% link plugins/ai-literacy-superpowers/extract-conventions.md %}) (re-run) · [Orchestrate Across Repos]({% link plugins/ai-literacy-superpowers/orchestrate-across-repos.md %}) |
+| **Day Zero** | No `HARNESS.md` yet, or one only just created from template | [Harness Engineering](harness-engineering.md) · [Habitat Engineering](habitat-engineering.md) | [Getting Started](getting-started.md) · [Harness From Scratch](harness-from-scratch.md) (tutorial) |
+| **First Month** | `HARNESS.md` has fewer than 5 hand-authored constraints; `AGENTS.md` mostly template-default; first reflections appearing | [Compound Learning](compound-learning.md) · [The Self-Improving Harness](self-improving-harness.md) | [Surfacing Tacit Knowledge](surfacing-tacit-knowledge.md) (tutorial) · [Add a Constraint](add-a-constraint.md) · [Extract Conventions](extract-conventions.md) |
+| **Quarter One** | First `/harness-audit` has run; first `/harness-health` snapshot exists; rotating Stop hook visible in session logs | [Three Enforcement Loops](three-enforcement-loops.md) · [Codebase Entropy](codebase-entropy.md) · [Constraints and Enforcement](constraints-and-enforcement.md) | [Run a Harness Audit](run-a-harness-audit.md) · [Run a Calibration Review](run-a-calibration-review.md) |
+| **Year One** | 50+ reflections; tuning loop running on its own; quarterly assessments cycling; first archival sweep has happened | [The Harness Tuning Loop](the-harness-tuning-loop.md) · [The Loops That Learn](the-loops-that-learn.md) · [Garbage Collection](garbage-collection.md) · [Regression Detection](regression-detection.md) | [Run an Assessment](run-an-assessment.md) · [Run a Governance Audit](run-a-governance-audit.md) · [Track AI Costs](track-ai-costs.md) |
+| **Renewal Years** | At least one `/harness-upgrade` accepted; convention files in sync with `HARNESS.md`; `ONBOARDING.md` regenerated at least once | [Progressive Hardening](progressive-hardening.md) · [Governance as Meaning Alignment](governance-as-meaning-alignment.md) · [Determinacy Calibration](determinacy-calibration.md) | [Upgrade Your Harness](upgrade-your-harness.md) · [Sync Conventions](sync-conventions.md) · [Generate Onboarding](generate-onboarding.md) |
+| **Change-driven** | Team composition just shifted, codebase just split, or platform just changed | [Decision Archaeology](decision-archaeology.md) · [Adversarial Review](adversarial-review.md) | [Extract Conventions](extract-conventions.md) (re-run) · [Orchestrate Across Repos](orchestrate-across-repos.md) |
 
 If you can't tell which stage you're in, the fastest tell is your `HARNESS.md`. A skeleton template with an unverified Status section means you are at Day Zero or early First Month. A Status section being maintained by audits means Quarter One has happened. Hand-authored governance constraints with falsifiability declarations mean Year One is well underway. A `<!-- template-version: -->` marker that lags the installed plugin version means the next move is `/harness-upgrade`. A team or codebase or platform shift you have not yet absorbed means the change-driven stage applies whatever your position on the linear arc.
 
@@ -283,8 +283,8 @@ If you can't tell which stage you're in, the fastest tell is your `HARNESS.md`. 
 
 Pages on the orthogonal axis or one level out:
 
-- [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %}) — the propagation cut: one surprise, every surface, in a single turn of the loop. Read alongside this page for both axes of harness operation.
-- [The Loops That Learn]({% link plugins/ai-literacy-superpowers/the-loops-that-learn.md %}) — the four operational cadences (`/reflect`, `/harness-health`, `/assess`, `/cost-capture`) that drive the per-stage rhythm.
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) — the timescale cut: inner (edit-time, advisory), middle (PR-time, blocking), outer (scheduled, investigative).
-- [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) — the broader environment in which the harness lives.
-- [`HARNESS.md`, the Document]({% link plugins/ai-literacy-superpowers/harness-md.md %}) — the reference for the central artefact whose evolution this page traces.
+- [The Harness Tuning Loop](the-harness-tuning-loop.md) — the propagation cut: one surprise, every surface, in a single turn of the loop. Read alongside this page for both axes of harness operation.
+- [The Loops That Learn](the-loops-that-learn.md) — the four operational cadences (`/reflect`, `/harness-health`, `/assess`, `/cost-capture`) that drive the per-stage rhythm.
+- [The Three Enforcement Loops](three-enforcement-loops.md) — the timescale cut: inner (edit-time, advisory), middle (PR-time, blocking), outer (scheduled, investigative).
+- [Habitat Engineering](habitat-engineering.md) — the broader environment in which the harness lives.
+- [`HARNESS.md`, the Document](harness-md.md) — the reference for the central artefact whose evolution this page traces.

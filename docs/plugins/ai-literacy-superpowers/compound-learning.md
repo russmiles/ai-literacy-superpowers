@@ -11,7 +11,7 @@ redirect_from:
 
 # Compound Learning
 
-This page explains how AI development environments improve over time through captured learnings. For the detailed mechanics of self-improvement, see [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}).
+This page explains how AI development environments improve over time through captured learnings. For the detailed mechanics of self-improvement, see [The Self-Improving Harness](self-improving-harness.md).
 {: .note }
 
 ---
@@ -106,7 +106,7 @@ This is the same mechanism that makes experienced teams fast: accumulated decisi
 
 ## The Self-Improving Harness
 
-The harness described in [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) was presented as something you build. It is not. It is something that grows.
+The harness described in [Harness Engineering](harness-engineering.md) was presented as something you build. It is not. It is something that grows.
 
 - **Reflections suggest new conventions** — context improves
 - **Repeated violations suggest new constraints** — enforcement improves
@@ -128,7 +128,7 @@ The entire framework operates as one system with three concentric loops running 
 
 The loops feed each other. Inner loop corrections become reflections that feed the outer loop. Outer loop constraints improve middle loop enforcement. Middle loop catches become tomorrow's inner loop context.
 
-For a detailed breakdown of the three loops, see [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}).
+For a detailed breakdown of the three loops, see [The Three Enforcement Loops](three-enforcement-loops.md).
 
 ---
 
@@ -195,9 +195,9 @@ One convention. One fewer correction tomorrow. Then another. The flywheel does n
 
 ## Further reading
 
-- [The Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) — detailed mechanics of harness self-improvement
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) — the full harness framework including context, constraints, and garbage collection
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) — the edit-time, merge-time, and periodic loops in detail
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) — how constraints mature from declared to deterministic
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) — fighting entropy with periodic checks
+- [The Self-Improving Harness](self-improving-harness.md) — detailed mechanics of harness self-improvement
+- [Harness Engineering](harness-engineering.md) — the full harness framework including context, constraints, and garbage collection
+- [The Three Enforcement Loops](three-enforcement-loops.md) — the edit-time, merge-time, and periodic loops in detail
+- [Progressive Hardening](progressive-hardening.md) — how constraints mature from declared to deterministic
+- [Garbage Collection](garbage-collection.md) — fighting entropy with periodic checks
 - [The Feedback Flywheel](https://martinfowler.com/articles/reduce-friction-ai/feedback-flywheel.html) — Birgitta Boeckeler's framework for converting session-level learning into shared infrastructure, part of her series on [reducing friction with AI](https://martinfowler.com/articles/reduce-friction-ai/)

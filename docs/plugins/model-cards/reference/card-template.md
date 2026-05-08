@@ -182,9 +182,9 @@ frontmatter) are surfaced to the user before write.
 
 ## Related
 
-- [Skill: model-cards]({% link plugins/model-cards/reference/skills.md %}) —
+- [Skill: model-cards](skills.md) —
   authoring guidance for each section.
-- [Agent: model-card-researcher]({% link plugins/model-cards/reference/agents.md %}) —
+- [Agent: model-card-researcher](agents.md) —
   how the agent populates the template.
-- [Commands: /model-card]({% link plugins/model-cards/reference/commands.md %}) —
+- [Commands: /model-card](commands.md) —
   including the validation checkpoint flow.

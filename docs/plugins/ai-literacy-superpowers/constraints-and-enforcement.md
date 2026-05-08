@@ -11,7 +11,7 @@ redirect_from:
 
 # Constraints and Enforcement
 
-This page introduces the concepts of constraint maturity and enforcement timing. For detailed mechanics, see [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) and [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}).
+This page introduces the concepts of constraint maturity and enforcement timing. For detailed mechanics, see [Progressive Hardening](progressive-hardening.md) and [The Three Enforcement Loops](three-enforcement-loops.md).
 
 ---
 
@@ -222,7 +222,7 @@ But only if the constraints actually bite.
 
 ## Further reading
 
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) — detailed promotion ladder mechanics
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) — inner, middle, and outer loop details
-- [Context Engineering]({% link plugins/ai-literacy-superpowers/context-engineering.md %}) — what context declares before constraints enforce
-- [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}) — fighting the drift that constraints miss
+- [Progressive Hardening](progressive-hardening.md) — detailed promotion ladder mechanics
+- [The Three Enforcement Loops](three-enforcement-loops.md) — inner, middle, and outer loop details
+- [Context Engineering](context-engineering.md) — what context declares before constraints enforce
+- [Codebase Entropy](codebase-entropy.md) — fighting the drift that constraints miss

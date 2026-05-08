@@ -13,7 +13,7 @@ redirect_from:
 
 Entropy accumulates in any codebase over time: dead code, stale dependencies, abandoned conventions, TODO comments that outlive their relevance. Garbage collection in the harness engineering sense is the scheduled practice of declaring what "clean" looks like and running periodic checks to measure how far the codebase has drifted from that standard. GC rules do not block individual merges; they produce reports that draw attention to accumulating problems before they become costly to unwind.
 
-For the conceptual case -- why entropy is inevitable, why AI accelerates it, and why periodic detection beats continuous checking -- see [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}). This page covers the mechanics: how GC rules are declared, what the built-in rules do, how the GC agent operates, and how to write your own rules.
+For the conceptual case -- why entropy is inevitable, why AI accelerates it, and why periodic detection beats continuous checking -- see [Codebase Entropy](codebase-entropy.md). This page covers the mechanics: how GC rules are declared, what the built-in rules do, how the GC agent operates, and how to write your own rules.
 
 ---
 
@@ -299,8 +299,8 @@ The reflection-driven regression detection rule embodies this feedback loop expl
 
 ## Further reading
 
-- [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}) -- the conceptual foundation: why entropy is inevitable, why AI accelerates it, and how GC fights it
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- the three-component model that GC is part of, including context engineering and constraints
-- [Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- how GC fits into the outer (scheduled) enforcement loop
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) -- the constraint side of the GC-vs-constraints distinction
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) -- how reflections feed into learning-driven GC rules
+- [Codebase Entropy](codebase-entropy.md) -- the conceptual foundation: why entropy is inevitable, why AI accelerates it, and how GC fights it
+- [Harness Engineering](harness-engineering.md) -- the three-component model that GC is part of, including context engineering and constraints
+- [Three Enforcement Loops](three-enforcement-loops.md) -- how GC fits into the outer (scheduled) enforcement loop
+- [Constraints and Enforcement](constraints-and-enforcement.md) -- the constraint side of the GC-vs-constraints distinction
+- [Compound Learning](compound-learning.md) -- how reflections feed into learning-driven GC rules

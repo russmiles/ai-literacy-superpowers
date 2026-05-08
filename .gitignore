@@ -4,3 +4,5 @@
 # Discovery scanner output — per-session drafts that are reviewed and
 # (if approved) copied into HARNESS.md by hand. Never committed.
 .claude/affordance-discovery-*.md
+_site/
+site/

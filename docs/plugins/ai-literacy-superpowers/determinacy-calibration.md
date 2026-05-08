@@ -252,7 +252,7 @@ geography. Calibration is the surveying.
 ## The harness-as-habitat framing
 
 The unifying metaphor is the one already present in the framework's
-[Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %})
+[Habitat Engineering](habitat-engineering.md)
 explanation: a habitat has paths and wildness, and the right balance
 is contextual rather than absolute. Determinacy is the harness's
 paths-versus-wildness dial. Too many paths and the habitat
@@ -272,22 +272,22 @@ recalibrated as the territory itself shifts.
 
 ## See also
 
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) —
+- [Progressive Hardening](progressive-hardening.md) —
   the determinacy ladder calibration applies to; this page extends
   that one with the bidirectional movement framing
-- [Self-Improving Harness]({% link plugins/ai-literacy-superpowers/self-improving-harness.md %}) —
+- [Self-Improving Harness](self-improving-harness.md) —
   the audit-and-amendment feedback loop that surfaces calibration
   signal
-- [Compound Learning]({% link plugins/ai-literacy-superpowers/compound-learning.md %}) —
+- [Compound Learning](compound-learning.md) —
   the broader frame for converting session-level signal into shared
   infrastructure
-- [HARNESS.md, the Document]({% link plugins/ai-literacy-superpowers/harness-md.md %}) —
+- [HARNESS.md, the Document](harness-md.md) —
   where calibration outputs land when they involve constraint
   amendments
-- [Habitat Engineering]({% link plugins/ai-literacy-superpowers/habitat-engineering.md %}) —
+- [Habitat Engineering](habitat-engineering.md) —
   the paths-versus-wildness framing from which calibration borrows
   its underlying metaphor
-- [How to: Run a determinacy calibration review]({% link plugins/ai-literacy-superpowers/run-a-calibration-review.md %}) —
+- [How to: Run a determinacy calibration review](run-a-calibration-review.md) —
   the practical procedure
 
 External: the article that motivated this page is Russ Miles'

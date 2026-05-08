@@ -16,8 +16,8 @@ using the [Diataxis framework](https://diataxis.fr/).
 
 | Plugin | What it does | Docs |
 | ------ | ------------ | ---- |
-| [ai-literacy-superpowers]({% link plugins/ai-literacy-superpowers/index.md %}) | Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. The flagship plugin. | [→ ai-literacy-superpowers docs]({% link plugins/ai-literacy-superpowers/index.md %}) |
-| [model-cards]({% link plugins/model-cards/index.md %}) | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy, refusal-on-unconfirmed-existence honesty rule. | [→ model-cards docs]({% link plugins/model-cards/index.md %}) |
+| [ai-literacy-superpowers](ai-literacy-superpowers/index.md) | Harness engineering, agent orchestration, literate programming, CUPID code review, compound learning, and the three enforcement loops. The flagship plugin. | [→ ai-literacy-superpowers docs](ai-literacy-superpowers/index.md) |
+| [model-cards](model-cards/index.md) | Researches and authors Mitchell-extended model cards from a model name. Tiered source strategy, refusal-on-unconfirmed-existence honesty rule. | [→ model-cards docs](model-cards/index.md) |
 
 ## Why per-plugin documentation
 

@@ -235,6 +235,6 @@ After completing this tutorial:
   will alert you when governance-related files change and the audit
   is stale
 - **Explore the how-to guides** for specific tasks:
-  [write a constraint]({% link plugins/ai-literacy-superpowers/write-a-governance-constraint.md %}),
-  [detect drift]({% link plugins/ai-literacy-superpowers/detect-semantic-drift.md %}),
-  [build a dashboard]({% link plugins/ai-literacy-superpowers/build-a-governance-dashboard.md %})
+  [write a constraint](write-a-governance-constraint.md),
+  [detect drift](detect-semantic-drift.md),
+  [build a dashboard](build-a-governance-dashboard.md)

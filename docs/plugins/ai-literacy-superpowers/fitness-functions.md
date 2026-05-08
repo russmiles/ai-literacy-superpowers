@@ -107,7 +107,7 @@ Coverage fitness functions combine deterministic measurement (coverage tools pro
 
 ## Fitness Functions vs GC Rules
 
-Both fitness functions and [garbage collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) rules are periodic checks that run in the outer enforcement loop. They share a cadence (typically weekly), a reporting mechanism (snapshots and issues rather than PR blocks), and a home in HARNESS.md's GC section. But they serve different purposes.
+Both fitness functions and [garbage collection](garbage-collection.md) rules are periodic checks that run in the outer enforcement loop. They share a cadence (typically weekly), a reporting mechanism (snapshots and issues rather than PR blocks), and a home in HARNESS.md's GC section. But they serve different purposes.
 
 **Fitness functions measure trends against thresholds.** They ask: "Is this metric within bounds? Is the trend healthy?" A coupling fitness function measures coupling this week, compares it to last week and the week before, and reports whether the trajectory is stable, improving, or degrading. The output is a measurement and a trend interpretation.
 
@@ -184,9 +184,9 @@ The full git history (`fetch-depth: 0`) is necessary for churn analysis. The job
 
 ### Integration with the Outer Enforcement Loop
 
-Fitness functions sit in the [outer enforcement loop]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- the investigative loop that runs on a schedule and produces reports rather than blocks. The outer loop's GC agent reads the fitness function declarations from HARNESS.md, runs each tool, compares results against previous snapshots, and writes findings into the health snapshot.
+Fitness functions sit in the [outer enforcement loop](three-enforcement-loops.md) -- the investigative loop that runs on a schedule and produces reports rather than blocks. The outer loop's GC agent reads the fitness function declarations from HARNESS.md, runs each tool, compares results against previous snapshots, and writes findings into the health snapshot.
 
-When a fitness function detects sustained degradation, the agent creates a GitHub issue with the trend data. This issue may eventually lead to a new constraint in HARNESS.md's Constraints section -- a per-PR check that prevents the specific violation pattern from recurring. This is the reverse of the normal [progressive hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) ladder: instead of unverified to agent to deterministic, it is periodic observation to targeted constraint.
+When a fitness function detects sustained degradation, the agent creates a GitHub issue with the trend data. This issue may eventually lead to a new constraint in HARNESS.md's Constraints section -- a per-PR check that prevents the specific violation pattern from recurring. This is the reverse of the normal [progressive hardening](progressive-hardening.md) ladder: instead of unverified to agent to deterministic, it is periodic observation to targeted constraint.
 
 ---
 
@@ -265,9 +265,9 @@ When the fitness function detects that libyear has exceeded the budget, the GC a
 
 ## Further Reading
 
-- [Harness Engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) -- the three-component model that fitness functions extend
-- [Garbage Collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) -- the scheduling and reporting infrastructure fitness functions run within
-- [The Three Enforcement Loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) -- how the outer loop accommodates periodic fitness function checks
-- [Progressive Hardening]({% link plugins/ai-literacy-superpowers/progressive-hardening.md %}) -- the promotion ladder, and how fitness function findings can become per-PR constraints
-- [Codebase Entropy]({% link plugins/ai-literacy-superpowers/codebase-entropy.md %}) -- the broader problem of accumulated degradation that fitness functions are designed to detect
-- [Constraints and Enforcement]({% link plugins/ai-literacy-superpowers/constraints-and-enforcement.md %}) -- the per-change enforcement model that fitness functions complement
+- [Harness Engineering](harness-engineering.md) -- the three-component model that fitness functions extend
+- [Garbage Collection](garbage-collection.md) -- the scheduling and reporting infrastructure fitness functions run within
+- [The Three Enforcement Loops](three-enforcement-loops.md) -- how the outer loop accommodates periodic fitness function checks
+- [Progressive Hardening](progressive-hardening.md) -- the promotion ladder, and how fitness function findings can become per-PR constraints
+- [Codebase Entropy](codebase-entropy.md) -- the broader problem of accumulated degradation that fitness functions are designed to detect
+- [Constraints and Enforcement](constraints-and-enforcement.md) -- the per-change enforcement model that fitness functions complement

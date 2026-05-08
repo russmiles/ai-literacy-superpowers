@@ -14,9 +14,9 @@ redirect_from:
 Run `/harness-sync` to detect drift across all push-direction control surfaces
 and bring them back in line with `HARNESS.md` in a single pass. For
 single-surface deep dives, see
-[Sync Conventions]({% link plugins/ai-literacy-superpowers/sync-conventions.md %})
+[Sync Conventions](sync-conventions.md)
 (convention and constraint files) and
-[Generate an Onboarding Guide]({% link plugins/ai-literacy-superpowers/generate-onboarding.md %})
+[Generate an Onboarding Guide](generate-onboarding.md)
 (`ONBOARDING.md`).
 
 ---
@@ -167,11 +167,11 @@ the harness itself.
 
 ## See also
 
-- [Sync Conventions]({% link plugins/ai-literacy-superpowers/sync-conventions.md %})
+- [Sync Conventions](sync-conventions.md)
   — single-surface deep dive for convention and constraint files
-- [Generate an Onboarding Guide]({% link plugins/ai-literacy-superpowers/generate-onboarding.md %})
+- [Generate an Onboarding Guide](generate-onboarding.md)
   — single-surface deep dive for `ONBOARDING.md`
-- [The Harness Tuning Loop]({% link plugins/ai-literacy-superpowers/the-harness-tuning-loop.md %})
+- [The Harness Tuning Loop](the-harness-tuning-loop.md)
   — the Propagate stage (Stage 5) that `/harness-sync` serves
-- [The Harness Lifecycle]({% link plugins/ai-literacy-superpowers/the-harness-lifecycle.md %})
+- [The Harness Lifecycle](the-harness-lifecycle.md)
   — the Renewal stage where surface synchronisation fits

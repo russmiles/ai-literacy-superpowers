@@ -3,7 +3,11 @@ name: Deploy docs to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['docs/**']
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -21,24 +25,29 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          ruby-version: '3.3'
-          bundler-cache: true
-          cache-version: 1
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install MkDocs and plugins
+        run: pip install --requirement requirements.txt
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v6
 
-      - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --source docs
+      - name: Build with MkDocs
+        run: mkdocs build --strict --site-dir _site
         env:
-          JEKYLL_ENV: production
+          MKDOCS_BASE_URL: ${{ steps.pages.outputs.base_url }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
 
   deploy:
     environment:

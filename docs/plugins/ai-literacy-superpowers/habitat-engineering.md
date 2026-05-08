@@ -13,7 +13,7 @@ redirect_from:
 
 Habitat engineering is the discipline of designing your entire development environment -- code, configuration, documentation, conventions, specifications, agents, and the feedback loops that bind them -- as a habitat for the combined intelligence of humans and AI working together. It is the central organising idea behind this plugin and the AI Literacy framework it implements.
 
-Where [harness engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) describes the mechanical components (context, constraints, garbage collection), habitat engineering asks a prior question: what kind of environment makes those components effective?
+Where [harness engineering](harness-engineering.md) describes the mechanical components (context, constraints, garbage collection), habitat engineering asks a prior question: what kind of environment makes those components effective?
 
 ---
 
@@ -79,11 +79,11 @@ A habitat is more than a configuration file. It is the full set of structures th
 
 **Living documents** encode what the team has decided: conventions, constraints, rationale. In this plugin, these are `CLAUDE.md` (or equivalent), `HARNESS.md`, and `AGENTS.md`. They are "living" because they are targets of enforcement and garbage collection, not static files that get written once and forgotten.
 
-**Architectural constraints** define what must and must not happen. They are backed by verification -- deterministic tools or agent-based reviews -- not by hope. See [harness engineering]({% link plugins/ai-literacy-superpowers/harness-engineering.md %}) for the mechanical details.
+**Architectural constraints** define what must and must not happen. They are backed by verification -- deterministic tools or agent-based reviews -- not by hope. See [harness engineering](harness-engineering.md) for the mechanical details.
 
-**Feedback loops** compensate for the fact that neither humans nor AI can evaluate their own output perfectly. Tests verify behaviour. Coverage gates verify execution. Linters verify style. Agent reviews verify intent. The [three enforcement loops]({% link plugins/ai-literacy-superpowers/three-enforcement-loops.md %}) operate at different timescales to catch different classes of drift.
+**Feedback loops** compensate for the fact that neither humans nor AI can evaluate their own output perfectly. Tests verify behaviour. Coverage gates verify execution. Linters verify style. Agent reviews verify intent. The [three enforcement loops](three-enforcement-loops.md) operate at different timescales to catch different classes of drift.
 
-**Garbage collection** fights entropy. Code degrades silently. Dependencies go stale. Conventions drift. GC rules are explicit declarations of what "clean" looks like, paired with scheduled checks. See [garbage collection]({% link plugins/ai-literacy-superpowers/garbage-collection.md %}) for the details.
+**Garbage collection** fights entropy. Code degrades silently. Dependencies go stale. Conventions drift. GC rules are explicit declarations of what "clean" looks like, paired with scheduled checks. See [garbage collection](garbage-collection.md) for the details.
 
 **Compound learning** closes the loop. Reflections after each session capture what went well, what failed, and what the habitat should change. Agents read these reflections before starting work, so past mistakes inform current decisions. The habitat learns from its own operation.
 

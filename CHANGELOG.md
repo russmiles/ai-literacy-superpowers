@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.34.1 — 2026-05-08
+
+### Docs — Migrate site infrastructure from Jekyll/just-the-docs to MkDocs Material
+
+Replaces the Jekyll + just-the-docs docs site infrastructure with
+MkDocs Material. The change is plugin-internal only because it
+modifies `templates/CLAUDE.md` (the shipped convention text projects
+get from `/superpowers-init` now reflects the new theme conventions).
+
+The bulk of the migration touches the `docs/` tree (outside the plugin
+directory): a new `mkdocs.yml` and `requirements.txt` at repo root,
+the `pages.yml` workflow swapped from `bundle exec jekyll` to
+`pip install + mkdocs build`, all 377 Liquid `{% link %}` tags
+rewritten to relative markdown paths, all 89 `redirect_from`
+frontmatter entries migrated to the `mkdocs-redirects` plugin's
+`redirect_maps`, and the Jekyll artifacts (`Gemfile`, `Gemfile.lock`,
+`docs/_config.yml`) removed.
+
+The `templates/CLAUDE.md` "Docs Site Review" section is updated to
+describe the new theme conventions (MkDocs Material, the
+`mkdocs-awesome-pages` plugin for filesystem-derived nav, no more
+`has_children: true` or `nav_label` frontmatter required). New
+projects running `/superpowers-init` get the corrected guidance.
+
+A one-shot migration script
+(`scripts/migrations/jekyll-to-mkdocs.py`) is committed for
+reproducibility.
+
 ## 0.34.0 — 2026-05-08
 
 ### Feature — Diataxis docs reorg (Phase 1: model-cards)
