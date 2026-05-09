@@ -34,7 +34,13 @@ import pytest
 
 @pytest.fixture(scope="session")
 def plugin_path() -> Path:
-    """Resolve the packaged plugin directory."""
+    """Resolve the ai-literacy-superpowers packaged plugin directory.
+
+    Most existing tests assume this is the plugin under test — it is
+    the canonical and largest plugin in the repo. ``model_cards_path``
+    is the equivalent for the second plugin shipped from this repo;
+    each plugin has its own structural tests.
+    """
     # tdad_tests/ is a sibling of the inner ai-literacy-superpowers/
     # packaged directory inside the repo. The repo root sits one level up
     # from this conftest.
@@ -43,6 +49,25 @@ def plugin_path() -> Path:
     if not packaged.is_dir():
         pytest.fail(
             f"Plugin directory not found at {packaged!r}. "
+            "Has the plugin been moved or renamed?"
+        )
+    return packaged
+
+
+@pytest.fixture(scope="session")
+def model_cards_path() -> Path:
+    """Resolve the model-cards packaged plugin directory.
+
+    The repo ships two plugins side-by-side under ``marketplace.json``:
+    ai-literacy-superpowers (large) and model-cards (small, focused).
+    Both deserve at least Layer 1 structural coverage; this fixture
+    exposes the second plugin's path for tests scoped to it.
+    """
+    repo_root = Path(__file__).resolve().parent.parent
+    packaged = repo_root / "model-cards"
+    if not packaged.is_dir():
+        pytest.fail(
+            f"model-cards plugin directory not found at {packaged!r}. "
             "Has the plugin been moved or renamed?"
         )
     return packaged
