@@ -1,7 +1,7 @@
 """Phase 2 spike — observatory-verify helper tests.
 
 Validates the per-category strategy from the design spec for the
-second P-category command. The helper at
+second procedural command. The helper at
 ``tdad_tests/spike_helpers/observatory_verify.py`` implements the
 Snapshot-source slice of ``/observatory-verify``; these tests cover
 its parser and per-signal verifier against fixture snapshot files.

@@ -108,12 +108,12 @@ answer:
   smoke test that asserts each command references agents that exist.
 - **M (model-mediated, 7 commands)** — Layer 3 testing is high-cost
   and high-fragility; this spec recommends staying at structural +
-  skill-coverage. Skills get Layer 3 where feasible; the M commands
+  skill-coverage. Skills get Layer 3 where feasible; the model-mediated commands
   themselves stay agent-verified-via-skills.
 
 The spec phases roll-out so cost grows monotonically: Phase 1 is a
 universal structural pass (~$0, all 25 commands); Phase 2 is an
-Option C spike on 2 P commands; Phases 3 and 4 follow.
+Option C spike on 2 procedural commands; Phases 3 and 4 follow.
 
 This finding remains as the canonical design-question record for
 posterity. The decision is captured in the spec; the phases are

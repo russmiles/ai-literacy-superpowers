@@ -5,7 +5,7 @@ plugin commands (`/convention-sync` and `/observatory-verify`) so that
 their deterministic logic can be unit-tested. The spike's purpose is
 to validate the per-category strategy from the Phase-2 design spec
 (``docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md``):
-extracting P-category command logic into Python (Option C-direct) is
+extracting procedural command logic into Python (Option C-direct) is
 testable, and the test scaffolding is cheap.
 
 Scope is deliberately narrow:

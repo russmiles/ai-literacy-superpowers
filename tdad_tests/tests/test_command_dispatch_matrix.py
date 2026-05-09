@@ -5,7 +5,7 @@ exist" — the rename-without-callsite-update class. Phase 3 catches
 the inverse: "command was supposed to dispatch Y and doesn't anymore."
 The two tests have orthogonal coverage.
 
-Phase 3's contribution is a *matrix*: each of the 7 orchestration (O)
+Phase 3's contribution is a *matrix*: each of the 7 orchestration
 commands declares the agents and skills it must dispatch. The test
 parametrises across the matrix and asserts each declared dispatch is
 present in the command body. If a future refactor removes a dispatch
@@ -21,7 +21,7 @@ remaining reference resolves) but the command's behaviour silently
 degrades. The matrix locks in the contract.
 
 The matrix is hand-authored from the current command bodies. Adding
-a new dispatch to an O command means the agent gets a new entry; the
+a new dispatch to an orchestration command means the agent gets a new entry; the
 matrix follows the prose. Both directions of drift (prose loses a
 dispatch, prose gains one) are caught — the former by failing
 assertions, the latter by reading the test alongside any PR that
@@ -47,7 +47,7 @@ from runner import plugin as plugin_runner  # noqa: E402
 #   somewhere in its body. The match is on backticked or
 #   un-backticked agent name immediately before the word "agent".
 # - ``expected_skills`` lists the *skills* the command must invoke or
-#   reference as load-bearing. Some O commands (notably
+#   reference as load-bearing. Some orchestration commands (notably
 #   ``/harness-sync``) use a skill rather than an agent as their
 #   primary work-horse; this captures those.
 #
@@ -89,7 +89,7 @@ _PLUGIN_PATH = (
 
 
 def _command_body(command_name: str) -> str:
-    """Read the body of an O command for matching."""
+    """Read the body of an orchestration command for matching."""
     component = plugin_runner.find_component(
         _PLUGIN_PATH, name=command_name, component_type="command"
     )
@@ -131,7 +131,7 @@ def _skill_dispatch_present(body: str, skill_name: str) -> bool:
 
 @pytest.mark.structural
 class TestOrchestrationDispatchMatrix:
-    """Each O command must dispatch the specific agents/skills it
+    """Each orchestration command must dispatch the specific agents/skills it
     declares as load-bearing."""
 
     @pytest.mark.parametrize(
@@ -182,7 +182,7 @@ class TestOrchestrationDispatchMatrix:
 class TestMatrixCoverage:
     """The matrix itself must be coherent — agents and skills it
     references must exist, every named command must exist, and the
-    matrix should cover every O-category command except the
+    matrix should cover every orchestration command except the
     deliberate exclusions documented inline."""
 
     def test_every_referenced_agent_exists(self):
