@@ -1,24 +1,25 @@
 ---
 name: harness-auditor
-description: Use this agent when verifying the health of the harness itself — checking whether declared enforcement in HARNESS.md matches what actually exists in the project. Examples:
+description: |
+  Use this agent when verifying the health of the harness itself — checking whether declared enforcement in HARNESS.md matches what actually exists in the project. Examples:
 
- <example>
- Context: User runs /harness-audit
- user: "/harness-audit"
- assistant: "I'll use the harness-auditor to check whether the harness matches reality."
- <commentary>
- The auditor is the meta-agent that keeps HARNESS.md honest.
- </commentary>
- </example>
+  <example>
+  Context: User runs /harness-audit
+  user: "/harness-audit"
+  assistant: "I'll use the harness-auditor to check whether the harness matches reality."
+  <commentary>
+  The auditor is the meta-agent that keeps HARNESS.md honest.
+  </commentary>
+  </example>
 
- <example>
- Context: Scheduled weekly harness health check
- user: "Check the harness for drift"
- assistant: "I'll use the harness-auditor to compare declared vs actual enforcement."
- <commentary>
- Periodic auditing prevents HARNESS.md from becoming documentation that lies.
- </commentary>
- </example>
+  <example>
+  Context: Scheduled weekly harness health check
+  user: "Check the harness for drift"
+  assistant: "I'll use the harness-auditor to compare declared vs actual enforcement."
+  <commentary>
+  Periodic auditing prevents HARNESS.md from becoming documentation that lies.
+  </commentary>
+  </example>
 
 model: inherit
 color: yellow

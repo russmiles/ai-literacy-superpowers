@@ -151,8 +151,10 @@ class TestFrontmatterStrictYaml:
                 lines.append(f"  - {cid}: {err}")
             lines.append(
                 "These are recoverable via the fallback parser. "
-                "See FINDING-frontmatter-yaml-strictness in the "
-                "scenarios folder for the architectural question."
+                "If this skip surfaces again, the original architectural "
+                "question (block scalars vs lenient convention) was "
+                "answered in PR #292 / issue #283 — re-applying that "
+                "decision should resolve any new occurrences."
             )
             pytest.skip("\n".join(lines))
 

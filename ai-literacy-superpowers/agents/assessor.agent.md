@@ -1,24 +1,25 @@
 ---
 name: assessor
-description: Use this agent to run an AI literacy assessment — scans the repository for observable evidence, asks clarifying questions, and produces a timestamped assessment document with a README badge. Examples:
+description: |
+  Use this agent to run an AI literacy assessment — scans the repository for observable evidence, asks clarifying questions, and produces a timestamped assessment document with a README badge. Examples:
 
- <example>
- Context: User wants to know their team's AI literacy level
- user: "Where are we on the AI literacy framework?"
- assistant: "I'll use the assessor agent to run a full assessment."
- <commentary>
- The assessor scans the repo, asks clarifying questions, and produces an evidence-based level assessment.
- </commentary>
- </example>
+  <example>
+  Context: User wants to know their team's AI literacy level
+  user: "Where are we on the AI literacy framework?"
+  assistant: "I'll use the assessor agent to run a full assessment."
+  <commentary>
+  The assessor scans the repo, asks clarifying questions, and produces an evidence-based level assessment.
+  </commentary>
+  </example>
 
- <example>
- Context: User runs /assess command
- user: "/assess"
- assistant: "Starting the AI literacy assessment."
- <commentary>
- The /assess command dispatches the assessor agent.
- </commentary>
- </example>
+  <example>
+  Context: User runs /assess command
+  user: "/assess"
+  assistant: "Starting the AI literacy assessment."
+  <commentary>
+  The /assess command dispatches the assessor agent.
+  </commentary>
+  </example>
 
 model: inherit
 color: yellow

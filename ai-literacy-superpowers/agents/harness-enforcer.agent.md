@@ -1,24 +1,25 @@
 ---
 name: harness-enforcer
-description: Use this agent when verifying constraints from HARNESS.md against code — running deterministic tools or performing agent-based reviews. Examples:
+description: |
+  Use this agent when verifying constraints from HARNESS.md against code — running deterministic tools or performing agent-based reviews. Examples:
 
- <example>
- Context: CI needs to check PR constraints
- user: "Run the harness constraint checks on this PR"
- assistant: "I'll use the harness-enforcer agent to verify all PR-scoped constraints from HARNESS.md."
- <commentary>
- The enforcer runs both deterministic and agent-based checks through a unified interface.
- </commentary>
- </example>
+  <example>
+  Context: CI needs to check PR constraints
+  user: "Run the harness constraint checks on this PR"
+  assistant: "I'll use the harness-enforcer agent to verify all PR-scoped constraints from HARNESS.md."
+  <commentary>
+  The enforcer runs both deterministic and agent-based checks through a unified interface.
+  </commentary>
+  </example>
 
- <example>
- Context: User just added a new constraint via /harness-constrain
- user: "Test this constraint to make sure it works"
- assistant: "I'll use the harness-enforcer to do a test run of the new constraint."
- <commentary>
- Test runs confirm a constraint catches violations before it goes live.
- </commentary>
- </example>
+  <example>
+  Context: User just added a new constraint via /harness-constrain
+  user: "Test this constraint to make sure it works"
+  assistant: "I'll use the harness-enforcer to do a test run of the new constraint."
+  <commentary>
+  Test runs confirm a constraint catches violations before it goes live.
+  </commentary>
+  </example>
 
 model: inherit
 color: blue

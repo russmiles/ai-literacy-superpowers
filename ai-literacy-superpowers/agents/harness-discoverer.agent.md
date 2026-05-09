@@ -1,24 +1,25 @@
 ---
 name: harness-discoverer
-description: Use this agent when scanning a project to discover its tech stack, existing linters, CI configuration, test frameworks, and pre-commit hooks. Examples:
+description: |
+  Use this agent when scanning a project to discover its tech stack, existing linters, CI configuration, test frameworks, and pre-commit hooks. Examples:
 
- <example>
- Context: User is running /harness-init on a new project
- user: "/harness-init"
- assistant: "I'll use the harness-discoverer agent to scan the project before asking about conventions."
- <commentary>
- The init command needs a factual baseline of what exists before it can generate HARNESS.md.
- </commentary>
- </example>
+  <example>
+  Context: User is running /harness-init on a new project
+  user: "/harness-init"
+  assistant: "I'll use the harness-discoverer agent to scan the project before asking about conventions."
+  <commentary>
+  The init command needs a factual baseline of what exists before it can generate HARNESS.md.
+  </commentary>
+  </example>
 
- <example>
- Context: User is adding a new constraint and wants to know what tools are available
- user: "/harness-constrain"
- assistant: "Let me scan the project for deterministic tools that could enforce this."
- <commentary>
- The constrain command needs to know what linters and formatters are already installed.
- </commentary>
- </example>
+  <example>
+  Context: User is adding a new constraint and wants to know what tools are available
+  user: "/harness-constrain"
+  assistant: "Let me scan the project for deterministic tools that could enforce this."
+  <commentary>
+  The constrain command needs to know what linters and formatters are already installed.
+  </commentary>
+  </example>
 
 model: inherit
 color: cyan

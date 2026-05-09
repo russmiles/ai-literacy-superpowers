@@ -1,24 +1,25 @@
 ---
 name: harness-gc
-description: Use this agent when running garbage collection checks from HARNESS.md — periodic entropy-fighting sweeps for documentation staleness, dead code, convention drift, and dependency currency. Examples:
+description: |
+  Use this agent when running garbage collection checks from HARNESS.md — periodic entropy-fighting sweeps for documentation staleness, dead code, convention drift, and dependency currency. Examples:
 
- <example>
- Context: Weekly scheduled garbage collection run
- user: "Run the weekly garbage collection checks"
- assistant: "I'll use the harness-gc agent to run all GC rules from HARNESS.md."
- <commentary>
- Scheduled GC fights the slow entropy that PR gates miss.
- </commentary>
- </example>
+  <example>
+  Context: Weekly scheduled garbage collection run
+  user: "Run the weekly garbage collection checks"
+  assistant: "I'll use the harness-gc agent to run all GC rules from HARNESS.md."
+  <commentary>
+  Scheduled GC fights the slow entropy that PR gates miss.
+  </commentary>
+  </example>
 
- <example>
- Context: User wants to check for stale documentation
- user: "/harness-gc"
- assistant: "I'll run the garbage collection checks on demand."
- <commentary>
- Manual GC lets users sweep for entropy whenever they choose.
- </commentary>
- </example>
+  <example>
+  Context: User wants to check for stale documentation
+  user: "/harness-gc"
+  assistant: "I'll run the garbage collection checks on demand."
+  <commentary>
+  Manual GC lets users sweep for entropy whenever they choose.
+  </commentary>
+  </example>
 
 model: inherit
 color: green
