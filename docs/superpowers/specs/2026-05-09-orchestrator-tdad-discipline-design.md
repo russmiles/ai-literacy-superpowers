@@ -3,11 +3,224 @@
 | Field | Value |
 | --- | --- |
 | Date | 2026-05-09 |
-| Status | Draft — Amendment 1 applied 2026-05-09 in response to spec-mode `/diaboli` findings; awaiting re-review |
+| Status | Draft — Amendment 2 applied 2026-05-09 (pivot); awaiting third-pass re-review |
 | Author | claude-opus-4-7[1m] (interactive session) |
 | Plugin version target | v0.36.0 (minor — behavioural change to two agents) |
 | PR ceremony | feature — full diaboli (spec + code) and choice-cartograph |
 | Related work | PR #285 (SDK runner for Layer 2/3), PR #305 (ONBOARDING regen with TDAD content), PR #308 (docs-strict-build constraint), `tdad_tests/` suite, design spec `2026-05-09-command-tdad-testing-design.md` |
+
+---
+
+## Amendment 2 — 2026-05-09: pivot — drop self-demonstration, harden the constraint
+
+The second `/diaboli` pass surfaced 8 objections (5 high). The author
+chose to pivot rather than amend further. The pivot reshapes the
+spec around a smaller, sharper claim: **the discipline applies
+forward to new components shipped after this PR merges**. The spec
+no longer claims to demonstrate the discipline on its own author.
+This Amendment supersedes the relevant parts of Amendment 1 and the
+original spec. Where Amendment 2 contradicts Amendment 1 or the
+original text, **Amendment 2 governs**.
+
+### A2.1 Drop the in-PR scenarios for orchestrator and tdd-agent
+
+Amendment 1 §A1.3 (the two-scenario plan) is dropped in full.
+Amendment 1 §A1.7 steps 1 and 2 (author scenarios) are removed; the
+remaining steps renumber to 1–8. The post-A1 `/diaboli` pass
+surfaced — for the second time, after the original review's O4 —
+that scenarios targeting Layer 1 only cannot fail before
+implementation and cannot fail after, so calling them "RED phase"
+is theatre. Rather than escalate to Layer 3 SDK fixtures (out of
+scope per `command-tdad-testing-design.md` Amendment 1), the pivot
+accepts that this PR ships forward-only discipline.
+
+A1.8's rationale paragraph "demonstrate the discipline on its own
+author" is removed. The remaining feature-ceremony rationale (a
+behavioural change to two shipping agents per the project's semver
+rules) stands and is sufficient.
+
+### A2.2 Constraint becomes deterministic + tier-restricted
+
+Replace Amendment 1 §A1.1's constraint with:
+
+```text
+### New plugin components must ship with a TDAD scenario
+
+- **Rule**: When a PR adds a new file matching one of
+  `ai-literacy-superpowers/skills/<name>/SKILL.md`,
+  `ai-literacy-superpowers/agents/<name>.agent.md`, or
+  `ai-literacy-superpowers/commands/<name>.md`, the same PR must
+  include at least one scenario file at
+  `tdad_tests/scenarios/<type>/<name>/<aspect>.md` whose
+  YAML frontmatter declares `tier` as one of `structural`,
+  `trigger`, or `behavioural`. Files with `tier: finding` do NOT
+  satisfy the constraint (they are documentary, not falsifiable —
+  see A2.3). The tdd-agent's `<descriptor>.md` filename can be any
+  non-`FINDING-`-prefixed kebab-case name; the existing corpus
+  uses verb-phrase aspects like `creates-spec-with-acceptance-scenarios.md`
+  or `identifies-violations.md`.
+- **Enforcement**: deterministic
+- **Tool**: `.github/workflows/tdad-scenario-check.yml` (runs a
+  small bash check that lists added files matching the canonical
+  paths via `git diff --name-only --diff-filter=A`, then verifies
+  that `tdad_tests/scenarios/<type>/<name>/` contains at least one
+  non-`FINDING-`-prefixed file with `tier:` in `{structural,
+  trigger, behavioural}`)
+- **Scope**: pr
+```
+
+Two changes from A1.1:
+
+- **Enforcement: deterministic** rather than `agent` (post-A1 O1) —
+  the check has no judgement component, and the project's pattern
+  for analogous file-presence checks (`Spec-first commit ordering`,
+  `Version consistency`) is deterministic CI workflows.
+- **Tier whitelist** restricts `tier` to
+  `{structural, trigger, behavioural}` (post-A1 O2) — closes the
+  bypass where a new component could ship with a single
+  `tier: finding` file at the canonical path.
+
+### A2.3 FINDING- coexists with `<aspect>.md` as a separate category
+
+The corpus today contains `tdad_tests/scenarios/commands/harness-init/FINDING-command-tdab-gap.md`,
+which is a documentary architectural finding rather than a
+falsifiable test scenario. Layer 3 has dedicated tests at
+`tdad_tests/tests/test_layer3_behavioural.py:283-312`
+(`TestHarnessInitCommandFinding.test_finding_scenario_exists`,
+`test_finding_declares_finding_tier`) that depend on this prefix.
+
+Amendment 2 names FINDING- as a recognised, separate artefact
+category that:
+
+- **Coexists** with `<aspect>.md` files in the same component
+  directory.
+- **Does not satisfy** the new HARNESS constraint (per A2.2's
+  tier whitelist).
+- **Should not be renamed** to `<aspect>.md`; the prefix is
+  load-bearing for existing tests.
+- **Is appropriate when** a component surfaces an architectural
+  question that genuinely cannot be expressed as a falsifiable
+  scenario today. A FINDING- file does not absolve the component
+  of the constraint — at least one non-FINDING- scenario file is
+  still required.
+
+The tdd-agent's prose must reflect this distinction: the agent
+authors `<aspect>.md` files for the RED phase; FINDING- authoring
+remains a manual decision by the human author when the spec
+surfaces an unresolvable architectural question.
+
+### A2.4 Redact contradictions in original §1, §3, §5
+
+The original §1 sentence "No new constraint is added to HARNESS.md
+in this spec" is **superseded by Amendment 1 §A1.1 and Amendment 2
+§A2.2**. The `<!-- amendment-redacted -->` markers are added inline
+in the original text below to flag the contradicted sentences for
+readers; the original wording is preserved beneath the markers for
+auditability.
+
+The original §3 "Out of scope" entry "Adding a HARNESS.md
+constraint requiring scenarios for new agent artefacts" is
+**superseded by A1.1 / A2.2** — same redaction marker applied.
+
+The original §5 "30 days observation" paragraph is **fully
+superseded by A1.2** (deferral removed); marker applied.
+
+### A2.5 RED duality in the tdd-agent's prose: name it explicitly
+
+A1.5 redefined "red" for the modification branch. Post-A1 O8
+flagged that the original §4 "Confirms the structural layer is red"
+prose was preserved verbatim and the agent file would now operate
+two definitions simultaneously. Amendment 2 makes the directive in
+§A1.7 step 3 explicit: when authoring the agent-artefact branch in
+`tdd-agent.agent.md`, the implementer must (a) include the new
+A1.5 RED definition for modifications, (b) keep the existing
+"Confirming red" prose for the generic-test path unchanged, and (c)
+add a one-sentence preamble at the top of the new branch noting
+that "RED" carries a semantic extension specifically inside this
+branch. The two definitions are not contradictory once the branch
+boundary is named explicitly.
+
+### A2.6 Revised acceptance criteria (replaces A1.9)
+
+A future PR that **adds** a new skill, agent, or command must:
+
+1. Include at least one scenario file at
+   `tdad_tests/scenarios/<type>/<name>/<aspect>.md` (per A1.4)
+   whose `tier` is one of `structural`, `trigger`, or
+   `behavioural` (per A2.2).
+2. Pass the deterministic CI check
+   `.github/workflows/tdad-scenario-check.yml` at PR time.
+
+A PR that **modifies** an existing skill, agent, or command:
+
+1. Should review the existing scenario(s) and update them when the
+   spec changes the contract; leave them unchanged when the spec is
+   a non-behavioural refactor. Acknowledged as a judgement call
+   (per original O3 / post-A1 O5) — no automated check exists for it.
+2. Is not blocked by the HARNESS constraint (which scopes to *new*
+   files), but the orchestrator-pipeline path-detection still fires
+   to surface the question.
+
+A PR that does NOT touch agent artefacts must not have a TDAD
+scenario authored unnecessarily; the orchestrator's detection step
+exits early.
+
+This PR (the one shipping Amendment 2) is itself a modification PR
+under the rule above. No scenarios are authored for the orchestrator
+or tdd-agent edits; the discipline applies forward.
+
+### A2.7 Revised implementation plan (replaces A1.7)
+
+1. **Edit `ai-literacy-superpowers/agents/tdd-agent.agent.md`** —
+   add the agent-artefact branch with the modification-branch RED
+   semantics (per A1.5 + A2.5) and the filename convention (per
+   A1.4 + A2.3 — `<aspect>.md` for new scenarios, FINDING- as a
+   separate category not authored by tdd-agent).
+2. **Edit `ai-literacy-superpowers/agents/orchestrator.agent.md`** —
+   add the path-based detection step before pipeline step 2, with
+   the scope acknowledgement note (per A1.10) for surfaces the
+   detection rule does not cover (`hooks/`, `templates/`,
+   `scripts/`).
+3. **Add HARNESS constraint** "New plugin components must ship with
+   a TDAD scenario" (per A2.2) and the corresponding deterministic
+   workflow at `.github/workflows/tdad-scenario-check.yml`.
+4. **Increment HARNESS.md Status** `Constraints enforced` count
+   and the README harness badge accordingly (20/21 → 21/22).
+5. **Bump plugin version** 0.35.5 → 0.36.0; update `plugin.json`,
+   the README ai-literacy-superpowers badge, and the marketplace
+   `plugin_version`.
+6. **Add CHANGELOG entry** under v0.36.0 — date-stamped, theme-
+   grouped per project conventions.
+7. **Update `agent-orchestration.md`** docs page (or equivalent)
+   to mention the new artefact-type branch + the new constraint.
+8. **Run `python3 -m mkdocs build --strict` locally** to verify
+   the docs change.
+
+### A2.8 Known limitations carried forward
+
+Three concerns from the post-A1 review are accepted as named
+limitations:
+
+- **Modification scope (post-A1 O5)** — the constraint scopes to
+  new files only. Existing components can be modified without
+  scenario coverage. The orchestrator pipeline surfaces the
+  question for modifications but does not enforce an answer. If
+  practice shows legitimate modifications silently skipping the
+  discipline, a tighter rule is a follow-up spec.
+- **LLM scenario quality (post-A1 O6)** — bad scenarios can pass
+  the deterministic check (the check only verifies presence and
+  tier, not falsifiability of `Then` clauses). Mitigation: the
+  tdd-agent's RED-phase output is surfaced to the user before the
+  implementer is dispatched; user reviews scenario quality. A
+  Layer 1 test asserting non-empty `Then` sections is a follow-up
+  if quality drift becomes observable.
+- **`hooks/`, `templates/`, `scripts/` excluded** — same scope
+  rationale as A1.10 carries forward.
+
+These limitations ship with the spec, named explicitly. The pivot's
+trade-off is honesty: the discipline is forward-only, the
+enforcement covers new files, and the rest of the surface is
+acknowledged rather than waved away.
 
 ---
 
@@ -271,6 +484,8 @@ Two files change:
    one-line gate at step 2 that detects agent-artefact scope from the
    plan's file paths and passes that context to `tdd-agent`.
 
+<!-- amendment-redacted: superseded by Amendment 1 §A1.1 and Amendment 2 §A2.2 — a deterministic HARNESS constraint IS added in this PR. Original prose preserved below for auditability. -->
+
 No new constraint is added to HARNESS.md in this spec. The existing
 TDAD suite's Layer 1 structural tests (which scan
 `tdad_tests/scenarios/`) are the post-merge forcing function;
@@ -358,7 +573,8 @@ Context).
 
 ### Out of scope
 
-- Adding a HARNESS.md constraint requiring scenarios for new agent
+- <!-- amendment-redacted: superseded by Amendment 1 §A1.1 and Amendment 2 §A2.2 — the constraint IS added in this PR. -->
+  Adding a HARNESS.md constraint requiring scenarios for new agent
   artefacts. The Layer 1 structural test is the existing forcing
   function; a constraint would be redundant. If the pipeline change
   fails to bed in (i.e. PRs continue to land without scenarios), the
@@ -479,6 +695,8 @@ test catches violations post-merge. A constraint would catch
 violations that bypass the orchestrator (chore PRs, manual edits)
 but adds maintenance and may be redundant if the structural test
 already fails such PRs.
+
+<!-- amendment-redacted: superseded by Amendment 1 §A1.2 — the 30-day deferral is removed; the constraint is added up-front. Original prose preserved below for auditability. -->
 
 The decision is to ship the pipeline change first and observe
 whether scenarios appear consistently for new components in the
