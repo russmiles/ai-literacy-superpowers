@@ -1,6 +1,6 @@
-"""Phase 4 — M-command skill-coverage matrix.
+"""Phase 4 — model-mediated-command skill-coverage matrix.
 
-Model-mediated (M) commands derive their substantive behaviour from
+Model-mediated commands derive their substantive behaviour from
 their driving skill. ``/assess`` reads the ``ai-literacy-assessment``
 skill before proceeding; ``/extract-conventions`` reads the
 ``convention-extraction`` skill; ``/governance-constrain`` reads the
@@ -8,7 +8,7 @@ skill before proceeding; ``/extract-conventions`` reads the
 methodology; the command's prose is the conversational shell that
 loads the skill at the right time.
 
-This makes M commands fragile in a specific way: if the driving
+This makes model-mediated commands fragile in a specific way: if the driving
 skill is renamed, refactored, or split without updating the
 referencing command, the command's prose still reads (Phase 1 may
 not catch it if the rename split into two skills, both of which
@@ -21,14 +21,14 @@ for the skill-driven layer:
 
 - Phase 1 catches "skill reference is broken" (passive — fails when
   the named skill no longer exists).
-- Phase 4 catches "M command was supposed to load Y skill and no
+- Phase 4 catches "model-mediated command was supposed to load Y skill and no
   longer does" (active — fails when an expected reference is
   missing, even if the command's prose still parses cleanly).
 
 The two tests have orthogonal coverage. Both belong.
 
 Per the design spec (`docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md`),
-Layer 3 behavioural tests of M-command driving skills are the
+Layer 3 behavioural tests of model-mediated-command driving skills are the
 high-cost, case-by-case follow-up — only worth investing in for
 specific skills with assertable side-effects (the ``cupid-code-review``
 test in PR #285 is the canonical pattern; ``harness-onboarding`` is a
@@ -59,7 +59,7 @@ from runner import plugin as plugin_runner  # noqa: E402
 # 2026-05-09. When a command's prose adds or removes a skill load,
 # this matrix must be updated alongside the prose change — that is
 # the contract this test enforces.
-M_COMMAND_SKILL_MATRIX: list[tuple[str, list[str]]] = [
+MODEL_MEDIATED_COMMAND_SKILLS: list[tuple[str, list[str]]] = [
     # /assess uses two skills: the assessment methodology, and the
     # literacy-improvements skill that turns a level into a
     # prioritised improvement plan.
@@ -94,7 +94,7 @@ _PLUGIN_PATH = (
 
 
 def _command_body(command_name: str) -> str:
-    """Read the body of an M command for matching."""
+    """Read the body of an model-mediated command for matching."""
     component = plugin_runner.find_component(
         _PLUGIN_PATH, name=command_name, component_type="command"
     )
@@ -105,7 +105,7 @@ def _skill_load_present(body: str, skill_name: str) -> bool:
     """Whether the body contains a load-bearing reference to a skill.
 
     Accepts both backticked and path-style references — the project
-    uses both forms across M commands. ``\\b`` word-boundary anchors
+    uses both forms across model-mediated commands. ``\\b`` word-boundary anchors
     plus a negative lookahead on hyphen prevent false positives like
     ``foo`` matching ``foo-bar`` because ``-`` is a regex word
     boundary.
@@ -133,13 +133,13 @@ def _skill_load_present(body: str, skill_name: str) -> bool:
 
 
 @pytest.mark.structural
-class TestMCommandSkillCoverage:
-    """Each M command must load the specific skills it declares as
+class TestModelMediatedCommandSkillCoverage:
+    """Each model-mediated command must load the specific skills it declares as
     its driving methodology."""
 
     @pytest.mark.parametrize(
         "command_name,expected_skills",
-        M_COMMAND_SKILL_MATRIX,
+        MODEL_MEDIATED_COMMAND_SKILLS,
         ids=lambda v: v if isinstance(v, str) else "",
     )
     def test_command_loads_expected_skills(
@@ -176,7 +176,7 @@ class TestMatrixCoverage:
             c.name for c in plugin_runner.list_skills(_PLUGIN_PATH)
         }
         broken: list[str] = []
-        for cmd, skills in M_COMMAND_SKILL_MATRIX:
+        for cmd, skills in MODEL_MEDIATED_COMMAND_SKILLS:
             for skill in skills:
                 if skill not in skill_names:
                     broken.append(
@@ -192,7 +192,7 @@ class TestMatrixCoverage:
         }
         missing = [
             cmd
-            for cmd, _ in M_COMMAND_SKILL_MATRIX
+            for cmd, _ in MODEL_MEDIATED_COMMAND_SKILLS
             if cmd not in command_names
         ]
         assert not missing, (
@@ -200,9 +200,9 @@ class TestMatrixCoverage:
         )
 
     def test_matrix_covers_every_m_command(self):
-        """The 7 M commands documented in the design spec
+        """The 7 model-mediated commands documented in the design spec
         (``docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md``)
-        should all appear in the matrix. If a new M command lands or
+        should all appear in the matrix. If a new model-mediated command lands or
         an existing one is reclassified, the matrix should be updated
         deliberately — this test surfaces the drift if it isn't.
 
@@ -219,11 +219,11 @@ class TestMatrixCoverage:
             "harness-gc",
             "harness-onboarding",
         }
-        matrix_commands = {cmd for cmd, _ in M_COMMAND_SKILL_MATRIX}
+        matrix_commands = {cmd for cmd, _ in MODEL_MEDIATED_COMMAND_SKILLS}
         missing_from_matrix = expected_m_commands - matrix_commands
         unexpected_in_matrix = matrix_commands - expected_m_commands
         assert not missing_from_matrix, (
-            "M commands missing from skill-coverage matrix: "
+            "model-mediated commands missing from skill-coverage matrix: "
             f"{sorted(missing_from_matrix)}"
         )
         assert not unexpected_in_matrix, (

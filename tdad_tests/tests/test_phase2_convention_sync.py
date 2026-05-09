@@ -2,7 +2,7 @@
 
 Validates the per-category strategy from the design spec
 (``docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md``)
-for one P-category command. The helper at
+for one procedural command. The helper at
 ``tdad_tests/spike_helpers/convention_sync.py`` implements the Cursor
 ``conventions.mdc`` slice of ``/convention-sync``; these tests cover
 its behaviour against fixture HARNESS.md inputs.

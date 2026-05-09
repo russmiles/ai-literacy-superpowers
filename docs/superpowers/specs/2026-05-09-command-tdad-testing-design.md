@@ -13,9 +13,9 @@
 
 ## Amendment 1 — 2026-05-09: helpers stay test-stage (Option I)
 
-**Supersedes**: §4's framing of Option C-direct as "the markdown command becomes glue between the user and the helper", and §5's Phase 2 expansion line ("If the spike works, expand to the remaining 9 P commands in a single follow-up PR" — read as "and update the command markdowns to invoke the helpers").
+**Supersedes**: §4's framing of Option C-direct as "the markdown command becomes glue between the user and the helper", and §5's Phase 2 expansion line ("If the spike works, expand to the remaining 9 procedural commands in a single follow-up PR" — read as "and update the command markdowns to invoke the helpers").
 
-**Decision**: For all P commands, helpers stay in `tdad_tests/spike_helpers/`
+**Decision**: For all procedural commands, helpers stay in `tdad_tests/spike_helpers/`
 as test-stage code. Command markdowns continue as prose-driven instructions
 to the model. Tests verify the *documented behaviour*; drift between the
 helper and the command's prose is a test failure the author resolves
@@ -78,15 +78,15 @@ met case-by-case, not blanket.
 - Phases 1, 3, 4 (the wiring and matrix tests) — still cheap, still
   applied to every command.
 - Phase 2's spike helpers — they earned their keep by validating that
-  P-command logic *can* be tested. They stay in `tdad_tests/spike_helpers/`.
-- Per-skill Layer 3 tests for M commands — still case-by-case follow-up.
+  procedural-command logic *can* be tested. They stay in `tdad_tests/spike_helpers/`.
+- Per-skill Layer 3 tests for model-mediated commands — still case-by-case follow-up.
 
 ### What changes for the rollout from Phase 2
 
 The work previously framed as "Phase 3 rollout: promote helpers to
-scripts/, update command markdowns, expand to 9 more P commands" is
+scripts/, update command markdowns, expand to 9 more procedural commands" is
 now: "expand the test-stage helpers in `tdad_tests/spike_helpers/` to
-cover the remaining 9 P commands, *without* moving them into the plugin
+cover the remaining 9 procedural commands, *without* moving them into the plugin
 or changing the command markdowns."
 
 If a specific command has a side-effect severe enough to justify the
@@ -179,14 +179,14 @@ costs more than the value they return.
 
 ## 3. Inventory: 25 commands by category
 
-### Category P — Procedural-deterministic (11 commands)
+### Procedural-deterministic (11 commands)
 
 These are mostly mechanical: read files, transform, write files. The
 inferential work is minor (formatting the output, asking a single
 clarifying question). Their value is the side-effect on the file
 system.
 
-| Command | What it does | Why P |
+| Command | What it does | Why procedural |
 | --- | --- | --- |
 | `convention-sync` | Read HARNESS.md, generate Cursor/Copilot/Windsurf files | Pure transformation |
 | `harness-status` | Read HARNESS.md Status section, format and print | Read + format |
@@ -200,13 +200,13 @@ system.
 | `harness-health` (quick mode) | Read multiple data sources, aggregate, format | Read + aggregate |
 | `cost-capture` | Guide user through dashboards, write snapshot | Data entry with model formatting |
 
-### Category O — Orchestration (7 commands)
+### Orchestration (7 commands)
 
 These commands dispatch one or more existing agents and write the
 agents' output to a file. The command file is glue; the *agents* do
 the substantive work.
 
-| Command | Dispatches | Why O |
+| Command | Dispatches | Why orchestration |
 | --- | --- | --- |
 | `harness-audit` | harness-discoverer + harness-enforcer | Multi-agent dispatch |
 | `governance-audit` | governance-auditor | Single agent dispatch |
@@ -216,13 +216,13 @@ the substantive work.
 | `choice-cartograph` | choice-cartographer agent | Single agent dispatch |
 | `diaboli` | advocatus-diaboli agent | Single agent dispatch |
 
-### Category M — Model-mediated (7 commands)
+### Model-mediated (7 commands)
 
 These commands run a multi-turn interactive session. The model reasons
 across questions, user answers, and accumulating context. The value is
 the reasoning trajectory, not a single asserted output.
 
-| Command | What makes it M |
+| Command | What makes it model-mediated |
 | --- | --- |
 | `assess` | Multi-step assessment (scan, ask, score, recommend, badge update) |
 | `portfolio-assess` | Aggregation with model synthesis across many repos |
@@ -240,9 +240,9 @@ the reasoning trajectory, not a single asserted output.
 
 ## 4. Per-category testing strategy
 
-### P — Test side-effects (Option C from the spike)
+### Procedural — Test side-effects (Option C from the spike)
 
-**Approach.** For each P command, identify its observable side-effects
+**Approach.** For each procedural command, identify its observable side-effects
 on the file system or stdout. Write a Layer-3-equivalent test that:
 
 1. Sets up a fixture project state
@@ -266,9 +266,9 @@ on the file system or stdout. Write a Layer-3-equivalent test that:
 
 **Cost**: low. ~$0 per test (no LLM). Wall-clock seconds, not minutes.
 **Granularity**: per-command at first; per-side-effect over time.
-**Coverage target**: all 11 P commands.
+**Coverage target**: all 11 procedural commands.
 
-### O — Test the dispatched components, smoke the command
+### Orchestration — Test the dispatched components, smoke the command
 
 **Approach.** Orchestration commands inherit most of their value from
 the agents they dispatch. The framework already has Layer 3 TDAD for
@@ -286,15 +286,15 @@ test the *command* with a thin smoke check:
 
 The substantive testing — does the dispatched agent actually do the
 right thing? — lives at Layer 3 for the agent itself, not for the
-command. Each O command becomes a thin shell over already-tested
+command. Each orchestration command becomes a thin shell over already-tested
 agents.
 
 **Cost**: ~$0 per test (structural and grep). Wall-clock sub-second.
-**Coverage target**: all 7 O commands at the structural+wiring level;
+**Coverage target**: all 7 orchestration commands at the structural+wiring level;
 all 13 plugin agents at Layer 3 (4 of which are spike targets already
 or upcoming).
 
-### M — Acknowledge the cost; instrument lightly
+### Model-mediated — Acknowledge the cost; instrument lightly
 
 **Approach.** Genuinely model-mediated commands resist Layer-3 TDAD
 because the value is the multi-turn reasoning trajectory, not a single
@@ -311,22 +311,22 @@ asserted output. Three claims drive the recommendation:
   staying *unverified* or *agent-verified-via-its-skills* is a valid
   outcome. Not every component must reach Layer 3.
 
-For M commands, this spec recommends:
+For model-mediated commands, this spec recommends:
 
 1. **Layer 1 structural check** (covered by the universal pass below)
 2. **Skill-coverage check**: the command references its driving
    skill (`assess` ↔ `ai-literacy-assessment` skill, `extract-conventions`
    ↔ `convention-extraction` skill, etc.) and that skill exists. Most
-   M commands offload their substantive logic to a skill; the skill
+   model-mediated commands offload their substantive logic to a skill; the skill
    is the right unit of test.
 3. **No Layer 3** (deliberately). Skills get Layer 3 tests where
    feasible (the cupid-code-review pattern from PR #285 generalises
-   to several other skills); the M commands themselves remain
+   to several other skills); the model-mediated commands themselves remain
    structurally smoked but behaviourally unverified.
 
 **Cost**: ~$0 (structural + skill-coverage). Some skill Layer-3 tests
 already covered.
-**Coverage target**: all 7 M commands at structural + skill-coverage;
+**Coverage target**: all 7 model-mediated commands at structural + skill-coverage;
 some driving skills at Layer 3 in subsequent iterations.
 
 ---
@@ -358,9 +358,9 @@ failure class that the team has hit at least once before per the
 existing `Plugin-framework anchoring` GC rule history. The check is
 PR-time rather than weekly, so the failure is caught earlier.
 
-### Phase 2 — Spike Option C against 2 P commands
+### Phase 2 — Spike Option C against 2 procedural commands
 
-Pick 2 of the 11 P commands and validate Option C. Recommended:
+Pick 2 of the 11 procedural commands and validate Option C. Recommended:
 
 - `convention-sync` (cleanest case; pure transformation; HARNESS.md
   in → tool-rule files out)
@@ -374,27 +374,27 @@ behavioural tests with a fixture project, assert side-effects.
 **Output**: per-command test files in `tdad_tests/tests/`,
 fixtures in `tdad_tests/fixtures/`. Spike PR analogous to #282.
 
-If the spike works, expand to the remaining 9 P commands in a single
+If the spike works, expand to the remaining 9 procedural commands in a single
 follow-up PR. If it doesn't, the spike has surfaced what makes Option
 C harder than the design assumed — informative either way.
 
 ### Phase 3 — Orchestration command wiring
 
 Add `command-dispatches-existing-agents` parametrised tests across
-the 7 O commands. Each test parses the command body and asserts each
+the 7 orchestration commands. Each test parses the command body and asserts each
 named agent exists in `agents/`. ~$0, fast.
 
 This is essentially a tightening of Phase 1's wiring check, scoped
 explicitly to dispatch lines.
 
-### Phase 4 — Skill-driven M commands (only if cost/benefit holds)
+### Phase 4 — Skill-driven model-mediated commands (only if cost/benefit holds)
 
-The M commands' value lives in their driving skills. Inventory each
-M command's skill, write Layer-3 tests for the *skill* (per the
+The model-mediated commands' value lives in their driving skills. Inventory each
+model-mediated command's skill, write Layer-3 tests for the *skill* (per the
 existing PR #285 pattern for cupid-code-review), and call this
-sufficient. The M command itself stays at structural+skill-coverage.
+sufficient. The model-mediated command itself stays at structural+skill-coverage.
 
-If a particular M command has a side-effect worth asserting
+If a particular model-mediated command has a side-effect worth asserting
 (`assess` writes an assessment doc; `harness-onboarding` writes
 ONBOARDING.md), wrap that side-effect in a Phase-2-style Option C
 test — case by case.
@@ -408,7 +408,7 @@ architecture and the team has bandwidth to invest.
   from the spike). Listed as "deliberately not chosen": the
   CI-environment cost and subprocess fragility are too high for the
   return.
-- Per-command behavioural tests for every M command. Acknowledged as
+- Per-command behavioural tests for every model-mediated command. Acknowledged as
   expensive; deliberately not pursued unless Phase 4 proves
   worthwhile per command.
 
@@ -418,7 +418,7 @@ architecture and the team has bandwidth to invest.
 
 ### Trade-off — Option C-direct vs C-subprocess
 
-For P commands, the choice between extracting logic into Python and
+For procedural commands, the choice between extracting logic into Python and
 running existing bash blocks as subprocesses is a per-command call.
 C-direct produces cleaner, faster, more parametrisable tests; the
 extraction work is cost upfront. C-subprocess works with what already
@@ -441,7 +441,7 @@ extract code-fenced blocks and prose mentions, and validate against
 a structured allowlist. That's more work; the simple grep is fine
 until it breaks.
 
-### Open question — should M commands ever reach Layer 3?
+### Open question — should model-mediated commands ever reach Layer 3?
 
 This spec says "no, by default; case by case if there's a clear
 side-effect." That position deserves to be revisited if/when M
@@ -466,7 +466,7 @@ in a future plugin), the pattern should be promoted from
 Adopt the per-category strategy. Sequence the phases as listed.
 Phase 1 (universal structural pass) is the cheapest and highest-
 leverage; do it first regardless of subsequent decisions. Phase 2
-validates the architecture for P commands before scaling. Phase 3
+validates the architecture for procedural commands before scaling. Phase 3
 tightens orchestration wiring. Phase 4 is opt-in per command.
 
 Issue #284 closes once this spec is reviewed and approved. The
@@ -484,8 +484,8 @@ phase can be picked up independently.
 - **A single right answer for command testing.** The premise of this
   spec is that there isn't one; the right answer is per category, and
   pretending otherwise leads to either over-engineering (testing P
-  commands the same heavyweight way M commands need) or
-  under-engineering (using P-style tests on M commands that need
+  commands the same heavyweight way model-mediated commands need) or
+  under-engineering (using procedural-style tests on model-mediated commands that need
   more).
 - **Removal of any existing tests.** Layer 0 (deterministic plumbing),
   Layer 1, Layer 2, Layer 3 all stand as built. This is a *new
