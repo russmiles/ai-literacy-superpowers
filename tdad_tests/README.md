@@ -139,16 +139,26 @@ dispatches via the Claude Agent SDK.
 
 ## Status
 
+### ai-literacy-superpowers plugin
+
 | Component / area | Layer 0 | Layer 1 | Layer 2 | Layer 3 |
 | --- | --- | --- | --- | --- |
 | reflection-log plumbing | ✅ 23 bash tests via dispatcher | n/a | n/a | n/a |
+| All shipped shell scripts | ✅ `bash -n` syntax check (every `.sh` in scripts/, scripts/lib/, hooks/scripts/) | n/a | n/a | n/a |
+| `hooks/hooks.json` | n/a | ✅ structural (manifest schema + every command script resolves) | n/a | n/a |
 | spec-writer | n/a | ✅ structural | n/a (agent, not skill) | ✅ implemented (gated on API key) |
 | cupid-code-review | n/a | ✅ structural | ✅ implemented (gated on API key) | ✅ implemented + LLM-as-judge rubric (gated on API key) |
-| All 25 commands | n/a | ✅ structural + wiring (Phase 1) | n/a | per-category strategy in spec — see [#284 design](../docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md) |
+| All 25 commands | n/a | ✅ structural + wiring (Phase 1) | n/a | per-category strategy in spec — see [design](../docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md) |
 | convention-sync (procedural, Phase 2 spike) | n/a | ✅ structural | n/a | ✅ Option C-direct helper + 8 tests |
 | observatory-verify (procedural, Phase 2 spike) | n/a | ✅ structural | n/a | ✅ Option C-direct helper + 11 tests |
 | 6 of 7 orchestration commands (Phase 3) | n/a | ✅ structural + wiring + per-command dispatch matrix | n/a | inherits from agents (Layer 3 covers each agent) |
 | All 7 model-mediated commands (Phase 4) | n/a | ✅ structural + wiring + per-command skill-coverage matrix | n/a | per-skill Layer 3 deferred (case-by-case per design spec) |
+
+### model-cards plugin
+
+| Component / area | Layer 0 | Layer 1 | Layer 2 | Layer 3 |
+| --- | --- | --- | --- | --- |
+| All components (1 agent, 1 skill, 1 command) | n/a | ✅ structural + wiring | n/a | not yet — plugin is small enough that matrices would be overkill |
 
 Layer 1 runs offline and passes against the real plugin. Layer 2 and
 Layer 3 are implemented and exercise the Claude Agent SDK. They run
@@ -169,6 +179,44 @@ Approximate per-run token cost based on Anthropic's published pricing
 A full Layer 0+1+2+3 run is around $0.10–$0.20. Tier execution is
 recommended for CI: Layers 0–1 on every PR (free, fast), Layer 2+3
 nightly or label-gated.
+
+## Coverage gaps and deferrals
+
+The TDAD suite covers **everything below Layer 3** for both plugins.
+Layer 3 (full SDK behavioural testing) is deliberately partial — the
+design spec at
+[`docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md`](../docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md)
+flagged it as case-by-case opt-in because per-skill cost varies and
+some failure modes don't justify the API spend.
+
+**Documented opt-ins (Layer 3 not yet built):**
+
+- 12 of 13 ai-literacy-superpowers agents — Layer 3 has been built for
+  spec-writer; the others inherit through the agent-verified tier of
+  the framework's promotion ladder. Add Layer 3 case-by-case when an
+  agent has a clear assertable side-effect (e.g., harness-discoverer's
+  scan output).
+- 30 of 31 ai-literacy-superpowers skills — Layer 3 has been built for
+  cupid-code-review (the canonical pattern). Per-skill Layer 3
+  decisions belong in their own spec each.
+- All 1 of 1 model-cards components — plugin is small; structural
+  coverage is sufficient.
+
+**Documented Phase-3 rollout target:**
+
+- 9 of 11 procedural commands without Option C helpers — Phase 2 (PR
+  #295) demonstrated the pattern; the spec amendment (PR #298) clarified
+  that helpers stay test-stage in `tdad_tests/spike_helpers/` rather
+  than promoting to plugin scripts. Rollout work is repetitive
+  application of the Phase 2 pattern; scope is one PR per ~3 commands.
+
+**Genuine architectural exclusion:**
+
+- `superpowers-init` orchestrates *other slash commands* rather than
+  dispatching agents directly. The Phase 3 dispatch matrix
+  deliberately excluded it. A "command-references-other-commands"
+  matrix could be added as a Phase 5 if drift in this area becomes a
+  real failure mode.
 
 ## Issue
 
