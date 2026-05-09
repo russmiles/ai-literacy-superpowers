@@ -91,3 +91,32 @@ This finding moves the architecture from "we will TDAB everything"
 to "we will TDAB agents and skills cleanly; commands need a separate
 design pass." That refinement is itself a productive output of the
 spike.
+
+## Design pass — outcome
+
+The design pass landed at
+`docs/superpowers/specs/2026-05-09-command-tdad-testing-design.md`
+(issue #284). The recommendation is **per-category**, not a single
+answer:
+
+- **P (procedural-deterministic, 11 commands)** — Option C: test the
+  side-effects, either via extracted Python helpers or via subprocess
+  invocation of the command's bash blocks. Cost-effective; covers
+  most commands.
+- **O (orchestration, 7 commands)** — test the *dispatched agents*
+  (which Layer 3 TDAD already covers) and add a thin command-wiring
+  smoke test that asserts each command references agents that exist.
+- **M (model-mediated, 7 commands)** — Layer 3 testing is high-cost
+  and high-fragility; this spec recommends staying at structural +
+  skill-coverage. Skills get Layer 3 where feasible; the M commands
+  themselves stay agent-verified-via-skills.
+
+The spec phases roll-out so cost grows monotonically: Phase 1 is a
+universal structural pass (~$0, all 25 commands); Phase 2 is an
+Option C spike on 2 P commands; Phases 3 and 4 follow.
+
+This finding remains as the canonical design-question record for
+posterity. The decision is captured in the spec; the phases are
+tracked as separate follow-up issues. Once Phase 1 lands, this
+scenario file may be updated to reflect any further architectural
+adjustments.
