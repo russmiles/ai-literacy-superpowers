@@ -3,7 +3,9 @@ set -euo pipefail
 # Test harness for reflection-log-helpers.sh
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LIB_PATH="$SCRIPT_DIR/../scripts/lib/reflection-log-helpers.sh"
+# Tests live in tdad_tests/layer0_deterministic/; the library under
+# test ships inside the packaged plugin two levels up.
+LIB_PATH="$SCRIPT_DIR/../../ai-literacy-superpowers/scripts/lib/reflection-log-helpers.sh"
 FIXTURES_DIR="$SCRIPT_DIR/fixtures"
 
 # shellcheck source=/dev/null
