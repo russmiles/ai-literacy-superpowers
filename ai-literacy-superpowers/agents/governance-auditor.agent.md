@@ -1,33 +1,34 @@
 ---
 name: governance-auditor
-description: Use this agent when conducting a deep governance investigation — semantic drift analysis, governance debt inventory, constraint falsifiability scoring, three-frame alignment checks, or governance health reporting. Examples:
+description: |
+  Use this agent when conducting a deep governance investigation — semantic drift analysis, governance debt inventory, constraint falsifiability scoring, three-frame alignment checks, or governance health reporting. Examples:
 
- <example>
- Context: User runs /governance-audit
- user: "/governance-audit"
- assistant: "I'll use the governance-auditor to conduct a deep governance investigation."
- <commentary>
- The governance-auditor owns the full audit methodology — drift detection, debt inventory, frame alignment.
- </commentary>
- </example>
+  <example>
+  Context: User runs /governance-audit
+  user: "/governance-audit"
+  assistant: "I'll use the governance-auditor to conduct a deep governance investigation."
+  <commentary>
+  The governance-auditor owns the full audit methodology — drift detection, debt inventory, frame alignment.
+  </commentary>
+  </example>
 
- <example>
- Context: User suspects governance constraints have drifted
- user: "Our governance constraints feel out of date — the team works differently now"
- assistant: "I'll use the governance-auditor to check for semantic drift and governance debt."
- <commentary>
- Semantic drift is the governance-auditor's primary detection target.
- </commentary>
- </example>
+  <example>
+  Context: User suspects governance constraints have drifted
+  user: "Our governance constraints feel out of date — the team works differently now"
+  assistant: "I'll use the governance-auditor to check for semantic drift and governance debt."
+  <commentary>
+  Semantic drift is the governance-auditor's primary detection target.
+  </commentary>
+  </example>
 
- <example>
- Context: Quarterly governance review
- user: "Time for the quarterly governance audit"
- assistant: "I'll dispatch the governance-auditor for a full governance deep-dive."
- <commentary>
- Quarterly audit is the governance-auditor's primary scheduled cadence.
- </commentary>
- </example>
+  <example>
+  Context: Quarterly governance review
+  user: "Time for the quarterly governance audit"
+  assistant: "I'll dispatch the governance-auditor for a full governance deep-dive."
+  <commentary>
+  Quarterly audit is the governance-auditor's primary scheduled cadence.
+  </commentary>
+  </example>
 
 model: inherit
 color: purple

@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.35.4 — 2026-05-09
+
+### Fix — agent frontmatter now strict-YAML compliant (resolves #283)
+
+Six agent files carried multi-line `description:` values with embedded
+`<example>` blocks whose internal `Context:`, `user:`, `assistant:`
+lines tripped strict YAML parsers. The Claude Code loader accepts
+this convention; PyYAML and any other strict YAML library does not.
+Surfaced by the TDAD Layer 1 frontmatter-strictness check (PR #282 /
+issue #281).
+
+Conversion to YAML literal block scalars (`description: |` followed
+by a 2-space-indented multi-line body) for the six affected files:
+
+- `assessor.agent.md`
+- `governance-auditor.agent.md`
+- `harness-auditor.agent.md`
+- `harness-discoverer.agent.md`
+- `harness-enforcer.agent.md`
+- `harness-gc.agent.md`
+
+Round-trip parsing verified each conversion preserves the description
+text including all `<example>` blocks. The Layer 1 frontmatter
+strictness test now PASSES (was a non-blocking SKIP listing all six
+broken files); TDAD suite count moves from 22 passed / 8 skipped to
+23 passed / 7 skipped.
+
+Decision rationale (Option A from issue #283): the plugin is
+documented at the framework level and likely to be consumed by
+independent tooling over time; assuming the test runner is the only
+non-Claude-Code consumer that will ever read these files was a
+fragile assumption. Block scalars are well-supported by every YAML
+library and remove the ambiguity at the source.
+
+The resolved finding scenario (`tdad_tests/scenarios/agents/assessor/FINDING-frontmatter-yaml-strictness.md`)
+has been removed; the architectural record lives in PR #282 and
+issue #283 in git history.
+
 ## 0.35.3 — 2026-05-09
 
 ### Internal reorganisation — bash test scripts moved to tdad_tests/
