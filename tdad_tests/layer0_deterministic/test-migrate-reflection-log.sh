@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SCRIPT="$SCRIPT_DIR/../scripts/migrate-reflection-log.sh"
+# Tests live in tdad_tests/layer0_deterministic/; the script under
+# test ships inside the packaged plugin two levels up.
+SCRIPT="$SCRIPT_DIR/../../ai-literacy-superpowers/scripts/migrate-reflection-log.sh"
 FIXTURES="$SCRIPT_DIR/fixtures"
 
 fail() { echo "FAIL: $*" >&2; exit 1; }
