@@ -55,7 +55,7 @@ Replace Amendment 1 §A1.1's constraint with:
   YAML frontmatter declares `tier` as one of `structural`,
   `trigger`, or `behavioural`. Files with `tier: finding` do NOT
   satisfy the constraint (they are documentary, not falsifiable —
-  see A2.3). The tdd-agent's `<descriptor>.md` filename can be any
+  see A2.3). The tdd-agent's `<aspect>.md` filename can be any
   non-`FINDING-`-prefixed kebab-case name; the existing corpus
   uses verb-phrase aspects like `creates-spec-with-acceptance-scenarios.md`
   or `identifies-violations.md`.
@@ -311,7 +311,7 @@ amendment.
 
 ### A1.4 Filename convention: descriptive `<aspect>.md`
 
-The original spec specified `scenario.md` (or `<descriptor>.md` if
+The original spec specified `scenario.md` (or `<aspect>.md` if
 multiple). The existing corpus uses descriptive `<aspect>.md`
 filenames consistently:
 
@@ -484,7 +484,7 @@ Two files change:
    one-line gate at step 2 that detects agent-artefact scope from the
    plan's file paths and passes that context to `tdd-agent`.
 
-<!-- amendment-redacted: superseded by Amendment 1 §A1.1 and Amendment 2 §A2.2 — a deterministic HARNESS constraint IS added in this PR. Original prose preserved below for auditability. -->
+> **SUPERSEDED by Amendment 1 §A1.1 and Amendment 2 §A2.2** — a deterministic HARNESS constraint IS added in this PR. Original prose preserved below for auditability.
 
 No new constraint is added to HARNESS.md in this spec. The existing
 TDAD suite's Layer 1 structural tests (which scan
@@ -573,7 +573,8 @@ Context).
 
 ### Out of scope
 
-- <!-- amendment-redacted: superseded by Amendment 1 §A1.1 and Amendment 2 §A2.2 — the constraint IS added in this PR. -->
+- > **SUPERSEDED by Amendment 1 §A1.1 and Amendment 2 §A2.2** — the constraint IS added in this PR.
+
   Adding a HARNESS.md constraint requiring scenarios for new agent
   artefacts. The Layer 1 structural test is the existing forcing
   function; a constraint would be redundant. If the pipeline change
@@ -624,7 +625,7 @@ For each artefact in the scope list, tdd-agent:
 1. Reads the spec to extract the intended behaviour.
 2. Authors a scenario file at
    `tdad_tests/scenarios/<type>/<name>/scenario.md` (or
-   `<descriptor>.md` if multiple scenarios apply).
+   `<aspect>.md` if multiple scenarios apply).
 3. Each scenario file uses the canonical TDAD scenario format:
 
    ```markdown
@@ -696,7 +697,7 @@ violations that bypass the orchestrator (chore PRs, manual edits)
 but adds maintenance and may be redundant if the structural test
 already fails such PRs.
 
-<!-- amendment-redacted: superseded by Amendment 1 §A1.2 — the 30-day deferral is removed; the constraint is added up-front. Original prose preserved below for auditability. -->
+> **SUPERSEDED by Amendment 1 §A1.2** — the 30-day deferral is removed; the constraint is added up-front. Original prose preserved below for auditability.
 
 The decision is to ship the pipeline change first and observe
 whether scenarios appear consistently for new components in the
@@ -742,7 +743,7 @@ A future PR that ships a new skill, agent, or command and runs
 through the orchestrator pipeline must:
 
 1. Have a scenario file at
-   `tdad_tests/scenarios/<type>/<name>/<descriptor>.md` authored at
+   `tdad_tests/scenarios/<type>/<name>/<aspect>.md` authored at
    step 2 (RED phase) of the orchestrator pipeline, before any
    implementation code is written.
 2. Have the scenario referenced in the implementer's context (so the
