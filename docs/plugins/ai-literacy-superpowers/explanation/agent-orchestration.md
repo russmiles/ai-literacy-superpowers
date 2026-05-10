@@ -13,7 +13,6 @@ Most teams use AI coding assistants in a single loop: describe what you want, re
 
 This is the single-agent bottleneck. As the work grows, the constraint is not the AI's ability to generate code. The constraint is your ability to review it. The AI scales; you do not.
 
-{: .note }
 > **Try this:** Think about the last time you used an AI assistant for a substantial task. How long did you spend *generating* the code versus *reviewing and fixing* the code? If the ratio surprises you, you have found the bottleneck.
 
 ---
@@ -78,7 +77,6 @@ This is **bounded trust** — the principle of least privilege applied to AI age
 
 The boundary that matters most — the one people violate first — is between the implementer and the tests. If the implementer can edit test files, it can make the tests match the implementation instead of the other way around. TDD collapses. The tests were written before the implementer existed. They define correctness. The implementer does not get to redefine it.
 
-{: .warning }
 > Here is what happens without trust boundaries: you set up an agent that can write code, review its own code, approve its own review, and merge its own PR. You have built an automated system with zero quality gates. Every mistake goes straight to production. This is not a hypothetical. People build this. It goes badly.
 
 The temptation to give every agent full permissions — just to make things easier, just this once — is strong. Resist it. "Just this once" is how every trust boundary dies.
@@ -141,7 +139,6 @@ Three things matter here.
 
 **The cycle limit.** When the reviewer rejects and the implementer fixes, there is a maximum of three cycles. Without a limit, you get agent ping-pong: the reviewer keeps finding issues, the implementer keeps introducing new ones, and the token cost keeps climbing. Three cycles is enough for genuine iteration. If it is not resolved in three, a human needs to look — and the problem is usually in the spec, not the code.
 
-{: .note }
 > **Try this:** Imagine you are building an agent pipeline for a different domain — say, writing documentation instead of code. What agents would you create? What would each one's trust boundary be? Where would you put the human gates? Sketch it before reading on. Designing trust boundaries is the skill this section teaches.
 
 ---

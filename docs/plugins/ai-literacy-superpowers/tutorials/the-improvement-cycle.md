@@ -122,7 +122,6 @@ The command writes a timestamped document to
 discipline scores, strengths, gaps, and recommendations. This document
 drives the improvement plan.
 
-{: .note }
 > **Immediate adjustments.** After producing the assessment document,
 > the command identifies habitat hygiene fixes it can apply right now
 > without requiring discussion — updating a stale badge count, adding

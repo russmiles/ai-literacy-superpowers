@@ -23,7 +23,6 @@ AI assistants deserve the same analysis. They are pattern-completion engines tha
 
 The fix is not a longer prompt. Prompts are single-use. A great prompt helps one interaction. A great environment helps every interaction. One compounds. The other doesn't.
 
-{: .note }
 > **Try this: the two-minute audit.** Open the root of your main project. Pretend you are an AI assistant dropped into this codebase for the first time. What do you know? What conventions are written down? What architectural decisions are documented? What constraints are enforced automatically versus relying on human reviewers to catch? If the answer is "not much," you have just diagnosed why your AI output is not great.
 
 ## What "environment" means
@@ -60,7 +59,6 @@ Your codebase is a kitchen. Your AI assistant is a cook. When the AI writes code
 
 The AI cannot read your mind. But it can read your environment.
 
-{: .warning }
 > Documenting conventions without enforcing them is not enough. Documentation that is not enforced is a suggestion. The environment must include enforcement -- constraints that catch violations automatically, feedback loops that learn from mistakes, and context structured so the AI can actually use it. A wiki page about naming conventions is documentation. A pre-commit hook that rejects bad names is environment.
 
 ### A dialogue: The Model vs The Environment

@@ -115,7 +115,6 @@ For your first time, accepting all defaults is a good choice. If you want
 to start smaller — say, just context and constraints — deselect the others.
 The command only asks questions about the features you selected.
 
-{: .note }
 > **Re-running is additive.** If you run `/harness-init` again later, it
 > detects which features are already configured and defaults them to off.
 > Unconfigured features default to on. Your existing configuration is

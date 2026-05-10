@@ -35,7 +35,6 @@ The inner loop operates during the creative phase of work. Strict blocking at ed
 
 This is a deliberate design trade-off. The inner loop accepts a higher rate of missed violations in exchange for lower friction. The middle loop exists precisely to catch what the inner loop surfaces but does not enforce.
 
-{: .note }
 > The inner loop is also the cheapest place to catch problems. A violation detected at edit time costs seconds to fix. The same violation detected at PR time costs minutes of CI pipeline and context-switching. The inner loop's value is not in its enforcement power but in its proximity to the moment of creation.
 
 ---
@@ -61,7 +60,6 @@ Deterministic checks â€” linters, formatters, type checkers, structural tests â€
 
 Agent-based reviews produce findings that the orchestrator must resolve. The orchestrator dispatches fixes and re-runs the review. If three cycles do not resolve the findings, the orchestrator escalates to the human rather than forcing the merge or looping indefinitely. This bounded-trust design prevents agent disagreements from deadlocking the pipeline while keeping humans as the final authority.
 
-{: .warning }
 > A common mistake is putting a new, untested constraint directly into the middle loop. The first developer to hit it on a Friday afternoon will override it, and that override becomes the new convention. New constraints should start in the inner loop (advisory) and graduate to the middle loop only after they have proven their value and precision. This is the [progressive hardening](progressive-hardening.md) principle.
 
 ### The orchestrator's role

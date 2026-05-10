@@ -6,7 +6,6 @@ title: Build an AI Literacy Portfolio Dashboard
 Turn your portfolio assessment data into a shareable HTML dashboard
 showing AI literacy levels across your repos.
 
-{: .note }
 > The plugin includes a `portfolio-dashboard` skill that knows how to
 > generate this dashboard. You can ask Claude directly — "build me a
 > dashboard from my portfolio assessments" — and the skill handles
