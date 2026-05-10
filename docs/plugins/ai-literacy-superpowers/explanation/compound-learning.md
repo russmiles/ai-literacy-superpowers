@@ -4,7 +4,6 @@ title: Compound Learning
 # Compound Learning
 
 This page explains how AI development environments improve over time through captured learnings. For the detailed mechanics of self-improvement, see [The Self-Improving Harness](self-improving-harness.md).
-{: .note }
 
 ---
 
@@ -40,7 +39,6 @@ Without a learning loop, all of that evaporates. Session ends. Corrections disap
 
 Two minutes at the end of a session. Maybe less.
 
-{: .note }
 > **Try this:** Think about your last AI coding session. What did you correct? What would you tell a colleague who was about to start the same task? Write that down in two sentences. You have just written your first reflection.
 
 These reflections are not documentation. They are raw material — ore, not steel. The valuable step comes next.
@@ -59,7 +57,6 @@ A gotcha that showed up once is an anecdote. A gotcha that showed up three times
 
 This is where human judgement meets AI volume. The AI generates code at a pace you cannot match. You generate *insight* at a pace it cannot match. The learning loop combines both.
 
-{: .warning }
 > Skipping curation is the most common failure mode. Without it, reflections accumulate as noise and the learning loop stalls. The human review step is not optional — it is the mechanism that separates signal from noise.
 
 ---
@@ -178,7 +175,6 @@ Yes. When reflections are captured in a shared location and conventions live in 
 
 ---
 
-{: .note }
 > **Try this:** What is the one thing your AI keeps getting wrong? The correction you have made so many times you could type it in your sleep? Write it down. Be specific — not "better error handling" but "catch exceptions in service methods, wrap them in AppError with a code and message, and let the controller handle the HTTP response." Now put it where your AI can read it. A `CONVENTIONS.md` file. A `CLAUDE.md` file. A system prompt. Whatever your tool uses. That is your first reflection promoted to a convention. Your first learning loop, running.
 
 One convention. One fewer correction tomorrow. Then another. The flywheel does not ask permission to start turning.

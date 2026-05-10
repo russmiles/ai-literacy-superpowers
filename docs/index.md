@@ -12,11 +12,9 @@ opinionated tools for the AI Literacy framework — **harness
 engineering**, **agent orchestration**, **decision archaeology**,
 **governance**, and **model evaluation**.
 
-{: .fs-6 .fw-300 }
-
-[Get Started](plugins/ai-literacy-superpowers/tutorials/getting-started.md){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Browse Plugins](plugins/index.md){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Quick Install](#add-the-marketplace){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Get Started](plugins/ai-literacy-superpowers/tutorials/getting-started.md)
+· [Browse Plugins](plugins/index.md)
+· [Quick Install](#add-the-marketplace)
 
 ---
 

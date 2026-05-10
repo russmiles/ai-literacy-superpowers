@@ -429,7 +429,6 @@ the median level is rising, and which repos are improving fastest.
 This is the evidence that turns AI literacy work from an assertion
 into a measurable outcome.
 
-{: .note }
 > **Stale assessments.** Repos whose most recent assessment is older
 > than 90 days are flagged in the portfolio view. Re-run `/assess` in
 > those repos before the next portfolio run to keep the data current.

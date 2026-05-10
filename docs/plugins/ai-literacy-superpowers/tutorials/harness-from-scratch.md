@@ -81,7 +81,6 @@ Answer concretely. After each answer the agent restates it, asks one
 follow-up to sharpen the wording, and proposes a category. You confirm
 before it writes anything.
 
-{: .note }
 > **"It depends" is a signal, not a failure.** If an answer keeps landing
 > on "it depends on context," that convention needs decomposition into
 > specific, observable cases before it can be encoded. The agent will
@@ -264,7 +263,6 @@ Update each constraint's enforcement field to reflect reality:
 - **Scope**: commit
 ```
 
-{: .note }
 > **The harness does not need to own every constraint.** If golangci-lint
 > already enforces naming conventions, you can omit that constraint from
 > HARNESS.md entirely, or note it in a comment. The harness tracks what
@@ -353,7 +351,6 @@ A ratio below 1.0 means some constraints are declared but not yet
 automated. That is expected when retrofitting — use this number as a
 target to improve over time rather than a pass/fail score.
 
-{: .note }
 > **Re-run `/harness-init` to add features later.** If you skipped CI
 > configuration this time, you can run `/harness-init` again to add it.
 > The command detects which sections are already configured and only

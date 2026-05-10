@@ -4,7 +4,6 @@ title: Codebase Entropy
 # Codebase Entropy
 
 This page explains why codebases degrade and how AI accelerates the problem. For the mechanical details of fighting entropy, see [Garbage Collection](garbage-collection.md).
-{: .note }
 
 ---
 
@@ -44,7 +43,6 @@ Your codebase follows the same pattern. Not literally -- the metaphor is borrowe
 
 This is not a failure of discipline. It is a force. You can fight it, but you cannot ignore it. And if you think you are ignoring it successfully, you are not measuring.
 
-{: .note }
 > **Try this:** How many TODOs are in your current project right now? Not a rough guess -- actually run a search. Now: how many of those TODOs are older than six months? How many reference a deadline that has already passed? The gap between what you guessed and what you found is the entropy you cannot see.
 
 ---
@@ -117,7 +115,6 @@ You set up a linting rule. Someone disables it for one file with a comment that 
 
 A disabled check does not announce itself. It just stops catching things. And you will not notice until the thing it was catching gets through.
 
-{: .note }
 > **Try this:** Think about the last three bugs your team encountered. For each one, ask: which type of entropy caused it? Was it stale docs that led someone astray? A convention that was not followed? Dead code that obscured the real logic? A dependency that aged badly? A constraint that was not enforced? Most teams have never asked this question. The answer tells you where your entropy rate is highest.
 
 ---
@@ -195,7 +192,6 @@ That person is doing some of the most valuable work on the team.
 
 Your environment is not a thing you build once. It is a thing you maintain forever. The building is the easy part. The maintenance is the work.
 
-{: .warning }
 > The teams that treat garbage collection as infrastructure -- not chores -- will have environments that compound in value. Everyone else's will quietly fall apart, and they will blame the AI for producing inconsistent output when the real problem is what they are feeding it.
 
 ---

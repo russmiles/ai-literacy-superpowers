@@ -98,7 +98,7 @@ Some rules should never be promoted. "Functions should be small enough to unders
 >
 > Start with three rules. Just three. Write them precisely. Make them specific enough to be checkable. Run them past your team. That is your declared layer. Next week, pick the one you are most confident about and add it to your AI review step. That is your first promotion. The deterministic layer can wait.
 
-{: .warning }
+<!-- markdownlint-disable-next-line MD028 -->
 > **The over-constraining trap.** It is tempting to look at the promotion ladder and think "let's just make everything deterministic from day one." Do not do this. Rules you have not battle-tested will have edge cases you have not imagined. A deterministic rule with bad edge cases blocks your team, generates workarounds, and erodes trust in the entire constraint system. Start soft. Harden with evidence.
 
 ---
@@ -115,7 +115,6 @@ When a constraint fires matters as much as how strict it is.
 
 A common mistake: putting a new, untested constraint directly into the merge loop. Your team hits it on a Friday afternoon deploy, cannot figure out why it is failing, and overrides it. Now the override is the convention. You have made enforcement *weaker* by making it too strict too soon.
 
-{: .note }
 > **Try this:** Think about one rule your team has right now. What level is it? What loop is it in? Could it be in a different one?
 
 ---

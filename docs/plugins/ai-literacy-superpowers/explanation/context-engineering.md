@@ -4,7 +4,6 @@ title: Context Engineering
 # Context Engineering
 
 This page expands on the context engineering component introduced in [Harness Engineering](harness-engineering.md).
-{: .fs-5 }
 
 Context engineering is the discipline of taking the tacit knowledge trapped in your team's heads and making it explicit, precise, and machine-readable. It is the difference between an AI that generates plausible code and an AI that generates *your team's* code.
 
@@ -30,7 +29,6 @@ When a new human joins, they absorb this through osmosis -- code reviews, pairin
 
 Your AI gets none of it. Every session starts from absolute zero. No memory of yesterday's review comments. No awareness of the architectural decision records. It is not a new joiner who is slowly getting up to speed. It is a new joiner whose memory gets wiped every morning.
 
-{: .note }
 > **Try this:** Pick one convention from your current project -- something "everyone knows" but that is not written down anywhere. Now try to write it down in a single sentence, precisely enough that someone who has never seen your codebase could follow it. Harder than you expected, isn't it?
 
 ---
@@ -120,7 +118,6 @@ That last question is particularly revealing. It turns every AI interaction into
 
 Ask three senior developers "what separates a clean refactoring from an over-engineered one?" and you will get three different answers. Those disagreements are conventions that have not been resolved yet. Surfacing them is one of the most valuable side effects of context engineering: it forces your team to confront things they assumed they already agreed about.
 
-{: .note }
 > **Try this:** Think of a project you work on. What triggers an immediate rejection in review? Write down your answer. Now imagine asking two other people on your team the same question. Would they give the same answer? If you are not sure, that is a convention that needs extracting and encoding.
 
 ---
@@ -131,7 +128,6 @@ Context rots.
 
 Your conventions reference functions that get renamed. Your stack declaration lists framework versions that get upgraded. Your architectural decisions describe constraints that get relaxed. If your context documents do not evolve with the code, they become actively harmful -- the AI follows outdated rules that produce code that *used to be* correct.
 
-{: .warning }
 > Context documents must be versioned alongside the code they describe. They live in the repository, not in a wiki. They get reviewed in pull requests. When someone changes a convention, the context document changes in the same commit. The moment your context files live in a wiki, they are dead. They will be accurate for about two sprints. After that, they will be worse than having no context at all, because the AI will follow them confidently in the wrong direction.
 
 This is what separates context engineering from documentation. Documentation lives adjacent to the workflow. Context lives *inside* the workflow. It is checked in, reviewed, and maintained with the same rigour as the code itself.
